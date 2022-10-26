@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
 import { ColorSchemeName, useColorScheme } from "react-native";
 
 const ThemeContext = createContext(null) as any;
