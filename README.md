@@ -1,7 +1,7 @@
 # @team-devmonster/react-native-modules
 This is devmonster's react-native modules for make app easily. This is compatible with devmonster's react modules.
 
-- [O] useTheme
+- [x] useTheme
 - [ ] ui/div
 - [ ] ui/img
 - [ ] ui/button
