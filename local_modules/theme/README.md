@@ -12,7 +12,7 @@ This is devmonster's react-native module for make app easily. This is compatible
 ### 1. Make Color & Theme
 
 Set Colors & Themes anything you want to use.
-```javascript
+```ts
 const color = {
   light: {
     // key colors
@@ -124,7 +124,7 @@ const theme = (color:Color) => {
 
 ### 2. Set Provider
 
-```javascript
+```ts
 export default function App() {
   return (
     <ThemeProvider color={color} theme={theme}>
@@ -137,7 +137,7 @@ export default function App() {
 
 ### 3. Use Theme
 
-```javascript
+```ts
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "@local_modules/theme";
@@ -182,7 +182,7 @@ export default ThemeEx;
 
 ### 4. extra => Type Guide
 
-```javascript
+```ts
 export type Color = typeof color.light;
 export type ColorKeys = keyof Color;
 export type Theme = ReturnType<typeof theme>;
