@@ -1,0 +1,25 @@
+{
+  "name": "@team-devmonster/react-native-theme",
+  "version": "1.0.0",
+  "description": "This is devmonster's react-native module for make app easily. This is compatible with devmonster's react modules.",
+  "main": "index.tsx",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/team-devmonster/react-native-modules.git"
+  },
+  "keywords": [
+    "react-native",
+    "react",
+    "theme"
+  ],
+  "author": "devmonster",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/team-devmonster/react-native-modules/issues"
+  },
+  "homepage": "https://github.com/team-devmonster/react-native-modules#readme",
+  "peerDependencies": {
+    "react": ">=16",
+    "react-native": ">=0.57"
+  }
+}
