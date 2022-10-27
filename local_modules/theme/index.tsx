@@ -3,7 +3,7 @@ import { ColorSchemeName, useColorScheme } from "react-native";
 
 const ThemeContext = createContext(null) as any;
 
-export type Color = {
+type Color = {
   light: {[name:string]:string},
   dark: {[name:string]:string}
 }
