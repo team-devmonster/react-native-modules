@@ -2,9 +2,9 @@ import React from "react";
 import { View, Text, Button } from "react-native";
 import { useTheme } from "@local_modules/theme";
 
-import { Theme } from "App";
 import { RootStackScreenProps } from "types";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Theme } from "App.theme";
 
 const Index = ({ navigation }:RootStackScreenProps<'Index'>) => {
 

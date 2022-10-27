@@ -1,8 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "@local_modules/theme";
-
-import { Theme } from "App";
+import { Theme } from "App.theme";
 
 const ThemeEx = () => {
 
