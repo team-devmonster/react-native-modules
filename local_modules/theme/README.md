@@ -1,5 +1,6 @@
 # @team-devmonster/react-native-theme
 This is devmonster's react-native module for make app easily. This is compatible with devmonster's react module.
+[@team-devmonster/react-theme](https://github.com/team-devmonster/react-modules/tree/master/local_modules/theme)
 
 ## Getting started
 
@@ -12,6 +13,7 @@ This is devmonster's react-native module for make app easily. This is compatible
 ### 1. Make Color & Theme
 
 Set Colors & Themes anything you want to use.
+
 ```javascript
 const color = {
   light: {
@@ -125,6 +127,9 @@ const theme = (color:Color) => {
 ### 2. Set Provider
 
 ```javascript
+import { ThemeProvider } from '@team-devmonster/react-native-theme';
+import { color, theme } from './App.theme';
+
 export default function App() {
   return (
     <ThemeProvider color={color} theme={theme}>
@@ -137,12 +142,14 @@ export default function App() {
 
 ### 3. Use Theme
 
+Use your theme, whatever you want!
+
 ```javascript
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { useTheme } from "@local_modules/theme";
+import { useTheme } from '@team-devmonster/react-native-theme';
 
-import { Theme } from "App";
+import { Theme } from './App.theme';
 
 const ThemeEx = () => {
 
@@ -167,7 +174,7 @@ const ThemeEx = () => {
   )
 }
 
-const style = StyleSheet.create({
+const style = {
   boxStyle: {
     width: 80, 
     height: 80, 
@@ -175,7 +182,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   }
-})
+}
 
 export default ThemeEx;
 ```

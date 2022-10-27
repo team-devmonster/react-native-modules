@@ -8,7 +8,7 @@ LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by mes
 // LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 import Index from "@pages/index";
-import ThemeEx from "@pages/theme";
+import ThemeEx from "@pages/themeEx";
 import { RootStackParamList } from "types";
 
 
