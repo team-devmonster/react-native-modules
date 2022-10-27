@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { ThemeProvider } from '@local_modules/useTheme';
+import { ThemeProvider } from '@local_modules/theme';
 
 import Navigation from './App.navigation';
 
