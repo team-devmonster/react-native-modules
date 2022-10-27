@@ -6,7 +6,7 @@ import { Theme } from "App";
 
 const ThemeEx = () => {
 
-  const { color } = useTheme<Theme>();
+  const { color, fontSize } = useTheme<Theme>();
 
   return (
     <View 
@@ -18,10 +18,10 @@ const ThemeEx = () => {
         paddingBottom: 18 
       }}>
       <View style={{ backgroundColor: color.primary, ...style.boxStyle }}>
-        <Text style={{ color: color.black }}>primary</Text>
+        <Text style={{ color: color.black, fontSize: fontSize.sm }}>primary</Text>
       </View>
       <View style={{ backgroundColor: color.danger, ...style.boxStyle }}>
-        <Text style={{ color: color.black }}>danger</Text>
+        <Text style={{ color: color.black, fontSize: fontSize.sm }}>danger</Text>
       </View>
     </View>
   )
