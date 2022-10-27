@@ -20,6 +20,7 @@
   "homepage": "https://github.com/team-devmonster/react-native-modules#readme",
   "peerDependencies": {
     "react": ">=16",
+    "react-dom": ">=16",
     "react-native": ">=0.57"
   }
 }
