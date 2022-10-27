@@ -182,7 +182,7 @@ export default ThemeEx;
 
 ### 4. extra => Type Guide
 
-```typescript
+```javascript
 export type Color = typeof color.light;
 export type ColorKeys = keyof Color;
 export type Theme = ReturnType<typeof theme>;
