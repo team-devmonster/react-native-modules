@@ -7,18 +7,21 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by message
 // LogBox.ignoreAllLogs(); //Ignore all log notifications
 
-import Index from "./pages";
+import Index from "@pages/index";
+import ThemeEx from "@pages/theme";
+import { RootStackParamList } from "types";
 
 
 
 
-const RootStack = createNativeStackNavigator();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigation = () => {
   return (
     <NavigationContainer>
       <RootStack.Navigator initialRouteName="Index">
         <RootStack.Screen name="Index" component={Index}/>
+        <RootStack.Screen name="ThemeEx" component={ThemeEx}/>
       </RootStack.Navigator>
     </NavigationContainer>
   )

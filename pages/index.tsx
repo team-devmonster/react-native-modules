@@ -1,16 +1,24 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import { useTheme } from "@local_modules/theme";
 
 import { Theme } from "App";
+import { RootStackScreenProps } from "types";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const Index = () => {
+const Index = ({ navigation }:RootStackScreenProps<'Index'>) => {
 
   const { color } = useTheme<Theme>();
 
   return (
-    <View style={{ backgroundColor: color.white }}>
-      <Text>hello</Text>
+    <View style={{ backgroundColor: color.white, flex: 1 }}>
+      <SafeAreaView>
+        <View style={{ padding: 20 }}>
+          <Button 
+            onPress={() => navigation.navigate('ThemeEx')} 
+            title="Theme"></Button>
+        </View>
+      </SafeAreaView>
     </View>
   )
 }
