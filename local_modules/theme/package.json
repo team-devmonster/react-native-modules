@@ -1,8 +1,17 @@
 {
   "name": "@team-devmonster/react-native-theme",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "This is devmonster's react-native module for make app easily. This is compatible with devmonster's react modules.",
-  "main": "index.tsx",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/team-devmonster/react-native-modules.git"
