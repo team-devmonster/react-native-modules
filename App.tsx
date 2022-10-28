@@ -9,9 +9,7 @@ import { color, theme } from './App.theme';
 export default function App() {
   return (
     <ThemeProvider color={color} theme={theme}>
-      <SafeAreaProvider>
-        <Navigation></Navigation>
-      </SafeAreaProvider>
+      <Navigation></Navigation>
     </ThemeProvider>
   )
 }

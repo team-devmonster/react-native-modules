@@ -3,6 +3,9 @@
 This is devmonster's react-native module for make app easily. This is compatible with devmonster's react module.
 [@team-devmonster/react-theme](https://github.com/team-devmonster/react-modules/tree/master/local_modules/theme)
 
+author: devmonster 
+[aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
+
 ## Getting started
 
 `$ npm install @team-devmonster/react-native-theme`
@@ -194,4 +197,44 @@ export default ThemeEx;
 export type Color = typeof color.light;
 export type ColorKeys = keyof Color;
 export type Theme = ReturnType<typeof theme>;
+```
+
+
+### 5. extra2 => color utils
+
+Sometimes we should use lighter, darker, or invert colors.
+So this library offers some utils.
+
+```javascript
+import { useTheme, darken, lighten, hexToRgb, contrastColor } from "@local_modules/theme";
+import { Theme } from "App.theme";
+
+const ThemeEx = () => {
+
+  const { color, fontSize } = useTheme<Theme>();
+
+  return (
+    <View>
+      <Text>
+      <View style={{ backgroundColor: lighten(color.primary, 50), ...style.boxStyle }}>
+        <Text style={{ color: contrastColor(color.primary), fontSize: fontSize.sm }}>primary lighter 50</Text>
+      </View>
+      <View style={{ backgroundColor: darken(color.danger, 50), ...style.boxStyle }}>
+        <Text style={{ color: contrastColor(color.white), fontSize: fontSize.sm }}>danger darken 50</Text>
+      </View>
+      <View style={{ backgroundColor: darken(color.step200, 50), ...style.boxStyle, width: style.boxStyle.width*2 }}>
+        <Text style={{ color: contrastColor(color.step200), fontSize: fontSize.sm }}>step200 hex:{color.step200} {`\n`} rgb: {hexToRgb(color.step200)}</Text>
+      </View>
+    </View>
+  )
+}
+const style = StyleSheet.create({
+  boxStyle: {
+    width: 80, 
+    height: 80, 
+    margin: 8,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+})
 ```

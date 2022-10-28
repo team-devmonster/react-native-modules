@@ -15,5 +15,5 @@
     "target": "es6",
     "skipLibCheck": true,
   },
-  "include": ["**/*.ts", "src/**/*.tsx"]
+  "include": ["**/*.ts", "src/**/*.tsx", "src/**/*.ts"]
 }
