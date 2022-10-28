@@ -56,7 +56,7 @@ export const hexToRgb = (hex:string) => {
   return `${r} ${g} ${b}`
 }
 
-export const contrastColor = (hex:string, c1:string = '#000000', c2:string = '#FFFFFF', amt:number = 206) => {
+export const contrast = (hex:string, c1:string = '#000000', c2:string = '#FFFFFF', amt:number = 206) => {
   
   hex = hex.slice(1);
 

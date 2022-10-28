@@ -206,7 +206,7 @@ Sometimes we should use lighter, darker, or invert colors.
 So this library offers some utils.
 
 ```javascript
-import { useTheme, darken, lighten, hexToRgb, contrastColor } from "@local_modules/theme";
+import { useTheme, darken, lighten, hexToRgb, contrast } from "@local_modules/theme";
 import { Theme } from "App.theme";
 
 const ThemeEx = () => {
@@ -217,13 +217,13 @@ const ThemeEx = () => {
     <View>
       <Text>
       <View style={{ backgroundColor: lighten(color.primary, 50), ...style.boxStyle }}>
-        <Text style={{ color: contrastColor(color.primary), fontSize: fontSize.sm }}>primary lighter 50</Text>
+        <Text style={{ color: contrast(color.primary), fontSize: fontSize.sm }}>primary lighter 50</Text>
       </View>
       <View style={{ backgroundColor: darken(color.danger, 50), ...style.boxStyle }}>
-        <Text style={{ color: contrastColor(color.white), fontSize: fontSize.sm }}>danger darken 50</Text>
+        <Text style={{ color: contrast(color.white), fontSize: fontSize.sm }}>danger darken 50</Text>
       </View>
       <View style={{ backgroundColor: darken(color.step200, 50), ...style.boxStyle, width: style.boxStyle.width*2 }}>
-        <Text style={{ color: contrastColor(color.step200), fontSize: fontSize.sm }}>step200 hex:{color.step200} {`\n`} rgb: {hexToRgb(color.step200)}</Text>
+        <Text style={{ color: contrast(color.step200), fontSize: fontSize.sm }}>step200 hex:{color.step200} {`\n`} rgb: {hexToRgb(color.step200)}</Text>
       </View>
     </View>
   )
