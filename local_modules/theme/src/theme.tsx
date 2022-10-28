@@ -25,6 +25,13 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
   )
 }
 
+type Merge<A,B> = {
+  [K in keyof A]: K extends keyof B ? B[K] : A[K]
+} & B;
+type ThemeProps<T> = Merge<T, {
+  colorScheme:'light'|'dark'
+}>
+
 export function useTheme<T>() {
-  return useContext<T>(ThemeContext);
+  return useContext<ThemeProps<T>>(ThemeContext);
 }
