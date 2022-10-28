@@ -190,6 +190,29 @@ const style = {
 
 export default ThemeEx;
 ```
+#### 3-1. Use colorScheme
+
+Also you can use `colorScheme`. It is `light` or `dark`.
+
+```javascript
+import { useTheme } from '@team-devmonster/react-theme';
+import { Theme } from './App.theme';
+
+import ImgWhite from '@Img/imgWhite.png';
+import ImgDark from '@Img/imgDark.png';
+
+const ThemeEx = () => {
+
+  const { colorScheme } = useTheme<Theme>();
+
+  return (
+    <View>
+      <Image source={colorScheme === 'light' ? ImgWhite : ImgDark}/>
+    </View>
+  )
+}
+export default ThemeEx;
+```
 
 ### 4. extra => Type Guide
 

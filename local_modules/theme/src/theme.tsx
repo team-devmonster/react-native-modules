@@ -13,7 +13,13 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
   const colorScheme = useColorScheme() as NonNullable<ColorSchemeName>;
 
   return (
-    <ThemeContext.Provider value={theme(color[colorScheme])}>
+    <ThemeContext.Provider 
+      value={
+        theme({
+          colorScheme, 
+          ...color[colorScheme]
+        }
+      )}>
       {children}
     </ThemeContext.Provider>
   )
