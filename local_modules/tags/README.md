@@ -19,12 +19,11 @@ General [react-native-modules] load map => [here](https://github.com/team-devmon
 
 - [x] [div]
 - [x] [button]
+- [X] [img]
 - [ ] input
-- [ ] img
 - [ ] checkbox
 - [ ] label
 - [ ] errorText
-- [ ] modal
 - [ ] select
 - [ ] option
 
@@ -37,6 +36,8 @@ General [react-native-modules] load map => [here](https://github.com/team-devmon
 
 
 ### 1. Set Provider
+
+This is a way for specifying the default style. You can skip it if you don't want to.
 
 ```javascript
 // App.theme.tsx => You can use any file name :)

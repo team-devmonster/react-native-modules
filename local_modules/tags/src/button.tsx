@@ -3,7 +3,7 @@ import { Platform, View, Pressable, GestureResponderEvent } from "react-native";
 import { TagModule, TagStyle, useTags } from "./tags";
 import { contrast, darken } from "./utils";
 
-const textPattern = /^(color|font|text)/;
+const textPattern = /^(color|font|text|alignSelf)/;
 const layoutPattern = /^(flex|width|height)$/;
 const shadowPattern = /^(shadow|elevation)/;
 const borderPattern = /^(border)/;
@@ -87,6 +87,7 @@ export const Button = ({color = '#ffffff', style, disabled, onClick, children, .
           style={({ pressed }) => {
             return {
               backgroundColor: (!pressed || Platform.OS !== 'ios') ? background.base : background.pressed,
+              ...newStyle?.layoutStyle,
               ...newStyle?.etcStyle
             }
           }}

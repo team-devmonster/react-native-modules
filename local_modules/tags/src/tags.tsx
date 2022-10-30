@@ -32,7 +32,7 @@ export function useTags() {
 
 export const TagModule = ({ children, style:textStyle }:TagProps) => {
 
-  const [newChildren, setNewChildren] = useState<React.ReactNode>();
+  const [newChildren, setNewChildren] = useState<React.ReactNode>(null);
 
   useEffect(() => {
     const newChildren = newChildrenFn();

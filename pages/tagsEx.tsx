@@ -2,7 +2,7 @@ import React from "react";
 import { useTheme } from "@local_modules/theme";
 import { Div, Button, Img } from "@local_modules/tags";
 import { Theme } from "App.theme";
-import { Alert } from "react-native";
+import { Alert, Text, View } from "react-native";
 
 const TagsEx = () => {
 
@@ -32,6 +32,17 @@ const TagsEx = () => {
           }} 
           src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Div>
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 24, height: 80 }}>
+        <Button 
+          style={{ 
+            flex: 1, 
+            alignSelf: 'stretch', 
+            flexDirection: 'row', 
+            alignItems: 'center'
+          }}>
+          <Text style={{ fontSize: fontSize.sm }}>개인정보 수집 및 이용에 동의합니다.</Text>
+        </Button>
+      </View>
     </Div>
   )
 }
