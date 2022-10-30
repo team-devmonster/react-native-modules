@@ -102,7 +102,7 @@ export default function App() {
 
 ### 3. Use Tags
 
-Use your theme, whatever you want!
+Just use Tags. It's so simple.
 
 ```javascript
 import React from "react";

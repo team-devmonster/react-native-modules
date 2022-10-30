@@ -3,7 +3,7 @@ import { Platform, View, Pressable, GestureResponderEvent } from "react-native";
 import { TagModule, TagStyle, useTags } from "./tags";
 import { contrast, darken } from "./utils";
 
-const textPattern = /^(color|font|text)/;
+const textPattern = /^(color|font|text|lineHeight)/;
 const layoutPattern = /^(flex|width|height)$/;
 const shadowPattern = /^(shadow|elevation)/;
 const borderPattern = /^(border)/;
