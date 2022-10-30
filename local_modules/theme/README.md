@@ -23,6 +23,7 @@ General [react-native-modules] load map => [here](https://github.com/team-devmon
 Set Colors & Themes anything you want to use.
 
 ```javascript
+// App.theme.tsx => You can use any file name :)
 const color = {
   light: {
     // key colors
@@ -135,14 +136,25 @@ const theme = (color:Color) => {
 ### 2. Set Provider
 
 ```javascript
-import { ThemeProvider } from '@team-devmonster/react-native-theme';
-import { color, theme } from './App.theme';
-
-export default function App() {
+// App.theme.tsx => You can use any file name :)
+export default function AppThemeProvider({children}) {
   return (
     <ThemeProvider color={color} theme={theme}>
-      <Component></Component>
+      {children}
     </ThemeProvider>
+  )
+}
+```
+
+```javascript
+import { AppThemeProvider } from './App.theme';
+
+export default function App() {
+
+  return (
+    <AppThemeProvider>
+      <Component></Component>
+    </AppThemeProvider>
   )
 }
 ```
