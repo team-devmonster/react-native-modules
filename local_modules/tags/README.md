@@ -27,6 +27,9 @@ General [react-native-modules] load map => [here](https://github.com/team-devmon
 - [ ] select
 - [ ] option
 
+*same as div(just for tag)
+- [x] [p]
+
 ## Getting started
 
 `$ npm install @team-devmonster/react-native-tags@latest`

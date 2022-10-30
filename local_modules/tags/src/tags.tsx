@@ -9,7 +9,11 @@ export interface TagProps {
 export interface TagGroupStyle {
   div?: TagStyle,
   button?: TagStyle,
-  input?: TagStyle
+  input?: TagStyle,
+  img?: TagStyle,
+
+  //additional
+  p?:TagStyle
 }
 
 export interface TagStyle extends TextStyle {
