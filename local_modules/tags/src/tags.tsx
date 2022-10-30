@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { TextProps, View, Text, TextStyle } from "react-native"
+import { Text, TextStyle } from "react-native"
 
 export interface TagProps {
   children:React.ReactNode,

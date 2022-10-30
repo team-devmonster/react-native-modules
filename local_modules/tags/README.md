@@ -1,14 +1,15 @@
-# @team-devmonster/react-native-theme
+# @team-devmonster/react-native-tags
 
 This is devmonster's react-native module for make app easily. This is compatible with devmonster's react module.
 [@team-devmonster/react-theme](https://www.npmjs.com/package/@team-devmonster/react-theme)
 
 `react-native-tags` was created to use tags similar to `react` in `react-native` environment.
-It can be used in the same way as [react-tags](https://www.npmjs.com/package/@team-devmonster/react-tags) produced by [@team-devmonster](mailto:aldegad@devmonster.co.kr).
+It can be used in the same way as [react-tags](https://www.npmjs.com/package/@team-devmonster/react-tags) produced by [@team-devmonster](https://devmonster.co.kr).
 It is more useful when used with [react-native-theme](https://github.com/team-devmonster/react-native-modules/tree/master/local_modules/theme).
 
-author: devmonster 
-[aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
+##### author: devmonster 
+hompage: [https://devmonster.co.kr](https://devmonster.co.kr)<br>
+email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
 
 
@@ -121,15 +122,22 @@ const TagsEx = () => {
         flex: 1, 
         padding: 18 
       }}>
-      <Div>
+      <Div style={{ fontSize: fontSize.xl }}>
         {`1. div => <Div></Div>`}
       </Div>
       <Div>
-        <Button 
-          color={color.primary} 
-          onPress={() => Alert.alert('pressed')}>
+        <Button color={color.primary} onClick={() => Alert.alert('pressed')}>
           {`2. button => <Button></Button>`}
         </Button>
+      </Div>
+      <Div>
+        <Img 
+          style={{ 
+            width: '100%',
+            aspectRatio: 1.774, 
+            backgroundColor: color.step500
+          }} 
+          src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Div>
     </Div>
   )

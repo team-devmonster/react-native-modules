@@ -1,11 +1,11 @@
 import React from "react";
 import { View } from "react-native";
 import { useTheme } from "@local_modules/theme";
+import { Button, Div } from "@local_modules/tags";
 
 import { RootStackScreenProps } from "types";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Theme } from "App.theme";
-import { Button, Div } from "@local_modules/tags";
 
 const Index = ({ navigation }:RootStackScreenProps<'Index'>) => {
 
@@ -17,11 +17,11 @@ const Index = ({ navigation }:RootStackScreenProps<'Index'>) => {
         <Div style={{ padding: 20 }}>
           <Button 
             style={{ marginBottom: 8 }}
-            onPress={() => navigation.navigate('ThemeEx')}>
+            onClick={() => navigation.navigate('ThemeEx')}>
             hello
           </Button>
           <Button 
-            onPress={() => navigation.navigate('TagsEx')}>
+            onClick={() => navigation.navigate('TagsEx')}>
             hello2
           </Button>
         </Div>

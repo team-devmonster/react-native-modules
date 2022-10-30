@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Platform, View, Pressable, PressableProps } from "react-native";
-import { TagModule, useTags } from "./tags";
+import { Platform, View, Pressable, GestureResponderEvent } from "react-native";
+import { TagModule, TagStyle, useTags } from "./tags";
 import { contrast, darken } from "./utils";
 
 const textPattern = /^(color|font|text)/;
@@ -9,14 +9,16 @@ const shadowPattern = /^(shadow|elevation)/;
 const borderPattern = /^(border)/;
 const marginPattern = /^(margin)/;
 
-interface ButtonProps extends PressableProps {
-  fill?: 'base' | 'outline' | 'none',
-  activeStyle?:React.CSSProperties,
-  color?:string,
-  children:React.ReactNode
+interface ButtonProps {
+  children?: React.ReactNode;
+  style?: TagStyle;
+  color?: string;
+  fill?: 'default' | 'translucent';
+  onClick?: ((event: GestureResponderEvent) => void) | null | undefined;
+  disabled?:boolean;
 }
 
-export const Button = ({color = '#ffffff', style, disabled, children, ...rest}:ButtonProps) => {
+export const Button = ({color = '#ffffff', style, disabled, onClick, children, ...rest}:ButtonProps) => {
 
   const { tagStyle } = useTags();
   const buttonTagStyle = tagStyle?.['button'];
@@ -89,6 +91,7 @@ export const Button = ({color = '#ffffff', style, disabled, children, ...rest}:B
             }
           }}
           android_ripple={{ color: background.ripple }}
+          onPress={onClick}
           {...rest}>
           <TagModule 
             style={{

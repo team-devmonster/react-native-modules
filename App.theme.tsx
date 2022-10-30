@@ -1,6 +1,6 @@
-import { TagProvider, TagStyle } from '@local_modules/tags';
-import { ThemeProvider, useTheme } from '@local_modules/theme';
 import React from 'react';
+import { ThemeProvider, useTheme } from '@local_modules/theme';
+import { TagProvider, TagStyle } from '@local_modules/tags';
 
 const color = {
   light: {

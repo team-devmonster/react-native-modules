@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "@local_modules/theme";
+import { Div, Button, Img } from "@local_modules/tags";
 import { Theme } from "App.theme";
-import { Div, Button } from "@local_modules/tags";
 import { Alert } from "react-native";
 
 const TagsEx = () => {
@@ -15,13 +15,22 @@ const TagsEx = () => {
         flex: 1, 
         padding: 18 
       }}>
-      <Div>
+      <Div style={{ fontSize: fontSize.xl }}>
         {`1. div => <Div></Div>`}
       </Div>
       <Div>
-        <Button color={color.primary} onPress={() => Alert.alert('pressed')}>
+        <Button color={color.primary} onClick={() => Alert.alert('pressed')}>
           {`2. button => <Button></Button>`}
         </Button>
+      </Div>
+      <Div>
+        <Img 
+          style={{ 
+            width: '100%',
+            aspectRatio: 1.774, 
+            backgroundColor: color.step500
+          }} 
+          src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Div>
     </Div>
   )
