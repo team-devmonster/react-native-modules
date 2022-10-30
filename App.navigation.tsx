@@ -9,6 +9,8 @@ LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by mes
 
 import Index from "@pages/index";
 import ThemeEx from "@pages/themeEx";
+import TagsEx from "@pages/tagsEx";
+
 import { RootStackParamList } from "types";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useTheme } from "@local_modules/theme";
@@ -29,6 +31,7 @@ const Navigation = () => {
         <RootStack.Navigator initialRouteName="Index">
           <RootStack.Screen name="Index" component={Index}/>
           <RootStack.Screen name="ThemeEx" component={ThemeEx}/>
+          <RootStack.Screen name="TagsEx" component={TagsEx}/>
         </RootStack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

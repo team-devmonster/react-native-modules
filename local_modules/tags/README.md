@@ -10,9 +10,20 @@ author: devmonster
 
 General [react-native-modules] load map => [here](https://github.com/team-devmonster/react-native-modules);
 
+- [x] [div]
+- [x] [button]
+- [ ] input
+- [ ] img
+- [ ] checkbox
+- [ ] label
+- [ ] errorText
+- [ ] modal
+- [ ] select
+- [ ] option
+
 ## Getting started
 
-`$ npm install @team-devmonster/react-native-theme@latest`
+`$ npm install @team-devmonster/react-native-tags@latest`
 
 
 ## Usage

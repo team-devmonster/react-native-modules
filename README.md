@@ -4,13 +4,8 @@ This is devmonster's react-native modules for make app easily. This is compatibl
 [react-modules](https://github.com/team-devmonster/react-modules)
 
 - [x] [react-native-theme](https://github.com/team-devmonster/react-native-modules/tree/master/local_modules/theme)
-- [ ] ui/div
-- [ ] ui/img
-- [ ] ui/button
-- [ ] ui/input
-- [ ] ui/label
-- [ ] ui/errorText
-- [ ] ui/checkbox
-- [ ] ui/modal
-- [ ] ui/select
-- [ ] ui/option
+- [ ] [react-native-tags](https://github.com/team-devmonster/react-native-modules/tree/master/local_modules/tags)
+- [ ] react-native-modal
+- [ ] react-native-loading
+- [ ] react-native-file
+- [ ] react-native-camera

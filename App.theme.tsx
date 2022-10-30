@@ -1,4 +1,8 @@
-export const color = {
+import { TagProvider, TagStyle } from '@local_modules/tags';
+import { ThemeProvider, useTheme } from '@local_modules/theme';
+import React from 'react';
+
+const color = {
   light: {
     // key colors
     primary: '#4a93cf',
@@ -45,11 +49,7 @@ export const color = {
   }
 }
 
-// example of Color & ColorKeys type
-export type Color = typeof color.light;
-export type ColorKeys = keyof Color;
-
-export const theme = (color:Color) => {
+const theme = (color:Color) => {
   const fontSize = {
     xs: 12 as const,
     sm: 14 as const,
@@ -66,7 +66,12 @@ export const theme = (color:Color) => {
     x9l: 128 as const
   }
 
-  const input = {
+  const div:TagStyle = {
+    color: color.black,
+    fontSize: fontSize.base
+  }
+
+  const input:TagStyle = {
     position: 'relative',
     backgroundColor: color.white,
     borderColor: color.step300,
@@ -89,7 +94,7 @@ export const theme = (color:Color) => {
     borderColor: color.step200
   }
 
-  const button = {
+  const button:TagStyle = {
     cursor: 'pointer',
     position: 'relative',
     padding: 10,
@@ -104,9 +109,29 @@ export const theme = (color:Color) => {
     // basic theme
     color, fontSize, 
     // components theme
-    input, inputError, inputDisabled,
+    div, input, inputError, inputDisabled,
     button
   }
 }
 
+// example of Color & ColorKeys type
+export type Color = typeof color.light;
+export type ColorKeys = keyof Color;
 export type Theme = ReturnType<typeof theme>;
+
+export const AppThemeProvider = ({children}: {children:React.ReactNode}) => {
+  return (
+    <ThemeProvider color={color} theme={theme}>
+      {children}
+    </ThemeProvider>
+  )
+}
+
+export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
+  const { div, button } = useTheme<Theme>();
+  return (
+    <TagProvider tagStyle={{ div, button }}>
+      {children}
+    </TagProvider>
+  )
+}

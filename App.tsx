@@ -1,15 +1,15 @@
 import React from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-
-import { ThemeProvider } from '@local_modules/theme';
 
 import Navigation from './App.navigation';
-import { color, theme } from './App.theme';
+import { AppTagProvider, AppThemeProvider } from './App.theme';
 
 export default function App() {
+
   return (
-    <ThemeProvider color={color} theme={theme}>
-      <Navigation></Navigation>
-    </ThemeProvider>
+    <AppThemeProvider>
+      <AppTagProvider>
+        <Navigation></Navigation>
+      </AppTagProvider>
+    </AppThemeProvider>
   )
 }

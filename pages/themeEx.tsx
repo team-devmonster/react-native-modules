@@ -8,7 +8,7 @@ const ThemeEx = () => {
   const { color, fontSize } = useTheme<Theme>();
 
   return (
-    <View style={{ backgroundColor: color.white, flex: 1, padding: 20 }}>
+    <View style={{ backgroundColor: color.white, flex: 1, padding: 18 }}>
       <View>
         <Text style={{ color: color.black }}>1. color themes</Text>
       </View>
@@ -30,7 +30,8 @@ const ThemeEx = () => {
       <View 
         style={{ 
           flexDirection: 'row', 
-          paddingBottom: 18 
+          flexWrap: 'wrap',
+          paddingBottom: 18
         }}>
         <View style={{ backgroundColor: lighten(color.primary, 50), ...style.boxStyle }}>
           <Text style={{ color: contrast(color.primary), fontSize: fontSize.sm }}>primary lighter 50</Text>
