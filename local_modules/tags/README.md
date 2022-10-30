@@ -1,7 +1,7 @@
 # @team-devmonster/react-native-tags
 
 This is devmonster's react-native module for make app easily. This is compatible with devmonster's react module.
-[@team-devmonster/react-theme](https://www.npmjs.com/package/@team-devmonster/react-theme)
+[@team-devmonster/react-tags](https://www.npmjs.com/package/@team-devmonster/react-tags)
 
 `react-native-tags` was created to use tags similar to `react` in `react-native` environment.
 It can be used in the same way as [react-tags](https://www.npmjs.com/package/@team-devmonster/react-tags) produced by [@team-devmonster](https://devmonster.co.kr).

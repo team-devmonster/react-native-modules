@@ -141,7 +141,7 @@ const theme = (color:Color) => {
 
 ```javascript
 // App.theme.tsx => You can use any file name :)
-export default function AppThemeProvider({children}) {
+export default function AppThemeProvider({children}:{children:React.ReactNode}) {
   return (
     <ThemeProvider color={color} theme={theme}>
       {children}
