@@ -7,12 +7,13 @@ const textPattern = /^(color|font|text)/;
 export const P = ({style, children, ...rest}:TextProps) => {
 
   const { tagStyle } = useTags();
-  const divTagStyle = tagStyle?.['p'];
+  const divTagStyle = tagStyle?.['div'];
+  const pTagStyle = tagStyle?.['p'];
 
   const [newStyle, setNewStyle] = useState<{ viewStyle:any, textStyle:any }>();
 
   useEffect(() => {
-    const entries = Object.entries({...divTagStyle, ...style as any});
+    const entries = Object.entries({...divTagStyle, ...pTagStyle, ...style as any});
     let viewStyle:any = {};
     let textStyle:any = {};
 
@@ -28,7 +29,7 @@ export const P = ({style, children, ...rest}:TextProps) => {
       }
     }
     setNewStyle({ viewStyle, textStyle });
-  }, [divTagStyle, style]);
+  }, [divTagStyle, pTagStyle, style]);
   
   return (
     <View style={newStyle?.viewStyle} {...rest}>

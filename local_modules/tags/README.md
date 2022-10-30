@@ -27,7 +27,7 @@ General [react-native-modules] load map => [here](https://github.com/team-devmon
 - [ ] select
 - [ ] option
 
-*same as div(just for tag)
+*extends `div`. These got base style from `div`.
 - [x] [p]
 
 ## Getting started
