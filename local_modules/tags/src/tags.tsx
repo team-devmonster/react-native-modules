@@ -46,9 +46,9 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
     }
     else if(Array.isArray(children)) {
       return children.map(
-        child => {
+        (child, key) => {
           if(typeof child === 'string') {
-            return <Text style={textStyle}>{child}</Text>
+            return <Text key={key} style={textStyle}>{child}</Text>
           }
           else {
             return child;

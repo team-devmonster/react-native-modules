@@ -140,6 +140,23 @@ const TagsEx = () => {
           }} 
           src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Div>
+      <View style={{ 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        marginBottom: 24, 
+        height: 80 
+        }}>
+        <Button 
+          style={{ 
+            flex: 1, 
+            alignSelf: 'stretch', 
+            flexDirection: 'row', 
+            alignItems: 'center',
+            fontSize: fontSize.sm
+          }}>
+            hellohellohello omg~
+        </Button>
+      </View>
     </Div>
   )
 }
