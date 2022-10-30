@@ -1,7 +1,10 @@
 # @team-devmonster/react-native-theme
 
 This is devmonster's react-native module for make app easily. This is compatible with devmonster's react module.
-[@team-devmonster/react-theme](https://github.com/team-devmonster/react-modules/tree/master/local_modules/theme)
+[@team-devmonster/react-theme](https://www.npmjs.com/package/@team-devmonster/react-theme)
+
+`react-native-theme` was created to easily create a theme in the `react-native` environment.
+`Darkmode` compatibility is also easy.
 
 author: devmonster 
 [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
