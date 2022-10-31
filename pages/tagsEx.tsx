@@ -55,9 +55,30 @@ const TagsEx = () => {
           alignSelf: 'stretch', 
           flexDirection: 'row', 
           alignItems: 'center',
-          fontSize: fontSize.sm
+          fontSize: fontSize.sm,
+          height: 80
         }}>
           hellohellohello omg~
+      </Button>
+
+      <Button
+        style={{
+          width: 40, 
+          height: 40, 
+          borderRadius: 15, 
+          borderColor: color.primary, 
+          borderWidth: 2,
+          padding: 0,
+          minHeight: undefined
+          }}>
+          <Div 
+            style={{ 
+              padding: 0,
+              width: 14, 
+              height: 14, 
+              borderRadius: 7, 
+              backgroundColor: color.primary 
+            }}></Div>
       </Button>
     </Div>
   )

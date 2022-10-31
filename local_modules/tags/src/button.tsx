@@ -1,5 +1,5 @@
 import React from "react";
-import { Platform, View, Pressable, GestureResponderEvent } from "react-native";
+import { View, Pressable, GestureResponderEvent, Platform } from "react-native";
 import { TagModule, TagStyle, useTags } from "./tags";
 import { borderPattern, contrast, darken, layoutPattern, marginPattern, shadowPattern, textPattern, useTagStyle } from "./utils";
 
@@ -42,17 +42,45 @@ export const Button = ({color, style, disabled, onClick, children, ...rest}:Butt
     textPattern
   ], [buttonTagStyle, style]);
 
+  const innerWidth = () => {
+    if(typeof layoutStyle?.width === 'number') {
+      if(borderStyle?.borderWidth) {
+        return layoutStyle.width - borderStyle.borderWidth*2;
+      }
+      else {
+        return layoutStyle?.width;
+      }
+    }
+    else {
+      return layoutStyle?.width;
+    }
+  }
+  const innerHeight = () => {
+    if(typeof layoutStyle?.height === 'number') {
+      if(borderStyle?.borderWidth) {
+        return layoutStyle.height - borderStyle.borderWidth*2;
+      }
+      else {
+        return layoutStyle?.height;
+      }
+    }
+    else {
+      return layoutStyle?.height;
+    }
+  }
+
   return (
-    <View style={{
-      borderRadius: borderStyle?.borderRadius,
-      ...layoutStyle,
-      ...shadowStyle,
-      ...marginStyle
-    }}>
+    <View 
+      style={{
+        borderRadius: borderStyle?.borderRadius,
+        ...layoutStyle,
+        ...shadowStyle,
+        ...marginStyle
+      }}>
       <View style={{ 
         overflow: 'hidden',
         ...layoutStyle,
-        ...borderStyle,
+        ...borderStyle
       }}>
         <Pressable 
           disabled={disabled} 
@@ -60,6 +88,8 @@ export const Button = ({color, style, disabled, onClick, children, ...rest}:Butt
             return {
               backgroundColor: (!pressed || Platform.OS !== 'ios') ? background.base : background.pressed,
               ...layoutStyle,
+              width: innerWidth(),
+              height: innerHeight(),
               ...etcStyle
             }
           }}
