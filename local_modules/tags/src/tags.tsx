@@ -56,16 +56,37 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
       }}>{children}</Text>
     }
     else if(Array.isArray(children)) {
-      return children.map(
-        (child, key) => {
-          if(typeof child === 'string' || typeof child === 'number') {
-            return <Text key={key} style={textStyle}>{child}</Text>
-          }
-          else {
-            return child;
-          }
+      const newChildren = [];
+      let textchild = '';
+      for(let i = 0; i < children.length; i++) {
+        const child = children[i];
+        if(typeof child === 'string' || typeof child === 'number') {
+          textchild += child;
         }
-      );
+        else {
+          if(textchild) {
+            newChildren.push(
+              <Text key={i} style={{
+                lineHeight: textStyle?.fontSize ? textStyle.fontSize*1.28 : undefined,
+                ...textStyle
+              }}>{textchild}</Text>
+            );
+            textchild = '';
+          }
+          newChildren.push(child);
+        }
+      }
+      // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
+      if(textchild) {
+        newChildren.push(
+          <Text key={newChildren.length} style={{
+            lineHeight: textStyle?.fontSize ? textStyle.fontSize*1.28 : undefined,
+            ...textStyle
+          }}>{textchild}</Text>
+        );
+        textchild = '';
+      }
+      return newChildren;
     }
     else {
       return children;
