@@ -14,12 +14,10 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
 
   return (
     <ThemeContext.Provider 
-      value={
-        theme({
-          colorScheme, 
-          ...color[colorScheme]
-        }
-      )}>
+      value={{
+        ...theme(color[colorScheme]),
+        colorScheme
+      }}>
       {children}
     </ThemeContext.Provider>
   )

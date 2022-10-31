@@ -5,7 +5,7 @@ import { Theme } from "App.theme";
 
 const ThemeEx = () => {
 
-  const { color, fontSize } = useTheme<Theme>();
+  const { colorScheme, color, fontSize } = useTheme<Theme>();
 
   return (
     <View style={{ backgroundColor: color.white, flex: 1, padding: 18 }}>
@@ -43,6 +43,10 @@ const ThemeEx = () => {
           <Text style={{ color: contrast(color.step200), fontSize: fontSize.sm }}>step200 hex:{color.step200} {`\n`} rgb: {hexToRgb(color.step200)}</Text>
         </View>
       </View>
+      <View>
+        <Text style={{ color: color.black }}>3. colorScheme</Text>
+      </View>
+      <Text style={{ color: contrast(color.primary), fontSize: fontSize.sm }}>colorScheme: {colorScheme}</Text>
     </View>
   )
 }

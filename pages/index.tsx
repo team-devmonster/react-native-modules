@@ -20,13 +20,15 @@ const Index = ({ navigation }:RootStackScreenProps<'Index'>) => {
           }}>React-native-modules!!</P>
         <Div>
           <Button 
+            color={color.primary}
             style={{ marginBottom: 8 }}
             onClick={() => navigation.navigate('ThemeEx')}>
-            hello
+            react-native-theme
           </Button>
           <Button 
+            color={color.primary}
             onClick={() => navigation.navigate('TagsEx')}>
-            hello2
+            react-native-tags
           </Button>
         </Div>
       </SafeAreaView>

@@ -171,29 +171,54 @@ Use your theme, whatever you want!
 ```javascript
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { useTheme } from '@team-devmonster/react-native-theme';
+import { useTheme, darken, lighten, hexToRgb, contrast } from '@team-devmonster/react-native-theme';
 
 import { Theme } from './App.theme';
 
 const ThemeEx = () => {
 
-  const { color, fontSize } = useTheme<Theme>();
+  const { colorScheme, color, fontSize } = useTheme<Theme>();
 
   return (
-    <View 
-      style={{ 
-        backgroundColor: color.white, 
-        flex: 1, 
-        flexDirection: 'row', 
-        paddingTop: 18, 
-        paddingBottom: 18 
-      }}>
-      <View style={{ backgroundColor: color.primary, ...style.boxStyle }}>
-        <Text style={{ color: color.black, fontSize: fontSize.sm }}>primary</Text>
+    <View style={{ backgroundColor: color.white, flex: 1, padding: 18 }}>
+      <View>
+        <Text style={{ color: color.black }}>1. color themes</Text>
       </View>
-      <View style={{ backgroundColor: color.danger, ...style.boxStyle }}>
-        <Text style={{ color: color.black, fontSize: fontSize.sm }}>danger</Text>
+      <View 
+        style={{ 
+          flexDirection: 'row', 
+          paddingBottom: 18 
+        }}>
+        <View style={{ backgroundColor: color.primary, ...style.boxStyle }}>
+          <Text style={{ color: color.black, fontSize: fontSize.sm }}>primary</Text>
+        </View>
+        <View style={{ backgroundColor: color.danger, ...style.boxStyle }}>
+          <Text style={{ color: color.black, fontSize: fontSize.sm }}>danger</Text>
+        </View>
       </View>
+      <View>
+        <Text style={{ color: color.black }}>2. color utils</Text>
+      </View>
+      <View 
+        style={{ 
+          flexDirection: 'row', 
+          flexWrap: 'wrap',
+          paddingBottom: 18
+        }}>
+        <View style={{ backgroundColor: lighten(color.primary, 50), ...style.boxStyle }}>
+          <Text style={{ color: contrast(color.primary), fontSize: fontSize.sm }}>primary lighter 50</Text>
+        </View>
+        <View style={{ backgroundColor: darken(color.danger, 50), ...style.boxStyle }}>
+          <Text style={{ color: contrast(color.danger), fontSize: fontSize.sm }}>danger darken 50</Text>
+        </View>
+        <View style={{ backgroundColor: darken(color.step200, 50), ...style.boxStyle, width: style.boxStyle.width*2 }}>
+          <Text style={{ color: contrast(color.step200), fontSize: fontSize.sm }}>step200 hex:{color.step200} {`\n`} rgb: {hexToRgb(color.step200)}</Text>
+        </View>
+      </View>
+      <View>
+        <Text style={{ color: color.black }}>3. colorScheme</Text>
+      </View>
+      <Text style={{ color: contrast(color.primary), fontSize: fontSize.sm }}>colorScheme: {colorScheme}</Text>
     </View>
   )
 }

@@ -39,15 +39,18 @@ const TagsEx = () => {
         }}>
         hello button~ {date}
         <Span>hello</Span>
-        <Button style={{ display: 'inline-flex' }}>inline button</Button>
+        <Button 
+          color={color.primary} 
+          style={{ display: 'inline-flex' }}>inline button</Button>
         hello~!
         <P>hello next line!</P>
       </P>
       <P style={{ marginBottom: 20, color: color.primary }}>
         hello?
-        <Button>not inline button. normal button.</Button>
+        <Button color={color.step500}>not inline button. normal button.</Button>
       </P>
       <Button 
+        color={color.primary}
         style={{ 
           alignSelf: 'stretch', 
           flexDirection: 'row', 
