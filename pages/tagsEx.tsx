@@ -2,11 +2,12 @@ import React from "react";
 import { useTheme } from "@local_modules/theme";
 import { Div, Button, Img } from "@local_modules/tags";
 import { Theme } from "App.theme";
-import { Alert, Text, View } from "react-native";
+import { Alert } from "react-native";
 
 const TagsEx = () => {
 
   const { color, fontSize } = useTheme<Theme>();
+  const date = 10;
 
   return (
     <Div
@@ -38,7 +39,7 @@ const TagsEx = () => {
         marginBottom: 24, 
         height: 80 
         }}>
-        hello button~
+        hello button~ {date}
         <Button 
           style={{ 
             flex: 1, 

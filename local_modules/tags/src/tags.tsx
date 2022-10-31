@@ -49,7 +49,7 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
 
   const newChildrenFn = () => {
     if(!children) return null;
-    if(typeof children === 'string') {
+    if(typeof children === 'string' || typeof children === 'number') {
       return <Text style={{
         lineHeight: textStyle?.fontSize ? textStyle.fontSize*1.28 : undefined,
         ...textStyle
@@ -58,7 +58,7 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
     else if(Array.isArray(children)) {
       return children.map(
         (child, key) => {
-          if(typeof child === 'string') {
+          if(typeof child === 'string' || typeof child === 'number') {
             return <Text key={key} style={textStyle}>{child}</Text>
           }
           else {
