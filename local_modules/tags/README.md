@@ -69,9 +69,6 @@ export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
 }
 ```
 
-
-### 2. Set Provider
-
 ```javascript
 import { AppTagProvider } from './App.theme';
 
@@ -85,7 +82,24 @@ export default function App() {
 }
 ```
 
-#### 2-1. If you use with `react-native-theme`
+#### 1-1. If you use with `react-native-theme`
+
+```javascript
+// App.theme.tsx => You can use any file name :)
+import { useTheme } from '@team-devmonster/react-native-theme';
+import { TagProvider, TagStyle } from '@team-devmonster/react-native-tags';
+
+export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
+
+  const { div, button } = useTheme<Theme>();
+  
+  return (
+    <TagProvider tagStyle={{ div, button }}>
+      {children}
+    </TagProvider>
+  )
+}
+```
 
 ```javascript
 import { AppThemeProvider, AppTagProvider } from './App.theme';
@@ -103,7 +117,7 @@ export default function App() {
 ```
 
 
-### 3. Use Tags
+### 2. Use Tags
 
 Just use Tags. It's so simple.
 
@@ -143,12 +157,13 @@ const TagsEx = () => {
           }} 
           src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Div>
-      <View style={{ 
+      <Div style={{ 
         flexDirection: 'row', 
         alignItems: 'center', 
         marginBottom: 24, 
         height: 80 
         }}>
+        hello hello button~
         <Button 
           style={{ 
             flex: 1, 
@@ -159,7 +174,7 @@ const TagsEx = () => {
           }}>
             hellohellohello omg~
         </Button>
-      </View>
+      </Div>
     </Div>
   )
 }

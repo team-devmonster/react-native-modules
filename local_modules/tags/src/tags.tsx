@@ -16,13 +16,17 @@ export interface TagGroupStyle {
   p?:TagStyle
 }
 
-export interface TagStyle extends TextStyle {
-  cursor?:string
+export interface TagStyle extends Omit<TextStyle, 'fontWeight'> {
+  cursor?:string,
+  fontWeight?:string|number
 }
 
 const TagContext = createContext<{ tagStyle?:TagGroupStyle }>({});
 
 export function TagProvider({children, tagStyle}:{children:React.ReactNode, tagStyle?:TagGroupStyle}) {
+
+  //useFonts
+
   return (
     <TagContext.Provider value={{ tagStyle }}>
       {children}
@@ -46,7 +50,10 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
   const newChildrenFn = () => {
     if(!children) return null;
     if(typeof children === 'string') {
-      return <Text style={textStyle}>{children}</Text>
+      return <Text style={{
+        lineHeight: textStyle?.fontSize ? textStyle.fontSize*1.28 : undefined,
+        ...textStyle
+      }}>{children}</Text>
     }
     else if(Array.isArray(children)) {
       return children.map(

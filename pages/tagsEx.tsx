@@ -32,12 +32,13 @@ const TagsEx = () => {
           }} 
           src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Div>
-      <View style={{ 
+      <Div style={{ 
         flexDirection: 'row', 
         alignItems: 'center', 
         marginBottom: 24, 
         height: 80 
         }}>
+        hello button~
         <Button 
           style={{ 
             flex: 1, 
@@ -48,7 +49,7 @@ const TagsEx = () => {
           }}>
             hellohellohello omg~
         </Button>
-      </View>
+      </Div>
     </Div>
   )
 }

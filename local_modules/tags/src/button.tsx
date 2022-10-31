@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Platform, View, Pressable, GestureResponderEvent } from "react-native";
 import { TagModule, TagStyle, useTags } from "./tags";
-import { contrast, darken } from "./utils";
-
-const textPattern = /^(color|font|text|lineHeight)/;
-const layoutPattern = /^(flex|width|height)$/;
-const shadowPattern = /^(shadow|elevation)/;
-const borderPattern = /^(border)/;
-const marginPattern = /^(margin)/;
+import { borderPattern, contrast, darken, layoutPattern, marginPattern, shadowPattern, textPattern } from "./utils";
 
 interface ButtonProps {
   children?: React.ReactNode;

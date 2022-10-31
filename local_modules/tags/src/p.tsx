@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TextProps, View } from "react-native";
 import { TagModule, useTags } from "./tags";
-
-const textPattern = /^(color|font|text)/;
+import { textPattern } from "./utils";
 
 export const P = ({style, children, ...rest}:TextProps) => {
 

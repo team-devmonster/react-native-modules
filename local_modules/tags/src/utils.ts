@@ -42,20 +42,6 @@ export const lighten = (col:string, amt:number) => {
   return '#' + (g | (b << 8) | (r << 16)).toString(16);
 }
 
-export const hexToRgb = (hex:string) => {
-  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-  hex = hex.replace(shorthandRegex, (m, r, g, b) => {
-    return r + r + g + g + b + b;
-  });
-
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)!;
-  const r = parseInt(result[1], 16);
-  const g = parseInt(result[2], 16);
-  const b = parseInt(result[3], 16);
-  return `${r} ${g} ${b}`
-}
-
 export const contrast = (hex:string, c1:string = '#000000', c2:string = '#FFFFFF', amt:number = 206) => {
   
   hex = hex.slice(1);
@@ -72,3 +58,9 @@ export const contrast = (hex:string, c1:string = '#000000', c2:string = '#FFFFFF
   return (r * 0.299 + g * 0.587 + b * 0.114) > amt 
     ? c1 : c2;
 }
+
+export const textPattern = /^(color|font|text|lineHeight)/;
+export const layoutPattern = /^(flex|width|height)$/;
+export const shadowPattern = /^(shadow|elevation)/;
+export const borderPattern = /^(border)/;
+export const marginPattern = /^(margin)/;
