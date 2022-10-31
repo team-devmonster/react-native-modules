@@ -29,6 +29,7 @@ General [react-native-modules] load map => [here](https://github.com/team-devmon
 
 *extends `div`. These got base style from `div`.
 - [x] [p]
+- [x] [span] => this is for inline style layout.
 
 ## Getting started
 
@@ -150,31 +151,36 @@ const TagsEx = () => {
       </Div>
       <Div>
         <Img 
-          style={{ 
+          style={{
             width: '100%',
             aspectRatio: 1.774, 
             backgroundColor: color.step500
           }} 
           src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Div>
-      <Div style={{ 
-        flexDirection: 'row', 
-        alignItems: 'center', 
+      <P style={{  
         marginBottom: 24, 
-        height: 80 
+        height: 80
         }}>
-        hello hello button~
-        <Button 
-          style={{ 
-            flex: 1, 
-            alignSelf: 'stretch', 
-            flexDirection: 'row', 
-            alignItems: 'center',
-            fontSize: fontSize.sm
-          }}>
-            hellohellohello omg~
-        </Button>
-      </Div>
+        hello button~ {date}
+        <Span>hello</Span>
+        <Button style={{ display: 'inline-flex' }}>inline button</Button>
+        hello~!
+        <P>hello next line!</P>
+      </P>
+      <P style={{ marginBottom: 20, color: color.primary }}>
+        hello?
+        <Button>not inline button. normal button.</Button>
+      </P>
+      <Button 
+        style={{ 
+          alignSelf: 'stretch', 
+          flexDirection: 'row', 
+          alignItems: 'center',
+          fontSize: fontSize.sm
+        }}>
+          hellohellohello omg~
+      </Button>
     </Div>
   )
 }

@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { TextStyle, ViewStyle } from "react-native";
+import { TagStyle } from "./tags";
+
 export function darken(col:string, amt:number) {
 
   const num = parseInt(col.slice(1),16);
@@ -64,3 +68,44 @@ export const layoutPattern = /^(flex|width|height)$/;
 export const shadowPattern = /^(shadow|elevation)/;
 export const borderPattern = /^(border)/;
 export const marginPattern = /^(margin)/;
+
+export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[]) => {
+
+  const [newStyles, setNewStyles] = useState<(TagStyle|null)[]>(new Array(patterns.length+1).fill(null));
+
+  useEffect(() => {
+    let styleObj = {};
+    styleStates.forEach(styleState => {
+      styleObj = Object.assign(styleObj, styleState);
+    })
+    const entries = Object.entries(styleObj) as [keyof TagStyle, any][];
+    const styles:(TagStyle|null)[] = new Array(patterns.length+1).fill(null);
+    
+
+    for(let i = 0; i < entries.length; i++) {
+      const key = entries[i][0];
+      const value = entries[i][1];
+
+      for(let j = 0; j < patterns.length; j++) {
+        const pattern = patterns[j];
+        const styleIndex = j;
+
+        if(pattern.test(key)) {
+          if(!styles[styleIndex]) styles[styleIndex] = {};
+          styles[styleIndex]![key] = value === 'inline-flex' ? 'flex' : value;
+          break;
+        }
+
+        if(styleIndex === patterns.length-1) {
+          if(!styles[styles.length-1]) styles[styles.length-1] = {};
+          styles[styles.length-1]![key] = value === 'inline-flex' ? 'flex' : value;
+        }
+      }
+
+    }
+
+    setNewStyles(styles);
+  }, styleStates);
+
+  return newStyles as (ViewStyle | TextStyle)[];
+}

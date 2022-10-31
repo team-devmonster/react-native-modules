@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Platform, View, Pressable, GestureResponderEvent } from "react-native";
 import { TagModule, TagStyle, useTags } from "./tags";
-import { borderPattern, contrast, darken, layoutPattern, marginPattern, shadowPattern, textPattern } from "./utils";
+import { borderPattern, contrast, darken, layoutPattern, marginPattern, shadowPattern, textPattern, useTagStyle } from "./utils";
 
 interface ButtonProps {
   children?: React.ReactNode;
@@ -12,77 +12,55 @@ interface ButtonProps {
   disabled?:boolean;
 }
 
-export const Button = ({color = '#ffffff', style, disabled, onClick, children, ...rest}:ButtonProps) => {
+export const Button = ({color, style, disabled, onClick, children, ...rest}:ButtonProps) => {
 
   const { tagStyle } = useTags();
   const buttonTagStyle = tagStyle?.['button'];
 
-  const [newStyle, setNewStyle] = useState<{layoutStyle:any, shadowStyle:any, borderStyle:any, marginStyle:any, textStyle:any, etcStyle:any}>();
-
   const background = {
     base: color,
-    pressed: darken(color, 30),
-    ripple: darken(color, 30)
+    pressed: color ? darken(color, 30) : undefined,
+    ripple: color ? darken(color, 30) : undefined
   }
   const text = {
-    color: contrast(color)
+    color: color ? contrast(color) : undefined
   }
 
-  useEffect(() => {
-    const entries = Object.entries({...buttonTagStyle, ...style as any});
-    let layoutStyle:any = {};
-    let shadowStyle:any = {};
-    let borderStyle:any = {};
-    let marginStyle:any = {};
-    let textStyle:any = {};
-    let etcStyle:any = {}
-
-    
-    for(let i = 0; i < entries.length; i++) {
-      const key = entries[i][0];
-      const value = entries[i][1];
-
-      if(layoutPattern.test(key)) {
-        layoutStyle[key] = value;
-      }
-      else if(shadowPattern.test(key)) {
-        shadowStyle[key] = value;
-      }
-      else if(borderPattern.test(key)) {
-        borderStyle[key] = value;
-      }
-      else if(marginPattern.test(key)) {
-        marginStyle[key] = value;
-      }
-      else if(textPattern.test(key)) {
-        textStyle[key] = value;
-      }
-      else {
-        etcStyle[key] = value;
-      }
-    }
-    setNewStyle({ layoutStyle, shadowStyle, borderStyle, marginStyle, textStyle, etcStyle });
-  }, [buttonTagStyle, style]);
+  const [
+    layoutStyle, 
+    shadowStyle, 
+    borderStyle, 
+    marginStyle, 
+    textStyle, 
+    etcStyle
+  ]
+  = useTagStyle([
+    layoutPattern, 
+    shadowPattern, 
+    borderPattern, 
+    marginPattern, 
+    textPattern
+  ], [buttonTagStyle, style]);
 
   return (
     <View style={{
-      borderRadius: newStyle?.borderStyle.borderRadius,
-      ...newStyle?.layoutStyle,
-      ...newStyle?.shadowStyle,
-      ...newStyle?.marginStyle
+      borderRadius: borderStyle?.borderRadius,
+      ...layoutStyle,
+      ...shadowStyle,
+      ...marginStyle
     }}>
       <View style={{ 
         overflow: 'hidden',
-        ...newStyle?.layoutStyle,
-        ...newStyle?.borderStyle,
+        ...layoutStyle,
+        ...borderStyle,
       }}>
         <Pressable 
           disabled={disabled} 
           style={({ pressed }) => {
             return {
               backgroundColor: (!pressed || Platform.OS !== 'ios') ? background.base : background.pressed,
-              ...newStyle?.layoutStyle,
-              ...newStyle?.etcStyle
+              ...layoutStyle,
+              ...etcStyle
             }
           }}
           android_ripple={{ color: background.ripple }}
@@ -91,7 +69,7 @@ export const Button = ({color = '#ffffff', style, disabled, onClick, children, .
           <TagModule 
             style={{
               ...text, 
-              ...newStyle?.textStyle
+              ...textStyle
             }}>{children}</TagModule>
         </Pressable>
       </View>

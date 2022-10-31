@@ -1,10 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { Text, TextStyle } from "react-native"
-
-export interface TagProps {
-  children:React.ReactNode,
-  style:TextStyle
-}
+import { Text, TextProps, TextStyle } from "react-native"
 
 export interface TagGroupStyle {
   div?: TagStyle,
@@ -13,12 +8,16 @@ export interface TagGroupStyle {
   img?: TagStyle,
 
   //additional
-  p?:TagStyle
+  p?:TagStyle,
+  span?:TagStyle
 }
 
-export interface TagStyle extends Omit<TextStyle, 'fontWeight'> {
+export interface TagProps extends Omit<TextProps, 'style'> {
+  style?:TagStyle
+}
+export interface TagStyle extends Omit<TextStyle, 'display'> {
   cursor?:string,
-  fontWeight?:string|number
+  display?: 'flex' | 'inline-flex' | 'none'
 }
 
 const TagContext = createContext<{ tagStyle?:TagGroupStyle }>({});
@@ -52,39 +51,44 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
     if(typeof children === 'string' || typeof children === 'number') {
       return <Text style={{
         lineHeight: textStyle?.fontSize ? textStyle.fontSize*1.28 : undefined,
-        ...textStyle
+        ...textStyle as TextStyle
       }}>{children}</Text>
     }
     else if(Array.isArray(children)) {
       const newChildren = [];
-      let textchild = '';
+      const textchildren = [];
       for(let i = 0; i < children.length; i++) {
         const child = children[i];
         if(typeof child === 'string' || typeof child === 'number') {
-          textchild += child;
+          textchildren.push(child);
         }
         else {
-          if(textchild) {
-            newChildren.push(
-              <Text key={i} style={{
-                lineHeight: textStyle?.fontSize ? textStyle.fontSize*1.28 : undefined,
-                ...textStyle
-              }}>{textchild}</Text>
-            );
-            textchild = '';
+          if(child?.type?.name === 'Span' || child?.props?.style?.display === 'inline-flex') {
+            textchildren.push(child);
           }
-          newChildren.push(child);
+          else {
+            if(textchildren.length) {
+              newChildren.push(
+                <Text key={newChildren.length} style={{
+                  lineHeight: textStyle?.fontSize ? textStyle.fontSize*1.28 : undefined,
+                  ...textStyle as TextStyle
+                }}>{[...textchildren]}</Text>
+              );
+              textchildren.length = 0;
+            }
+            newChildren.push(child);
+          }
         }
       }
       // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
-      if(textchild) {
+      if(textchildren.length) {
         newChildren.push(
           <Text key={newChildren.length} style={{
             lineHeight: textStyle?.fontSize ? textStyle.fontSize*1.28 : undefined,
-            ...textStyle
-          }}>{textchild}</Text>
+            ...textStyle as TextStyle
+          }}>{[...textchildren]}</Text>
         );
-        textchild = '';
+        textchildren.length = 0;
       }
       return newChildren;
     }

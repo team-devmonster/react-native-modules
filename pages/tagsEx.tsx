@@ -1,6 +1,6 @@
 import React from "react";
 import { useTheme } from "@local_modules/theme";
-import { Div, Button, Img } from "@local_modules/tags";
+import { Div, Button, Img, P, Span } from "@local_modules/tags";
 import { Theme } from "App.theme";
 import { Alert } from "react-native";
 
@@ -26,31 +26,36 @@ const TagsEx = () => {
       </Div>
       <Div>
         <Img 
-          style={{ 
+          style={{
             width: '100%',
             aspectRatio: 1.774, 
             backgroundColor: color.step500
           }} 
           src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Div>
-      <Div style={{ 
-        flexDirection: 'row', 
-        alignItems: 'center', 
+      <P style={{  
         marginBottom: 24, 
-        height: 80 
+        height: 80
         }}>
         hello button~ {date}
-        <Button 
-          style={{ 
-            flex: 1, 
-            alignSelf: 'stretch', 
-            flexDirection: 'row', 
-            alignItems: 'center',
-            fontSize: fontSize.sm
-          }}>
-            hellohellohello omg~
-        </Button>
-      </Div>
+        <Span>hello</Span>
+        <Button style={{ display: 'inline-flex' }}>inline button</Button>
+        hello~!
+        <P>hello next line!</P>
+      </P>
+      <P style={{ marginBottom: 20, color: color.primary }}>
+        hello?
+        <Button>not inline button. normal button.</Button>
+      </P>
+      <Button 
+        style={{ 
+          alignSelf: 'stretch', 
+          flexDirection: 'row', 
+          alignItems: 'center',
+          fontSize: fontSize.sm
+        }}>
+          hellohellohello omg~
+      </Button>
     </Div>
   )
 }
