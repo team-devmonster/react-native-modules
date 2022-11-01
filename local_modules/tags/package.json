@@ -10,7 +10,8 @@
   "scripts": {
     "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc",
-    "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
+    "publish": "npm publish --access public"
   },
   "repository": {
     "type": "git",
