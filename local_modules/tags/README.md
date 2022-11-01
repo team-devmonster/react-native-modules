@@ -215,6 +215,6 @@ export default TagsEx;
 
 | props | values | description |
 | :---:   | :---: | :---: |
-| color | HEX | |
-| fill | 'base|outline|translucent' | default: 'base' |
-| onClick | onPress | same as onPress |
+| `color` | `HEX` | |
+| `fill` | `base/|outline/|translucent` | default: `base` |
+| `onClick` | `onPress` | same as `onPress` |
