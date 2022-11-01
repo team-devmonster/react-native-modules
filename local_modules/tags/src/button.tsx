@@ -7,7 +7,7 @@ interface ButtonProps {
   children?: React.ReactNode;
   style?: TagStyle;
   color?: string;
-  fill?: 'base' | 'outline';
+  fill?: 'base' | 'outline' | 'translucent';
   onClick?: ((event: GestureResponderEvent) => void) | null | undefined;
   disabled?:boolean;
 }
@@ -33,13 +33,23 @@ export const Button = ({color, fill = 'base', style, disabled, onClick, children
     case 'outline':
       fillStyle = {
         background: {
-          base: colorScheme === 'dark' ? 'black' : 'white',
+          base: colorScheme === 'dark' ? '#000000' : '#ffffff',
           pressed: color || undefined,
           ripple: color || undefined
         },
         color: color || undefined,
         borderColor: color,
         borderWidth: 1
+      }
+      break;
+    case 'translucent':
+      fillStyle = {
+        background: {
+          base: color ? `${color}3C` : undefined,
+          pressed: color || undefined,
+          ripple: color || undefined
+        },
+        color: color || undefined
       }
       break;
   }

@@ -18,7 +18,7 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 General [react-native-modules] load map => [here](https://github.com/team-devmonster/react-native-modules);
 
 - [x] [div]
-- [x] [button]
+- [x] [button](#Button)
 - [X] [img]
 - [ ] input
 - [ ] checkbox
@@ -219,3 +219,14 @@ const TagsEx = () => {
 
 export default TagsEx;
 ```
+
+
+### 3. Tags Info
+
+#### <a name="Button"></a>Button
+
+| props | values | description |
+| :---:   | :---: | :---: |
+| color | HEX | |
+| fill | 'base'|'outline'|'translucent' | default: 'base' |
+| onClick | onPress | same as onPress |
