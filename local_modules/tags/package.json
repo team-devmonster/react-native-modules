@@ -1,6 +1,6 @@
 {
   "name": "@team-devmonster/react-native-tags",
-  "version": "1.2.6",
+  "version": "1.2.9",
   "description": "This is devmonster's react-native module for make app easily. This is compatible with devmonster's react modules.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -10,8 +10,7 @@
   "scripts": {
     "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc",
-    "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
-    "publish": "npm publish --access public"
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
   },
   "repository": {
     "type": "git",

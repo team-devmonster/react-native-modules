@@ -7,7 +7,6 @@ import { Alert } from "react-native";
 const TagsEx = () => {
 
   const { color, fontSize, shadow } = useTheme<Theme>();
-  const date = 10;
 
   return (
     <Div
@@ -37,7 +36,7 @@ const TagsEx = () => {
         marginBottom: 24, 
         height: 80
         }}>
-        hello button~ {date}
+        hello button~
         <Span>hello</Span>
         <Button 
           color={color.primary} 

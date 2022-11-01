@@ -162,7 +162,7 @@ const TagsEx = () => {
         marginBottom: 24, 
         height: 80
         }}>
-        hello button~ {date}
+        hello button~
         <Span>hello</Span>
         <Button 
           color={color.primary} 
@@ -194,24 +194,12 @@ const TagsEx = () => {
           src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Button>
 
-      <Button
-        style={{
-          width: 40, 
-          height: 40, 
-          borderRadius: 15, 
-          borderColor: color.primary, 
-          borderWidth: 2,
-          padding: 0,
-          minHeight: undefined
-          }}>
-          <Div 
-            style={{
-              padding: 0,
-              width: 14, 
-              height: 14, 
-              borderRadius: 7, 
-              backgroundColor: color.primary 
-            }}></Div>
+      <Button color={color.primary} fill="outline" style={{ marginBottom: 8 }}>
+        outline
+      </Button>
+
+      <Button color={color.primary} fill="translucent">
+        translucent
       </Button>
     </Div>
   )
@@ -228,5 +216,5 @@ export default TagsEx;
 | props | values | description |
 | :---:   | :---: | :---: |
 | color | HEX | |
-| fill | 'base'|'outline'|'translucent' | default: 'base' |
+| fill | 'base|outline|translucent' | default: 'base' |
 | onClick | onPress | same as onPress |
