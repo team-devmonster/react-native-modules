@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Pressable, GestureResponderEvent, Platform } from "react-native";
+import { View, Pressable, GestureResponderEvent, Platform, useColorScheme } from "react-native";
 import { TagModule, TagStyle, useTags } from "./tags";
 import { borderPattern, contrast, darken, layoutPattern, marginPattern, shadowPattern, textPattern, useTagStyle } from "./utils";
 
@@ -7,23 +7,41 @@ interface ButtonProps {
   children?: React.ReactNode;
   style?: TagStyle;
   color?: string;
-  fill?: 'default' | 'translucent';
+  fill?: 'base' | 'outline';
   onClick?: ((event: GestureResponderEvent) => void) | null | undefined;
   disabled?:boolean;
 }
 
-export const Button = ({color, style, disabled, onClick, children, ...rest}:ButtonProps) => {
+export const Button = ({color, fill = 'base', style, disabled, onClick, children, ...rest}:ButtonProps) => {
 
+  const colorScheme = useColorScheme();
   const { tagStyle } = useTags();
   const buttonTagStyle = tagStyle?.['button'];
 
-  const background = {
-    base: color,
-    pressed: color ? darken(color, 30) : undefined,
-    ripple: color ? darken(color, 30) : undefined
-  }
-  const text = {
-    color: color ? contrast(color) : undefined
+  let fillStyle:any;
+  switch(fill) {
+    case 'base':
+      fillStyle = {
+        background: {
+          base: color,
+          pressed: color ? darken(color, 30) : undefined,
+          ripple: color ? darken(color, 30) : undefined
+        },
+        color: color ? contrast(color) : undefined
+      }
+      break;
+    case 'outline':
+      fillStyle = {
+        background: {
+          base: colorScheme === 'dark' ? 'black' : 'white',
+          pressed: color || undefined,
+          ripple: color || undefined
+        },
+        color: color || undefined,
+        borderColor: color,
+        borderWidth: 1
+      }
+      break;
   }
 
   const [
@@ -72,37 +90,34 @@ export const Button = ({color, style, disabled, onClick, children, ...rest}:Butt
   return (
     <View 
       style={{
-        borderRadius: borderStyle?.borderRadius,
         ...layoutStyle,
         ...shadowStyle,
-        ...marginStyle
-      }}>
-      <View style={{ 
+        ...marginStyle,
         overflow: 'hidden',
-        ...layoutStyle,
+        borderWidth: fillStyle.borderWidth,
+        borderColor: fillStyle.borderColor,
         ...borderStyle
       }}>
         <Pressable 
           disabled={disabled} 
           style={({ pressed }) => {
             return {
-              backgroundColor: (!pressed || Platform.OS !== 'ios') ? background.base : background.pressed,
               ...layoutStyle,
               width: innerWidth(),
               height: innerHeight(),
-              ...etcStyle
+              ...etcStyle,
+              backgroundColor: (!pressed || Platform.OS !== 'ios') ? (etcStyle?.backgroundColor || fillStyle.background.base) : fillStyle.background.pressed,
             }
           }}
-          android_ripple={{ color: background.ripple }}
+          android_ripple={{ color: fillStyle.background.ripple }}
           onPress={onClick}
           {...rest}>
           <TagModule 
             style={{
-              ...text, 
+              color: fillStyle.color, 
               ...textStyle
             }}>{children}</TagModule>
         </Pressable>
-      </View>
     </View>
   )
 }

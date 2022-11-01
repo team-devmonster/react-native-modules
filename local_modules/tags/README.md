@@ -164,22 +164,54 @@ const TagsEx = () => {
         }}>
         hello button~ {date}
         <Span>hello</Span>
-        <Button style={{ display: 'inline-flex' }}>inline button</Button>
+        <Button 
+          color={color.primary} 
+          style={{ display: 'inline-flex' }}>inline button</Button>
         hello~!
         <P>hello next line!</P>
       </P>
       <P style={{ marginBottom: 20, color: color.primary }}>
         hello?
-        <Button>not inline button. normal button.</Button>
+        <Button color={color.step500}>not inline button. normal button.</Button>
       </P>
       <Button 
+        color={color.primary}
+        fill="outline"
         style={{ 
           alignSelf: 'stretch', 
-          flexDirection: 'row', 
           alignItems: 'center',
-          fontSize: fontSize.sm
+          fontSize: fontSize.sm,
+          ...shadow.base,
+          marginBottom: 18
         }}>
           hellohellohello omg~
+          <Img 
+          style={{
+            width: 20,
+            aspectRatio: 1.774, 
+            backgroundColor: color.step500
+          }} 
+          src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
+      </Button>
+
+      <Button
+        style={{
+          width: 40, 
+          height: 40, 
+          borderRadius: 15, 
+          borderColor: color.primary, 
+          borderWidth: 2,
+          padding: 0,
+          minHeight: undefined
+          }}>
+          <Div 
+            style={{
+              padding: 0,
+              width: 14, 
+              height: 14, 
+              borderRadius: 7, 
+              backgroundColor: color.primary 
+            }}></Div>
       </Button>
     </Div>
   )

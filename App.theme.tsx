@@ -105,9 +105,42 @@ const theme = (color:Color) => {
     borderRadius: 5
   }
 
+  const shadow = {
+    base: {
+      shadowColor: color.black,
+      shadowOffset: {
+        width: 0,
+        height: 1,
+      },
+      shadowOpacity: 0.22,
+      shadowRadius: 2.22,
+      elevation: 3,
+    },
+    lg: {
+      shadowColor: color.black,
+      shadowOffset: {
+        width: 0,
+        height: 1,
+      },
+      shadowOpacity: 0.22,
+      shadowRadius: 2.22,
+      elevation: 3,
+    },
+    card: {
+      shadowColor: color.black,
+      shadowOffset: {
+        width: 0,
+        height: 1,
+      },
+      shadowOpacity: 0.22,
+      shadowRadius: 2.22,
+      elevation: 3,
+    }
+  }
+
   return {
     // basic theme
-    color, fontSize, 
+    color, fontSize, shadow,
     // components theme
     div, input, inputError, inputDisabled,
     button

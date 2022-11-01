@@ -6,7 +6,7 @@ import { Alert } from "react-native";
 
 const TagsEx = () => {
 
-  const { color, fontSize } = useTheme<Theme>();
+  const { color, fontSize, shadow } = useTheme<Theme>();
   const date = 10;
 
   return (
@@ -51,14 +51,22 @@ const TagsEx = () => {
       </P>
       <Button 
         color={color.primary}
+        fill="outline"
         style={{ 
           alignSelf: 'stretch', 
-          flexDirection: 'row', 
           alignItems: 'center',
           fontSize: fontSize.sm,
-          height: 80
+          ...shadow.base,
+          marginBottom: 18
         }}>
           hellohellohello omg~
+          <Img 
+          style={{
+            width: 20,
+            aspectRatio: 1.774, 
+            backgroundColor: color.step500
+          }} 
+          src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Button>
 
       <Button
@@ -72,7 +80,7 @@ const TagsEx = () => {
           minHeight: undefined
           }}>
           <Div 
-            style={{ 
+            style={{
               padding: 0,
               width: 14, 
               height: 14, 
