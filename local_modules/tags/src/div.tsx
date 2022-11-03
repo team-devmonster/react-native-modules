@@ -5,8 +5,8 @@ import { textPattern, useTagStyle } from "./utils";
 
 export const Div = ({style, children, ...rest}:TagProps) => {
 
-  const { tagStyle } = useTags();
-  const divTagStyle = tagStyle?.['div'];
+  const { tagConfig } = useTags();
+  const divTagStyle = tagConfig?.['div'];
 
   const [
     textStyle, 

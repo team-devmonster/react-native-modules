@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { TextProps, Text, TextStyle } from "react-native";
-import { useTags } from "./tags";
+import React from "react";
+import { Text, TextStyle } from "react-native";
+import { TagProps, useTags } from "./tags";
+import { useTagStyle } from "./utils";
 // import { textPattern } from "./utils";
 
-export const Span = ({style, children, ...rest}:TextProps) => {
+export const Span = ({style, children, ...rest}:TagProps) => {
 
-  const { tagStyle } = useTags();
-  const divTagStyle = tagStyle?.['div'];
-  const spanTagStyle = tagStyle?.['span'];
+  const { tagConfig } = useTags();
+  const divTagStyle = tagConfig?.['div'];
+  const spanTagStyle = tagConfig?.['span'];
 
-  const [newStyle, setNewStyle] = useState<TextStyle>();
-
-  useEffect(() => {
-    setNewStyle({
-      ...style as TextStyle
-    });
-  }, [divTagStyle, spanTagStyle, style]);
+  const [
+    newStyle
+  ]
+  = useTagStyle(
+    [], 
+    [divTagStyle, spanTagStyle, style]);
   
   return (
     <Text style={newStyle as TextStyle} {...rest}>{children}</Text>

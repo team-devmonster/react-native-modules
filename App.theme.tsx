@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from '@local_modules/theme';
-import { TagProvider, TagStyle } from '@local_modules/tags';
+import { ButtonProps, TagProvider, TagStyle } from '@local_modules/tags';
 
 const color = {
   light: {
@@ -94,15 +94,18 @@ const theme = (color:Color) => {
     borderColor: color.step200
   }
 
-  const button:TagStyle = {
-    cursor: 'pointer',
-    position: 'relative',
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: fontSize.base,
-    minHeight: 42,
-    borderRadius: 5
+  const button:ButtonProps = {
+    color: color.white,
+    style: {
+      cursor: 'pointer',
+      position: 'relative',
+      padding: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: fontSize.base,
+      minHeight: 42,
+      borderRadius: 5
+    }
   }
 
   const shadow = {
@@ -163,7 +166,7 @@ export const AppThemeProvider = ({children}: {children:React.ReactNode}) => {
 export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
   const { div, button } = useTheme<Theme>();
   return (
-    <TagProvider tagStyle={{ div, button }}>
+    <TagProvider tagConfig={{ div, button }}>
       {children}
     </TagProvider>
   )

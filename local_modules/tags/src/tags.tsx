@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Text, TextProps, TextStyle } from "react-native"
+import { ButtonProps } from "./button";
 
-export interface TagGroupStyle {
+export interface TagGroupConfig {
   div?: TagStyle,
-  button?: TagStyle,
+  button?: ButtonProps,
   input?: TagStyle,
   img?: TagStyle,
 
@@ -20,14 +21,14 @@ export interface TagStyle extends Omit<TextStyle, 'display'> {
   display?: 'flex' | 'inline-flex' | 'none'
 }
 
-const TagContext = createContext<{ tagStyle?:TagGroupStyle }>({});
+const TagContext = createContext<{ tagConfig?:TagGroupConfig }>({});
 
-export function TagProvider({children, tagStyle}:{children:React.ReactNode, tagStyle?:TagGroupStyle}) {
+export function TagProvider({children, tagConfig}:{children:React.ReactNode, tagConfig?:TagGroupConfig}) {
 
   //useFonts
 
   return (
-    <TagContext.Provider value={{ tagStyle }}>
+    <TagContext.Provider value={{ tagConfig }}>
       {children}
     </TagContext.Provider>
   )

@@ -36,13 +36,12 @@ const TagsEx = () => {
         marginBottom: 24, 
         height: 80
         }}>
-        hello button~
-        <Span>hello</Span>
+        hello P
+        <Span style={{ color: color.danger }}>hello Span</Span>
         <Button 
           color={color.primary} 
-          style={{ display: 'inline-flex' }}>inline button</Button>
+          style={{ display: 'inline-flex', height: 40 }}>inline button</Button>
         hello~!
-        <P>hello next line!</P>
       </P>
       <P style={{ marginBottom: 20, color: color.primary }}>
         hello?

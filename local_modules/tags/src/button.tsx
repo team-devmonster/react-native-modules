@@ -3,7 +3,7 @@ import { View, Pressable, GestureResponderEvent, Platform, useColorScheme } from
 import { TagModule, TagStyle, useTags } from "./tags";
 import { borderPattern, contrast, darken, layoutPattern, marginPattern, shadowPattern, textPattern, useTagStyle } from "./utils";
 
-interface ButtonProps {
+export interface ButtonProps {
   children?: React.ReactNode;
   style?: TagStyle;
   color?: string;
@@ -12,11 +12,13 @@ interface ButtonProps {
   disabled?:boolean;
 }
 
-export const Button = ({color, fill = 'base', style, disabled, onClick, children, ...rest}:ButtonProps) => {
+export const Button = ({color:_color, fill:_fill, style, disabled, onClick, children, ...rest}:ButtonProps) => {
 
   const colorScheme = useColorScheme();
-  const { tagStyle } = useTags();
-  const buttonTagStyle = tagStyle?.['button'];
+  const { tagConfig } = useTags();
+  const buttonTagStyle = tagConfig?.['button']?.style;
+  const color = _color || tagConfig?.['button']?.color;
+  const fill = _fill || tagConfig?.['button']?.fill || 'base';
 
   let fillStyle:any;
   switch(fill) {

@@ -19,7 +19,7 @@ General [react-native-modules] load map => [here](https://github.com/team-devmon
 
 - [x] [div]
 - [x] [button](#Button)
-- [X] [img]
+- [X] [img](#Img)
 - [ ] input
 - [ ] checkbox
 - [ ] label
@@ -45,22 +45,30 @@ This is a way for specifying the default style. You can skip it if you don't wan
 
 ```javascript
 // App.theme.tsx => You can use any file name :)
-import { TagProvider, TagStyle } from '@team-devmonster/react-native-tags';
+import { TagProvider, TagStyle, ButtonProps } from '@team-devmonster/react-native-tags';
 
 export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
+
+  const color = { black: '#000000', white: '#ffffff' };
+
+  //const { div, button } = useTheme<Theme>();
+
   const div:TagStyle = {
     color: color.black,
     fontSize: fontSize.base
   }
-  const button:TagStyle = {
-    cursor: 'pointer',
-    position: 'relative',
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: fontSize.base,
-    minHeight: 42,
-    borderRadius: 5
+  const button:ButtonProps = {
+    color: color.white,
+    style: {
+      cursor: 'pointer',
+      position: 'relative',
+      padding: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: fontSize.base,
+      minHeight: 42,
+      borderRadius: 5
+    }
   }
   return (
     <TagProvider tagStyle={{ div, button }}>
@@ -216,5 +224,14 @@ export default TagsEx;
 | props | values | description |
 | :---:   | :---: | :---: |
 | `color` | `HEX` | |
-| `fill` | `base/|outline/|translucent` | default: `base` |
+| `fill` | `base` `outline` `translucent` | default: `base` |
 | `onClick` | `onPress` | same as `onPress` |
+| `style` | `style` | `style` |
+| `chilren` | `chilren` | `chilren` |
+
+#### <a name="Img"></a>Button
+
+| props | values | description |
+| :---:   | :---: | :---: |
+| `resizeMode` | `contain` `cover` | default: `contain` |
+| `style` | `style` | `style` |

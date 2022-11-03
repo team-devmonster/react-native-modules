@@ -74,13 +74,18 @@ export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[
   const [newStyles, setNewStyles] = useState<(TagStyle|null)[]>(new Array(patterns.length+1).fill(null));
 
   useEffect(() => {
+
     let styleObj = {};
     styleStates.forEach(styleState => {
       styleObj = Object.assign(styleObj, styleState);
     })
+
+    if(!patterns.length) {
+      return setNewStyles([styleObj]);
+    }
+
     const entries = Object.entries(styleObj) as [keyof TagStyle, any][];
     const styles:(TagStyle|null)[] = new Array(patterns.length+1).fill(null);
-    
 
     for(let i = 0; i < entries.length; i++) {
       const key = entries[i][0];
