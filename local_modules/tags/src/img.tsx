@@ -1,15 +1,14 @@
 import { Image, ImageSourcePropType, ImageStyle } from "react-native"
-interface TagImageStyle extends Omit<ImageStyle, 'display'|'resizeMode'> {
+interface TagImageStyle extends Omit<ImageStyle, 'display'> {
   display?: 'flex' | 'inline-flex' | 'none'
 }
 
 interface ImgProps {
   src: ImageSourcePropType | string,
-  style?: TagImageStyle,
-  resizeMode?: "contain" | "cover"
+  style?: TagImageStyle
 }
 
-export const Img = ({ src, style, resizeMode = 'contain' }:ImgProps) => {
+export const Img = ({ src, style }:ImgProps) => {
   const source = typeof src === 'string'
     ? 
       { uri: src }
@@ -17,10 +16,10 @@ export const Img = ({ src, style, resizeMode = 'contain' }:ImgProps) => {
       src;
   return (
     <Image 
-      resizeMode={resizeMode} 
+      resizeMode={style?.resizeMode || 'contain'} 
       source={source} 
-      style={{ 
-        resizeMode, 
+      style={{
+        resizeMode: style?.resizeMode || 'contain',
         ...style,
         display: style?.display === 'inline-flex' ? 'flex' : style?.display
       }}/>
