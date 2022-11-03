@@ -1,6 +1,6 @@
 {
   "name": "@team-devmonster/react-native-tags",
-  "version": "1.2.14",
+  "version": "1.2.15",
   "description": "This is devmonster's react-native module for make app easily. This is compatible with devmonster's react modules.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

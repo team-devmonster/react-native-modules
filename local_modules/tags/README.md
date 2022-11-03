@@ -71,7 +71,7 @@ export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
     }
   }
   return (
-    <TagProvider tagStyle={{ div, button }}>
+    <TagProvider tagConfig={{ div, button }}>
       {children}
     </TagProvider>
   )
@@ -103,7 +103,7 @@ export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
   const { div, button } = useTheme<Theme>();
   
   return (
-    <TagProvider tagStyle={{ div, button }}>
+    <TagProvider tagConfig={{ div, button }}>
       {children}
     </TagProvider>
   )
