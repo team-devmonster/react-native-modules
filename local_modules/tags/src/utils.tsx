@@ -71,7 +71,7 @@ export const marginPattern = /^(margin)/;
 
 export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[]) => {
 
-  const [newStyles, setNewStyles] = useState<(TagStyle|null)[]>(new Array(patterns.length+1).fill(null));
+  const [newStyles, setNewStyles] = useState<(TagStyle|null)[]>(new Array(patterns.length+1).fill(null).map(() => ({})));
 
   useEffect(() => {
 
@@ -137,14 +137,17 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
       const textchildren = [];
       for(let i = 0; i < children.length; i++) {
         const child = children[i];
-        if(typeof child === 'string' || typeof child === 'number') {
+        if(!child) {
+          continue;
+        }
+        else if(typeof child === 'string' || typeof child === 'number') {
           textchildren.push(child);
         }
         else if(child.type?.name === 'Br') {
           textchildren.push(`\n`);
         }
         else {
-          if(child?.type?.name === 'Span' || child?.props?.style?.display === 'inline-flex') {
+          if(child.type?.name === 'Span' || child.props?.style?.display === 'inline-flex') {
             textchildren.push(child);
           }
           else {
