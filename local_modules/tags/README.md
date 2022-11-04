@@ -20,6 +20,7 @@ General [react-native-modules] load map => [here](https://github.com/team-devmon
 - [x] [div]
 - [x] [button](#Button)
 - [X] [img](#Img)
+- [X] [br] => same as html br
 - [ ] input
 - [ ] checkbox
 - [ ] label
@@ -181,6 +182,9 @@ const TagsEx = () => {
       <P style={{ marginBottom: 20, color: color.primary }}>
         hello?
         <Button color={color.step500}>not inline button. normal button.</Button>
+      </P>
+      <P>
+        text with {`<Br/>`}<Br></Br>hello
       </P>
       <Button 
         color={color.primary}

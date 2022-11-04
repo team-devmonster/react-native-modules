@@ -1,13 +1,13 @@
 # @team-devmonster/react-native-theme
 
-This is devmonster's react-native module for make app easily. This is compatible with devmonster's react module.
+This is devmonster's react-native module for make app easily. This is compatible with devmonster's react module.<br>
 [@team-devmonster/react-theme](https://www.npmjs.com/package/@team-devmonster/react-theme)
 
-`react-native-theme` was created to easily create a theme in the `react-native` environment.
+`react-native-theme` was created to easily create a theme in the `react-native` environment.<br>
 `Darkmode` compatibility is also easy.
 
 ##### author: devmonster 
-hompage: [https://devmonster.co.kr](https://devmonster.co.kr)
+hompage: [https://devmonster.co.kr](https://devmonster.co.kr)<br>
 email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
 ### Road Map
@@ -172,7 +172,6 @@ Use your theme, whatever you want!
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme, darken, lighten, hexToRgb, contrast } from '@team-devmonster/react-native-theme';
-
 import { Theme } from './App.theme';
 
 const ThemeEx = () => {

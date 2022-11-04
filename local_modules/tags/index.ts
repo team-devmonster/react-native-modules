@@ -1,4 +1,5 @@
 export { TagProvider, TagStyle } from './src/tags';
+export * from './src/br';
 export * from './src/button';
 export * from './src/div';
 export * from './src/img';

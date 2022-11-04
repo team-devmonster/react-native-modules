@@ -3,6 +3,7 @@ import { useTheme } from "@local_modules/theme";
 import { Div, Button, Img, P, Span } from "@local_modules/tags";
 import { Theme } from "App.theme";
 import { Alert } from "react-native";
+import { Br } from "@local_modules/tags";
 
 const TagsEx = () => {
 
@@ -46,6 +47,9 @@ const TagsEx = () => {
       <P style={{ marginBottom: 20, color: color.primary }}>
         hello?
         <Button color={color.step500}>not inline button. normal button.</Button>
+      </P>
+      <P>
+        text with {`<Br/>`}<Br></Br>hello
       </P>
       <Button 
         color={color.primary}

@@ -66,11 +66,6 @@ const theme = (color:Color) => {
     x9l: 128 as const
   }
 
-  const div:TagStyle = {
-    color: color.black,
-    fontSize: fontSize.base
-  }
-
   const input:TagStyle = {
     position: 'relative',
     backgroundColor: color.white,
@@ -92,6 +87,11 @@ const theme = (color:Color) => {
   const inputDisabled = {
     backgroundColor: color.step100,
     borderColor: color.step200
+  }
+
+  const div:TagStyle = {
+    color: color.black,
+    fontSize: fontSize.base
   }
 
   const button:ButtonProps = {

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Pressable, GestureResponderEvent, Platform, useColorScheme } from "react-native";
-import { TagModule, TagStyle, useTags } from "./tags";
-import { borderPattern, contrast, darken, layoutPattern, marginPattern, shadowPattern, textPattern, useTagStyle } from "./utils";
+import { TagStyle, useTags } from "./tags";
+import { TagModule, borderPattern, contrast, darken, layoutPattern, marginPattern, shadowPattern, textPattern, useTagStyle } from "./utils";
 
 export interface ButtonProps {
   children?: React.ReactNode;
