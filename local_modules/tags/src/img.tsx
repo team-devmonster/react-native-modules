@@ -10,19 +10,23 @@ interface ImgProps {
 }
 
 export const Img = ({ src, style }:ImgProps) => {
+
   const source = typeof src === 'string'
     ? 
       { uri: src }
     : 
       src;
+
+  const { display, objectFit, ...etcStyle } = style || {};
+
   return (
     <Image 
       resizeMode={style?.objectFit || 'contain'}
       source={source} 
-      style={{ 
-        ...style,
-        resizeMode: style?.objectFit || 'contain', 
-        display: style?.display === 'inline-flex' ? 'flex' : style?.display
+      style={{
+        ...etcStyle,
+        resizeMode: objectFit || 'contain',
+        display: display === 'inline-flex' ? 'flex' : display
       }}/>
   )
 }
