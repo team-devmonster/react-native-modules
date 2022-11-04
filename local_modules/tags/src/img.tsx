@@ -6,10 +6,10 @@ interface TagImageStyle extends Omit<ImageStyle, 'display'|'resizeMode'> {
 interface ImgProps {
   src: ImageSourcePropType | string,
   style?: TagImageStyle,
-  resizeMode?: "contain" | "cover"
+  objectFit?: "contain" | "cover"
 }
 
-export const Img = ({ src, style, resizeMode = 'contain' }:ImgProps) => {
+export const Img = ({ src, style, objectFit = 'contain' }:ImgProps) => {
   const source = typeof src === 'string'
     ? 
       { uri: src }
@@ -17,11 +17,11 @@ export const Img = ({ src, style, resizeMode = 'contain' }:ImgProps) => {
       src;
   return (
     <Image 
-      resizeMode={resizeMode} 
+      resizeMode={objectFit} 
       source={source} 
       style={{ 
-        resizeMode, 
         ...style,
+        resizeMode: objectFit, 
         display: style?.display === 'inline-flex' ? 'flex' : style?.display
       }}/>
   )

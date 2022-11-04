@@ -85,7 +85,7 @@ export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[
     }
 
     const entries = Object.entries(styleObj) as [keyof TagStyle, any][];
-    const styles:(TagStyle|null)[] = new Array(patterns.length+1).fill(null);
+    const styles:(TagStyle|null)[] = new Array(patterns.length+1).fill(null).map(() => ({}));
 
     for(let i = 0; i < entries.length; i++) {
       const key = entries[i][0];

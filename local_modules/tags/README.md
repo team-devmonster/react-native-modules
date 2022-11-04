@@ -233,9 +233,9 @@ export default TagsEx;
 | `style` | `style` | `style` |
 | `chilren` | `chilren` | `chilren` |
 
-#### <a name="Img"></a>Button
+#### <a name="Img"></a>Img
 
 | props | values | description |
 | :---:   | :---: | :---: |
-| `resizeMode` | `contain` `cover` | default: `contain` |
+| `objectFit` | `contain` `cover` | default: `contain` |
 | `style` | `style` | `style` |
