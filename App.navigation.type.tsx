@@ -5,9 +5,11 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
-  Index:undefined,
-  ThemeEx:undefined,
-  TagsEx:undefined,
+  'index':undefined,
+  'themeEx':undefined,
+  'tagsEx':undefined,
+  'routerEx':undefined,
+  'routerEx/paramEx':{ name:string, nickname:string, company:string }
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

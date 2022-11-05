@@ -1,48 +1,42 @@
 # @team-devmonster/react-native-tags
 
-This is devmonster's react-native module for make app easily. This is compatible with devmonster's react module.
-[@team-devmonster/react-tags](https://www.npmjs.com/package/@team-devmonster/react-tags)
+> :warning: **It's under development**
+## This is under devmonster's react & react-native union project.
 
-`react-native-tags` was created to use tags similar to `react` in `react-native` environment.
-It can be used in the same way as [react-tags](https://www.npmjs.com/package/@team-devmonster/react-tags) produced by [@team-devmonster](https://devmonster.co.kr).
-It is more useful when used with [react-native-theme](https://github.com/team-devmonster/react-native-modules/tree/master/local_modules/theme).
+This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.<br><br>
+`react` => [@team-devmonster/react-tags](https://www.npmjs.com/package/@team-devmonster/react-tags)<br>
+General `react-native-modules` load map => [here](https://github.com/team-devmonster/react-native-modules);<br>
+General `react-modules` load map => [here](https://github.com/team-devmonster/react-modules);
 
-##### author: devmonster 
+### Other `react` modules
+
+- [o] [react-native-theme](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
+- [o] [react-native-router](https://www.npmjs.com/package/@team-devmonster/react-native-router)
+
+#### author: devmonster 
+
+We are always looking for investment or assistance.<br>
 hompage: [https://devmonster.co.kr](https://devmonster.co.kr)<br>
 email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
-
-
-### Road Map
-
-General [react-native-modules] load map => [here](https://github.com/team-devmonster/react-native-modules);
-
-- [x] [div]
-- [x] [button](#Button)
-- [X] [img](#Img)
-- [X] [br] => same as html br
-- [ ] input
-- [ ] checkbox
-- [ ] label
-- [ ] errorText
-- [ ] select
-- [ ] option
-
-*extends `div`. These got base style from `div`.
-- [x] [p]
-- [x] [span] => this is for inline style layout.
+## items
+- [o] [Br] => Just br.
+- [o] [Button](#Button)
+- [o] [Div](#Button)
+- [o] [Img](#Img)
+- [o] [P] => this is for text. `extends` `div`.
+- [o] [Span] => this is for inline text. `extends` `div`.
 
 ## Getting started
 
 `$ npm install @team-devmonster/react-native-tags@latest`
 
 
-## Usage
+## Examples
 
+Easy. Too Easy.
 
-### 1. Set Provider
-
-This is a way for specifying the default style. You can skip it if you don't want to.
+### step1. Set Provider
 
 ```javascript
 // App.theme.tsx => You can use any file name :)
@@ -50,9 +44,8 @@ import { TagProvider, TagStyle, ButtonProps } from '@team-devmonster/react-nativ
 
 export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
 
-  const color = { black: '#000000', white: '#ffffff' };
-
-  //const { div, button } = useTheme<Theme>();
+  // useTheme is in react-theme. If you wanna use darkmode easily, use it.
+  const { div, button } = useTheme<Theme>();
 
   const div:TagStyle = {
     color: color.black,
@@ -92,61 +85,24 @@ export default function App() {
 }
 ```
 
-#### 1-1. If you use with `react-native-theme`
 
-```javascript
-// App.theme.tsx => You can use any file name :)
-import { useTheme } from '@team-devmonster/react-native-theme';
-import { TagProvider, TagStyle } from '@team-devmonster/react-native-tags';
-
-export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
-
-  const { div, button } = useTheme<Theme>();
-  
-  return (
-    <TagProvider tagConfig={{ div, button }}>
-      {children}
-    </TagProvider>
-  )
-}
-```
-
-```javascript
-import { AppThemeProvider, AppTagProvider } from './App.theme';
-
-export default function App() {
-
-  return (
-    <AppThemeProvider>
-      <AppTagProvider>
-        <Component></Component>
-      </AppTagProvider>
-    </AppThemeProvider>
-  )
-}
-```
-
-
-### 2. Use Tags
-
-Just use Tags. It's so simple.
+### step2. Use
 
 ```javascript
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from '@team-devmonster/react-native-theme';
-
 import { Theme } from './App.theme';
+import { Div, Button, Img, P, Span, Br } from "@team-devmonster/react-native-tags";
 
 const TagsEx = () => {
 
-  // if you use with `react-native-theme`
+  // useTheme is in react-theme. If you wanna use darkmode easily, use it.
   const { color, fontSize } = useTheme<Theme>();
 
   return (
     <Div
       style={{
-        backgroundColor: color.white, 
+        backgroundColor: color.backgroundColor, 
         flex: 1, 
         padding: 18 
       }}>
@@ -154,12 +110,12 @@ const TagsEx = () => {
         {`1. div => <Div></Div>`}
       </Div>
       <Div>
-        <Button color={color.primary} onClick={() => Alert.alert('pressed')}>
+        <Button color={color.primary} onClick={() => alert('pressed')}>
           {`2. button => <Button></Button>`}
         </Button>
       </Div>
       <Div>
-        <Img 
+        <Img
           style={{
             width: '100%',
             aspectRatio: 1.774, 
@@ -167,24 +123,23 @@ const TagsEx = () => {
           }} 
           src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Div>
-      <P style={{  
+      <P style={{
         marginBottom: 24, 
         height: 80
         }}>
-        hello button~
-        <Span>hello</Span>
+        hello P
+        <Span style={{ color: color.danger }}>hello Span</Span>
         <Button 
           color={color.primary} 
-          style={{ display: 'inline-flex' }}>inline button</Button>
+          style={{ display: 'inline-flex', height: 40 }}>inline button</Button>
         hello~!
-        <P>hello next line!</P>
       </P>
       <P style={{ marginBottom: 20, color: color.primary }}>
         hello?
         <Button color={color.step500}>not inline button. normal button.</Button>
       </P>
       <P>
-        text with {`<Br/>`}<Br></Br>hello
+        text with <Br/>hello
       </P>
       <Button 
         color={color.primary}
@@ -197,15 +152,14 @@ const TagsEx = () => {
           marginBottom: 18
         }}>
           hellohellohello omg~
-          <Img 
+          <Img
           style={{
             width: 20,
-            aspectRatio: 1.774, 
+            aspectRatio: 1.774,
             backgroundColor: color.step500
-          }} 
+          }}
           src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
       </Button>
-
       <Button color={color.primary} fill="outline" style={{ marginBottom: 8 }}>
         outline
       </Button>
@@ -219,23 +173,3 @@ const TagsEx = () => {
 
 export default TagsEx;
 ```
-
-
-### 3. Tags Info
-
-#### <a name="Button"></a>Button
-
-| props | values | description |
-| :---:   | :---: | :---: |
-| `color` | `HEX` | |
-| `fill` | `base` `outline` `translucent` | default: `base` |
-| `onClick` | `onPress` | same as `onPress` |
-| `style` | `style` | `style` |
-| `chilren` | `chilren` | `chilren` |
-
-#### <a name="Img"></a>Img
-
-| props | values | description |
-| :---:   | :---: | :---: |
-| `objectFit` | `contain` `cover` | default: `contain` |
-| `style` | `style` | `style` |

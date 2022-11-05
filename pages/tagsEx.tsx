@@ -1,9 +1,8 @@
 import React from "react";
 import { useTheme } from "@local_modules/theme";
-import { Div, Button, Img, P, Span } from "@local_modules/tags";
+import { Div, Button, Img, P, Span, Br } from "@local_modules/tags";
 import { Theme } from "App.theme";
 import { Alert } from "react-native";
-import { Br } from "@local_modules/tags";
 
 const TagsEx = () => {
 
@@ -28,10 +27,10 @@ const TagsEx = () => {
         <Img 
           style={{
             width: '100%',
-            aspectRatio: 1.774, 
+            aspectRatio: 1.774,
             backgroundColor: color.step500
           }} 
-          src="https://devmonster.co.kr/static/media/main-bg-05.d88f30e7.png"></Img>
+          src={require('assets/images/back.png')}></Img>
       </Div>
       <P style={{  
         marginBottom: 24, 
