@@ -3,13 +3,12 @@ import { useTheme } from "@local_modules/theme";
 import { Div, Button, P } from "@local_modules/tags";
 import { Theme } from "App.theme";
 import { A, useRouter } from "@local_modules/router";
+import { RootStackParamList } from "App.navigation.type";
+import { RouterProps } from "@local_modules/router";
 
 const ParamEx = () => {
-
   const { color } = useTheme<Theme>();
-  const { query } = useRouter();
-
-  //console.log(colorScheme);
+  const { query } = useRouter<RouterProps<RootStackParamList, 'routerEx/paramEx'>>();
 
   return (
     <Div

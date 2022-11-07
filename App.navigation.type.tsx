@@ -16,3 +16,4 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
   RootStackParamList,
   Screen
 >;
+export type Query<RouteName extends keyof RootStackParamList> = RootStackParamList[RouteName];

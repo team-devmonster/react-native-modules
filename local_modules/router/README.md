@@ -88,9 +88,8 @@ import { Div, Button, P } from "@team-devmonster/react-native-tags";
 import { A, useRouter } from "@team-devmonster/react-native-router";
 
 const ParamEx = () => {
-
-  const { color, fontSize, shadow, colorScheme } = useTheme<Theme>();
-  const { query } = useRouter();
+  const { color } = useTheme<Theme>();
+  const { query } = useRouter<RouterProps<RootStackParamList, 'routerEx/paramEx'>>();
 
   return (
     <Div

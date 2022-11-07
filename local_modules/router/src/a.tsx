@@ -73,8 +73,16 @@ export const A = ({ href, as:_, replace, push, back, children }:Aprops) => {
   )
 }
 
-export function useRouter() {
+
+
+type ParamListBase = {
+  [x: string]: object | undefined;
+}
+type Keyof<T extends {}> = Extract<keyof T, string>;
+export type RouterProps<T extends ParamListBase, K extends keyof T = Keyof<T>> = T[K];
+
+export function useRouter<Query extends RouterProps<ParamListBase>>() {
   const { params, ...rest } = useRoute();
-  const query = params || {} as any;
+  const query = params as Query;
   return { query, ...rest };
 }
