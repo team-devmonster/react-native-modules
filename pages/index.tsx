@@ -1,6 +1,4 @@
 import React from "react";
-import { RootStackScreenProps } from "App.navigation.type";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
@@ -9,7 +7,7 @@ import { A } from "@local_modules/router";
 
 const Index = () => {
 
-  const { color, fontSize } = useTheme<Theme>();
+  const { color, fontSize, shadow } = useTheme<Theme>();
 
   return (
     <Div>
@@ -34,8 +32,8 @@ const Index = () => {
                 react-native-tags
               </Button>
             </A>
-            <A href={'/routerEx'} style={{ backgroundColor: 'red', padding: 20 }}>
-              <Button color={color.warning}>
+            <A href={'/routerEx'}>
+              <Button color={color.danger} fill="outline" style={{ ...shadow.base }}>
                 react-native-router
               </Button>
             </A>

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Pressable, GestureResponderEvent, Platform, useColorScheme } from "react-native";
+import { Pressable, GestureResponderEvent, Platform, useColorScheme } from "react-native";
 import { TagStyle, useTags } from "./tags";
 import { TagModule, borderPattern, contrast, darken, layoutPattern, marginPattern, shadowPattern, textPattern, useTagStyle } from "./utils";
 
@@ -100,36 +100,30 @@ export const Button = ({color:_color, fill:_fill, style, disabled, onClick, chil
   }
 
   return (
-    <View 
-      style={{
-        ...layoutStyle,
-        ...shadowStyle,
-        ...marginStyle,
-        overflow: 'hidden',
-        borderWidth: fillStyle.borderWidth,
-        borderColor: fillStyle.borderColor,
-        ...borderStyle
-      }}>
-        <Pressable 
-          disabled={disabled} 
-          style={({ pressed }) => {
-            return {
-              ...layoutStyle,
-              width: innerWidth(),
-              height: innerHeight(),
-              ...etcStyle,
-              backgroundColor: (!pressed || Platform.OS !== 'ios') ? (etcStyle?.backgroundColor || fillStyle.background.base) : fillStyle.background.pressed,
-            }
-          }}
-          android_ripple={{ color: fillStyle.background.ripple }}
-          onPress={onClick}
-          {...rest}>
-          <TagModule 
-            style={{
-              color: fillStyle.color, 
-              ...textStyle
-            }}>{children}</TagModule>
-        </Pressable>
-    </View>
+    <Pressable 
+      disabled={disabled} 
+      style={({ pressed }) => {
+        return {
+          ...layoutStyle,
+          width: innerWidth(),
+          height: innerHeight(),
+          borderWidth: fillStyle.borderWidth,
+          borderColor: fillStyle.borderColor,
+          ...shadowStyle,
+          ...marginStyle,
+          ...borderStyle,
+          ...etcStyle,
+          backgroundColor: (!pressed || Platform.OS !== 'ios') ? (etcStyle?.backgroundColor || fillStyle.background.base) : fillStyle.background.pressed,
+        }
+      }}
+      android_ripple={{ color: fillStyle.background.ripple }}
+      onPress={onClick}
+      {...rest}>
+      <TagModule 
+        style={{
+          color: fillStyle.color, 
+          ...textStyle
+        }}>{children}</TagModule>
+    </Pressable>
   )
 }

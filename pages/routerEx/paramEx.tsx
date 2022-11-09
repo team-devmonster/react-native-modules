@@ -8,7 +8,8 @@ import { RouterProps } from "@local_modules/router";
 
 const ParamEx = () => {
   const { color } = useTheme<Theme>();
-  const { query } = useRouter<RouterProps<RootStackParamList, 'routerEx/paramEx'>>();
+  const router = useRouter<RouterProps<RootStackParamList, 'routerEx/paramEx'>>();
+  const { query } = router;
 
   return (
     <Div
@@ -22,6 +23,9 @@ const ParamEx = () => {
       </P>
       <A back={true}>
         <Button color={color.primary}>Back</Button>
+      </A>
+      <A href="/index" reset={true}>
+        <Button color={color.primary}>reset to home</Button>
       </A>
     </Div>
   )
