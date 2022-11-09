@@ -1,6 +1,6 @@
 {
   "name": "@team-devmonster/react-native-router",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -37,6 +37,7 @@
     "react-native": ">=0.57",
     "@react-navigation/native": ">=6",
     "@react-navigation/native-stack": ">=6",
-    "@team-devmonster/react-native-tags": ">=1"
+    "@team-devmonster/react-native-tags": ">=1",
+    "expo-status-bar": ">=1"
   }
 }

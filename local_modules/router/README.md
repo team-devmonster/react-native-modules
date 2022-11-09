@@ -85,11 +85,13 @@ import React from "react";
 import { useTheme } from "@team-devmonster/react-theme";
 import { Theme } from "./App.theme";
 import { Div, Button, P } from "@team-devmonster/react-native-tags";
-import { A, useRouter } from "@team-devmonster/react-native-router";
+import { A, useRouter, RouterProps } from "@team-devmonster/react-native-router";
+import { RootStackParamList } from "App.navigation.type";
 
 const ParamEx = () => {
   const { color } = useTheme<Theme>();
-  const { query } = useRouter<RouterProps<RootStackParamList, 'routerEx/paramEx'>>();
+  const router = useRouter<RouterProps<RootStackParamList, 'routerEx/paramEx'>>();
+  const { query } = router;
 
   return (
     <Div
@@ -103,6 +105,9 @@ const ParamEx = () => {
       </P>
       <A back={true}>
         <Button color={color.primary}>Back</Button>
+      </A>
+      <A href="/index" reset={true}>
+        <Button color={color.primary}>reset to home</Button>
       </A>
     </Div>
   )
