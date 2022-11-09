@@ -9,14 +9,16 @@ interface LayoutProps {
   headerLeft?:React.ReactNode;
   headerRight?:React.ReactNode;
   headerBackTitle?:string;
+  headerTitleStyle?:StyleProp<Pick<TextStyle, "fontFamily" | "fontSize" | "fontWeight"> & {
+    color?: string | undefined;
+  }>;
   headerShown?: boolean;
-  children?: React.ReactNode;
   style?: TextStyle;
   statusBarStyle?:StatusBarStyle;
   contentStyle?:StyleProp<ViewStyle>
 }
 
-export const Header = ({ title, headerLeft, headerRight, headerBackTitle, headerShown, children, style, statusBarStyle, contentStyle }:LayoutProps) => {
+export const Header = ({ title, headerTitleStyle, headerLeft, headerRight, headerBackTitle, headerShown, style, statusBarStyle, contentStyle }:LayoutProps) => {
 
   const navigation = useNavigation();
   const colorScheme = useColorScheme();
@@ -30,8 +32,8 @@ export const Header = ({ title, headerLeft, headerRight, headerBackTitle, header
       headerTintColor: (style?.color || (colorScheme === 'dark' ? DarkTheme.colors.text : DefaultTheme.colors.text)) as string,
       contentStyle
     }
-    
     if(typeof title !== null) options.headerTitle = title;
+    if(headerTitleStyle) options.headerTitleStyle = headerTitleStyle;
     if(headerLeft) options.headerLeft = () => headerLeft;
     if(headerRight) options.headerRight = () => headerRight;
     if(headerBackTitle) options.headerBackTitle = headerBackTitle;
@@ -41,9 +43,6 @@ export const Header = ({ title, headerLeft, headerRight, headerBackTitle, header
   }, [title, headerLeft, headerRight, headerShown]);
 
   return (
-    <>
-      <StatusBar style={statusBarStyle || 'auto'} />
-      {children}
-    </>
+    <StatusBar style={statusBarStyle || 'auto'} />
   )
 }
