@@ -9,7 +9,8 @@ export type RootStackParamList = {
   'themeEx':undefined,
   'tagsEx':undefined,
   'routerEx':undefined,
-  'routerEx/paramEx':{ name:string, nickname:string, company:string }
+  'routerEx/paramEx':{ name:string, nickname:string, company:string },
+  'swiperEx':undefined
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

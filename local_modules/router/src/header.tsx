@@ -9,6 +9,7 @@ interface LayoutProps {
   headerLeft?:React.ReactNode;
   headerRight?:React.ReactNode;
   headerBackTitle?:string;
+  headerTitleAlign?:"left" | "center" | undefined;
   headerTitleStyle?:StyleProp<Pick<TextStyle, "fontFamily" | "fontSize" | "fontWeight"> & {
     color?: string | undefined;
   }>;
@@ -18,7 +19,7 @@ interface LayoutProps {
   contentStyle?:StyleProp<ViewStyle>
 }
 
-export const Header = ({ title, headerTitleStyle, headerLeft, headerRight, headerBackTitle, headerShown, style, statusBarStyle, contentStyle }:LayoutProps) => {
+export const Header = ({ title, headerTitleAlign, headerTitleStyle, headerLeft, headerRight, headerBackTitle, headerShown, style, statusBarStyle, contentStyle }:LayoutProps) => {
 
   const navigation = useNavigation();
   const colorScheme = useColorScheme();
@@ -33,6 +34,7 @@ export const Header = ({ title, headerTitleStyle, headerLeft, headerRight, heade
       contentStyle
     }
     if(typeof title !== null) options.headerTitle = title;
+    if(headerTitleAlign) options.headerTitleAlign = headerTitleAlign;
     if(headerTitleStyle) options.headerTitleStyle = headerTitleStyle;
     if(headerLeft) options.headerLeft = () => headerLeft;
     if(headerRight) options.headerRight = () => headerRight;

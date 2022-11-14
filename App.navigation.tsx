@@ -17,6 +17,7 @@ import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import RouterEx from "@pages/routerEx";
 import ParamEx from "@pages/routerEx/paramEx";
+import SwiperEx from "@pages/swiperEx";
 
 
 
@@ -36,6 +37,7 @@ const Navigation = () => {
           <RootStack.Screen name="tagsEx" component={TagsEx}/>
           <RootStack.Screen name="routerEx" component={RouterEx}/>
           <RootStack.Screen name="routerEx/paramEx" component={ParamEx}/>
+          <RootStack.Screen name="swiperEx" component={SwiperEx}/>
         </RootStack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
