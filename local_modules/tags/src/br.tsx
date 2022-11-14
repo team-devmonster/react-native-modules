@@ -1,6 +1,6 @@
 import React from "react";
-//import { Text } from "react-native";
+import { Text } from "react-native";
 
 export const Br = () => {
-  return <>'\n'</>;
+  return <Text>{'\n'}</Text>;
 }

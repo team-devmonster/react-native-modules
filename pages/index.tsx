@@ -40,11 +40,16 @@ const Index = () => {
                 react-native-router
               </Button>
             </A>
-            <A href={'/swiperEx'}>
+            <A href={'/formEx'}>
+              <Button color={color.danger} fill="outline" style={{ ...shadow.base }}>
+                react-native-form
+              </Button>
+            </A>
+            {/* <A href={'/swiperEx'}>
               <Button color={color.danger} fill="outline" style={{ ...shadow.base }}>
                 react-native-swiper
               </Button>
-            </A>
+            </A> */}
           </Div>
         </Div>
       </Div>

@@ -118,6 +118,7 @@ export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[
 export const TagModule = ({ children, style:textStyle }:TagProps) => {
 
   const [newChildren, setNewChildren] = useState<React.ReactNode>(null);
+  const [id] = useState(new Date().getTime());
 
   useEffect(() => {
     const newChildren = newChildrenFn();
@@ -143,17 +144,17 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
         else if(typeof child === 'string' || typeof child === 'number') {
           textchildren.push(child);
         }
-        else if(child.type?.name === 'Br') {
+        /* else if(child.type?.name === 'Br') {
           textchildren.push(`\n`);
-        }
+        } */
         else {
-          if(child.type?.name === 'Span' || child.props?.style?.display === 'inline-flex') {
+          if(child.type?.name === 'Br' || child.type?.name === 'Span' || child.props?.style?.display === 'inline-flex') {
             textchildren.push(child);
           }
           else {
             if(textchildren.length) {
               newChildren.push(
-                <Text key={newChildren.length} style={{
+                <Text key={`tag_${id}_${newChildren.length}`} style={{
                   lineHeight: textStyle?.fontSize ? textStyle.fontSize*1.28 : undefined,
                   ...textStyle as TextStyle
                 }}>{[...textchildren]}</Text>
@@ -167,7 +168,7 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
       // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
       if(textchildren.length) {
         newChildren.push(
-          <Text key={newChildren.length} style={{
+          <Text key={`tag_${id}_${newChildren.length}`} style={{
             lineHeight: textStyle?.fontSize ? textStyle.fontSize*1.28 : undefined,
             ...textStyle as TextStyle
           }}>{[...textchildren]}</Text>
