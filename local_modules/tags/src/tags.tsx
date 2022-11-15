@@ -17,8 +17,10 @@ export interface TagProps extends Omit<TextProps, 'style'> {
   style?:TagStyle
 }
 export interface TagStyle extends Omit<TextStyle, 'display'> {
-  cursor?:string,
   display?: 'flex' | 'inline-flex' | 'none'
+}
+export interface ButtonStyle extends TagStyle {
+  cursor?:string
 }
 
 const TagContext = createContext<{ tagConfig?:TagGroupConfig }>({});

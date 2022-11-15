@@ -1,12 +1,12 @@
 import React from "react";
 import { Pressable, GestureResponderEvent, Platform, useColorScheme } from "react-native";
-import { TagStyle, useTags } from "./tags";
+import { ButtonStyle, useTags } from "./tags";
 import { TagModule, borderPattern, contrast, darken, layoutPattern, marginPattern, shadowPattern, textPattern, useTagStyle } from "./utils";
 
 export interface ButtonProps {
   children?: React.ReactNode;
-  style?: TagStyle;
-  disabledStyle?:TagStyle;
+  style?: ButtonStyle;
+  disabledStyle?:ButtonStyle;
   color?: string;
   fill?: 'base' | 'outline' | 'translucent';
   onClick?: ((event: GestureResponderEvent) => void) | null | undefined;
