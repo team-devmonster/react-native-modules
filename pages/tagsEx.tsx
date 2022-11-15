@@ -74,8 +74,12 @@ const TagsEx = () => {
         outline
       </Button>
 
-      <Button color={color.primary} fill="translucent">
+      <Button color={color.primary} fill="translucent" style={{ marginBottom: 8 }}>
         translucent
+      </Button>
+
+      <Button color={color.primary} fill="translucent" disabled={true}>
+        disabled
       </Button>
     </Div>
   )

@@ -62,6 +62,9 @@ export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
       fontSize: fontSize.base,
       minHeight: 42,
       borderRadius: 5
+    },
+    disabledStyle: {
+      opacity: 0.5
     }
   }
   return (
@@ -166,6 +169,10 @@ const TagsEx = () => {
 
       <Button color={color.primary} fill="translucent">
         translucent
+      </Button>
+
+      <Button color={color.primary} fill="translucent" disabled={true}>
+        disabled
       </Button>
     </Div>
   )

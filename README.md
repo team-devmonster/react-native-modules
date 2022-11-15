@@ -13,12 +13,12 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 - [o] [react-native-theme](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
 - [o] [react-native-tags](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
 - [-] [react-native-router](https://www.npmjs.com/package/@team-devmonster/react-native-router)
-- [ ] react-native-modal
-- [ ] react-native-form
-- [ ] react-file
-- [ ] react-camera
+- [-] [react-native-form](https://www.npmjs.com/package/@team-devmonster/react-native-form)
 - [ ] react-img-editor
 - [ ] react-text-editor
+- [ ] react-native-modal
+- [ ] react-file
+- [ ] react-camera
 
 
 #### author: devmonster 

@@ -6,17 +6,19 @@ import { TagModule, borderPattern, contrast, darken, layoutPattern, marginPatter
 export interface ButtonProps {
   children?: React.ReactNode;
   style?: TagStyle;
+  disabledStyle?:TagStyle;
   color?: string;
   fill?: 'base' | 'outline' | 'translucent';
   onClick?: ((event: GestureResponderEvent) => void) | null | undefined;
   disabled?:boolean;
 }
 
-export const Button = ({color:_color, fill:_fill, style, disabled, onClick, children, ...rest}:ButtonProps) => {
+export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled, onClick, children, ...rest}:ButtonProps) => {
 
   const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
   const buttonTagStyle = tagConfig?.['button']?.style;
+  const buttonTagDisabledStyle = tagConfig?.['button']?.disabledStyle;
   const color = _color || tagConfig?.['button']?.color;
   const fill = _fill || tagConfig?.['button']?.fill || 'base';
 
@@ -70,7 +72,12 @@ export const Button = ({color:_color, fill:_fill, style, disabled, onClick, chil
     borderPattern, 
     marginPattern, 
     textPattern
-  ], [buttonTagStyle, style]);
+  ], [
+    buttonTagStyle, 
+    disabled ? buttonTagDisabledStyle : undefined,
+    style,
+    disabled ? disabledStyle : undefined
+  ]);
 
   const innerWidth = () => {
     if(typeof layoutStyle?.width === 'number') {
@@ -101,7 +108,7 @@ export const Button = ({color:_color, fill:_fill, style, disabled, onClick, chil
 
   return (
     <Pressable 
-      disabled={disabled} 
+      disabled={disabled}
       style={({ pressed }) => {
         return {
           ...layoutStyle,

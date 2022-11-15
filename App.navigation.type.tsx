@@ -10,6 +10,7 @@ export type RootStackParamList = {
   'tagsEx':undefined,
   'routerEx':undefined,
   'routerEx/paramEx':{ name:string, nickname:string, company:string },
+  'formEx':undefined,
   'swiperEx':undefined
 };
 

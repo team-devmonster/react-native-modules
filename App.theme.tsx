@@ -105,6 +105,9 @@ const theme = (color:Color) => {
       fontSize: fontSize.base,
       minHeight: 42,
       borderRadius: 5
+    },
+    disabledStyle: {
+      opacity: 0.5
     }
   }
 

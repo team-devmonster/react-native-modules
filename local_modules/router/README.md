@@ -32,7 +32,7 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
 ## Getting started
 
-`$ npm install @team-devmonster/react-native-tags@latest @team-devmonster/react-native-router@latest`
+`$ npm install @team-devmonster/react-native-router@latest`
 
 
 ## Examples
