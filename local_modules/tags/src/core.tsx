@@ -27,6 +27,7 @@ export const shadowPattern = /^(shadow|elevation)/;
 export const borderPattern = /^(border)/;
 export const marginPattern = /^(margin)/;
 export const placeholderPattern = /^(placeholder)/;
+export const gapPattern = /^(gap)/;
 
 export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[]):any[] => {
 
@@ -120,7 +121,13 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
               );
               textchildren.length = 0;
             }
-            newChildren.push(child);
+            if(textStyle?.margin) {
+              newChildren.push(React.cloneElement(child, { style: { ...child.props?.style, margin: textStyle.margin } }));
+            }
+            else {
+              newChildren.push(child);
+            }
+            
           }
         }
       }

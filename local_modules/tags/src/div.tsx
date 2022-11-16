@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { TagModule, textPattern, useTags, useTagStyle } from "./core";
+import { gapPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
 import { TagProps } from "./type";
 
 export const Div = ({style, children, ...rest}:TagProps) => {
@@ -9,16 +9,26 @@ export const Div = ({style, children, ...rest}:TagProps) => {
   const divTagStyle = tagConfig?.div;
 
   const [
-    textStyle, 
+    textStyle,
+    gapStyle, 
     viewStyle
   ]
   = useTagStyle([
-    textPattern
+    textPattern,
+    gapPattern
   ], [divTagStyle, style]);
   
+  const gap = gapStyle?.gap;
   return (
-    <View style={viewStyle} {...rest}>
-      <TagModule style={textStyle}>{children}</TagModule>
+    <View style={{
+      ...viewStyle,
+      ...(gap ? {margin: -gap/2} : null)
+    }} {...rest}>
+      <TagModule 
+        style={{
+        ...textStyle,
+        ...(gap ? {margin: gap/2} : null)
+      }}>{children}</TagModule>
     </View>
   )
 }

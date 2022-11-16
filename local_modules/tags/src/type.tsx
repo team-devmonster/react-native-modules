@@ -18,7 +18,8 @@ export interface TagProps extends Omit<TextProps, 'style'> {
   style?:TagStyle
 }
 export interface TagStyle extends Omit<TextStyle, 'display'> {
-  display?: 'flex' | 'inline-flex' | 'none'
+  display?: 'flex' | 'inline-flex' | 'none',
+  gap?:number
 }
 
 

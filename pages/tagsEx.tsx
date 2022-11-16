@@ -81,6 +81,30 @@ const TagsEx = () => {
       <Button color={color.primary} fill="translucent" disabled={true}>
         disabled
       </Button>
+
+
+
+      <P>gap Test1</P>
+      <Div style={{ borderColor: 'green', borderWidth: 1 }}>
+        <Div style={{ flexDirection: 'row', borderColor: 'blue', borderWidth: 1, margin: -4 }}>
+          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+        </Div>
+      </Div>
+
+      <P>gap Test2: ....how to remove -margin...?</P>
+      <Div style={{ borderColor: 'green', borderWidth: 1, flexDirection: 'row', gap: 8 }}>
+        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+      </Div>
     </Div>
   )
 }
