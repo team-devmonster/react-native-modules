@@ -12,6 +12,7 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 
 - [o] [`react-native-theme`](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
 - [o] [`react-native-router`](https://www.npmjs.com/package/@team-devmonster/react-native-router)
+- [o] [`react-native-form`](https://www.npmjs.com/package/@team-devmonster/react-native-form)
 
 #### author: devmonster 
 
@@ -26,6 +27,13 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 - [o] [Img](#Img)
 - [o] [P] => this is for text. `extends` `div`.
 - [o] [Span] => this is for inline text. `extends` `div`.
+
+### additional Items
+These items are not contained this library.
+from [`react-native-form`](https://www.npmjs.com/package/@team-devmonster/react-native-form).
+- [o] [Input]
+- [o] [ErrorText]
+
 
 ## Getting started
 

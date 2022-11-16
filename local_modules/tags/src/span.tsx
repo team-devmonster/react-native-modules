@@ -1,14 +1,13 @@
 import React from "react";
 import { Text, TextStyle } from "react-native";
-import { TagProps, useTags } from "./tags";
-import { useTagStyle } from "./utils";
-// import { textPattern } from "./utils";
+import { useTags, useTagStyle } from "./core";
+import { TagProps } from "./type";
 
 export const Span = ({style, children, ...rest}:TagProps) => {
 
   const { tagConfig } = useTags();
-  const divTagStyle = tagConfig?.['div'];
-  const spanTagStyle = tagConfig?.['span'];
+  const divTagStyle = tagConfig?.div;
+  const spanTagStyle = tagConfig?.span;
 
   const [
     newStyle

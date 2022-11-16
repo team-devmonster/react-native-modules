@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from '@local_modules/theme';
-import { ButtonProps, TagProvider, TagStyle } from '@local_modules/tags';
+import { TagProvider, TagStyle, ButtonConfig, InputConfig, ErrorTextConfig } from '@local_modules/tags';
 
 const color = {
   light: {
@@ -66,51 +66,6 @@ const theme = (color:Color) => {
     x9l: 128 as const
   }
 
-  const input:TagStyle = {
-    position: 'relative',
-    backgroundColor: color.white,
-    borderColor: color.step300,
-    color: color.black,
-    borderRadius: 5,
-    borderWidth: 1,
-    fontSize: fontSize.base,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-    minHeight: 42,
-    flex: 1
-  }
-  const inputError = {
-    borderColor: color.warning
-  }
-  const inputDisabled = {
-    backgroundColor: color.step100,
-    borderColor: color.step200
-  }
-
-  const div:TagStyle = {
-    color: color.black,
-    fontSize: fontSize.base
-  }
-
-  const button:ButtonProps = {
-    color: color.white,
-    style: {
-      cursor: 'pointer',
-      position: 'relative',
-      padding: 10,
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontSize: fontSize.base,
-      minHeight: 42,
-      borderRadius: 5
-    },
-    disabledStyle: {
-      opacity: 0.5
-    }
-  }
-
   const shadow = {
     base: {
       shadowColor: color.black,
@@ -144,12 +99,68 @@ const theme = (color:Color) => {
     }
   }
 
+  const div:TagStyle = {
+    color: color.black,
+    fontSize: fontSize.base
+  }
+
+  const button:ButtonConfig = {
+    color: color.white,
+    style: {
+      cursor: 'pointer',
+      position: 'relative',
+      padding: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: fontSize.base,
+      minHeight: 42,
+      borderRadius: 5
+    },
+    disabledStyle: {
+      opacity: 0.5
+    }
+  }
+
+  const input:InputConfig = {
+    style: {
+      backgroundColor: color.white,
+      borderColor: color.step300,
+      color: color.black,
+      borderRadius: 5,
+      borderWidth: 1,
+      fontSize: fontSize.base,
+      paddingTop: 10,
+      paddingBottom: 10,
+      paddingLeft: 10,
+      paddingRight: 10,
+      minHeight: 42,
+      marginTop: 8,
+      marginBottom: 8
+    },
+    errorStyle: {
+      borderColor: color.warning,
+      marginBottom: 0 // for errorText
+    },
+    disabledStyle: {
+      backgroundColor: color.step100,
+      borderColor: color.step200
+    }
+  }
+
+  const errorText:ErrorTextConfig = {
+    style: {
+      color: color.danger,
+      marginBottom: 8
+    }
+  }
+
   return {
     // basic theme
     color, fontSize, shadow,
-    // components theme
-    div, input, inputError, inputDisabled,
-    button
+    // tags theme
+    div, button,
+    // form theme
+    input, errorText
   }
 }
 
@@ -167,9 +178,9 @@ export const AppThemeProvider = ({children}: {children:React.ReactNode}) => {
 }
 
 export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
-  const { div, button } = useTheme<Theme>();
+  const { div, button, input, errorText } = useTheme<Theme>();
   return (
-    <TagProvider tagConfig={{ div, button }}>
+    <TagProvider tagConfig={{ div, button, input, errorText }}>
       {children}
     </TagProvider>
   )

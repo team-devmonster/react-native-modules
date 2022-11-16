@@ -1,7 +1,8 @@
 import React from "react";
-import { Pressable, GestureResponderEvent, Platform, useColorScheme } from "react-native";
-import { ButtonStyle, useTags } from "./tags";
-import { TagModule, borderPattern, contrast, darken, layoutPattern, marginPattern, shadowPattern, textPattern, useTagStyle } from "./utils";
+import { Pressable, Platform, useColorScheme, GestureResponderEvent } from "react-native";
+import { borderPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
+import { ButtonStyle } from "./type";
+import { contrast, darken } from "./utils";
 
 export interface ButtonProps {
   children?: React.ReactNode;
@@ -17,10 +18,10 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
 
   const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
-  const buttonTagStyle = tagConfig?.['button']?.style;
-  const buttonTagDisabledStyle = tagConfig?.['button']?.disabledStyle;
-  const color = _color || tagConfig?.['button']?.color;
-  const fill = _fill || tagConfig?.['button']?.fill || 'base';
+  const buttonTagStyle = tagConfig?.button?.style;
+  const buttonTagDisabledStyle = tagConfig?.button?.disabledStyle;
+  const color = _color || tagConfig?.button?.color;
+  const fill = _fill || tagConfig?.button?.fill || 'base';
 
   let fillStyle:any;
   switch(fill) {

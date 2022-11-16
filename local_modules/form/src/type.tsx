@@ -1,12 +1,13 @@
 import { SyntheticEvent } from "react"
 
 export interface InputRuleProps {
-  required?: string |
+  required?: boolean | 
+    string |
     {
       value: boolean,
       message: string
     },
-  maxLength?:
+  maxLength?: number |
     {
       value: number,
       message: string
@@ -46,9 +47,11 @@ export interface InputRuleProps {
   onBlur?:
     (e: SyntheticEvent) => void,
   value?:
-    unknown,
+    any,
   shouldUnregister?:
     boolean,
   deps?:
     string | string[]
 }
+
+export interface FormValues {[name:string]:any};

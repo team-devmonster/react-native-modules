@@ -12,10 +12,11 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@hookform/error-message": "^2.0.1",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
-    "@team-devmonster/react-native-tags": "^1.2.18",
+    "@team-devmonster/react-native-tags": "^1.4.2",
     "expo": "~46.0.16",
     "expo-asset": "~8.6.1",
     "expo-constants": "~13.2.4",

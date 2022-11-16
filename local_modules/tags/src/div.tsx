@@ -1,12 +1,12 @@
 import React from "react";
 import { View } from "react-native";
-import { TagProps, useTags } from "./tags";
-import { TagModule, textPattern, useTagStyle } from "./utils";
+import { TagModule, textPattern, useTags, useTagStyle } from "./core";
+import { TagProps } from "./type";
 
 export const Div = ({style, children, ...rest}:TagProps) => {
 
   const { tagConfig } = useTags();
-  const divTagStyle = tagConfig?.['div'];
+  const divTagStyle = tagConfig?.div;
 
   const [
     textStyle, 
