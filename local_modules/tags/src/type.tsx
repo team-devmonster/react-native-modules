@@ -9,7 +9,9 @@ export interface TagGroupConfig {
   span?:TagStyle
   // forms
   input?: InputConfig
-  errorText?: ErrorTextConfig
+  errorText?: ErrorTextConfig,
+  checkbox?: InputConfig,
+  radio?: InputConfig
 }
 
 export interface TagProps extends Omit<TextProps, 'style'> {
@@ -35,10 +37,13 @@ export interface ButtonConfig {
 
 // forms
 
+export interface InputStyle extends TagStyle {
+  placeholderColor?:string
+}
 export interface InputConfig {
-  style?:TagStyle,
-  disabledStyle?:TagStyle,
-  errorStyle?:TagStyle
+  style?:InputStyle,
+  disabledStyle?:InputStyle,
+  errorStyle?:InputStyle
 }
 
 export interface ErrorTextConfig {

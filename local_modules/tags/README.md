@@ -33,6 +33,10 @@ These items are not contained this library.
 from [`react-native-form`](https://www.npmjs.com/package/@team-devmonster/react-native-form).
 - [o] [Input]
 - [o] [ErrorText]
+- [o] [input[type=checkbox]]
+- [o] [input[type=radio]]
+- [o] [input[type=date]]
+- [o] [input[type=time]]
 
 
 ## Getting started
@@ -48,7 +52,7 @@ Easy. Too Easy.
 
 ```javascript
 // App.theme.tsx => You can use any file name :)
-import { TagProvider, TagStyle, ButtonProps } from '@team-devmonster/react-native-tags';
+import { TagProvider, TagStyle, ButtonConfig, InputConfig, ErrorTextConfig } from '@team-devmonster/react-native-tags';
 
 export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
 
@@ -75,8 +79,41 @@ export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
       opacity: 0.5
     }
   }
+  const input:InputConfig = {
+    style: {
+      backgroundColor: color.white,
+      borderColor: color.step300,
+      color: color.black,
+      placeholderColor: color.step500,
+      borderRadius: 5,
+      borderWidth: 1,
+      fontSize: fontSize.base,
+      paddingTop: 10,
+      paddingBottom: 10,
+      paddingLeft: 10,
+      paddingRight: 10,
+      minHeight: 42,
+      marginTop: 8,
+      marginBottom: 8
+    },
+    errorStyle: {
+      borderColor: color.warning,
+      marginBottom: 0 // for errorText
+    },
+    disabledStyle: {
+      backgroundColor: color.step100,
+      borderColor: color.step200
+    }
+  }
+
+  const errorText:ErrorTextConfig = {
+    style: {
+      color: color.danger,
+      marginBottom: 8
+    }
+  }
   return (
-    <TagProvider tagConfig={{ div, button }}>
+    <TagProvider tagConfig={{ div, button, input, errorText }}>
       {children}
     </TagProvider>
   )

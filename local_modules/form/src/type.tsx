@@ -34,12 +34,12 @@ export interface InputRuleProps {
     },
   validate?:
     Function | Object,
-  alueAsNumber?:
+  valueAsNumber?:
     boolean,
   valueAsDate?:
     boolean,
   setValueAs?:
-    <T>(value: any) => T
+    (value: any) => any,
   disabled?:
     boolean,
   onChange?:

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Image, ImageSourcePropType, ImageStyle, View } from "react-native"
+import { Image, ImageErrorEventData, ImageLoadEventData, ImageSourcePropType, ImageStyle, NativeSyntheticEvent, View } from "react-native"
 interface TagImageStyle extends Omit<ImageStyle, 'display'|'resizeMode'> {
   display?: 'flex' | 'inline-flex' | 'none',
   objectFit?: "contain" | "cover"
@@ -7,10 +7,12 @@ interface TagImageStyle extends Omit<ImageStyle, 'display'|'resizeMode'> {
 
 interface ImgProps {
   src: ImageSourcePropType | string,
-  style?: TagImageStyle
+  style?: TagImageStyle,
+  onError?: ((error: NativeSyntheticEvent<ImageErrorEventData>) => void),
+  onLoad?: ((event: NativeSyntheticEvent<ImageLoadEventData>) => void)
 }
 
-export const Img = ({ src, style }:ImgProps) => {
+export const Img = ({ src, style, ...rest }:ImgProps) => {
 
   const [source, setSource] = useState<ImageSourcePropType>();
 
@@ -29,6 +31,7 @@ export const Img = ({ src, style }:ImgProps) => {
     source 
     ?
     <Image 
+      {...rest}
       resizeMode={style?.objectFit || 'contain'}
       source={source} 
       style={{

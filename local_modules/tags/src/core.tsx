@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { ViewStyle, TextStyle, Text } from "react-native";
+import { TextStyle, Text } from "react-native";
 import { TagGroupConfig, TagProps, TagStyle } from "./type";
 
 
@@ -26,8 +26,9 @@ export const layoutPattern = /^(flex|width|height)$/;
 export const shadowPattern = /^(shadow|elevation)/;
 export const borderPattern = /^(border)/;
 export const marginPattern = /^(margin)/;
+export const placeholderPattern = /^(placeholder)/;
 
-export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[]):(ViewStyle | TextStyle)[] => {
+export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[]):any[] => {
 
   const [newStyles, setNewStyles] = useState<(TagStyle|null)[]>(new Array(patterns.length+1).fill(null).map(() => ({})));
 
@@ -70,7 +71,7 @@ export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[
     setNewStyles(styles);
   }, styleStates);
 
-  return newStyles as (ViewStyle | TextStyle)[];
+  return newStyles as any[];
 }
 
 export const TagModule = ({ children, style:textStyle }:TagProps) => {

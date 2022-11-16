@@ -126,6 +126,7 @@ const theme = (color:Color) => {
       backgroundColor: color.white,
       borderColor: color.step300,
       color: color.black,
+      placeholderColor: color.step500,
       borderRadius: 5,
       borderWidth: 1,
       fontSize: fontSize.base,
@@ -133,17 +134,23 @@ const theme = (color:Color) => {
       paddingBottom: 10,
       paddingLeft: 10,
       paddingRight: 10,
-      minHeight: 42,
-      marginTop: 8,
-      marginBottom: 8
+      minHeight: 42
     },
     errorStyle: {
       borderColor: color.warning,
-      marginBottom: 0 // for errorText
+      //marginBottom: 0 // for errorText
     },
     disabledStyle: {
       backgroundColor: color.step100,
       borderColor: color.step200
+    }
+  }
+  const checkbox:InputConfig = {
+    style: {
+      color: color.primary
+    },
+    errorStyle: {
+      marginBottom: 0
     }
   }
 
@@ -160,7 +167,7 @@ const theme = (color:Color) => {
     // tags theme
     div, button,
     // form theme
-    input, errorText
+    input, checkbox, errorText
   }
 }
 
@@ -178,9 +185,9 @@ export const AppThemeProvider = ({children}: {children:React.ReactNode}) => {
 }
 
 export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
-  const { div, button, input, errorText } = useTheme<Theme>();
+  const { div, button, input, checkbox, errorText } = useTheme<Theme>();
   return (
-    <TagProvider tagConfig={{ div, button, input, errorText }}>
+    <TagProvider tagConfig={{ div, button, input, checkbox, errorText }}>
       {children}
     </TagProvider>
   )
