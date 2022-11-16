@@ -8,6 +8,10 @@ General `react-native-modules` load map => [here](https://github.com/team-devmon
 General `react-modules` load map => [here](https://github.com/team-devmonster/react-modules);
 
 
+## all start
+
+`$ npm install @team-devmonster/react-native-theme@latest @team-devmonster/react-native-tags@latest @team-devmonster/react-native-router@latest @team-devmonster/react-native-form@latest`
+
 ## modules
 
 - [o] [react-native-theme](https://www.npmjs.com/package/@team-devmonster/react-native-theme)

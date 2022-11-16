@@ -19,15 +19,21 @@ export const Div = ({style, children, ...rest}:TagProps) => {
   ], [divTagStyle, style]);
   
   const gap = gapStyle?.gap;
+  const rowGap = gapStyle?.rowGap;
+  const columnGap = gapStyle?.columnGap;
   return (
     <View style={{
       ...viewStyle,
-      ...(gap ? {margin: -gap/2} : null)
+      ...(gap ? {margin: -gap/2} : null),
+      ...(rowGap ? {marginVertical: -rowGap/2} : null),
+      ...(columnGap ? {marginHorizontal: -columnGap/2} : null)
     }} {...rest}>
       <TagModule 
         style={{
         ...textStyle,
-        ...(gap ? {margin: gap/2} : null)
+        ...(gap ? {margin: gap/2} : null),
+        ...(rowGap ? {marginVertical: rowGap/2} : null),
+        ...(columnGap ? {marginHorizontal: columnGap/2} : null)
       }}>{children}</TagModule>
     </View>
   )

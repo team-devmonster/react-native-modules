@@ -113,7 +113,7 @@ const theme = (color:Color) => {
       alignItems: 'center',
       justifyContent: 'center',
       fontSize: fontSize.base,
-      minHeight: 42,
+      height: 42,
       borderRadius: 5
     },
     disabledStyle: {

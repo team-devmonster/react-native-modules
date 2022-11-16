@@ -27,7 +27,7 @@ export const shadowPattern = /^(shadow|elevation)/;
 export const borderPattern = /^(border)/;
 export const marginPattern = /^(margin)/;
 export const placeholderPattern = /^(placeholder)/;
-export const gapPattern = /^(gap)/;
+export const gapPattern = /(gap|Gap)/;
 
 export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[]):any[] => {
 
@@ -104,9 +104,6 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
         else if(typeof child === 'string' || typeof child === 'number') {
           textchildren.push(child);
         }
-        /* else if(child.type?.name === 'Br') {
-          textchildren.push(`\n`);
-        } */
         else {
           if(child.type?.name === 'Br' || child.type?.name === 'Span' || child.props?.style?.display === 'inline-flex') {
             textchildren.push(child);
@@ -121,8 +118,22 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
               );
               textchildren.length = 0;
             }
-            if(textStyle?.margin) {
-              newChildren.push(React.cloneElement(child, { style: { ...child.props?.style, margin: textStyle.margin } }));
+            
+            if(textStyle?.margin || textStyle?.marginVertical || textStyle?.marginHorizontal) {
+              newChildren.push(
+                <React.Fragment key={`tag_${id}_${newChildren.length}`}>
+                  {
+                    React.cloneElement(child, {
+                      style: { 
+                        ...child.props?.style, 
+                        margin: textStyle?.margin,
+                        marginVertical: textStyle?.marginVertical,
+                        marginHorizontal: textStyle?.marginHorizontal,
+                      } 
+                    })
+                  }
+                </React.Fragment>
+              );
             }
             else {
               newChildren.push(child);

@@ -14,12 +14,14 @@ export interface TagGroupConfig {
   radio?: InputConfig
 }
 
-export interface TagProps extends Omit<TextProps, 'style'> {
+export interface TagProps extends Omit<TextProps, 'style'|'onPress'> {
   style?:TagStyle
 }
 export interface TagStyle extends Omit<TextStyle, 'display'> {
   display?: 'flex' | 'inline-flex' | 'none',
-  gap?:number
+  gap?:number,
+  rowGap?:number,
+  columnGap?:number
 }
 
 
