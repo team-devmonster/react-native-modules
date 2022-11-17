@@ -2,9 +2,9 @@ import React from "react";
 
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
-import { Button, Div, P } from "@local_modules/tags";
+import { Button, Div } from "@local_modules/tags";
 import { useForm } from "react-hook-form";
-import { ErrorText, Input } from "@local_modules/form";
+import { ErrorText, Input, Label } from "@local_modules/form";
 import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -13,16 +13,18 @@ interface FormProps {
   password:string,
   price:number,
   agree1:boolean,
+  gender:'man'|'woman'|'etc',
 }
 
 const FormEx = () => {
 
   const { color, fontSize, shadow } = useTheme<Theme>();
 
-  const { control, handleSubmit, formState: { errors }, setFocus } = useForm<FormProps>({
+  const { control, handleSubmit, formState: { errors }, setFocus, setValue, watch } = useForm<FormProps>({
     mode: 'onChange',
     defaultValues: {
-      id: 'hello'
+      id: 'hello',
+      gender: 'man'
     }
   });
 
@@ -62,23 +64,60 @@ const FormEx = () => {
             required="please insert price"></Input>
           <ErrorText errors={errors} name="price"></ErrorText>
 
-          <Div style={{ flexDirection: 'row', alignItems: 'center', columnGap: 8 }}>
+          <Button 
+            style={{ flexDirection: 'row', alignItems: 'center', columnGap: 8, padding: 0, paddingVertical: 4 }} 
+            onClick={() => setValue('agree1', !watch('agree1'))}>
             <Input
               control={control}
               name="agree1"
               type="checkbox"
               required="place agree privacy usage"></Input>
-            {/* <Label control={control} name="agree1" style={{ flex: 1 }}>privacy usage</Label> */}
+            <Label style={{ flex: 1 }}>privacy usage</Label>
             <Button color={color.primary} fill="outline">view</Button>
-          </Div>
+          </Button>
           <ErrorText errors={errors} name="agree1"></ErrorText>
 
-          <Div style={{ height: 2000 }}></Div>
+          <Button 
+            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', columnGap: 8, padding: 0, paddingVertical: 4 }}
+            onClick={() => setValue('gender', 'man')}>
+            <Input
+              control={control}
+              name="gender"
+              value="man"
+              type="radio"></Input>
+            <Label>man</Label>
+          </Button>
+
+          <Button 
+            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', columnGap: 8, padding: 0, paddingVertical: 4 }}
+            onClick={() => setValue('gender', 'woman')}>
+            <Input
+              control={control}
+              name="gender"
+              value="woman"
+              type="radio"></Input>
+            <Label>woman</Label>
+          </Button>
+
+          <Button 
+            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', columnGap: 8, padding: 0, paddingVertical: 4 }}
+            onClick={() => setValue('gender', 'etc')}>
+            <Input
+              control={control}
+              name="gender"
+              value="etc"
+              type="radio"></Input>
+            <Label>etc</Label>
+          </Button>
 
           <Button 
             onClick={() => {
+              setFocus('price');
+            }}>focus input</Button>
+          <Button 
+            onClick={() => {
               setFocus('agree1');
-            }}>click</Button>
+            }}>focus checkbox</Button>
           <Button 
             color={color.primary} 
             onClick={handleSubmit(onSubmit)}>login</Button>

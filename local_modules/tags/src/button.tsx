@@ -1,16 +1,20 @@
 import React, { forwardRef } from "react";
-import { Pressable, Platform, useColorScheme, GestureResponderEvent, View } from "react-native";
-import { borderPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
-import { ButtonStyle, TagProps } from "./type";
+import { Pressable, Platform, useColorScheme, GestureResponderEvent, View, PressableProps } from "react-native";
+import { gapPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
+import { ButtonStyle } from "./type";
 import { contrast, darken } from "./utils";
 
-export interface ButtonProps extends TagProps {
+interface ButtonClickEvent extends GestureResponderEvent {
+  [name:string]:any
+}
+export interface ButtonProps extends Omit<PressableProps, 'style'|'children'|'onBlur'|'onFocus'> {
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
   color?: string;
   fill?: 'base' | 'outline' | 'translucent';
-  onClick?: ((event: GestureResponderEvent) => void) | null | undefined;
+  onClick?: ((event: ButtonClickEvent) => void) | null | undefined;
   disabled?:boolean;
+  children?:React.ReactNode
 }
 
 export const Button = forwardRef<View, ButtonProps>(({color:_color, fill:_fill, style, disabledStyle, disabled, onClick, children, ...rest}, ref) => {
@@ -59,19 +63,13 @@ export const Button = forwardRef<View, ButtonProps>(({color:_color, fill:_fill, 
   }
 
   const [
-    layoutStyle, 
-    shadowStyle, 
-    borderStyle, 
-    marginStyle, 
     textStyle, 
-    etcStyle
+    gapStyle,
+    buttonStyle
   ]
   = useTagStyle([
-    layoutPattern, 
-    shadowPattern, 
-    borderPattern, 
-    marginPattern, 
-    textPattern
+    textPattern,
+    gapPattern
   ], [
     buttonTagStyle, 
     disabled ? buttonTagDisabledStyle : undefined,
@@ -79,32 +77,9 @@ export const Button = forwardRef<View, ButtonProps>(({color:_color, fill:_fill, 
     disabled ? disabledStyle : undefined
   ]);
 
-  const innerWidth = () => {
-    if(typeof layoutStyle?.width === 'number') {
-      if(borderStyle?.borderWidth) {
-        return layoutStyle.width - borderStyle.borderWidth*2;
-      }
-      else {
-        return layoutStyle?.width;
-      }
-    }
-    else {
-      return layoutStyle?.width;
-    }
-  }
-  const innerHeight = () => {
-    if(typeof layoutStyle?.height === 'number') {
-      if(borderStyle?.borderWidth) {
-        return layoutStyle.height - borderStyle.borderWidth*2;
-      }
-      else {
-        return layoutStyle?.height;
-      }
-    }
-    else {
-      return layoutStyle?.height;
-    }
-  }
+  const gap = gapStyle?.gap;
+  const rowGap = gapStyle?.rowGap;
+  const columnGap = gapStyle?.columnGap;
 
   return (
     <Pressable 
@@ -112,16 +87,13 @@ export const Button = forwardRef<View, ButtonProps>(({color:_color, fill:_fill, 
       disabled={disabled}
       style={({ pressed }) => {
         return {
-          ...layoutStyle,
-          width: innerWidth(),
-          height: innerHeight(),
           borderWidth: fillStyle.borderWidth,
           borderColor: fillStyle.borderColor,
-          ...shadowStyle,
-          ...marginStyle,
-          ...borderStyle,
-          ...etcStyle,
-          backgroundColor: (!pressed || Platform.OS !== 'ios') ? (etcStyle?.backgroundColor || fillStyle.background.base) : fillStyle.background.pressed,
+          backgroundColor: (!pressed || Platform.OS !== 'ios') ? fillStyle.background.base : fillStyle.background.pressed,
+          ...buttonStyle,
+          ...(gap ? {margin: -gap/2} : null),
+          ...(rowGap ? {marginVertical: -rowGap/2} : null),
+          ...(columnGap ? {marginHorizontal: -columnGap/2} : null)
         }
       }}
       android_ripple={{ color: fillStyle.background.ripple }}
@@ -130,7 +102,10 @@ export const Button = forwardRef<View, ButtonProps>(({color:_color, fill:_fill, 
       <TagModule 
         style={{
           color: fillStyle.color, 
-          ...textStyle
+          ...textStyle,
+          ...(gap ? {margin: gap/2} : null),
+          ...(rowGap ? {marginVertical: rowGap/2} : null),
+          ...(columnGap ? {marginHorizontal: columnGap/2} : null)
         }}>{children}</TagModule>
     </Pressable>
   )

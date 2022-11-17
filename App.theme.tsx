@@ -113,7 +113,7 @@ const theme = (color:Color) => {
       alignItems: 'center',
       justifyContent: 'center',
       fontSize: fontSize.base,
-      height: 42,
+      minHeight: 42,
       borderRadius: 5
     },
     disabledStyle: {
@@ -148,9 +148,12 @@ const theme = (color:Color) => {
   const checkbox:InputConfig = {
     style: {
       color: color.primary
-    },
-    errorStyle: {
-      marginBottom: 0
+    }
+  }
+
+  const radio:InputConfig = {
+    style: {
+      color: color.primary
     }
   }
 
@@ -167,7 +170,7 @@ const theme = (color:Color) => {
     // tags theme
     div, button,
     // form theme
-    input, checkbox, errorText
+    input, checkbox, radio, errorText
   }
 }
 
@@ -185,9 +188,9 @@ export const AppThemeProvider = ({children}: {children:React.ReactNode}) => {
 }
 
 export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
-  const { div, button, input, checkbox, errorText } = useTheme<Theme>();
+  const { div, button, input, checkbox, radio, errorText } = useTheme<Theme>();
   return (
-    <TagProvider tagConfig={{ div, button, input, checkbox, errorText }}>
+    <TagProvider tagConfig={{ div, button, input, checkbox, radio, errorText }}>
       {children}
     </TagProvider>
   )
