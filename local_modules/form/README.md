@@ -1,7 +1,9 @@
 # @team-devmonster/react-native-form
 
 > :warning: **It's under development**<br>
-> :warning: **It's using react-hook-form**
+> :warning: **It's using [react-hook-form](https://www.npmjs.com/package/react-hook-form)**<br>
+> :warning: **It's using [react-native-svg](https://github.com/software-mansion/react-native-svg)**<br>
+> :warning: **It's using @team-devmonster/react-native-tags**
 
 ## This is under devmonster's react & react-native union project.
 
@@ -30,7 +32,7 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
 ## Getting started
 
-`$ npm install react-hook-form @team-devmonster/react-native-form@latest`
+`$ npm install react-hook-form @team-devmonster/react-native-tags@latest @team-devmonster/react-native-form@latest`
 
 
 ## Examples

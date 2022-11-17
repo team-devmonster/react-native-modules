@@ -10,6 +10,7 @@ export interface TagGroupConfig {
   // forms
   input?: InputConfig
   errorText?: ErrorTextConfig,
+  label?: LabelConfig,
   checkbox?: InputConfig,
   radio?: InputConfig
 }
@@ -51,4 +52,10 @@ export interface InputConfig {
 
 export interface ErrorTextConfig {
   style?:TagStyle
+}
+
+export interface LabelConfig {
+  style?:TagStyle,
+  disabledStyle?:TagStyle,
+  errorStyle?:TagStyle
 }

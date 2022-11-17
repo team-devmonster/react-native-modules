@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useLayoutEffect, useState } from "react"
 import { Image, ImageErrorEventData, ImageLoadEventData, ImageSourcePropType, ImageStyle, NativeSyntheticEvent, View } from "react-native"
 interface TagImageStyle extends Omit<ImageStyle, 'display'|'resizeMode'> {
   display?: 'flex' | 'inline-flex' | 'none',
@@ -16,7 +16,7 @@ export const Img = ({ src, style, ...rest }:ImgProps) => {
 
   const [source, setSource] = useState<ImageSourcePropType>();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if(typeof src === 'string') {
       setSource({ uri: src });
     }

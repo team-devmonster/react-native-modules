@@ -1,11 +1,10 @@
-import React from "react";
-import { Pressable, Platform, useColorScheme, GestureResponderEvent } from "react-native";
+import React, { forwardRef } from "react";
+import { Pressable, Platform, useColorScheme, GestureResponderEvent, View } from "react-native";
 import { borderPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
-import { ButtonStyle } from "./type";
+import { ButtonStyle, TagProps } from "./type";
 import { contrast, darken } from "./utils";
 
-export interface ButtonProps {
-  children?: React.ReactNode;
+export interface ButtonProps extends TagProps {
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
   color?: string;
@@ -14,7 +13,7 @@ export interface ButtonProps {
   disabled?:boolean;
 }
 
-export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled, onClick, children, ...rest}:ButtonProps) => {
+export const Button = forwardRef<View, ButtonProps>(({color:_color, fill:_fill, style, disabledStyle, disabled, onClick, children, ...rest}, ref) => {
 
   const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
@@ -39,8 +38,8 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
       fillStyle = {
         background: {
           base: colorScheme === 'dark' ? '#000000' : '#ffffff',
-          pressed: color || undefined,
-          ripple: color || undefined
+          pressed: `${color}32` || undefined,
+          ripple: `${color}32` || undefined
         },
         color: color || undefined,
         borderColor: color,
@@ -109,6 +108,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
 
   return (
     <Pressable 
+      ref={ref}
       disabled={disabled}
       style={({ pressed }) => {
         return {
@@ -134,4 +134,4 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
         }}>{children}</TagModule>
     </Pressable>
   )
-}
+})

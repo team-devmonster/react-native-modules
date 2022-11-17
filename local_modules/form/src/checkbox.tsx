@@ -1,9 +1,10 @@
 import React from "react";
-import { FormValues, InputRuleProps } from "./type";
+import { useColorScheme } from "react-native";
 import { Control, Controller, Path as Names } from 'react-hook-form';
 import Svg, { Path } from "react-native-svg";
+
+import { FormValues, InputRuleProps } from "./type";
 import { TagStyle, useTags, useTagStyle, Button } from '@team-devmonster/react-native-tags';
-import { useColorScheme } from "react-native";
 
 
 const checkboxDefaultStyle:TagStyle = {
@@ -55,7 +56,7 @@ export function Checkbox<T extends FormValues>(
       defaultValue={value}
       rules={rules as any}
       render={({ 
-        field: { onChange, value },
+        field: { ref, onChange, value },
         fieldState: { error }
        }) => {
 
@@ -75,6 +76,7 @@ export function Checkbox<T extends FormValues>(
 
         return (
           <Button
+            ref={ref}
             color={colorScheme === 'dark' ? '#000000' : '#ffffff'}
             style={{
               ...checkboxDefaultStyle as any,
@@ -85,9 +87,9 @@ export function Checkbox<T extends FormValues>(
             }}>
               {
                 value ?
-                <Svg fill="none" viewBox="0 0 24 24" stroke={newStyle.color || '#FF6420'} strokeWidth={2}>
-                  <Path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </Svg>
+                  <Svg fill="none" viewBox="0 0 24 24" stroke={newStyle.color || '#FF6420'} strokeWidth={2}>
+                    <Path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </Svg>
                 : null
               }
           </Button>

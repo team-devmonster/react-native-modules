@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useLayoutEffect, useState } from "react";
 import { TextStyle, Text } from "react-native";
 import { TagGroupConfig, TagProps, TagStyle } from "./type";
 
@@ -33,7 +33,7 @@ export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[
 
   const [newStyles, setNewStyles] = useState<(TagStyle|null)[]>(new Array(patterns.length+1).fill(null).map(() => ({})));
 
-  useEffect(() => {
+  useLayoutEffect(() => {
 
     let styleObj = {};
     styleStates.forEach(styleState => {
@@ -80,7 +80,7 @@ export const TagModule = ({ children, style:textStyle }:TagProps) => {
   const [newChildren, setNewChildren] = useState<React.ReactNode>(null);
   const [id] = useState(new Date().getTime());
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const newChildren = newChildrenFn();
     setNewChildren(newChildren);
   }, [children, textStyle]);

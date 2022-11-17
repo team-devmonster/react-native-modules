@@ -23,9 +23,9 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 ## items
 - [o] [Br] => Just br.
 - [o] [Button](#Button)
-- [o] [Div](#Button)
+- [o] [Div]
 - [o] [Img](#Img)
-- [o] [P] => this is for text. `extends` `div`.
+- [o] [P] => this is for text. `extends` `divConfig`.
 - [o] [Span] => this is for inline text. `extends` `div`.
 
 ### additional Items
@@ -33,6 +33,7 @@ These items are not contained this library.
 from [`react-native-form`](https://www.npmjs.com/package/@team-devmonster/react-native-form).
 - [o] [Input]
 - [o] [ErrorText]
+- [o] [Label] => this is input label. `extends` `divConfig`.
 - [o] [input[type=checkbox]]
 - [o] [input[type=radio]]
 - [o] [input[type=date]]
@@ -57,7 +58,7 @@ import { TagProvider, TagStyle, ButtonConfig, InputConfig, ErrorTextConfig } fro
 export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
 
   // useTheme is in react-theme. If you wanna use darkmode easily, use it.
-  const { div, button } = useTheme<Theme>();
+  //const { div, button } = useTheme<Theme>();
 
   const div:TagStyle = {
     color: color.black,
