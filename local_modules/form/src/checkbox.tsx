@@ -5,23 +5,6 @@ import Svg, { Path } from "react-native-svg";
 
 import { FormValues, InputProps } from "./type";
 import { TagStyle, useTags, useTagStyle, Button } from '@team-devmonster/react-native-tags';
-
-
-const checkboxDefaultStyle:TagStyle = {
-  minHeight: undefined,
-  padding: undefined,
-  paddingLeft: undefined,
-  paddingRight: undefined,
-  paddingTop: undefined,
-  paddingBottom: undefined,
-  width: 38,
-  height: 38,
-  borderColor: '#dedede',
-  borderWidth: 1,
-  borderRadius: 5,
-  justifyContent: 'center',
-  alignItems: 'center'
-}
 export interface CheckboxProps<T extends FormValues = any> extends InputProps<T> {
   control:Control<T>,
   name:Names<T>,
@@ -45,6 +28,7 @@ export function Checkbox<T extends FormValues>(
   const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
   
+  const inputTagStyle = tagConfig?.input?.style;
   const checkboxTagStyle = tagConfig?.checkbox?.style;
   const checkboxTagDisabledStyle = tagConfig?.checkbox?.disabledStyle;
   const checkboxTagErrorStyle = tagConfig?.checkbox?.errorStyle;
@@ -90,9 +74,15 @@ export function Checkbox<T extends FormValues>(
 
         return (
           <Button
+            fill="none"
             color={colorScheme === 'dark' ? '#000000' : '#ffffff'}
             style={{
-              ...checkboxDefaultStyle,
+              width: 38,
+              height: 38,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderWidth: inputTagStyle?.borderWidth,
+              borderColor: inputTagStyle?.borderColor,
               ...newStyle
             }}
             onClick={(e) => {

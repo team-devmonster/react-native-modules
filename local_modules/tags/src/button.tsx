@@ -11,7 +11,7 @@ export interface ButtonProps extends Omit<PressableProps, 'style'|'children'|'on
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
   color?: string;
-  fill?: 'base' | 'outline' | 'translucent';
+  fill?: 'base' | 'outline' | 'translucent' | 'none';
   onClick?: ((event: ButtonClickEvent) => void) | null | undefined;
   disabled?:boolean;
   children?:React.ReactNode
@@ -21,23 +21,13 @@ export const Button = forwardRef<View, ButtonProps>(({color:_color, fill:_fill, 
 
   const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
-  const buttonTagStyle = tagConfig?.button?.style;
-  const buttonTagDisabledStyle = tagConfig?.button?.disabledStyle;
-  const color = _color || tagConfig?.button?.color;
   const fill = _fill || tagConfig?.button?.fill || 'base';
+  const buttonTagStyle = fill !== 'none' ? tagConfig?.button?.style : undefined;
+  const buttonTagDisabledStyle = fill !== 'none' ? tagConfig?.button?.disabledStyle : undefined;
+  const color = _color || tagConfig?.button?.color;
 
   let fillStyle:any;
   switch(fill) {
-    case 'base':
-      fillStyle = {
-        background: {
-          base: color,
-          pressed: color ? darken(color, 30) : undefined,
-          ripple: color ? darken(color, 30) : undefined
-        },
-        color: color ? contrast(color) : undefined
-      }
-      break;
     case 'outline':
       fillStyle = {
         background: {
@@ -58,6 +48,27 @@ export const Button = forwardRef<View, ButtonProps>(({color:_color, fill:_fill, 
           ripple: color || undefined
         },
         color: color || undefined
+      }
+      break;
+    case 'none':
+      fillStyle = {
+        background: {
+          base: color,
+          pressed: color ? darken(color, 30) : undefined,
+          ripple: color ? darken(color, 30) : undefined
+        },
+        color: color ? contrast(color) : undefined,
+        borderRadius: tagConfig?.button?.style?.borderRadius
+      }
+      break;
+    default:
+      fillStyle = {
+        background: {
+          base: color,
+          pressed: color ? darken(color, 30) : undefined,
+          ripple: color ? darken(color, 30) : undefined
+        },
+        color: color ? contrast(color) : undefined
       }
       break;
   }
@@ -89,6 +100,7 @@ export const Button = forwardRef<View, ButtonProps>(({color:_color, fill:_fill, 
         return {
           borderWidth: fillStyle.borderWidth,
           borderColor: fillStyle.borderColor,
+          borderRadius: fillStyle.borderRadius,
           backgroundColor: (!pressed || Platform.OS !== 'ios') ? fillStyle.background.base : fillStyle.background.pressed,
           ...buttonStyle,
           ...(gap ? {margin: -gap/2} : null),

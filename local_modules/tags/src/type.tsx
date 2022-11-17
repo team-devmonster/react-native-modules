@@ -12,7 +12,8 @@ export interface TagGroupConfig {
   errorText?: ErrorTextConfig,
   label?: LabelConfig,
   checkbox?: InputConfig,
-  radio?: InputConfig
+  radio?: InputConfig,
+  select?: InputConfig
 }
 
 export interface TagProps extends Omit<TextProps, 'style'|'onPress'> {

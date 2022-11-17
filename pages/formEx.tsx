@@ -65,7 +65,8 @@ const FormEx = () => {
           <ErrorText errors={errors} name="price"></ErrorText>
 
           <Button 
-            style={{ flexDirection: 'row', alignItems: 'center', columnGap: 8, padding: 0, paddingVertical: 4 }} 
+            fill="none"
+            style={{ flexDirection: 'row', alignItems: 'center', columnGap: 8, paddingVertical: 4 }} 
             onClick={() => setValue('agree1', !watch('agree1'))}>
             <Input
               control={control}
@@ -78,7 +79,8 @@ const FormEx = () => {
           <ErrorText errors={errors} name="agree1"></ErrorText>
 
           <Button 
-            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', columnGap: 8, padding: 0, paddingVertical: 4 }}
+            fill="none"
+            style={{ flexDirection: 'row', alignItems: 'center', columnGap: 8, paddingVertical: 4 }}
             onClick={() => setValue('gender', 'man')}>
             <Input
               control={control}
@@ -89,7 +91,8 @@ const FormEx = () => {
           </Button>
 
           <Button 
-            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', columnGap: 8, padding: 0, paddingVertical: 4 }}
+            fill="none"
+            style={{ flexDirection: 'row', alignItems: 'center', columnGap: 8, paddingVertical: 4 }}
             onClick={() => setValue('gender', 'woman')}>
             <Input
               control={control}
@@ -100,7 +103,8 @@ const FormEx = () => {
           </Button>
 
           <Button 
-            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', columnGap: 8, padding: 0, paddingVertical: 4 }}
+            fill="none"
+            style={{ flexDirection: 'row', alignItems: 'center', columnGap: 8, paddingVertical: 4 }}
             onClick={() => setValue('gender', 'etc')}>
             <Input
               control={control}
