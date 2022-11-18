@@ -5,7 +5,7 @@ import { DarkTheme, DefaultTheme, useNavigation } from "@react-navigation/native
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 
 interface LayoutProps {
-  title?:string | (() => React.ReactNode);
+  title?:string | React.ReactNode;
   headerLeft?:React.ReactNode;
   headerRight?:React.ReactNode;
   headerBackTitle?:string;
@@ -33,7 +33,14 @@ export const Header = ({ title, headerTitleAlign, headerTitleStyle, headerLeft, 
       headerTintColor: (style?.color || (colorScheme === 'dark' ? DarkTheme.colors.text : DefaultTheme.colors.text)) as string,
       contentStyle
     }
-    if(typeof title !== null) options.headerTitle = title;
+    if(typeof title !== null) {
+      if(typeof title === 'string') {
+        options.headerTitle = title;
+      }
+      else {
+        options.headerTitle = () => title;
+      }
+    }
     if(headerTitleAlign) options.headerTitleAlign = headerTitleAlign;
     if(headerTitleStyle) options.headerTitleStyle = headerTitleStyle;
     if(headerLeft) options.headerLeft = () => headerLeft;

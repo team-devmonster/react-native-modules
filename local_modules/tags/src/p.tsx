@@ -1,25 +1,21 @@
 import React from "react";
-import { View } from "react-native";
-import { TagModule, textPattern, useTags, useTagStyle } from "./core";
+import { useTags, useTagStyle } from "./core";
+import { Div } from "./div";
 import { TagProps } from "./type";
 
-export const P = ({style, children, ...rest}:TagProps) => {
+export const P = ({style, ...rest}:TagProps) => {
 
   const { tagConfig } = useTags();
-  const divTagStyle = tagConfig?.['div'];
-  const pTagStyle = tagConfig?.['p'];
+  const pTagStyle = tagConfig?.p;
 
   const [
-    textStyle, 
-    viewStyle
+    pStyle
   ]
   = useTagStyle([
-    textPattern
-  ], [divTagStyle, pTagStyle, style]);
+
+  ], [pTagStyle, style]);
   
   return (
-    <View style={viewStyle} {...rest}>
-      <TagModule style={textStyle}>{children}</TagModule>
-    </View>
+    <Div style={pStyle} {...rest}></Div>
   )
 }
