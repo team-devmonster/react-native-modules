@@ -1,6 +1,7 @@
 # @team-devmonster/react-native-tags
 
 > :warning: **It's under development**
+> :warning: **It's using [@react-native-masked-view/masked-view](https://www.npmjs.com/package/@react-native-masked-view/masked-view)**
 ## This is under devmonster's react & react-native union project.
 
 This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.<br><br>
@@ -42,7 +43,7 @@ from [`react-native-form`](https://www.npmjs.com/package/@team-devmonster/react-
 
 ## Getting started
 
-`$ npm install @team-devmonster/react-native-tags@latest`
+`$ npm install @react-native-masked-view/masked-view @team-devmonster/react-native-tags@latest`
 
 
 ## Examples
@@ -221,20 +222,8 @@ const TagsEx = () => {
         disabled
       </Button>
 
-      <P>gap Test1</P>
-      <Div style={{ borderColor: 'green', borderWidth: 1 }}>
-        <Div style={{ flexDirection: 'row', borderColor: 'blue', borderWidth: 1, margin: -4 }}>
-          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-        </Div>
-      </Div>
-
-      <P>gap Test2</P>
-      <Div style={{ borderColor: 'green', borderWidth: 1, flexDirection: 'row', gap: 8 }}>
+      <P>gap Test</P>
+      <Div style={{ borderColor: 'green', borderWidth: 1, flexDirection: 'row', gap: 8, backgroundColor: 'blue' }}>
         <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
         <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
         <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>

@@ -2,14 +2,14 @@ import React from "react";
 import { useTheme } from "@local_modules/theme";
 import { Div, Button, Img, P, Span, Br } from "@local_modules/tags";
 import { Theme } from "App.theme";
-import { Alert } from "react-native";
+import { Alert, ScrollView } from "react-native";
 
 const TagsEx = () => {
 
   const { color, fontSize, shadow } = useTheme<Theme>();
 
   return (
-    <Div
+    <ScrollView
       style={{
         backgroundColor: color.white, 
         flex: 1, 
@@ -78,34 +78,50 @@ const TagsEx = () => {
         translucent
       </Button>
 
-      <Button color={color.primary} fill="translucent" disabled={true}>
+      <Button color={color.primary} fill="outline" style={{ marginBottom: 10 }} disabled={true}>
         disabled
       </Button>
 
-
-
-      <P>gap Test1</P>
-      <Div style={{ borderColor: 'green', borderWidth: 1 }}>
-        <Div style={{ flexDirection: 'row', borderColor: 'blue', borderWidth: 1, margin: -4 }}>
-          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-          <Div style={{ margin: 4, backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-        </Div>
+      <P>gap Test</P>
+      <Div style={{ borderColor: 'orange', borderWidth: 1, flexDirection: 'row', gap: 8, borderRadius: 20, flexWrap: 'wrap', marginBottom: 10, ...shadow.base, padding: 5 }}>
+        <Div style={{ backgroundColor: 'lightgray', flex: 2, minWidth: 100, height: 50 }}>1</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>2</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 3, minWidth: 100, height: 50 }}>3</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>4</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>5</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>6</Div>
       </Div>
 
-      <P>gap Test2: ....how to remove -margin...?</P>
-      <Div style={{ borderColor: 'green', borderWidth: 1, flexDirection: 'row', gap: 8 }}>
-        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
-        <Div style={{ backgroundColor: 'red', flex: 1, aspectRatio: 1 }}></Div>
+      <P>not gap Test</P>
+      <Div style={{ borderColor: 'orange', borderWidth: 1, flexDirection: 'row', borderRadius: 20, flexWrap: 'wrap', ...shadow.base, padding: 5 }}>
+        <Div style={{ backgroundColor: 'lightgray', flex: 2, minWidth: 100, height: 50 }}>1</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>2</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 3, minWidth: 100, height: 50 }}>3</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>4</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>5</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>6</Div>
       </Div>
-    </Div>
+
+      <P>button gap Test</P>
+      <Button color={color.primary} fill="none" style={{ borderColor: 'green', borderWidth: 1, flexDirection: 'row', gap: 8, ...shadow.base, borderRadius: 20, flexWrap: 'wrap', padding: 5, marginBottom: 20}}>
+        <Div style={{ backgroundColor: 'lightgray', flex: 2, minWidth: 100, height: 50 }}>1</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>2</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 3, minWidth: 100, height: 50 }}>3</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>4</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>5</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>6</Div>
+      </Button>
+
+      <P>button not gap Test</P>
+      <Button color={color.primary} fill="none" style={{ borderColor: 'green', borderWidth: 1, flexDirection: 'row', borderRadius: 20, flexWrap: 'wrap', padding: 5}}>
+        <Div style={{ backgroundColor: 'lightgray', flex: 2, minWidth: 100, height: 50 }}>1</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>2</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 3, minWidth: 100, height: 50 }}>3</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>4</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>5</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>6</Div>
+      </Button>
+    </ScrollView>
   )
 }
 

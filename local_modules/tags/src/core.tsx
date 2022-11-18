@@ -22,7 +22,7 @@ export function useTags() {
 }
 
 export const textPattern = /^(color|font|text|lineHeight)/;
-export const layoutPattern = /^(flex|width|height)$/;
+export const layoutPattern = /^(display|width|height)$/;
 export const shadowPattern = /^(shadow|elevation)/;
 export const borderPattern = /^(border)/;
 export const marginPattern = /^(margin)/;
@@ -31,7 +31,7 @@ export const gapPattern = /(gap|Gap)/;
 
 export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[]):any[] => {
 
-  const [newStyles, setNewStyles] = useState<(TagStyle|null)[]>(new Array(patterns.length+1).fill(null).map(() => ({})));
+  const [newStyles, setNewStyles] = useState<TagStyle[]>(new Array(patterns.length+1).fill(null).map(() => ({})));
 
   useLayoutEffect(() => {
 
@@ -45,7 +45,7 @@ export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[
     }
 
     const entries = Object.entries(styleObj) as [keyof TagStyle, any][];
-    const styles:(TagStyle|null)[] = new Array(patterns.length+1).fill(null).map(() => ({}));
+    const styles:TagStyle[] = new Array(patterns.length+1).fill(null).map(() => ({}));
 
     for(let i = 0; i < entries.length; i++) {
       const key = entries[i][0];
@@ -56,14 +56,12 @@ export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[
         const styleIndex = j;
 
         if(pattern.test(key)) {
-          if(!styles[styleIndex]) styles[styleIndex] = {};
-          styles[styleIndex]![key] = value === 'inline-flex' ? 'flex' : value;
+          styles[styleIndex][key] = value === 'inline-flex' ? 'flex' : value;
           break;
         }
 
         if(styleIndex === patterns.length-1) {
-          if(!styles[styles.length-1]) styles[styles.length-1] = {};
-          styles[styles.length-1]![key] = value === 'inline-flex' ? 'flex' : value;
+          styles[styles.length-1][key] = value === 'inline-flex' ? 'flex' : value;
         }
       }
 

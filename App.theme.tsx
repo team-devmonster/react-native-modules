@@ -71,31 +71,31 @@ const theme = (color:Color) => {
       shadowColor: color.black,
       shadowOffset: {
         width: 0,
-        height: 1,
+        height: 2,
       },
-      shadowOpacity: 0.22,
-      shadowRadius: 2.22,
-      elevation: 3,
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5
     },
     lg: {
       shadowColor: color.black,
       shadowOffset: {
         width: 0,
-        height: 1,
+        height: 2,
       },
-      shadowOpacity: 0.22,
-      shadowRadius: 2.22,
-      elevation: 3,
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5
     },
     card: {
       shadowColor: color.black,
       shadowOffset: {
         width: 0,
-        height: 1,
+        height: 2,
       },
-      shadowOpacity: 0.22,
-      shadowRadius: 2.22,
-      elevation: 3,
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5
     }
   }
 

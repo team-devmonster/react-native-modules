@@ -1,6 +1,6 @@
 {
   "name": "@team-devmonster/react-native-tags",
-  "version": "1.7.2",
+  "version": "1.7.4",
   "description": "This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -33,6 +33,7 @@
   "peerDependencies": {
     "react": ">=16",
     "react-dom": ">=16",
-    "react-native": ">=0.57"
+    "react-native": ">=0.57",
+    "@react-native-masked-view/masked-view": ">=0.2.7"
   }
 }

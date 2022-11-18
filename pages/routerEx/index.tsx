@@ -2,14 +2,14 @@ import React from "react";
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Div, Button } from "@local_modules/tags";
-import { A } from "@local_modules/router";
+import { A, Layout } from "@local_modules/router";
 
 const RouterEx = () => {
 
   const { color } = useTheme<Theme>();
 
   return (
-    <Div
+    <Layout
       style={{
         backgroundColor: color.backgroundColor,
         flex: 1,
@@ -31,7 +31,7 @@ const RouterEx = () => {
       <A href='https://www.google.co.kr'>
         <Button color={color.warning}>google</Button>
       </A>
-    </Div>
+    </Layout>
   )
 }
 

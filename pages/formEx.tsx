@@ -5,7 +5,7 @@ import { Theme } from "App.theme";
 import { Button, Div } from "@local_modules/tags";
 import { useForm } from "react-hook-form";
 import { ErrorText, Input, Label } from "@local_modules/form";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface FormProps {
@@ -66,7 +66,7 @@ const FormEx = () => {
 
           <Button 
             fill="none"
-            style={{ flexDirection: 'row', alignItems: 'center', columnGap: 8, paddingVertical: 4 }} 
+            style={{ flexDirection: 'row', alignItems: 'center' }} 
             onClick={() => setValue('agree1', !watch('agree1'))}>
             <Input
               control={control}
@@ -79,20 +79,27 @@ const FormEx = () => {
           <ErrorText errors={errors} name="agree1"></ErrorText>
 
           <Button 
+            color={color.primary}
             fill="none"
-            style={{ flexDirection: 'row', alignItems: 'center', columnGap: 8, paddingVertical: 4 }}
+            style={{ padding: 4, marginLeft: -4, marginRight: -4 }}
             onClick={() => setValue('gender', 'man')}>
-            <Input
-              control={control}
-              name="gender"
-              value="man"
-              type="radio"></Input>
-            <Label>man</Label>
+            <Div style={{ 
+              flexDirection: 'row',
+              alignItems: 'center',
+              columnGap: 8
+            }}>
+              <Input
+                control={control}
+                name="gender"
+                value="man"
+                type="radio"></Input>
+              <Label>man</Label>
+            </Div>
           </Button>
 
           <Button 
             fill="none"
-            style={{ flexDirection: 'row', alignItems: 'center', columnGap: 8, paddingVertical: 4 }}
+            style={{ flexDirection: 'row', alignItems: 'center', padding: 8 }}
             onClick={() => setValue('gender', 'woman')}>
             <Input
               control={control}
@@ -104,7 +111,7 @@ const FormEx = () => {
 
           <Button 
             fill="none"
-            style={{ flexDirection: 'row', alignItems: 'center', columnGap: 8, paddingVertical: 4 }}
+            style={{ flexDirection: 'row', alignItems: 'center', paddingVertical: 4 }}
             onClick={() => setValue('gender', 'etc')}>
             <Input
               control={control}
