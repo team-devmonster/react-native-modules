@@ -2,7 +2,7 @@ import React from "react";
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Div, Button } from "@local_modules/tags";
-import { A, Layout } from "@local_modules/router";
+import { A, Header, Layout } from "@local_modules/router";
 
 const RouterEx = () => {
 
@@ -15,6 +15,13 @@ const RouterEx = () => {
         flex: 1,
         padding: 18
       }}>
+      <Header
+        title="Hello Header"
+        headerRight={
+          <Button>
+            setting
+          </Button>
+        }/>
       <A href='/themeEx'>
         <Button color={color.primary} style={{ marginBottom: 8 }}>themeEx</Button>
       </A>

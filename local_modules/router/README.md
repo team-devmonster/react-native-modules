@@ -1,7 +1,8 @@
 # @team-devmonster/react-native-router
 
 > :warning: **It's under development**<br>
-> :warning: **It's using @react-navigation/native**
+> :warning: **It's using [@react-navigation/native](https://reactnavigation.org/)**
+> :warning: **It's using [@team-devmonster/react-native-tags](https://www.npmjs.com/package/@team-devmonster/react-native-tags)**
 
 ## This is under devmonster's react & react-native union project.
 
@@ -14,6 +15,7 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 
 - [o] [`react-native-theme`](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
 - [o] [`react-native-tags`](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
+- [o] [`react-native-form`](https://www.npmjs.com/package/@team-devmonster/react-native-form)
 
 #### author: devmonster
 

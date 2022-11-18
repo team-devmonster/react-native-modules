@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Edge, SafeAreaView } from "react-native-safe-area-context";
-import { TagProps } from "@team-devmonster/react-native-tags";
+import { TagProps, useTagStyle } from "@team-devmonster/react-native-tags";
 import { Header } from "./header";
 
 const edges_LRB:Edge[] = ['left', 'right', 'bottom'];
@@ -29,10 +29,14 @@ export const Layout = ({ children, edges, style, ...rest }:LayoutProps) => {
     }
   }, [children]);
 
+  console.log(defaultEdges);
+
+  const [newStyle] = useTagStyle([], [style]);
+
   return (
     <View>
       <ScrollView>
-        <SafeAreaView edges={defaultEdges || edges} {...rest}>
+        <SafeAreaView edges={defaultEdges || edges} style={newStyle} {...rest}>
           {children}
         </SafeAreaView>
       </ScrollView>
