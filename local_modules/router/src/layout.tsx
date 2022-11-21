@@ -64,7 +64,7 @@ const newChildren = ({ children:_children }:{ children:React.ReactNode })
         break;
     }
   }
-  if(!header) edges.push('top');
+  if(!header || header?.props?.headerShown === false) edges.push('top');
   if(!footer) edges.push('bottom');
   return {
     defaultEdges: edges, 

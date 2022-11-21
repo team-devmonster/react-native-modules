@@ -95,6 +95,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
   const rowGap = gapStyle?.rowGap || gapStyle?.gap || 0;
   const columnGap = gapStyle?.columnGap || gapStyle?.gap || 0;
 
+  const borderRadius = borderStyle?.borderRdius || fillStyle?.borderRadius;
 
   if(!Object.keys(gapStyle).length) {
     return (
@@ -103,7 +104,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
         ...shadowStyle,
         ...marginStyle,
         flex: viewStyle.flex,
-        borderRadius: borderStyle.borderRadius || fillStyle?.borderRadius,
+        borderRadius
       }}>
         <View
           style={{
@@ -112,7 +113,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
             overflow: 'hidden',
             borderWidth: fillStyle?.borderWidth,
             borderColor: fillStyle?.borderColor,
-            borderRadius: fillStyle?.borderRadius,
+            borderRadius,
             ...borderStyle
           }}>
           <Pressable
@@ -120,6 +121,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
             style={({ pressed }) => {
               return {
                 ...layoutStyle,
+                borderRadius,
                 backgroundColor: (!pressed || Platform.OS !== 'ios') ? fillStyle?.background?.base : fillStyle?.background?.pressed,
                 ...viewStyle
               }
@@ -143,7 +145,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
         ...layoutStyle,
         ...shadowStyle,
         ...marginStyle,
-        borderRadius: borderStyle.borderRadius || fillStyle?.borderRadius
+        borderRadius
       }}>
         <MaskedView
           style={{
@@ -166,20 +168,16 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
               position: 'absolute',
               backgroundColor: 'black',
               ...size,
-              borderRadius: borderStyle.borderRadius
+              borderRadius
             }}>
             </View>
           }>
           <Pressable
             disabled={disabled}
             style={({ pressed }) => {
-              console.log({
-                ...layoutStyle,
-                backgroundColor: (!pressed || Platform.OS !== 'ios') ? fillStyle?.background?.base : fillStyle?.background?.pressed,
-                ...viewStyle
-              });
               return {
                 ...layoutStyle,
+                borderRadius,
                 backgroundColor: (!pressed || Platform.OS !== 'ios') ? fillStyle?.background?.base : fillStyle?.background?.pressed,
                 ...viewStyle
               }
@@ -202,7 +200,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
               ...size,
               borderWidth: fillStyle?.borderWidth,
               borderColor: fillStyle?.borderColor,
-              borderRadius: fillStyle?.borderRadius,
+              borderRadius,
               ...borderStyle
             }}></View>
         </MaskedView>
