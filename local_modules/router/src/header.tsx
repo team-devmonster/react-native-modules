@@ -55,3 +55,4 @@ export const Header = ({ title, headerTitleAlign, headerTitleStyle, headerLeft, 
     <StatusBar style={statusBarStyle || 'auto'} />
   )
 }
+Header.displayName = 'Header';

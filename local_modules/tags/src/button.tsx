@@ -103,11 +103,13 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
         ...layoutStyle,
         ...shadowStyle,
         ...marginStyle,
+        flex: viewStyle.flex,
         borderRadius: borderStyle.borderRadius || fillStyle?.borderRadius,
       }}>
         <View
           style={{
             ...layoutStyle,
+            flex: viewStyle.flex,
             overflow: 'hidden',
             borderWidth: fillStyle?.borderWidth,
             borderColor: fillStyle?.borderColor,

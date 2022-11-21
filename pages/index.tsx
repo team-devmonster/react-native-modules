@@ -4,6 +4,7 @@ import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Button, Div, P } from "@local_modules/tags";
 import { A } from "@local_modules/router";
+import { ScrollView } from "react-native";
 
 const Index = () => {
 
@@ -11,7 +12,7 @@ const Index = () => {
 
   return (
     <Div>
-      <Div style={{ backgroundColor: color.white }}>
+      <ScrollView style={{ backgroundColor: color.white }}>
         <Div style={{ padding: 20 }}>
           <P style={{ 
             fontSize: fontSize.x2l, 
@@ -52,7 +53,7 @@ const Index = () => {
             </A> */}
           </Div>
         </Div>
-      </Div>
+      </ScrollView>
     </Div>
   )
 }
