@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from '@local_modules/theme';
-import { TagProvider, TagStyle, ButtonConfig, InputConfig, ErrorTextConfig } from '@local_modules/tags';
+import { TagProvider, TagStyle, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig } from '@local_modules/tags';
 
 const color = {
   light: {
@@ -145,6 +145,11 @@ const theme = (color:Color) => {
       borderColor: color.step200
     }
   }
+  const label:LabelConfig = {
+    errorStyle: {
+      color: color.danger
+    }
+  }
   const checkbox:InputConfig = {
     style: {
       color: color.primary
@@ -170,7 +175,7 @@ const theme = (color:Color) => {
     // tags theme
     div, button,
     // form theme
-    input, checkbox, radio, errorText
+    input, label, checkbox, radio, errorText
   }
 }
 
@@ -188,9 +193,9 @@ export const AppThemeProvider = ({children}: {children:React.ReactNode}) => {
 }
 
 export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
-  const { div, button, input, checkbox, radio, errorText } = useTheme<Theme>();
+  const theme = useTheme<Theme>();
   return (
-    <TagProvider tagConfig={{ div, button, input, checkbox, radio, errorText }}>
+    <TagProvider tagConfig={theme}>
       {children}
     </TagProvider>
   )

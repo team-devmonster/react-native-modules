@@ -45,6 +45,7 @@ const FormEx = () => {
             required="please insert id"></Input>
           <ErrorText errors={errors} name="id"></ErrorText>
           
+          <Label errors={errors} name="password">password</Label>
           <Input 
             control={control} 
             name="password"
