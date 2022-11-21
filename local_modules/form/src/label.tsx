@@ -32,7 +32,6 @@ export function Label<T extends FormValues>({
       const name = nameArr[i];
       error = errors?.[name];
     }
-    console.log(error);
 
     return (
       <P 
