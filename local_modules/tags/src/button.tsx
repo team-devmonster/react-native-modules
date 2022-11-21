@@ -3,14 +3,13 @@ import { Pressable, Platform, useColorScheme, GestureResponderEvent, View, Press
 import MaskedView from '@react-native-masked-view/masked-view';
 
 import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
-import { ButtonStyle } from "./type";
+import { ButtonStyle, FillProps } from "./type";
 import { contrast, darken, lighten } from "./utils";
 
 export interface ButtonClickEvent extends GestureResponderEvent {
   [name:string]:any
 }
 
-export type FillProps = 'base' | 'outline' | 'translucent' | 'none';
 export interface ButtonProps extends Omit<PressableProps, 'style'|'children'|'onBlur'|'onFocus'> {
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;

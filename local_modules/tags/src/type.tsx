@@ -28,7 +28,7 @@ export interface TagStyle extends Omit<TextStyle, 'display'> {
 
 
 // tags
-
+export type FillProps = 'base' | 'outline' | 'translucent' | 'none';
 export interface ButtonStyle extends TagStyle {
   cursor?:string
 }
@@ -37,7 +37,7 @@ export interface ButtonConfig {
   disabledStyle?:ButtonStyle;
   hoverStyle?:ButtonStyle;
   color?: string;
-  fill?: 'base' | 'outline' | 'translucent';
+  fill?: FillProps;
 }
 
 
