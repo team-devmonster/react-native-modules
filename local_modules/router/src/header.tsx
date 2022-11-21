@@ -4,7 +4,7 @@ import { StatusBar, StatusBarStyle } from 'expo-status-bar';
 import { DarkTheme, DefaultTheme, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 
-interface LayoutProps {
+export interface HeaderProps {
   title?:string | React.ReactNode;
   headerLeft?:React.ReactNode;
   headerRight?:React.ReactNode;
@@ -19,7 +19,7 @@ interface LayoutProps {
   contentStyle?:StyleProp<ViewStyle>
 }
 
-export const Header = ({ title, headerTitleAlign, headerTitleStyle, headerLeft, headerRight, headerBackTitle, headerShown, style, statusBarStyle, contentStyle }:LayoutProps) => {
+export const Header = ({ title, headerTitleAlign, headerTitleStyle, headerLeft, headerRight, headerBackTitle, headerShown, style, statusBarStyle, contentStyle }:HeaderProps) => {
 
   const navigation = useNavigation();
   const colorScheme = useColorScheme();
