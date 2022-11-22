@@ -7,17 +7,6 @@ import { TagStyle, useTags, useTagStyle, Button } from '@team-devmonster/react-n
 
 
 const radioDefaultStyle:TagStyle = {
-  minHeight: undefined,
-  padding: undefined,
-  paddingLeft: undefined,
-  paddingRight: undefined,
-  paddingTop: undefined,
-  paddingBottom: undefined,
-  margin: undefined,
-  marginTop: undefined,
-  marginBottom: undefined,
-  marginLeft: undefined,
-  marginRight: undefined,
   width: 38,
   height: 38,
   borderColor: '#dedede',

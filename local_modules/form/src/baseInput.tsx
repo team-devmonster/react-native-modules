@@ -53,19 +53,26 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
 
         let keyboardType:KeyboardTypeOptions = 'default';
         let secureTextEntry:boolean = false;
-        let newValue = value;
+        let newValue:string = value;
         let newOnChange = onChange;
 
         switch(type) {
           case 'number':
             keyboardType = 'number-pad';
-            newValue = String(value || '0') as any;
+            newValue = String(value || '0');
             newOnChange = (v) => {
-              onChange(isNaN(+v) ? 0 : +v);
+              let num = v.replace(/\D+/g, '');
+              onChange(num ? +num : 0);
             }
             break;
           case 'tel':
             keyboardType = 'phone-pad';
+            newValue = value;
+            newOnChange = (v) => {
+              let tel = v.replace(/\D+/g, '').replace(/(\d{2,3})(\d{3,4})(\d{4})/, "$1-$2-$3");
+              onChange(tel);
+            }
+            rules.maxLength = rules.maxLength || 13;
             break;
           case 'password':
             keyboardType = 'default';

@@ -108,8 +108,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
       }}>
         <View
           style={{
-            ...layoutStyle,
-            flex: viewStyle.flex,
+            flex: viewStyle.flex || 1,
             overflow: 'hidden',
             borderWidth: fillStyle?.borderWidth,
             borderColor: fillStyle?.borderColor,
@@ -120,7 +119,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
             disabled={disabled}
             style={({ pressed }) => {
               return {
-                ...layoutStyle,
+                flex: 1,
                 borderRadius,
                 backgroundColor: (!pressed || Platform.OS !== 'ios') ? fillStyle?.background?.base : fillStyle?.background?.pressed,
                 ...viewStyle
