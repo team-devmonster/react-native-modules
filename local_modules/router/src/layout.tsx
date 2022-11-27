@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, ViewStyle } from "react-native";
 import { Edge, SafeAreaView } from "react-native-safe-area-context";
 import { TagProps } from "@team-devmonster/react-native-tags";
 
@@ -19,7 +19,8 @@ export const Layout = ({ children, edges, style, ...rest }:LayoutProps) => {
         <SafeAreaView 
           edges={defaultEdges || edges} 
           style={{
-            flex: 1
+            flex: 1,
+            ...style as ViewStyle
           }} {...rest}>
           {contents}
         </SafeAreaView>

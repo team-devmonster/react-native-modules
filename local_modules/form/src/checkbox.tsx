@@ -106,9 +106,9 @@ export function Checkbox<T extends FormValues>(
                     viewBox="0 0 24 24"
                     stroke={newStyle.color || '#FF6420'} 
                     strokeWidth={2}
-                    width={26}
-                    height={26}
-                    style={{ width: 26, height: 26 }}>
+                    width={28}
+                    height={28}
+                    style={{ width: 28, height: 28 }}>
                     <Path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </Svg>
                 </Animated.View>

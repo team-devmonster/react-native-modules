@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { Pressable, Platform, useColorScheme, GestureResponderEvent, View, PressableProps, ColorSchemeName } from "react-native";
 import MaskedView from '@react-native-masked-view/masked-view';
 
@@ -66,34 +66,20 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
     width: 0, 
     height: 0
   });
-  const [gapContainerStyle, setGapContainerStyle] = useState({
-    marginTop: 0,
-    marginBottom: 0,
-    marginLeft: 0,
-    marginRight: 0,
-    paddingTop: 0,
-    paddingBottom: 0,
-    paddingLeft: 0,
-    paddingRight: 0
-  });
-
-  useEffect(() => {
-    if(Object.keys(gapStyle).length) {
-      setGapContainerStyle({
-        marginTop: -rowGap/2,
-        marginBottom: -rowGap/2,
-        marginLeft: -columnGap/2,
-        marginRight: -columnGap/2,
-        paddingTop: (borderStyle.borderTopWidth || borderStyle.borderWidth || 0),
-        paddingBottom: (borderStyle.borderBottomWidth || borderStyle.borderWidth || 0),
-        paddingLeft: (borderStyle.borderLeftWidth || borderStyle.borderWidth || 0),
-        paddingRight: (borderStyle.borderRightWidth || borderStyle.borderWidth || 0)
-      })
-    }
-  }, [borderStyle, gapStyle]);
   
   const rowGap = gapStyle?.rowGap || gapStyle?.gap || 0;
   const columnGap = gapStyle?.columnGap || gapStyle?.gap || 0;
+
+  const gapContainerStyle = {
+    marginTop: -rowGap/2,
+    marginBottom: -rowGap/2,
+    marginLeft: -columnGap/2,
+    marginRight: -columnGap/2,
+    paddingTop: borderStyle.borderTopWidth || borderStyle.borderWidth || 0,
+    paddingBottom: borderStyle.borderBottomWidth || borderStyle.borderWidth || 0,
+    paddingLeft: borderStyle.borderLeftWidth || borderStyle.borderWidth || 0,
+    paddingRight: borderStyle.borderRightWidth || borderStyle.borderWidth || 0
+  }
 
   const borderRadius = borderStyle?.borderRdius || fillStyle?.borderRadius;
 
