@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { View } from "react-native";
 import MaskedView from '@react-native-masked-view/masked-view';
 import { borderPattern, gapPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
@@ -32,7 +32,7 @@ export const Div = ({style, onLayout, children, ...rest}:TagProps) => {
   const rowGap = gapStyle?.rowGap || gapStyle?.gap || 0;
   const columnGap = gapStyle?.columnGap || gapStyle?.gap || 0;
 
-  const gapContainerStyle = {
+  const gapContainerStyle = useMemo(() => ({
     marginTop: -rowGap/2 + (viewStyle.margin || viewStyle.marginVertical || viewStyle.marginTop || 0),
     marginBottom: -rowGap/2 + (viewStyle.margin || viewStyle.marginVertical || viewStyle.marginBottom || 0),
     marginLeft: -columnGap/2 + (viewStyle.margin || viewStyle.marginHorizontal || viewStyle.marginLeft || 0),
@@ -41,7 +41,7 @@ export const Div = ({style, onLayout, children, ...rest}:TagProps) => {
     paddingBottom: (borderStyle.borderBottomWidth || borderStyle.borderWidth || 0) + (viewStyle.padding || viewStyle.paddingVertical || viewStyle.paddingBottom || 0),
     paddingLeft: (borderStyle.borderLeftWidth || borderStyle.borderWidth || 0) + (viewStyle.padding || viewStyle.paddingVertical || viewStyle.paddingLeft || 0),
     paddingRight: (borderStyle.borderRightWidth || borderStyle.borderWidth || 0) + (viewStyle.padding || viewStyle.paddingVertical || viewStyle.paddingRight || 0)
-  }
+  }), [rowGap, columnGap, viewStyle, borderStyle]);
 
   if(!Object.keys(gapStyle).length) {
     return (
