@@ -82,8 +82,20 @@ const TagsEx = () => {
         disabled
       </Button>
 
+      <Button 
+        color={color.step100}
+        style={{
+          width: 100,
+          height: 100,
+          borderRadius: 50,
+          borderStyle: 'dashed',
+          borderColor: color.primary,
+          borderWidth: 1
+        }}>
+      </Button>
+
       <P>gap Test</P>
-      <Div style={{ borderColor: 'orange', borderWidth: 1, flexDirection: 'row', gap: 8, borderRadius: 20, flexWrap: 'wrap', marginBottom: 10, ...shadow.base, padding: 5 }}>
+      <Div style={{ borderColor: 'orange', borderWidth: 1, flexDirection: 'row', gap: 8, borderRadius: 20, flexWrap: 'wrap', marginBottom: 10, ...shadow.base, overflow: 'hidden' }}>
         <Div style={{ backgroundColor: 'lightgray', flex: 2, minWidth: 100, height: 50 }}>1</Div>
         <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>2</Div>
         <Div style={{ backgroundColor: 'lightgray', flex: 3, minWidth: 100, height: 50 }}>3</Div>
@@ -103,7 +115,16 @@ const TagsEx = () => {
       </Div>
 
       <P>button gap Test</P>
-      <Button color={color.primary} fill="none" style={{ borderColor: 'green', borderWidth: 1, flexDirection: 'row', gap: 8, ...shadow.base, borderRadius: 20, flexWrap: 'wrap', padding: 5, marginBottom: 20}}>
+      <Button color={color.primary} fill="none" style={{ 
+        borderColor: 'red', 
+        borderWidth: 2, 
+        flexDirection: 'row', 
+        gap: 10, 
+        ...shadow.base, 
+        borderRadius: 20, 
+        flexWrap: 'wrap', 
+        padding: 2,
+        marginBottom: 20}}>
         <Div style={{ backgroundColor: 'lightgray', flex: 2, minWidth: 100, height: 50 }}>1</Div>
         <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>2</Div>
         <Div style={{ backgroundColor: 'lightgray', flex: 3, minWidth: 100, height: 50 }}>3</Div>

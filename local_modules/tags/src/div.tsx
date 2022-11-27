@@ -1,7 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { View } from "react-native";
-import MaskedView from '@react-native-masked-view/masked-view';
-import { borderPattern, gapPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
+import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
 import { TagProps } from "./type";
 
 export const Div = ({style, onLayout, children, ...rest}:TagProps) => {
@@ -10,44 +9,44 @@ export const Div = ({style, onLayout, children, ...rest}:TagProps) => {
   const divTagStyle = tagConfig?.div;
 
   const [
-    textStyle,
+    layoutStyle,
+    shadowStyle,
     borderStyle,
+    marginStyle,
     gapStyle,
+    textStyle,
     viewStyle
   ]
   = useTagStyle([
-    textPattern,
+    layoutPattern,
+    shadowPattern,
     borderPattern,
-    gapPattern
-  ], [divTagStyle, style]);
-
-
-  const [size, setSize] = useState({ 
-    left: 0,
-    top: 0,
-    width: 0, 
-    height: 0
-  });
+    marginPattern,
+    gapPattern,
+    textPattern
+  ], [
+    divTagStyle,
+    style
+  ]);
   
   const rowGap = gapStyle?.rowGap || gapStyle?.gap || 0;
   const columnGap = gapStyle?.columnGap || gapStyle?.gap || 0;
 
   const gapContainerStyle = useMemo(() => ({
-    marginTop: -rowGap/2 + (viewStyle.margin || viewStyle.marginVertical || viewStyle.marginTop || 0),
-    marginBottom: -rowGap/2 + (viewStyle.margin || viewStyle.marginVertical || viewStyle.marginBottom || 0),
-    marginLeft: -columnGap/2 + (viewStyle.margin || viewStyle.marginHorizontal || viewStyle.marginLeft || 0),
-    marginRight: -columnGap/2 + (viewStyle.margin || viewStyle.marginHorizontal || viewStyle.marginRight || 0),
-    paddingTop: (borderStyle.borderTopWidth || borderStyle.borderWidth || 0) + (viewStyle.padding || viewStyle.paddingVertical || viewStyle.paddingTop || 0),
-    paddingBottom: (borderStyle.borderBottomWidth || borderStyle.borderWidth || 0) + (viewStyle.padding || viewStyle.paddingVertical || viewStyle.paddingBottom || 0),
-    paddingLeft: (borderStyle.borderLeftWidth || borderStyle.borderWidth || 0) + (viewStyle.padding || viewStyle.paddingVertical || viewStyle.paddingLeft || 0),
-    paddingRight: (borderStyle.borderRightWidth || borderStyle.borderWidth || 0) + (viewStyle.padding || viewStyle.paddingVertical || viewStyle.paddingRight || 0)
-  }), [rowGap, columnGap, viewStyle, borderStyle]);
+    marginTop: -rowGap/2,
+    marginBottom: -rowGap/2,
+    marginLeft: -columnGap/2,
+    marginRight: -columnGap/2
+  }), [rowGap, columnGap, viewStyle]);
 
   if(!Object.keys(gapStyle).length) {
     return (
       <View
         {...rest}
         style={{
+          ...layoutStyle,
+          ...shadowStyle,
+          ...marginStyle,
           ...viewStyle,
           ...borderStyle
         }}>
@@ -56,103 +55,31 @@ export const Div = ({style, onLayout, children, ...rest}:TagProps) => {
       </View>
     )
   }
-  else if(viewStyle.overflow !== 'hidden') {
+  else {
     return (
       <View
         {...rest}
         style={{
-          ...viewStyle,
-          backgroundColor: 'transparent',
-          ...gapContainerStyle
-        }}
-        onLayout={(e) => {
-          const { height, width } = e.nativeEvent.layout;
-
-          setSize({
-            height: Math.floor(height) - rowGap,
-            width: Math.floor(width) - columnGap,
-            left: columnGap/2,
-            top: rowGap/2
-          })
-          onLayout?.(e);
+          ...layoutStyle,
+          ...shadowStyle,
+          ...marginStyle,
+          ...borderStyle,
+          flex: viewStyle.flex,
+          overflow: viewStyle?.overflow
         }}>
-        <View 
-          pointerEvents="none"
-          style={{
-            position: 'absolute',
-            ...size,
-            borderRadius: borderStyle.borderRadius,
-            backgroundColor: viewStyle.backgroundColor,
-            zIndex: -1
-          }}></View>
-        <TagModule
-          style={{
-          ...textStyle,
-          ...(rowGap ? {marginVertical: rowGap/2} : null),
-          ...(columnGap ? {marginHorizontal: columnGap/2} : null)
-        }}>{children}</TagModule>
-        <View
-          pointerEvents="none"
-          style={{
-            position: 'absolute',
-            ...size,
-            ...borderStyle
-          }}></View>
-      </View>
-    )
-  }
-  else {
-    return (
-      <MaskedView
-        {...rest}
-        style={{
+        <View style={{
+          flex: 1,
           ...viewStyle,
-          backgroundColor: 'transparent',
           ...gapContainerStyle
-        }}
-        onLayout={(e) => {
-          const { height, width } = e.nativeEvent.layout;
-
-          setSize({
-            height: Math.floor(height) - rowGap,
-            width: Math.floor(width) - columnGap,
-            left: columnGap/2,
-            top: rowGap/2
-          })
-          onLayout?.(e);
-        }}
-        maskElement={
-          <View style={{
-            position: 'absolute',
-            backgroundColor: 'black',
-            ...size,
-            borderRadius: borderStyle.borderRadius
-          }}>
-          </View>
-        }>
-        <View 
-          pointerEvents="none"
-          style={{
-            position: 'absolute',
-            ...size,
-            borderRadius: borderStyle.borderRadius,
-            backgroundColor: viewStyle.backgroundColor,
-            zIndex: -1
-          }}></View>
-        <TagModule
-          style={{
-          ...textStyle,
-          ...(rowGap ? {marginVertical: rowGap/2} : null),
-          ...(columnGap ? {marginHorizontal: columnGap/2} : null)
-        }}>{children}</TagModule>
-        <View
-          pointerEvents="none"
-          style={{
-            position: 'absolute',
-            ...size,
-            ...borderStyle
-          }}></View>
-      </MaskedView>
+        }}>
+          <TagModule
+            style={{
+            ...textStyle,
+            ...(rowGap ? {marginVertical: rowGap/2} : null),
+            ...(columnGap ? {marginHorizontal: columnGap/2} : null)
+          }}>{children}</TagModule>
+        </View>
+      </View>
     )
   }
 }

@@ -1,6 +1,5 @@
 import React, { useLayoutEffect, useMemo, useState } from "react";
 import { Pressable, Platform, useColorScheme, GestureResponderEvent, View, PressableProps, ColorSchemeName } from "react-native";
-import MaskedView from '@react-native-masked-view/masked-view';
 
 import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
 import { ButtonStyle, FillProps } from "./type";
@@ -58,14 +57,6 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
     style,
     disabled ? disabledStyle : undefined
   ]);
-
-
-  const [size, setSize] = useState({
-    left: 0,
-    top: 0,
-    width: 0,
-    height: 0
-  });
   
   const rowGap = gapStyle?.rowGap || gapStyle?.gap || 0;
   const columnGap = gapStyle?.columnGap || gapStyle?.gap || 0;
@@ -74,14 +65,10 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
     marginTop: -rowGap/2,
     marginBottom: -rowGap/2,
     marginLeft: -columnGap/2,
-    marginRight: -columnGap/2,
-    paddingTop: borderStyle.borderTopWidth || borderStyle.borderWidth || 0,
-    paddingBottom: borderStyle.borderBottomWidth || borderStyle.borderWidth || 0,
-    paddingLeft: borderStyle.borderLeftWidth || borderStyle.borderWidth || 0,
-    paddingRight: borderStyle.borderRightWidth || borderStyle.borderWidth || 0
-  }), [rowGap, columnGap, borderStyle]);
+    marginRight: -columnGap/2
+  }), [rowGap, columnGap]);
 
-  const borderRadius = borderStyle?.borderRdius || fillStyle?.borderRadius;
+  const borderRadius = borderStyle?.borderRadius || fillStyle?.borderRadius;
 
   if(!Object.keys(gapStyle).length) {
     return (
@@ -94,7 +81,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
       }}>
         <View
           style={{
-            flex: viewStyle.flex || 1,
+            flex: 1,
             overflow: 'hidden',
             borderWidth: fillStyle?.borderWidth,
             borderColor: fillStyle?.borderColor,
@@ -130,40 +117,25 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
         ...layoutStyle,
         ...shadowStyle,
         ...marginStyle,
+        flex: viewStyle.flex,
         borderRadius
       }}>
-        <MaskedView
-          style={{
-            ...layoutStyle,
-            backgroundColor: 'transparent',
-            ...gapContainerStyle
-          }}
-          onLayout={(e) => {
-            const { height, width } = e.nativeEvent.layout;
-            setSize({
-              height: Math.floor(height) - rowGap,
-              width: Math.floor(width) - columnGap,
-              left: columnGap/2,
-              top: rowGap/2
-            })
-            onLayout?.(e);
-          }}
-          maskElement={
-            <View style={{
-              position: 'absolute',
-              backgroundColor: 'black',
-              ...size,
-              borderRadius
-            }}>
-            </View>
-          }>
+        <View style={{
+          flex: 1,
+          overflow: 'hidden',
+          borderWidth: fillStyle?.borderWidth,
+          borderColor: fillStyle?.borderColor,
+          borderRadius,
+          ...borderStyle
+        }}>
           <Pressable
             disabled={disabled}
             style={({ pressed }) => {
               return {
-                ...layoutStyle,
+                flex: 1,
                 borderRadius,
                 backgroundColor: (!pressed || Platform.OS !== 'ios') ? fillStyle?.background?.base : fillStyle?.background?.pressed,
+                ...gapContainerStyle,
                 ...viewStyle
               }
             }}
@@ -178,17 +150,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
                 ...(columnGap ? {marginHorizontal: columnGap/2} : null)
               }}>{children}</TagModule>
           </Pressable>
-          <View
-            pointerEvents="none"
-            style={{
-              position: 'absolute',
-              ...size,
-              borderWidth: fillStyle?.borderWidth,
-              borderColor: fillStyle?.borderColor,
-              borderRadius,
-              ...borderStyle
-            }}></View>
-        </MaskedView>
+        </View>
       </View>
     )
   }

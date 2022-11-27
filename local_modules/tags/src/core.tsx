@@ -109,14 +109,13 @@ const makeTagChildren = ({ id, children, style }:{ id:string, children?:React.Re
             textchildren.length = 0;
           }
           
-          if(style?.margin || style?.marginVertical || style?.marginHorizontal) {
+          if(style?.marginVertical || style?.marginHorizontal) {
             newChildren.push(
               <React.Fragment key={`tag_${id}_${newChildren.length}`}>
                 {
                   React.cloneElement(child, {
                     style: { 
-                      ...child.props?.style, 
-                      margin: style?.margin,
+                      ...child.props?.style,
                       marginVertical: style?.marginVertical,
                       marginHorizontal: style?.marginHorizontal,
                     } 
