@@ -1,7 +1,6 @@
 # @team-devmonster/react-native-tags
 
 > :warning: **It's under development**
-> :warning: **It's using [@react-native-masked-view/masked-view](https://www.npmjs.com/package/@react-native-masked-view/masked-view)**
 ## This is under devmonster's react & react-native union project.
 
 This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.<br><br>
