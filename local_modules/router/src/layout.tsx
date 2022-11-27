@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { ScrollView, View, ViewStyle } from "react-native";
 import { Edge, SafeAreaView } from "react-native-safe-area-context";
 import { TagProps, useTags } from "@team-devmonster/react-native-tags";
@@ -8,7 +8,7 @@ interface LayoutProps extends TagProps {
 }
 export const Layout = ({ children, edges, style, ...rest }:LayoutProps) => {
 
-  const { defaultEdges, contents, fixedLayout, footer } = newChildren({ children });
+  const { defaultEdges, contents, fixedLayout, footer } = useMemo(() => newChildren({ children }), [children]);
   const { tagConfig } = useTags();
   const layoutTagStyle = tagConfig?.layout?.style;
 
