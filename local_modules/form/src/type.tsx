@@ -65,8 +65,9 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps, 
   style?:TagStyle,
   disabledStyle?:TagStyle,
   errorStyle?:TagStyle,
-  type?:'text'|'email'|'url'|'number'|'tel'|'password'|'date'|'time'|'checkbox'|'radio'
+  type?:InputType
 }
+export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'date'|'datetime-local'|'time'|'checkbox'|'radio';
 
 export interface LabelProps<T extends FormValues> extends TagProps {
   errors?: Partial<FieldErrorsImpl<T>>,

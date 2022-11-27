@@ -3,6 +3,7 @@
 > :warning: **It's under development**<br>
 > :warning: **It's using [react-hook-form](https://www.npmjs.com/package/react-hook-form)**<br>
 > :warning: **It's using [react-native-svg](https://github.com/software-mansion/react-native-svg)**<br>
+> :warning: **It's using [henninghall/react-native-date-picker](https://github.com/henninghall/react-native-date-picker)**<br>
 > :warning: **It's using @team-devmonster/react-native-tags**
 
 ## This is under devmonster's react & react-native union project.

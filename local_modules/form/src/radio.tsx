@@ -58,7 +58,7 @@ export function Radio<T extends FormValues>(
             inoutAnim,
             {
               toValue: value === fieldValue ? 1 : 0,
-              duration: 150,
+              duration: 120,
               easing: Easing.ease,
               useNativeDriver: true
             }

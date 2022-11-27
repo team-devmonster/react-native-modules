@@ -5,8 +5,6 @@ import { Theme } from "App.theme";
 import { Button, Div } from "@local_modules/tags";
 import { useForm } from "react-hook-form";
 import { ErrorText, Input, Label } from "@local_modules/form";
-import { ScrollView, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Layout } from "@local_modules/router";
 
 interface FormProps {
@@ -16,6 +14,9 @@ interface FormProps {
   price:number,
   agree1:boolean,
   gender:'man'|'woman'|'etc',
+  date:string,
+  dateTime:string,
+  time:string,
 }
 
 const FormEx = () => {
@@ -125,6 +126,25 @@ const FormEx = () => {
             type="radio"></Input>
           <Label>etc</Label>
         </Button>
+        
+        <Input 
+          type="date" 
+          control={control}
+          name="date"
+          placeholder="date"></Input>
+
+        <Input 
+          type="datetime-local" 
+          control={control}
+          name="dateTime"
+          value="2022-11-27 22:49"
+          placeholder="date time"></Input>
+
+        <Input 
+          type="time" 
+          control={control}
+          name="time"
+          placeholder="time"></Input>
 
         <Button 
           onClick={() => {
