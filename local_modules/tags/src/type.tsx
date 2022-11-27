@@ -1,12 +1,16 @@
 import { TextProps, TextStyle } from "react-native";
 
 export interface TagGroupConfig {
+  // tag - default
   div?: TagStyle,
   button?: ButtonConfig,
   img?: TagStyle,
-  //additional
+  // tag - additional
   p?:TagStyle,
-  span?:TagStyle
+  span?:TagStyle,
+  // router
+  layout?:LayoutConfig,
+  header?:HeaderConfig,
   // forms
   input?: InputConfig
   errorText?: ErrorTextConfig,
@@ -38,6 +42,17 @@ export interface ButtonConfig {
   hoverStyle?:ButtonStyle;
   color?: string;
   fill?: FillProps;
+}
+
+// router
+export interface LayoutConfig {
+  style?: TagStyle
+}
+export interface HeaderConfig {
+  style?: TagStyle,
+  headerTitleStyle?:Pick<TagStyle, "fontFamily" | "fontSize" | "fontWeight"> & {
+    color?: string | undefined;
+  }
 }
 
 

@@ -1,8 +1,9 @@
-import React, { useLayoutEffect } from "react";
-import { StyleProp, TextStyle, useColorScheme, ViewStyle } from "react-native";
+import React, { useLayoutEffect, useMemo } from "react";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
 import { StatusBar, StatusBarStyle } from 'expo-status-bar';
-import { DarkTheme, DefaultTheme, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
+import { useTags } from "@team-devmonster/react-native-tags";
 
 export interface HeaderProps {
   title?:string | React.ReactNode;
@@ -19,30 +20,51 @@ export interface HeaderProps {
   contentStyle?:StyleProp<ViewStyle>
 }
 
-export const Header = ({ title, headerTitleAlign, headerTitleStyle, headerLeft, headerRight, headerBackTitle, headerShown, style, statusBarStyle, contentStyle }:HeaderProps) => {
+export const Header = ({ 
+  title, 
+  headerTitleAlign,
+  headerTitleStyle:_headerTitleStyle,
+  headerLeft, 
+  headerRight, 
+  headerBackTitle, 
+  headerShown, 
+  style, 
+  statusBarStyle, 
+  contentStyle 
+}:HeaderProps) => {
 
   const navigation = useNavigation();
-  const colorScheme = useColorScheme();
+
+  const { tagConfig } = useTags();
+  const headerTagStyle = tagConfig?.header?.style;
+  const headerTagTitleStyle = tagConfig?.header?.headerTitleStyle;
+
+  const headerStyle = useMemo(() => ({
+    ...headerTagStyle,
+    ...style as any
+  }), [headerTagStyle, style]);
+
+  const headerTitleStyle = useMemo(() => ({
+    ...headerTagTitleStyle,
+    ..._headerTitleStyle as any
+  }), [headerTagTitleStyle, _headerTitleStyle])
   
   useLayoutEffect(() => {
     let options:Partial<NativeStackNavigationOptions> = {
       headerShadowVisible: false,
-      headerStyle: {
-        backgroundColor: (style?.backgroundColor || (colorScheme === 'dark' ? DarkTheme.colors.background : DefaultTheme.colors.background)) as string
-      },
-      headerTintColor: (style?.color || (colorScheme === 'dark' ? DarkTheme.colors.text : DefaultTheme.colors.text)) as string,
-      contentStyle
+      headerStyle,
+      contentStyle,
+      headerTitleStyle
     }
+
     if(typeof title !== null) {
-      if(typeof title === 'string') {
-        options.headerTitle = title;
-      }
-      else {
-        options.headerTitle = () => title;
-      }
+      if(typeof title === 'string') options.headerTitle = title;
+      else options.headerTitle = () => title;
     }
+
+    if(style?.color) options.headerTintColor = style.color as string;
+
     if(headerTitleAlign) options.headerTitleAlign = headerTitleAlign;
-    if(headerTitleStyle) options.headerTitleStyle = headerTitleStyle;
     if(headerLeft) options.headerLeft = () => headerLeft;
     if(headerRight) options.headerRight = () => headerRight;
     if(headerBackTitle) options.headerBackTitle = headerBackTitle;

@@ -1,7 +1,7 @@
 import React from "react";
 import { ScrollView, View, ViewStyle } from "react-native";
 import { Edge, SafeAreaView } from "react-native-safe-area-context";
-import { TagProps } from "@team-devmonster/react-native-tags";
+import { TagProps, useTags } from "@team-devmonster/react-native-tags";
 
 interface LayoutProps extends TagProps {
   edges?:Edge[];
@@ -9,6 +9,8 @@ interface LayoutProps extends TagProps {
 export const Layout = ({ children, edges, style, ...rest }:LayoutProps) => {
 
   const { defaultEdges, contents, fixedLayout, footer } = newChildren({ children });
+  const { tagConfig } = useTags();
+  const layoutTagStyle = tagConfig?.layout?.style;
 
   return (
     <View style={{ flex: 1 }}>
@@ -20,6 +22,7 @@ export const Layout = ({ children, edges, style, ...rest }:LayoutProps) => {
           edges={defaultEdges || edges} 
           style={{
             flex: 1,
+            ...layoutTagStyle as any,
             ...style as ViewStyle
           }} {...rest}>
           {contents}
