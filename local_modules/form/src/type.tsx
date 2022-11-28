@@ -1,4 +1,4 @@
-import { ButtonProps, TagProps, TagStyle } from "@team-devmonster/react-native-tags"
+import { ButtonProps, InputStyle, TagProps, TagStyle } from "@team-devmonster/react-native-tags"
 import { SyntheticEvent } from "react"
 import { Control, FieldErrorsImpl, Path } from "react-hook-form"
 
@@ -62,12 +62,13 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps, 
   control:Control<T>,
   name:Path<T>,
   placeholder?:string,
-  style?:TagStyle,
-  disabledStyle?:TagStyle,
-  errorStyle?:TagStyle,
+  style?:InputStyle,
+  disabledStyle?:InputStyle,
+  errorStyle?:InputStyle,
   type?:InputType
 }
-export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'date'|'datetime-local'|'time'|'checkbox'|'radio';
+export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'checkbox'|'radio'|InputDateType;
+export type InputDateType = 'date'|'datetime-local'|'time';
 
 export interface LabelProps<T extends FormValues> extends TagProps {
   errors?: Partial<FieldErrorsImpl<T>>,

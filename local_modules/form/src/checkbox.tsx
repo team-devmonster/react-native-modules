@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import { useColorScheme, TextInput, Animated, Easing } from "react-native";
+import React, { useEffect, useMemo, useRef } from "react";
+import { TextInput, Animated, Easing } from "react-native";
 import { Control, Controller, Path as Names } from 'react-hook-form';
 import Svg, { Path } from "react-native-svg";
 
 import { FormValues, InputProps } from "./type";
-import { TagStyle, useTags, useTagStyle, Button } from '@team-devmonster/react-native-tags';
+import { TagStyle, useTags, useTagStyle, Button, borderPattern, TagGroupConfig } from '@team-devmonster/react-native-tags';
 export interface CheckboxProps<T extends FormValues = any> extends Omit<InputProps<T>, 'placeholder'> {
   control:Control<T>,
   name:Names<T>,
@@ -24,13 +24,9 @@ export function Checkbox<T extends FormValues>({
     ...rules
   }:CheckboxProps<T>) 
 {
-  const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
   
-  const inputTagStyle = tagConfig?.input?.style;
-  const checkboxTagStyle = tagConfig?.checkbox?.style;
-  const checkboxTagDisabledStyle = tagConfig?.checkbox?.disabledStyle;
-  const checkboxTagErrorStyle = tagConfig?.checkbox?.errorStyle;
+  const styles = useMemo(() => getStyles({ tagConfig }), [tagConfig?.input])
 
   return (
     <Controller
@@ -63,9 +59,9 @@ export function Checkbox<T extends FormValues>({
         = useTagStyle([
 
         ], [
-          checkboxTagStyle, 
-          disabled ? checkboxTagDisabledStyle : undefined,
-          error ? checkboxTagErrorStyle : undefined,
+          styles.checkboxTagStyle, 
+          disabled ? styles.checkboxTagDisabledStyle : undefined,
+          error ? styles.checkboxTagErrorStyle : undefined,
           style,
           disabled ? disabledStyle : undefined,
           error ? errorStyle : undefined
@@ -74,14 +70,12 @@ export function Checkbox<T extends FormValues>({
         return (
           <Button
             fill="none"
-            color={colorScheme === 'dark' ? '#000000' : '#ffffff'}
+            color={newStyle.backgroundColor}
             style={{
               width: 38,
               height: 38,
               justifyContent: 'center',
               alignItems: 'center',
-              borderWidth: inputTagStyle?.borderWidth,
-              borderColor: inputTagStyle?.borderColor,
               ...newStyle
             }}
             onClick={(e) => {
@@ -104,11 +98,10 @@ export function Checkbox<T extends FormValues>({
                   <Svg 
                     fill="none" 
                     viewBox="0 0 24 24"
-                    stroke={newStyle.color || '#FF6420'} 
+                    stroke={newStyle.iconColor || '#FF6420'} 
                     strokeWidth={2}
-                    width={28}
-                    height={28}
-                    style={{ width: 28, height: 28 }}>
+                    width={newStyle.iconWidth || 28}
+                    height={newStyle.iconHeight || 28}>
                     <Path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </Svg>
                 </Animated.View>
@@ -118,4 +111,50 @@ export function Checkbox<T extends FormValues>({
        }}
     />
   )
+}
+
+const getStyles = ({ tagConfig }:{ tagConfig:TagGroupConfig|undefined }) => {
+  const inputTagStyle = tagConfig?.input?.style;
+  const inputDisabledTagStyle = tagConfig?.input?.disabledStyle;
+  const inputErrorTagStyle = tagConfig?.input?.errorStyle;
+
+  const borderStyle = inputTagStyle ? 
+    Object.entries(inputTagStyle)
+      .filter(([key]) => borderPattern.test(key))
+      .reduce((sum, cur) => ({ ...sum, [cur[0]]:cur[1] }), {}) : null;
+  const backgroundColor = inputTagStyle?.backgroundColor;
+
+  const borderDisabledStyle = inputDisabledTagStyle ? 
+    Object.entries(inputDisabledTagStyle)
+      .filter(([key]) => borderPattern.test(key)) 
+      .reduce((sum, cur) => ({ ...sum, [cur[0]]:cur[1] }), {}) : null;
+  const backgroundDisabledColor = inputDisabledTagStyle?.backgroundColor;
+
+  const borderErrorStyle = inputErrorTagStyle ? 
+    Object.entries(inputErrorTagStyle)
+      .filter(([key]) => borderPattern.test(key))
+      .reduce((sum, cur) => ({ ...sum, [cur[0]]:cur[1] }), {}) : null;
+  const backgroundErrorColor = inputErrorTagStyle?.backgroundColor;
+
+  const checkboxTagStyle = tagConfig?.input?.["type=checkbox"]?.style;
+  const checkboxTagDisabledStyle = tagConfig?.input?.["type=checkbox"]?.disabledStyle;
+  const checkboxTagErrorStyle = tagConfig?.input?.["type=checkbox"]?.errorStyle;
+
+  return {
+    checkboxTagStyle:  {
+      ...borderStyle,
+      backgroundColor: backgroundColor,
+      ...checkboxTagStyle
+    },
+    checkboxTagDisabledStyle: {
+      ...borderDisabledStyle,
+      backgroundColor: backgroundDisabledColor,
+      ...checkboxTagDisabledStyle
+    },
+    checkboxTagErrorStyle: {
+      ...borderErrorStyle,
+      backgroundColor: backgroundErrorColor,
+      ...checkboxTagErrorStyle
+    }
+  }
 }

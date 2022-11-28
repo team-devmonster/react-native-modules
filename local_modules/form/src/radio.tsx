@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from "react";
-import { useColorScheme, TextInput, View, Animated, Easing } from "react-native";
+import React, { useEffect, useRef, useMemo } from "react";
+import { TextInput, View, Animated, Easing } from "react-native";
 import { Control, Controller, Path as Names } from 'react-hook-form';
 
 import { FormValues, InputRuleProps } from "./type";
-import { TagStyle, useTags, useTagStyle, Button } from '@team-devmonster/react-native-tags';
+import { TagStyle, useTags, useTagStyle, Button, TagGroupConfig, borderPattern } from '@team-devmonster/react-native-tags';
 
 
 const radioDefaultStyle:TagStyle = {
@@ -11,7 +11,6 @@ const radioDefaultStyle:TagStyle = {
   height: 38,
   borderColor: '#dedede',
   borderWidth: 1,
-  borderRadius: 19,
   justifyContent: 'center',
   alignItems: 'center'
 }
@@ -34,12 +33,9 @@ export function Radio<T extends FormValues>(
     ...rules
   }:RadioProps<T>) 
 {
-  const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
   
-  const radioTagStyle = tagConfig?.radio?.style;
-  const radioTagDisabledStyle = tagConfig?.radio?.disabledStyle;
-  const radioTagErrorStyle = tagConfig?.radio?.errorStyle;
+  const styles = useMemo(() => getStyles({ tagConfig }), [tagConfig?.input]);
 
   return (
     <Controller
@@ -66,14 +62,14 @@ export function Radio<T extends FormValues>(
         }, [value, fieldValue]);
 
         const [
-          radioStyle
+          newStyle
         ]
         = useTagStyle([
 
         ], [
-          radioTagStyle, 
-          disabled ? radioTagDisabledStyle : undefined,
-          error ? radioTagErrorStyle : undefined,
+          styles.tagStyle, 
+          disabled ? styles.tagDisabledStyle : undefined,
+          error ? styles.tagErrorStyle : undefined,
           style,
           disabled ? disabledStyle : undefined,
           error ? errorStyle : undefined
@@ -81,10 +77,10 @@ export function Radio<T extends FormValues>(
 
         return (
           <Button
-            color={colorScheme === 'dark' ? '#000000' : '#ffffff'}
+            color={newStyle.backgroundColor}
             style={{
               ...radioDefaultStyle,
-              ...radioStyle
+              ...newStyle
             }}
             onClick={() => {
               onChange(value);
@@ -101,10 +97,10 @@ export function Radio<T extends FormValues>(
                   ]
                 }}>
                   <View style={{
-                    width: 16,
-                    height: 16,
-                    borderRadius: 12,
-                    backgroundColor: radioStyle.color || '#FF6420'
+                    width: newStyle.iconWidth || 16,
+                    height: newStyle.iconHeight || 16,
+                    borderRadius: 50,
+                    backgroundColor: newStyle.iconColor || '#FF6420'
                   }}>
                   </View>
                 </Animated.View>
@@ -114,4 +110,51 @@ export function Radio<T extends FormValues>(
        }}
     />
   )
+}
+
+const getStyles = ({ tagConfig }:{ tagConfig:TagGroupConfig|undefined }) => {
+  const inputTagStyle = tagConfig?.input?.style;
+  const inputDisabledTagStyle = tagConfig?.input?.disabledStyle;
+  const inputErrorTagStyle = tagConfig?.input?.errorStyle;
+
+  const borderStyle = inputTagStyle ? 
+    Object.entries(inputTagStyle)
+      .filter(([key]) => borderPattern.test(key))
+      .reduce((sum, cur) => ({ ...sum, [cur[0]]:cur[1] }), {}) : null;
+  const backgroundColor = inputTagStyle?.backgroundColor;
+
+  const borderDisabledStyle = inputDisabledTagStyle ? 
+    Object.entries(inputDisabledTagStyle)
+      .filter(([key]) => borderPattern.test(key))
+      .reduce((sum, cur) => ({ ...sum, [cur[0]]:cur[1] }), {}) : null;
+  const backgroundDisabledColor = inputDisabledTagStyle?.backgroundColor;
+
+  const borderErrorStyle = inputErrorTagStyle ? 
+    Object.entries(inputErrorTagStyle)
+      .filter(([key]) => borderPattern.test(key))
+      .reduce((sum, cur) => ({ ...sum, [cur[0]]:cur[1] }), {}) : null;
+  const backgroundErrorColor = inputErrorTagStyle?.backgroundColor;
+
+  const radioTagStyle = tagConfig?.input?.["type=radio"]?.style;
+  const radioTagDisabledStyle = tagConfig?.input?.["type=radio"]?.disabledStyle;
+  const radioTagErrorStyle = tagConfig?.input?.["type=radio"]?.errorStyle;
+
+  return {
+    tagStyle:  {
+      ...borderStyle,
+      borderRadius: 50,
+      backgroundColor: backgroundColor,
+      ...radioTagStyle
+    },
+    tagDisabledStyle: {
+      ...borderDisabledStyle,
+      backgroundColor: backgroundDisabledColor,
+      ...radioTagDisabledStyle
+    },
+    tagErrorStyle: {
+      ...borderErrorStyle,
+      backgroundColor: backgroundErrorColor,
+      ...radioTagErrorStyle
+    }
+  }
 }

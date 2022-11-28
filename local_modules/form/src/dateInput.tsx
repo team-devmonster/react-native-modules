@@ -1,16 +1,18 @@
 import React, { useState, useMemo } from "react";
-import { useColorScheme, TextInput } from "react-native";
+import { TextInput } from "react-native";
 import { Control, Controller, Path as Names } from "react-hook-form"
-import { Button, P, placeholderPattern, TagStyle, textPattern, useTags, useTagStyle } from "@team-devmonster/react-native-tags"
+import { Button, InputConfig, P, TagGroupConfig, TagStyle, textPattern, useTags, useTagStyle } from "@team-devmonster/react-native-tags"
 import DatePicker from 'react-native-date-picker';
-import { FormValues, InputProps, InputType } from "./type";
+import { FormValues, InputDateType, InputProps } from "./type";
+import Svg, { Path } from "react-native-svg";
 
 export interface DateInputProps<T extends FormValues = any> extends InputProps<T> {
   control:Control<T>,
   name:Names<T>,
   style?:TagStyle,
   disabledStyle?:TagStyle,
-  errorStyle?:TagStyle
+  errorStyle?:TagStyle,
+  type:InputDateType
 }
 
 export function DateInput<T extends FormValues>({
@@ -25,17 +27,14 @@ export function DateInput<T extends FormValues>({
   type = 'date',
   onClick,
   ...rules
-}:DateInputProps) {
+}:DateInputProps<T>) {
 
   const mode = useMemo(() => getMode({ type }), [type]);
   const [open, setOpen] = useState(false)
 
-  const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
 
-  const inputTagStyle = tagConfig?.input?.style;
-  const inputTagDisabledStyle = tagConfig?.input?.disabledStyle;
-  const inputTagErrorStyle = tagConfig?.input?.errorStyle;
+  const styles = useMemo(() => getStyles({ tagConfig, type }), [tagConfig?.input, type]);
 
   return (
     <Controller
@@ -49,17 +48,15 @@ export function DateInput<T extends FormValues>({
       }) => {
 
         const [
-          placeholderStyle,
           textStyle,
           inputStyle
         ]
         = useTagStyle([
-          placeholderPattern,
           textPattern
         ], [
-          inputTagStyle, 
-          disabled ? inputTagDisabledStyle : undefined,
-          error ? inputTagErrorStyle : undefined,
+          styles.tagStyle, 
+          disabled ? styles.tagDisabledStyle : undefined,
+          error ? styles.tagErrorStyle : undefined,
           style,
           disabled ? disabledStyle : undefined,
           error ? errorStyle : undefined
@@ -69,34 +66,20 @@ export function DateInput<T extends FormValues>({
         
         return (
           <Button 
+            onClick={() => setOpen(true)}
             fill="none"
-            color={colorScheme === 'dark' ? '#000000' : '#ffffff'}
+            color={inputStyle?.backgroundColor}
             style={{
               flexDirection: 'row',
+              alignItems: 'center',
               ...inputStyle
             }}
-            onClick={() => setOpen(true)}
           >
             <TextInput
               showSoftInputOnFocus={false}
               ref={ref}
               onBlur={onBlur}
               style={{ position: 'absolute', top: -2, left: 0, width: 1, height: 1, zIndex: -1, opacity: 0 }}
-            />
-            <DatePicker
-              modal
-              title={placeholder}
-              mode={mode}
-              open={open}
-              date={date}
-              onConfirm={(date:Date) => {
-                const value = getValue({ type, date });
-                onChange(value);
-                setOpen(false);
-              }}
-              onCancel={() => {
-                setOpen(false);
-              }}
             />
             {
               isValid
@@ -113,11 +96,73 @@ export function DateInput<T extends FormValues>({
                   style={{
                     flex: 1,
                     ...textStyle,
-                    color: placeholderStyle?.placeholderColor
+                    color: inputStyle?.placeholderColor
                   }}>
                   {placeholder}
                 </P>
             }
+            {
+              {
+                'date': (
+                  <Svg
+                    width={inputStyle?.iconWidth || 24}
+                    height={inputStyle?.iconWidth || 24}
+                    viewBox="0 0 24 24"
+                    fill={inputStyle?.iconColor || '#FF6420'}
+                  >
+                    <Path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-5.25 3a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm-1.5-3a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z" />
+                    <Path
+                      fillRule="evenodd"
+                      d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5z"
+                      clipRule="evenodd"
+                    />
+                  </Svg>
+                ),
+                'time': (
+                  <Svg
+                    width={inputStyle?.iconWidth || 24}
+                    height={inputStyle?.iconWidth || 24}
+                    viewBox="0 0 24 24"
+                    fill={inputStyle?.iconColor || '#FF6420'}
+                  >
+                    <Path
+                      fillRule="evenodd"
+                      d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6z"
+                      clipRule="evenodd"
+                    />
+                  </Svg>
+                ),
+                'datetime-local': (
+                  <Svg
+                    width={inputStyle?.iconWidth || 24}
+                    height={inputStyle?.iconWidth || 24}
+                    viewBox="0 0 24 24"
+                    fill={inputStyle?.iconColor || '#FF6420'}
+                  >
+                    <Path
+                      fillRule="evenodd"
+                      d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6z"
+                      clipRule="evenodd"
+                    />
+                  </Svg>
+                )
+              }[type]
+            }
+            <DatePicker
+              modal
+              title={placeholder}
+              mode={mode}
+              open={open}
+              date={date}
+              onConfirm={(date:Date) => {
+                const value = getValue({ type, date });
+                onChange(value);
+                setOpen(false);
+              }}
+              onCancel={() => {
+                setOpen(false);
+              }}
+            />
           </Button>
         )
       }}
@@ -125,12 +170,12 @@ export function DateInput<T extends FormValues>({
   )
 }
 
-const getMode = ({type}:{type:InputType}) => {
+const getMode = ({type}:{type:InputDateType}) => {
   switch(type) {
     case 'date':
     case 'time':
       return type;
-    default:
+    case 'datetime-local':
       return 'datetime';
   }
 }
@@ -148,7 +193,7 @@ const getDate = ({value}:{value:string}) => {
   return { date, isValid };
 }
 
-const getValue = ({type, date:_date}:{ type:InputType, date:Date}) => {
+const getValue = ({type, date:_date}:{ type:InputDateType, date:Date}) => {
   const date = `${_date.getFullYear()}-${toXX(_date.getMonth()+1)}-${toXX(_date.getDate())}`;
   const time = `${toXX(_date.getHours())}:${toXX(_date.getMinutes())}`;
 
@@ -169,4 +214,30 @@ const toXX = (num:number) => {
 const today = () => {
   const date = new Date();
   return `${date.getFullYear()}-${toXX(date.getMonth()+1)}-${toXX(date.getDate())}`;
+}
+
+const getStyles = ({ tagConfig, type }:{ tagConfig:TagGroupConfig|undefined, type:InputDateType }) => {
+  const inputTagStyle = tagConfig?.input?.style;
+  const inputDisabledTagStyle = tagConfig?.input?.disabledStyle;
+  const inputErrorTagStyle = tagConfig?.input?.errorStyle;
+
+  const dateType:keyof InputConfig = `type=${type}`;
+  const DateTagStyle = tagConfig?.input?.[dateType]?.style;
+  const DateTagDisabledStyle = tagConfig?.input?.[dateType]?.disabledStyle;
+  const DateTagErrorStyle = tagConfig?.input?.[dateType]?.errorStyle;
+
+    return {
+      tagStyle:  {
+        ...inputTagStyle,
+        ...DateTagStyle
+      },
+      tagDisabledStyle: {
+        ...inputDisabledTagStyle,
+        ...DateTagDisabledStyle
+      },
+      tagErrorStyle: {
+        ...inputErrorTagStyle,
+        ...DateTagErrorStyle
+      }
+    }
 }

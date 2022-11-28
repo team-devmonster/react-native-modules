@@ -7,19 +7,18 @@ import { DateInput } from "./dateInput";
 
 export function Input<T extends FormValues>(props:InputProps<T>) 
 {
-  const { type } = props;
+  const { type, ...rest } = props;
 
   switch(type) {
     case 'date':
     case 'datetime-local':
     case 'time':
-      return <DateInput {...props}/>;
+      return <DateInput type={type} {...rest}/>;
     case 'checkbox':
-      return <Checkbox {...props}/>;
+      return <Checkbox {...rest}/>;
     case 'radio':
-      return <Radio {...props}/>;
+      return <Radio {...rest}/>;
     default:
-      return <BaseInput {...props}/>;
-  }
-  
+      return <BaseInput type={type} {...rest}/>;
+  } 
 }

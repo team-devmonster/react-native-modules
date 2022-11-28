@@ -1,6 +1,6 @@
 {
   "name": "@team-devmonster/react-native-form",
-  "version": "1.0.9",
+  "version": "1.1.4",
   "description": "This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

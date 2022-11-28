@@ -15,8 +15,6 @@ export interface TagGroupConfig {
   input?: InputConfig
   errorText?: ErrorTextConfig,
   label?: LabelConfig,
-  checkbox?: InputConfig,
-  radio?: InputConfig,
   select?: InputConfig
 }
 
@@ -64,7 +62,42 @@ export interface InputStyle extends TagStyle {
 export interface InputConfig {
   style?:InputStyle,
   disabledStyle?:InputStyle,
-  errorStyle?:InputStyle
+  errorStyle?:InputStyle,
+  'type=checkbox'?:InputCheckboxConfig,
+  'type=radio'?:InputRadioConfig,
+  'type=date'?:InputDateConfig,
+  'type=datetime-local'?:InputDateConfig,
+  'type=time'?:InputDateConfig,
+}
+export interface InputCheckboxConfig {
+  style?:InputCheckboxStyle,
+  disabledStyle?:InputCheckboxStyle,
+  errorStyle?:InputCheckboxStyle
+}
+export interface InputRadioConfig {
+  style?:InputRadioStyle,
+  disabledStyle?:InputRadioStyle,
+  errorStyle?:InputRadioStyle
+}
+export interface InputDateConfig {
+  style?:InputDateStyle,
+  disabledStyle?:InputDateStyle,
+  errorStyle?:InputDateStyle
+}
+export interface InputCheckboxStyle extends TagStyle {
+  iconColor?:string,
+  iconWidth?:number,
+  iconHeight?:number
+}
+export interface InputRadioStyle extends TagStyle {
+  iconColor?:string,
+  iconWidth?:number,
+  iconHeight?:number
+}
+export interface InputDateStyle extends TagStyle {
+  iconColor?:string,
+  iconWidth?:number,
+  iconHeight?:number
 }
 
 export interface ErrorTextConfig {

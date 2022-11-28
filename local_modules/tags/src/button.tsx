@@ -134,9 +134,9 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
               return {
                 flex: 1,
                 borderRadius,
-                backgroundColor: (!pressed || Platform.OS !== 'ios') ? fillStyle?.background?.base : fillStyle?.background?.pressed,
                 ...gapContainerStyle,
-                ...viewStyle
+                ...viewStyle,
+                ...(pressed && Platform.OS === 'ios' ? { backgroundColor: fillStyle?.background?.pressed } : null)
               }
             }}
             android_ripple={{ color: fillStyle?.background.ripple }}

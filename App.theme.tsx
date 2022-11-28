@@ -130,35 +130,51 @@ const theme = (color:Color) => {
       borderRadius: 5,
       borderWidth: 1,
       fontSize: fontSize.base,
-      paddingTop: 10,
-      paddingBottom: 10,
+      paddingTop: 8,
+      paddingBottom: 8,
       paddingLeft: 10,
       paddingRight: 10,
       minHeight: 42
     },
     errorStyle: {
-      borderColor: color.warning,
-      //marginBottom: 0 // for errorText
+      borderColor: color.warning
     },
     disabledStyle: {
       backgroundColor: color.step100,
       borderColor: color.step200
     }
   }
-  const label:LabelConfig = {
-    errorStyle: {
-      color: color.danger
+
+  input['type=checkbox'] = {
+    style: {
+      iconColor: color.primary
     }
   }
-  const checkbox:InputConfig = {
+  input['type=radio'] = {
     style: {
-      color: color.primary
+      iconColor: color.primary
     }
   }
 
-  const radio:InputConfig = {
+  input['type=date'] = {
     style: {
-      color: color.primary
+      iconColor: color.primary
+    }
+  }
+  input['type=datetime-local'] = {
+    style: {
+      iconColor: color.primary
+    }
+  }
+  input['type=time'] = {
+    style: {
+      iconColor: color.primary
+    }
+  }
+
+  const label:LabelConfig = {
+    errorStyle: {
+      color: color.danger
     }
   }
 
@@ -175,7 +191,7 @@ const theme = (color:Color) => {
     // tags theme
     div, button,
     // form theme
-    input, label, checkbox, radio, errorText
+    input, label, errorText
   }
 }
 
