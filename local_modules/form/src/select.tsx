@@ -7,7 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { TagStyle, useTags, useTagStyle, Button, TagGroupConfig, P, textPattern, ButtonStyle } from '@team-devmonster/react-native-tags';
 import { FormValues, InputProps } from "./type";
 
-export interface SelectProps<T extends FormValues = any> extends InputProps<T> {
+export interface SelectProps<T extends FormValues = any> extends Omit<InputProps<T>, 'type'> {
   control:Control<T>,
   name:Names<T>,
   confirmText?:string,
