@@ -293,8 +293,8 @@ const getButtonStyles = ({ styles, confirmButtonStyle, cancelButtonStyle }:{ sty
 
 const getPickerItem = ({children:options}:{children:JSX.Element|JSX.Element[]|undefined}) => {
   if(Array.isArray(options)) {
-    return options.map(({ props: { children:label, value:optionValue } }) => (
-      <Picker.Item label={label} value={optionValue}/>
+    return options.map(({ props: { children:label, value:optionValue } }, i) => (
+      <Picker.Item key={i} label={label} value={optionValue}/>
     ))
   }
   else {
