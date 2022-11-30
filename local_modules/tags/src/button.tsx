@@ -68,7 +68,12 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
     marginRight: -columnGap/2
   }), [rowGap, columnGap]);
 
-  const borderRadius = borderStyle?.borderRadius || fillStyle?.borderRadius;
+  const borderRadiusStyle = useMemo(() => ({
+    borderTopLeftRadius: borderStyle?.borderTopLeftRadius ?? borderStyle?.borderRadius ?? fillStyle?.borderRadius,
+    borderTopRightRadius: borderStyle?.borderTopRightRadius ?? borderStyle?.borderRadius ?? fillStyle?.borderRadius,
+    borderBottomLeftRadius: borderStyle?.borderBottomLeftRadius ?? borderStyle?.borderRadius ?? fillStyle?.borderRadius,
+    borderBottomRightRadius: borderStyle?.borderBottomRightRadius ?? borderStyle?.borderRadius ?? fillStyle?.borderRadius
+  }), [borderStyle, fillStyle]);
 
   if(!Object.keys(gapStyle).length) {
     return (
@@ -77,7 +82,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
         ...shadowStyle,
         ...marginStyle,
         flex: viewStyle.flex,
-        borderRadius
+        ...borderRadiusStyle
       }}>
         <View
           style={{
@@ -85,7 +90,6 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
             overflow: 'hidden',
             borderWidth: fillStyle?.borderWidth,
             borderColor: fillStyle?.borderColor,
-            borderRadius,
             ...borderStyle
           }}>
           <Pressable
@@ -93,7 +97,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
             style={({ pressed }) => {
               return {
                 flex: 1,
-                borderRadius,
+                ...borderRadiusStyle,
                 backgroundColor: (!pressed || Platform.OS !== 'ios') ? fillStyle?.background?.base : fillStyle?.background?.pressed,
                 ...viewStyle
               }
@@ -118,14 +122,14 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
         ...shadowStyle,
         ...marginStyle,
         flex: viewStyle.flex,
-        borderRadius
+        ...borderRadiusStyle,
       }}>
         <View style={{
           flex: 1,
           overflow: 'hidden',
           borderWidth: fillStyle?.borderWidth,
           borderColor: fillStyle?.borderColor,
-          borderRadius,
+          ...borderRadiusStyle,
           ...borderStyle
         }}>
           <Pressable
@@ -133,7 +137,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
             style={({ pressed }) => {
               return {
                 flex: 1,
-                borderRadius,
+                ...borderRadiusStyle,
                 ...gapContainerStyle,
                 ...viewStyle,
                 ...(pressed && Platform.OS === 'ios' ? { backgroundColor: fillStyle?.background?.pressed } : null)

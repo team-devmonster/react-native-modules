@@ -83,6 +83,18 @@ const TagsEx = () => {
       </Button>
 
       <Button 
+        color={color.primary} 
+        fill="outline" 
+        style={{ 
+          marginBottom: 10,
+          borderRadius: 10,
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0
+        }}>
+        disabled
+      </Button>
+
+      <Button 
         color={color.step100}
         style={{
           width: 100,

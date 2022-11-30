@@ -15,7 +15,7 @@ export interface TagGroupConfig {
   input?: InputConfig
   errorText?: ErrorTextConfig,
   label?: LabelConfig,
-  select?: InputConfig
+  select?: SelectConfig
 }
 
 export interface TagProps extends Omit<TextProps, 'style'|'onPress'> {
@@ -80,6 +80,8 @@ export interface InputRadioConfig {
   errorStyle?:InputRadioStyle
 }
 export interface InputDateConfig {
+  confirmText?:string,
+  cancelText?:string,
   style?:InputDateStyle,
   disabledStyle?:InputDateStyle,
   errorStyle?:InputDateStyle
@@ -100,6 +102,16 @@ export interface InputDateStyle extends TagStyle {
   iconHeight?:number
 }
 
+export interface SelectStyle extends InputStyle {}
+export interface SelectConfig {
+  confirmText?:string,
+  cancelText?:string,
+  confirmButtonStyle?:ButtonStyle,
+  cancelButtonStyle?:ButtonStyle,
+  style?:SelectStyle,
+  disabledStyle?:SelectStyle,
+  errorStyle?:SelectStyle
+}
 export interface ErrorTextConfig {
   style?:TagStyle
 }

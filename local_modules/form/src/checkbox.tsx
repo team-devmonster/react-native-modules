@@ -26,7 +26,7 @@ export function Checkbox<T extends FormValues>({
 {
   const { tagConfig } = useTags();
   
-  const styles = useMemo(() => getStyles({ tagConfig }), [tagConfig?.input])
+  const styles = useMemo(() => getStyles({ tagConfig }), [tagConfig?.input]);
 
   return (
     <Controller

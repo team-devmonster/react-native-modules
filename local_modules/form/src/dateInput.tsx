@@ -16,6 +16,8 @@ export interface DateInputProps<T extends FormValues = any> extends InputProps<T
 }
 
 export function DateInput<T extends FormValues>({
+  confirmText,
+  cancelText,
   control, 
   name, 
   placeholder,
@@ -30,7 +32,7 @@ export function DateInput<T extends FormValues>({
 }:DateInputProps<T>) {
 
   const mode = useMemo(() => getMode({ type }), [type]);
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const { tagConfig } = useTags();
 
@@ -66,7 +68,10 @@ export function DateInput<T extends FormValues>({
         
         return (
           <Button 
-            onClick={() => setOpen(true)}
+            onClick={(e) => {
+              setOpen(true);
+              onClick?.(e);
+            }}
             fill="none"
             color={inputStyle?.backgroundColor}
             style={{
@@ -84,22 +89,9 @@ export function DateInput<T extends FormValues>({
             {
               isValid
               ?
-                <P 
-                  style={{
-                    flex: 1,
-                    ...textStyle
-                  }}>
-                  {value}
-                </P>
+                <P style={{ flex: 1, ...textStyle }}>{value}</P>
               :
-                <P 
-                  style={{
-                    flex: 1,
-                    ...textStyle,
-                    color: inputStyle?.placeholderColor
-                  }}>
-                  {placeholder}
-                </P>
+                <P style={{ flex: 1, ...textStyle, color: inputStyle?.placeholderColor}}>{placeholder}</P>
             }
             {
               {
@@ -151,6 +143,8 @@ export function DateInput<T extends FormValues>({
             <DatePicker
               modal
               title={placeholder}
+              confirmText={confirmText || '확인'}
+              cancelText={cancelText || '취소'}
               mode={mode}
               open={open}
               date={date}
@@ -175,8 +169,8 @@ const getMode = ({type}:{type:InputDateType}) => {
     case 'date':
     case 'time':
       return type;
-    case 'datetime-local':
-      return 'datetime';
+    /* case 'datetime-local':
+      return 'datetime'; */
   }
 }
 const getDate = ({value}:{value:string}) => {
@@ -200,8 +194,8 @@ const getValue = ({type, date:_date}:{ type:InputDateType, date:Date}) => {
   switch(type) {
     case 'date':
       return date;
-    case 'datetime-local':
-      return `${date} ${time}`;
+    /* case 'datetime-local':
+      return `${date} ${time}`; */
     case 'time':
       return `${time}`;
   }
@@ -222,22 +216,22 @@ const getStyles = ({ tagConfig, type }:{ tagConfig:TagGroupConfig|undefined, typ
   const inputErrorTagStyle = tagConfig?.input?.errorStyle;
 
   const dateType:keyof InputConfig = `type=${type}`;
-  const DateTagStyle = tagConfig?.input?.[dateType]?.style;
-  const DateTagDisabledStyle = tagConfig?.input?.[dateType]?.disabledStyle;
-  const DateTagErrorStyle = tagConfig?.input?.[dateType]?.errorStyle;
+  const dateTagStyle = tagConfig?.input?.[dateType]?.style;
+  const dateTagDisabledStyle = tagConfig?.input?.[dateType]?.disabledStyle;
+  const dateTagErrorStyle = tagConfig?.input?.[dateType]?.errorStyle;
 
     return {
       tagStyle:  {
         ...inputTagStyle,
-        ...DateTagStyle
+        ...dateTagStyle
       },
       tagDisabledStyle: {
         ...inputDisabledTagStyle,
-        ...DateTagDisabledStyle
+        ...dateTagDisabledStyle
       },
       tagErrorStyle: {
         ...inputErrorTagStyle,
-        ...DateTagErrorStyle
+        ...dateTagErrorStyle
       }
     }
 }

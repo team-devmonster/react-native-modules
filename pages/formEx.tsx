@@ -1,4 +1,5 @@
 import React from "react";
+import { Text } from "react-native";
 
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
@@ -6,6 +7,7 @@ import { Button, Div } from "@local_modules/tags";
 import { useForm } from "react-hook-form";
 import { ErrorText, Input, Label } from "@local_modules/form";
 import { Layout } from "@local_modules/router";
+import { Select, Option } from "@local_modules/form";
 
 interface FormProps {
   id:string, 
@@ -17,6 +19,7 @@ interface FormProps {
   date:string,
   dateTime:string,
   time:string,
+  company:string
 }
 
 const FormEx = () => {
@@ -27,7 +30,8 @@ const FormEx = () => {
     mode: 'onChange',
     defaultValues: {
       id: 'hello',
-      gender: 'man'
+      gender: 'man',
+      company: '1'
     }
   });
 
@@ -146,7 +150,15 @@ const FormEx = () => {
           name="time"
           placeholder="time"></Input>
 
-        <Button 
+
+        <Select 
+          control={control}
+          name="company"
+          placeholder="please select">
+          <Option value="1">devmonster</Option>
+        </Select>
+
+        <Button
           onClick={() => {
             setFocus('price');
           }}>focus input</Button>
@@ -155,7 +167,7 @@ const FormEx = () => {
             setFocus('agree1');
           }}>focus checkbox</Button>
         <Button 
-          color={color.primary} 
+          color={color.primary}
           onClick={handleSubmit(onSubmit)}>login</Button>
       </Div>
     </Layout>

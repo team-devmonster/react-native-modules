@@ -11,7 +11,7 @@ export function Input<T extends FormValues>(props:InputProps<T>)
 
   switch(type) {
     case 'date':
-    case 'datetime-local':
+    //case 'datetime-local':
     case 'time':
       return <DateInput type={type} {...rest}/>;
     case 'checkbox':

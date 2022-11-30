@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from '@local_modules/theme';
-import { TagProvider, TagStyle, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig } from '@local_modules/tags';
+import { TagProvider, TagStyle, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig } from '@local_modules/tags';
 
 const color = {
   light: {
@@ -172,6 +172,16 @@ const theme = (color:Color) => {
     }
   }
 
+  const select:SelectConfig = {
+    confirmButtonStyle: {
+      color: color.primary,
+      fontWeight: '500'
+    },
+    cancelButtonStyle: {
+      color: color.step500
+    }
+  }
+
   const label:LabelConfig = {
     errorStyle: {
       color: color.danger
@@ -191,7 +201,7 @@ const theme = (color:Color) => {
     // tags theme
     div, button,
     // form theme
-    input, label, errorText
+    input, select, label, errorText
   }
 }
 

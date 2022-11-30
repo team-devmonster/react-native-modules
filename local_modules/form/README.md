@@ -3,6 +3,7 @@
 > :warning: **It's under development**<br>
 > :warning: **It's using [react-hook-form](https://www.npmjs.com/package/react-hook-form)**<br>
 > :warning: **It's using [react-native-svg](https://github.com/software-mansion/react-native-svg)**<br>
+> :warning: **It's using [@react-native-picker/picker](https://www.npmjs.com/package/@react-native-picker/picker)**<br>
 > :warning: **It's using [react-native-date-picker](https://github.com/henninghall/react-native-date-picker)**<br>
 > :warning: **It's using @team-devmonster/react-native-tags**
 
@@ -33,7 +34,7 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
 ## Getting started
 
-`$ npm install react-hook-form react-native-svg react-native-date-picker @team-devmonster/react-native-tags@latest @team-devmonster/react-native-form@latest`
+`$ npm install react-hook-form react-native-svg @react-native-picker/picker react-native-date-picker @team-devmonster/react-native-tags@latest @team-devmonster/react-native-form@latest`
 
 
 ## Examples

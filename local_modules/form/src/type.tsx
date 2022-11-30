@@ -58,17 +58,19 @@ export interface InputRuleProps {
 
 export interface FormValues {[name:string]:any};
 
-export interface InputProps<T extends FormValues = any> extends InputRuleProps, ButtonProps {
+export interface InputProps<T extends FormValues = any> extends InputRuleProps, Omit<ButtonProps, 'children'> {
   control:Control<T>,
   name:Path<T>,
   placeholder?:string,
   style?:InputStyle,
   disabledStyle?:InputStyle,
   errorStyle?:InputStyle,
-  type?:InputType
+  type?:InputType,
+  confirmText?:string,
+  cancelText?:string
 }
 export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'checkbox'|'radio'|InputDateType;
-export type InputDateType = 'date'|'datetime-local'|'time';
+export type InputDateType = 'date'|'time';
 
 export interface LabelProps<T extends FormValues> extends TagProps {
   errors?: Partial<FieldErrorsImpl<T>>,
@@ -77,4 +79,9 @@ export interface LabelProps<T extends FormValues> extends TagProps {
   style?:TagStyle,
   disabledStyle?:TagStyle,
   errorStyle?:TagStyle
+}
+
+export interface OptionProps {
+  value:any,
+  children: string
 }
