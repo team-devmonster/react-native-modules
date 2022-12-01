@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export interface FooterProps {
   children:React.ReactNode,
-  style:TagStyle
+  style?:TagStyle
 }
 export const Footer = (
   { 
