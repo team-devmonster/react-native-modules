@@ -10,7 +10,9 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 
 ## all start
 
-`$ npm install @react-native-masked-view/masked-view @team-devmonster/react-native-theme@latest @team-devmonster/react-native-tags@latest @team-devmonster/react-native-router@latest @team-devmonster/react-native-form@latest`
+`$ npm install react-native-safe-area-context react-hook-form react-native-svg @react-native-picker/picker react-native-date-picker react-native-image-picker`
+
+`$ npm install @team-devmonster/react-native-theme@latest @team-devmonster/react-native-tags@latest @team-devmonster/react-native-router@latest @team-devmonster/react-native-form@latest`
 
 ## modules
 

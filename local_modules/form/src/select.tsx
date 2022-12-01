@@ -1,24 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Animated, Easing, Modal, Platform, StyleSheet, TextInput, TouchableWithoutFeedback, useColorScheme } from "react-native";
-import { Control, Controller, Path as Names } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import { Picker } from "@react-native-picker/picker";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { TagStyle, useTags, useTagStyle, Button, TagGroupConfig, P, textPattern, ButtonStyle } from '@team-devmonster/react-native-tags';
-import { FormValues, InputProps } from "./type";
+import { useTagStyle, Button, TagGroupConfig, P, textPattern, ButtonStyle, useTags } from '@team-devmonster/react-native-tags';
+import { FormValues, SelectProps } from "./type";
+import Svg, { Path } from "react-native-svg";
 
-export interface SelectProps<T extends FormValues = any> extends Omit<InputProps<T>, 'type'> {
-  control:Control<T>,
-  name:Names<T>,
-  confirmText?:string,
-  cancelText?:string,
-  confirmButtonStyle?:ButtonStyle,
-  cancelButtonStyle?:ButtonStyle
-  style?:TagStyle,
-  disabledStyle?:TagStyle,
-  errorStyle?:TagStyle,
-  children?:JSX.Element | JSX.Element[]
-}
 export function Select<T extends FormValues>({
   control, 
   name, 
@@ -143,6 +132,18 @@ export function Select<T extends FormValues>({
               :
                 <P style={{ flex: 1, ...textStyle, color: inputStyle?.placeholderColor}}>{placeholder}</P>
             }
+            <Svg
+              width={inputStyle?.iconWidth || 24}
+              height={inputStyle?.iconWidth || 24}
+              viewBox="0 0 24 24"
+              fill={inputStyle?.iconColor || '#FF6420'}
+            >
+              <Path
+                fillRule="evenodd"
+                d="M11.47 4.72a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 0 1-1.06 1.06L12 6.31 8.78 9.53a.75.75 0 0 1-1.06-1.06l3.75-3.75zm-3.75 9.75a.75.75 0 0 1 1.06 0L12 17.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-3.75 3.75a.75.75 0 0 1-1.06 0l-3.75-3.75a.75.75 0 0 1 0-1.06z"
+                clipRule="evenodd"
+              />
+            </Svg>
 
             {
               // hidden layout part for android
@@ -217,6 +218,7 @@ export function Select<T extends FormValues>({
                       onChange(temptValue);
                       setOpen(false);
                     }}
+                    fill="none"
                     style={{
                       marginBottom: 8,
                       borderRadius: 12,
@@ -230,6 +232,7 @@ export function Select<T extends FormValues>({
                     >확인</Button>
                   <Button 
                     onClick={() => setOpen(false)}
+                    fill="none"
                     style={{
                       borderRadius: 12,
                       height: 52,

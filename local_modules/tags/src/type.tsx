@@ -68,6 +68,7 @@ export interface InputConfig {
   'type=date'?:InputDateConfig,
   'type=datetime-local'?:InputDateConfig,
   'type=time'?:InputDateConfig,
+  'type=file'?:InputFileConfig,
 }
 export interface InputCheckboxConfig {
   style?:InputCheckboxStyle,
@@ -86,6 +87,26 @@ export interface InputDateConfig {
   disabledStyle?:InputDateStyle,
   errorStyle?:InputDateStyle
 }
+export interface InputFileConfig {
+  cameraText?:string,
+  albumText?:string,
+  cancelText?:string,
+  style?:InputStyle,
+  disabledStyle?:InputStyle,
+  errorStyle?:InputStyle,
+  cameraButtonStyle?:ButtonStyle,
+  albumButtonStyle?:ButtonStyle,
+  cancelButtonStyle?:ButtonStyle
+}
+export interface SelectConfig {
+  confirmText?:string,
+  cancelText?:string,
+  style?:SelectStyle,
+  disabledStyle?:SelectStyle,
+  errorStyle?:SelectStyle,
+  confirmButtonStyle?:ButtonStyle,
+  cancelButtonStyle?:ButtonStyle
+}
 export interface InputCheckboxStyle extends TagStyle {
   iconColor?:string,
   iconWidth?:number,
@@ -102,15 +123,10 @@ export interface InputDateStyle extends TagStyle {
   iconHeight?:number
 }
 
-export interface SelectStyle extends InputStyle {}
-export interface SelectConfig {
-  confirmText?:string,
-  cancelText?:string,
-  confirmButtonStyle?:ButtonStyle,
-  cancelButtonStyle?:ButtonStyle,
-  style?:SelectStyle,
-  disabledStyle?:SelectStyle,
-  errorStyle?:SelectStyle
+export interface SelectStyle extends InputStyle {
+  iconColor?:string,
+  iconWidth?:number,
+  iconHeight?:number
 }
 export interface ErrorTextConfig {
   style?:TagStyle

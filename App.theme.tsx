@@ -161,11 +161,11 @@ const theme = (color:Color) => {
       iconColor: color.primary
     }
   }
-  input['type=datetime-local'] = {
+  /* input['type=datetime-local'] = {
     style: {
       iconColor: color.primary
     }
-  }
+  } */
   input['type=time'] = {
     style: {
       iconColor: color.primary
@@ -173,12 +173,8 @@ const theme = (color:Color) => {
   }
 
   const select:SelectConfig = {
-    confirmButtonStyle: {
-      color: color.primary,
-      fontWeight: '500'
-    },
-    cancelButtonStyle: {
-      color: color.step500
+    style: {
+      iconColor: color.primary
     }
   }
 

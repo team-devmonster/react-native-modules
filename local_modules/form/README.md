@@ -1,11 +1,12 @@
 # @team-devmonster/react-native-form
 
 > :warning: **It's under development**<br>
-> :warning: **It's using [react-hook-form](https://www.npmjs.com/package/react-hook-form)**<br>
-> :warning: **It's using [react-native-svg](https://github.com/software-mansion/react-native-svg)**<br>
-> :warning: **It's using [@react-native-picker/picker](https://www.npmjs.com/package/@react-native-picker/picker)**<br>
-> :warning: **It's using [react-native-date-picker](https://github.com/henninghall/react-native-date-picker)**<br>
-> :warning: **It's using @team-devmonster/react-native-tags**
+> **It's using [react-hook-form](https://www.npmjs.com/package/react-hook-form)**<br>
+> **It's using [react-native-svg](https://github.com/software-mansion/react-native-svg)**<br>
+> **It's using [@react-native-picker/picker](https://www.npmjs.com/package/@react-native-picker/picker)**<br>
+> **It's using [react-native-date-picker](https://github.com/henninghall/react-native-date-picker)**<br>
+> **It's using [react-native-image-picker](https://github.com/react-native-image-picker/react-native-image-picker)**<br>
+> **It's using [@team-devmonster/react-native-tags](https://www.npmjs.com/package/@team-devmonster/react-native-tags)**
 
 ## This is under devmonster's react & react-native union project.
 
@@ -18,6 +19,7 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 
 - [o] [`react-native-theme`](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
 - [o] [`react-native-tags`](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
+- [o] [`react-native-router`](https://www.npmjs.com/package/@team-devmonster/react-native-router)
 
 #### author: devmonster
 
@@ -34,7 +36,9 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
 ## Getting started
 
-`$ npm install react-hook-form react-native-svg @react-native-picker/picker react-native-date-picker @team-devmonster/react-native-tags@latest @team-devmonster/react-native-form@latest`
+`$ npm install react-native-safe-area-context react-hook-form react-native-svg @react-native-picker/picker react-native-date-picker react-native-image-picker`
+
+`$ npm install @react-native-picker/picker react-native-date-picker react-native-image-picker @team-devmonster/react-native-tags@latest @team-devmonster/react-native-form@latest`
 
 
 ## Examples

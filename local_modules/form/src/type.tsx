@@ -1,4 +1,4 @@
-import { ButtonProps, InputStyle, TagProps, TagStyle } from "@team-devmonster/react-native-tags"
+import { ButtonProps, ButtonStyle, InputStyle, TagProps, TagStyle } from "@team-devmonster/react-native-tags"
 import { SyntheticEvent } from "react"
 import { Control, FieldErrorsImpl, Path } from "react-hook-form"
 
@@ -66,10 +66,16 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps, 
   disabledStyle?:InputStyle,
   errorStyle?:InputStyle,
   type?:InputType,
+  cameraText?:string,
+  albumText?:string,
   confirmText?:string,
-  cancelText?:string
+  cancelText?:string,
+  cameraButtonStyle?:ButtonStyle,
+  albumButtonStyle?:ButtonStyle,
+  confirmButtonStyle?:ButtonStyle,
+  cancelButtonStyle?:ButtonStyle
 }
-export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'checkbox'|'radio'|InputDateType;
+export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'checkbox'|'radio'|'file'|InputDateType;
 export type InputDateType = 'date'|'time';
 
 export interface LabelProps<T extends FormValues> extends TagProps {
@@ -84,4 +90,8 @@ export interface LabelProps<T extends FormValues> extends TagProps {
 export interface OptionProps {
   value:any,
   children: string
+}
+
+export interface SelectProps<T extends FormValues> extends Omit<InputProps<T>, 'type'|'cameraButtonStyle'|'albumButtonStyle'> {
+  children?:JSX.Element | JSX.Element[]
 }

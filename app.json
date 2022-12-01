@@ -24,6 +24,7 @@
       "usesIcloudStorage": true,
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "사진을 가지고 오기 위해 필요합니다.",
+        "NSCameraUsageDescription": "카메라에서 사진을 가지고 오기 위해 필요합니다.",
         "UIFileSharingEnabled": true,
         "LSSupportsOpeningDocumentsInPlace": true
       },

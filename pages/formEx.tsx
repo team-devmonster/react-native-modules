@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { ErrorText, Input, Label } from "@local_modules/form";
 import { Layout } from "@local_modules/router";
 import { Select, Option } from "@local_modules/form";
+import Svg, { Path } from "react-native-svg";
 
 interface FormProps {
   id:string, 
@@ -19,7 +20,8 @@ interface FormProps {
   date:string,
   dateTime:string,
   time:string,
-  company:string
+  company:string,
+  file:any
 }
 
 const FormEx = () => {
@@ -137,12 +139,12 @@ const FormEx = () => {
           name="date"
           placeholder="date"></Input>
 
-        <Input 
+        {/* <Input 
           type="datetime-local" 
           control={control}
           name="dateTime"
           value="2022-11-27 22:49"
-          placeholder="date time"></Input>
+          placeholder="date time"></Input> */}
 
         <Input 
           type="time" 
@@ -157,6 +159,17 @@ const FormEx = () => {
           placeholder="please select">
           <Option value="1">devmonster</Option>
         </Select>
+
+        <Input 
+          control={control} 
+          name="file" 
+          type="file"
+          placeholder="please select file"
+          onChange={(e:any) => {
+            const v = e.target.value;
+            console.log(v);
+          }}
+        />
 
         <Button
           onClick={() => {
