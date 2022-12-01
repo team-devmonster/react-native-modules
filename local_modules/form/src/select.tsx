@@ -226,6 +226,8 @@ export function Select<T extends FormValues>({
                       borderTopLeftRadius: 0,
                       height: 52,
                       fontSize: 18,
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       ...buttonStyles.confirmButtonStyle
                     }}
                     color={buttonStyles.confirmButtonStyle?.backgroundColor as string ?? defaultStyle.backgroundColor}
@@ -237,6 +239,8 @@ export function Select<T extends FormValues>({
                       borderRadius: 12,
                       height: 52,
                       fontSize: 18,
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       ...buttonStyles.cancelButtonStyle
                     }}
                     color={buttonStyles.cancelButtonStyle?.backgroundColor as string ?? defaultStyle.backgroundColor}

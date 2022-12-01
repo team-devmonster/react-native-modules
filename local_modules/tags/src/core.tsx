@@ -22,7 +22,7 @@ export function useTags() {
 }
 
 export const textPattern = /^(color|font|text|lineHeight)/;
-export const layoutPattern = /^(display|width|height|position|top|left|right|bottom|opacity)$/;
+export const layoutPattern = /^(display|width|height|position|top|left|right|bottom|opacity|overflow)$/;
 export const shadowPattern = /^(shadow|elevation)/;
 export const borderPattern = /^(border)/;
 export const marginPattern = /^(margin)/;
