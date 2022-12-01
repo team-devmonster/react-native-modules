@@ -165,11 +165,11 @@ const FormEx = () => {
           <View style={{ backgroundColor: 'yellow', position: 'absolute', top: 0, zIndex: 2 }}>
             <Text>test2</Text>
           </View>
-          <Div style={{ backgroundColor: 'purple', position: 'absolute', top: 0, zIndex: 4 }}>
+          <Div style={{ backgroundColor: 'purple', position: 'absolute', top: 0, zIndex: 4, opacity: 0, borderColor: 'black', borderWidth: 1 }}>
             <Text>test3</Text>
           </Div>
           <Input 
-            style={{ position: 'absolute', top: 0 }}
+            style={{ position: 'absolute', top: 0,  }}
             control={control} 
             name="file" 
             type="file"
