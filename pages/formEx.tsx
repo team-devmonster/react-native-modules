@@ -1,5 +1,5 @@
 import React from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
@@ -160,16 +160,26 @@ const FormEx = () => {
           <Option value="1">devmonster</Option>
         </Select>
 
-        <Input 
-          control={control} 
-          name="file" 
-          type="file"
-          placeholder="please select file"
-          onChange={(e:any) => {
-            const v = e.target.value;
-            console.log(v);
-          }}
-        />
+        <Div style={{ backgroundColor: 'blue' }}>
+          <Div style={{ backgroundColor: 'red' }}>test</Div>
+          <View style={{ backgroundColor: 'yellow', position: 'absolute', top: 0, zIndex: 2 }}>
+            <Text>test2</Text>
+          </View>
+          <Div style={{ backgroundColor: 'purple', position: 'absolute', top: 0, zIndex: 4 }}>
+            <Text>test3</Text>
+          </Div>
+          <Input 
+            style={{ position: 'absolute', top: 0 }}
+            control={control} 
+            name="file" 
+            type="file"
+            placeholder="please select file"
+            onChange={(e:any) => {
+              const v = e.target.value;
+              console.log(v);
+            }}
+          />
+        </Div>
 
         <Button
           onClick={() => {
