@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
 import { TagProps } from "./type";
 
-export const Div = ({style, onLayout, children, ...rest}:TagProps) => {
+export const Div = ({style, children, ...rest}:TagProps) => {
 
   const { tagConfig } = useTags();
   const divTagStyle = tagConfig?.div;

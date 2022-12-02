@@ -5,9 +5,8 @@ import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Button, Div } from "@local_modules/tags";
 import { useForm } from "react-hook-form";
-import { ErrorText, Input, Label } from "@local_modules/form";
+import { ErrorText, Input, Label, Select, Option, Textarea } from "@local_modules/form";
 import { Layout } from "@local_modules/router";
-import { Select, Option } from "@local_modules/form";
 import Svg, { Path } from "react-native-svg";
 
 interface FormProps {
@@ -21,7 +20,8 @@ interface FormProps {
   dateTime:string,
   time:string,
   company:string,
-  file:any
+  file:any,
+  longText:string
 }
 
 const FormEx = () => {
@@ -146,6 +146,8 @@ const FormEx = () => {
           value="2022-11-27 22:49"
           placeholder="date time"></Input> */}
 
+        <Textarea control={control} name="longText" placeholder="textarea"></Textarea>
+
         <Input 
           type="time" 
           control={control}
@@ -159,27 +161,6 @@ const FormEx = () => {
           placeholder="please select">
           <Option value="1">devmonster</Option>
         </Select>
-
-        <Div style={{ backgroundColor: 'blue' }}>
-          <Div style={{ backgroundColor: 'red' }}>test</Div>
-          <View style={{ backgroundColor: 'yellow', position: 'absolute', top: 0, zIndex: 2 }}>
-            <Text>test2</Text>
-          </View>
-          <Div style={{ backgroundColor: 'purple', position: 'absolute', top: 0, zIndex: 4, opacity: 0, borderColor: 'black', borderWidth: 1 }}>
-            <Text>test3</Text>
-          </Div>
-          <Input 
-            style={{ position: 'absolute', top: 0,  }}
-            control={control} 
-            name="file" 
-            type="file"
-            placeholder="please select file"
-            onChange={(e:any) => {
-              const v = e.target.value;
-              console.log(v);
-            }}
-          />
-        </Div>
 
         <Button
           onClick={() => {
