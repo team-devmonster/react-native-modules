@@ -6,7 +6,7 @@ import { TagProps } from "./type";
 export const Dl = ({style, ...rest}:TagProps) => {
 
   const { tagConfig } = useTags();
-  const tagStyle = tagConfig?.dt;
+  const tagStyle = tagConfig?.dl;
   
   return (
     <Div 
