@@ -29,7 +29,9 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
 - [o] [A] => Just tag `a`
 - [o] [Head] => It is made for compatibility with `react-router`. It doesn't do anything here.
-- [ ] [Header]
+- [o] [Layout]
+- [o] [Header]
+- [o] [Footer]
 
 
 ## Getting started
