@@ -178,8 +178,8 @@ const getFillStyle = ({ colorScheme, color, fill, buttonTagStyle }:{colorScheme:
       return {
         background: {
           base: colorScheme === 'dark' ? '#000000' : '#ffffff',
-          pressed: color ? `${color}3C` : undefined,
-          ripple: color ? `${color}3C` : undefined
+          pressed: color ? `${color}32` : undefined,
+          ripple: color ? `${color}32` : undefined
         },
         color: color,
         borderColor: color,
@@ -188,9 +188,9 @@ const getFillStyle = ({ colorScheme, color, fill, buttonTagStyle }:{colorScheme:
     case 'translucent':
       return {
         background: {
-          base: color ? `${color}3C` : undefined,
-          pressed: color,
-          ripple: color
+          base: color ? `${color}32` : undefined,
+          pressed: color ? `${color}4b` : undefined,
+          ripple: color ? `${color}4b` : undefined,
         },
         color: color
       }
