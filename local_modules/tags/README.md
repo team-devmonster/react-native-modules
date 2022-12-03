@@ -27,8 +27,9 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 - [o] [Img](#Img)
 - [o] [P] => this is for text. `extends` `divConfig`.
 - [o] [Span] => this is for inline text. `extends` `div`.
-- [o] [Dt] => this is for text. `extends` `div`.
-- [o] [Dd] => this is for text. `extends` `div`.
+- [o] [Dl] => this is for define list. `extends` `div`.
+- [o] [Dt] => this is for define list title. `extends` `div`.
+- [o] [Dd] => this is for define list description. `extends` `div`.
 - [o] [Table] => Under development :(help)
 
 ### additional Items

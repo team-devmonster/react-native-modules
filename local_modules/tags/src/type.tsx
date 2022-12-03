@@ -14,6 +14,7 @@ export interface TagGroupConfig {
   // router
   layout?:LayoutConfig,
   header?:HeaderConfig,
+  footer?:FooterConfig,
   // forms
   input?: InputConfig
   errorText?: ErrorTextConfig,
@@ -54,6 +55,9 @@ export interface HeaderConfig {
   headerTitleStyle?:Pick<TagStyle, "fontFamily" | "fontSize" | "fontWeight"> & {
     color?: string | undefined;
   }
+}
+export interface FooterConfig {
+  style?: TagStyle
 }
 
 
