@@ -73,7 +73,8 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps, 
   cameraButtonStyle?:ButtonStyle,
   albumButtonStyle?:ButtonStyle,
   confirmButtonStyle?:ButtonStyle,
-  cancelButtonStyle?:ButtonStyle
+  cancelButtonStyle?:ButtonStyle,
+  multiple?:boolean
 }
 export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'checkbox'|'radio'|'file'|InputDateType;
 export type InputDateType = 'date'|'time';

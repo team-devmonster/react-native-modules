@@ -24,7 +24,9 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
     disabledStyle,
     errorStyle,
     value,
+    multiple,
     onClick,
+    onChange:_onChange,
     ...rules
   } = props;
 
@@ -174,9 +176,15 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                 ]
               }}>
                 <Button 
-                  onClick={async() => {
+                  onClick={async(e) => {
                     const result = await launchCamera({ mediaType: 'photo', maxWidth: 1200, maxHeight: 1200 });
-                    onChange(result.assets);
+                    if(multiple) {
+                      onChange([...value, ...(result.assets || [])]);
+                    }
+                    else {
+                      onChange(result.assets);
+                    }
+                    _onChange?.({...e, target: { ...e.target, value: result.assets }} as any);
                     setOpen(false);
                   }}
                   fill="none"
@@ -197,9 +205,15 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                   { buttonConfig.cameraText }
                 </Button>
                 <Button 
-                  onClick={async() => {
+                  onClick={async(e) => {
                     const result = await launchImageLibrary({ mediaType: 'photo', maxWidth: 1200, maxHeight: 1200 });
-                    onChange(result.assets);
+                    if(multiple) {
+                      onChange([...value, ...(result.assets || [])]);
+                    }
+                    else {
+                      onChange(result.assets);
+                    }
+                    _onChange?.({...e, target: { ...e.target, value: result.assets }} as any);
                     setOpen(false);
                   }}
                   fill="none"

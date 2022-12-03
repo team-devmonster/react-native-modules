@@ -32,6 +32,14 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 ## items
 
 - [o] [Input]
+- [o] [Input\[type=radio\]]
+- [o] [Input\[type=checkbox\]]
+- [o] [Input\[type=number\]]
+- [o] [Input\[type=date\]]
+- [o] [Input\[type=time\]]
+- [o] [Input\[type=file\]]
+- [o] [Select]
+- [o] [Textarea]
 
 
 ## Getting started
