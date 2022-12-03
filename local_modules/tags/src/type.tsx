@@ -8,6 +8,7 @@ export interface TagGroupConfig {
   // tag - additional
   p?:TagStyle,
   span?:TagStyle,
+  dl?:TagStyle,
   dt?:TagStyle,
   dd?:TagStyle,
   // router
