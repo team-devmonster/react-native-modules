@@ -67,10 +67,11 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
             break;
           case 'tel':
             keyboardType = 'phone-pad';
-            newValue = value;
+            let tel = (value as string)?.replace(/\D+/g, '').replace(/(\d{2,3})(\d{3,4})(\d{4})/, "$1-$2-$3");
+            newValue = tel;
             newOnChange = (v) => {
-              let tel = v.replace(/\D+/g, '').replace(/(\d{2,3})(\d{3,4})(\d{4})/, "$1-$2-$3");
-              onChange(tel);
+              let num = v.replace(/\D+/g, '');
+              onChange(num);
             }
             rules.maxLength = rules.maxLength || 13;
             break;
