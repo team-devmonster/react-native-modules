@@ -195,7 +195,7 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                     height: 52,
                     fontSize: 18,
                     borderBottomWidth: StyleSheet.hairlineWidth,
-                    borderBottomColor: '#b1b1b1',
+                    borderBottomColor: colorScheme === 'dark' ? '#313131' : '#b1b1b1',
                     alignItems: 'center',
                     justifyContent: 'center',
                     ...buttonConfig.cameraButtonStyle

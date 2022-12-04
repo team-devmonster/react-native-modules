@@ -13,7 +13,7 @@ const RouterEx = () => {
       style={{
         backgroundColor: color.backgroundColor,
         flex: 1,
-        padding: 18
+        //padding: 18
       }}>
       <Header
         title="Hello Header"

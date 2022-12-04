@@ -52,7 +52,7 @@ const newChildren = ({ children:_children }:{ children:React.ReactNode })
   let footer = null;
   for(let i = 0; i < children.length; i++) {
     const child = children[i];
-    switch(child.type?.displayName) {
+    switch(child?.type?.displayName) {
       case 'Header':
         header = child;
         contents.push(child);

@@ -1,7 +1,8 @@
-import React, { useLayoutEffect, useMemo } from "react";
-import { StyleProp, TextStyle, ViewStyle } from "react-native";
+import React, { useEffect, useMemo } from "react";
+import { Platform, StyleProp, TextStyle, ViewStyle } from "react-native";
 import { StatusBar, StatusBarStyle } from 'expo-status-bar';
 import { useNavigation } from "@react-navigation/native";
+import { useHeaderHeight } from '@react-navigation/elements';
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { useTags } from "@team-devmonster/react-native-tags";
 
@@ -17,7 +18,7 @@ export interface HeaderProps {
   headerShown?: boolean;
   style?: TextStyle;
   statusBarStyle?:StatusBarStyle;
-  contentStyle?:StyleProp<ViewStyle>
+  contentStyle?:ViewStyle
 }
 
 export const Header = ({ 
@@ -34,6 +35,7 @@ export const Header = ({
 }:HeaderProps) => {
 
   const navigation = useNavigation();
+  const headerHeight = useHeaderHeight();
 
   const { tagConfig } = useTags();
   const headerTagStyle = tagConfig?.header?.style;
@@ -49,7 +51,7 @@ export const Header = ({
     ..._headerTitleStyle as any
   }), [headerTagTitleStyle, _headerTitleStyle])
   
-  useLayoutEffect(() => {
+  useEffect(() => {
     let options:Partial<NativeStackNavigationOptions> = {
       headerShadowVisible: false,
       headerStyle,
@@ -70,8 +72,15 @@ export const Header = ({
     if(headerBackTitle) options.headerBackTitle = headerBackTitle;
     if(typeof headerShown === 'boolean') options.headerShown = headerShown;
 
+    if(Platform.OS === 'android') {
+      // for react-native-reanimation's layout animation bugs....
+      // they fill fix it... someday...
+      options.headerTransparent = true;
+      options.contentStyle = { paddingTop: headerHeight, ...options.contentStyle as ViewStyle }
+    }
+
     navigation.setOptions(options);
-  }, [title, headerLeft, headerRight, headerShown]);
+  }, [title, headerLeft, headerRight, headerShown, headerStyle, headerTitleStyle, headerHeight]);
 
   return (
     <StatusBar style={statusBarStyle || 'auto'} />

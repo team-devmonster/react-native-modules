@@ -148,6 +148,7 @@ export function DateInput<T extends FormValues>({
               mode={mode}
               open={open}
               date={date}
+              theme="auto"
               onConfirm={(date:Date) => {
                 const value = getValue({ type, date });
                 onChange(value);

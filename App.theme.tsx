@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from '@local_modules/theme';
-import { TagProvider, TagStyle, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig } from '@local_modules/tags';
+import { TagProvider, TagStyle, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, LayoutConfig } from '@local_modules/tags';
 
 const color = {
   light: {
@@ -191,13 +191,22 @@ const theme = (color:Color) => {
     }
   }
 
+  // router
+  const layout:LayoutConfig = {
+    /* style: {
+      padding: 20
+    } */
+  }
+
   return {
     // basic theme
     color, fontSize, shadow,
     // tags theme
     div, button,
     // form theme
-    input, select, label, errorText
+    input, select, label, errorText,
+    // router theme
+    layout
   }
 }
 
