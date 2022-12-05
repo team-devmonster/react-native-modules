@@ -20,6 +20,7 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 - [o] [`react-native-theme`](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
 - [o] [`react-native-tags`](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
 - [o] [`react-native-router`](https://www.npmjs.com/package/@team-devmonster/react-native-router)
+- [o] [`react-native-skeleton`](https://www.npmjs.com/package/@team-devmonster/react-native-skeleton)
 
 #### author: devmonster
 

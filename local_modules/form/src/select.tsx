@@ -299,9 +299,10 @@ const getButtonStyles = ({ styles, confirmButtonStyle, cancelButtonStyle }:{ sty
 }
 
 const getPickerItem = ({children:options}:{children:JSX.Element|JSX.Element[]|undefined}) => {
+  const colorScheme = useColorScheme();
   if(Array.isArray(options)) {
     return options.map(({ props: { children:label, value:optionValue } }, i) => (
-      <Picker.Item key={i} label={label} value={optionValue}/>
+      <Picker.Item key={i} label={label} color={colorScheme === 'dark' ? '#ffffff' : '#1f1f1f'} value={optionValue}/>
     ))
   }
   else {
