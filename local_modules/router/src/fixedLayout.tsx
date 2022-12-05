@@ -16,8 +16,13 @@ const newChildrenFn = ({ children }:FixedLayoutProps):JSX.Element|any => {
   }
   else if(Array.isArray(children)) {
     return children.map(child => {
+      return React.cloneElement(child, {
+        style: {
+          position: 'absolute'
+        }
+      });
       if(typeof children === 'string' || typeof children === 'number' || typeof children === 'boolean') {
-        return null;
+        return child;
       }
       else {
         return React.cloneElement(child, {
