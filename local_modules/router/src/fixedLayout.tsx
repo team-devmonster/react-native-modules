@@ -1,7 +1,7 @@
 import React from "react";
 
 interface FixedLayoutProps {
-  children?:React.ReactNode
+  children?:JSX.Element|null|(JSX.Element|null)[]
 }
 export const FixedLayout = ({ children }:FixedLayoutProps) => {
   const newChildren = newChildrenFn({ children });
@@ -11,35 +11,27 @@ FixedLayout.displayName = 'FixedLayout';
 
 const newChildrenFn = ({ children }:FixedLayoutProps):JSX.Element|any => {
   if(!children) return null;
-  if(typeof children === 'string' || typeof children === 'number' || typeof children === 'boolean') {
-    return null;
-  }
   else if(Array.isArray(children)) {
-    return children.map(child => {
-      return React.cloneElement(child, {
-        style: {
-          position: 'absolute'
-        }
-      });
-      if(typeof children === 'string' || typeof children === 'number' || typeof children === 'boolean') {
-        return child;
-      }
-      else {
-        return React.cloneElement(child, {
+    const newChildren:(JSX.Element|null)[] = [];
+    children.forEach((child, i) => {
+      newChildren.push(
+        child ?
+        React.cloneElement(child, {
           style: {
             position: 'absolute',
-            ...child.props?.style,
-          }       
-        });
-      }
-    });
+            ...child.props?.style
+          }
+        })
+        : child
+      )
+    })
+    return newChildren;
   }
   else {
-    const anyChildren:any = children;
-    return React.cloneElement(anyChildren, {
+    return React.cloneElement(children, {
       style: {
         position: 'absolute',
-        ...anyChildren.props?.style,
+        ...children.props?.style,
       }       
     });
   }
