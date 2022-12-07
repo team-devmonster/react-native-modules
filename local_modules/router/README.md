@@ -32,6 +32,7 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 - [o] [Layout]
 - [o] [Header]
 - [o] [Footer]
+- [o] [FixedLayout]
 
 
 ## Getting started

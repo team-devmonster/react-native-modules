@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo } from "react";
 import { TextStyle, Text } from "react-native";
-import { TagGroupConfig, TagProps, TagStyle } from "./type";
+import { TagElement, TagGroupConfig, TagProps, TagStyle } from "./type";
 
 
 
@@ -34,15 +34,6 @@ export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[
   const styles = useMemo(() => makeTagStyle({ patterns, styleStates }), styleStates);
   return styles;
 }
-
-export const TagModule = ({ children, style }:TagProps) => {
-
-  const id = useMemo(() => String(new Date().getTime()), []);
-  const tagChildren = useMemo(() => makeTagChildren({ id, children, style }), [children, style]);
-
-  return tagChildren as JSX.Element;
-}
-
 const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleStates:(TagStyle|undefined)[] }) => {
   // case 1
   let styleObj = {};
@@ -75,50 +66,46 @@ const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleState
   return styles;
 }
 
-const makeTagChildren = ({ id, children, style }:{ id:string, children?:React.ReactNode, style?:TagStyle }) => {
-  if(!children) return null;
-  if(typeof children === 'string' || typeof children === 'number') {
-    return <Text style={{
-      lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
-      ...style as TextStyle
-    }}>{children}</Text>
-  }
-  else if(Array.isArray(children)) {
-    const newChildren = [];
-    const textchildren = [];
-    for(let i = 0; i < children.length; i++) {
-      const child = children[i];
-      if(!child) {
-        continue;
-      }
-      else if(typeof child === 'string' || typeof child === 'number') {
-        textchildren.push(child);
-      }
-      else {
-        if(child.type?.name === 'Br' || child.type?.name === 'Span' || child.props?.style?.display === 'inline-flex') {
+export const TagModule = ({ children, style }:TagProps):JSX.Element => {
+
+  const id = useMemo(() => String(new Date().getTime()), []);
+  const tagChildren = useMemo(() => makeTagChildren({ id, children, style }), [children, style]);
+
+  return <>{tagChildren}</>;
+}
+const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagElement|TagElement[], style?:TagStyle }) => {
+  if(Array.isArray(children)) {
+    const newChildren:(JSX.Element|null)[] = [];
+    const textchildren:(JSX.Element|string)[] = [];
+    children.forEach((child, i) => {
+      if(child) {
+        if(typeof child === 'string' || typeof child === 'number') {
+          textchildren.push(String(child));
+        }
+        else if(child.type?.displayName === 'Br' || child.type?.displayName === 'Span' || child.props?.style?.display === 'inline-flex') {
           textchildren.push(child);
         }
         else {
           if(textchildren.length) {
             newChildren.push(
-              <Text key={`tag_${id}_${newChildren.length}`} style={{
+              <Text key={`tag_${id}_${i}`} style={{
                 lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
                 ...style as TextStyle
               }}>{[...textchildren]}</Text>
-            );
+            )
             textchildren.length = 0;
           }
-          
+
           if(style?.marginVertical || style?.marginHorizontal) {
             newChildren.push(
-              <React.Fragment key={`tag_${id}_${newChildren.length}`}>
+              <React.Fragment key={`tag_${id}_${i}`}>
                 {
                   React.cloneElement(child, {
                     style: { 
                       ...child.props?.style,
                       marginVertical: style?.marginVertical,
                       marginHorizontal: style?.marginHorizontal,
-                    } 
+                    }
                   })
                 }
               </React.Fragment>
@@ -129,11 +116,12 @@ const makeTagChildren = ({ id, children, style }:{ id:string, children?:React.Re
           }
         }
       }
-    }
+    });
+    
     // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
     if(textchildren.length) {
       newChildren.push(
-        <Text key={`tag_${id}_${newChildren.length}`} style={{
+        <Text key={`tag_${id}_${children.length}`} style={{
           lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
           ...style as TextStyle
         }}>{[...textchildren]}</Text>
@@ -142,7 +130,16 @@ const makeTagChildren = ({ id, children, style }:{ id:string, children?:React.Re
     }
     return newChildren;
   }
-  else {
+  else if(typeof children === 'string' || typeof children === 'number') {
+    return <Text style={{
+      lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
+      ...style as TextStyle
+    }}>{String(children)}</Text>
+  }
+  else if(children) {
     return children;
+  }
+  else {
+    return null;
   }
 }

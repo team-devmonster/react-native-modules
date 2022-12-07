@@ -1,10 +1,10 @@
-import { Div, TagStyle, useTags } from '@team-devmonster/react-native-tags';
+import { Div, TagElement, TagStyle, useTags } from '@team-devmonster/react-native-tags';
 import React from 'react';
 import { ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export interface FooterProps {
-  children:React.ReactNode,
+  children:TagElement|TagElement[],
   style?:TagStyle
 }
 export const Footer = (

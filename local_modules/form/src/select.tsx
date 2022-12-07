@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Animated, Easing, Modal, Platform, StyleSheet, TextInput, TouchableWithoutFeedback, useColorScheme } from "react-native";
+import { Animated, ColorSchemeName, Easing, Modal, Platform, StyleSheet, TextInput, TouchableWithoutFeedback, useColorScheme } from "react-native";
 import { Controller } from 'react-hook-form';
 import { Picker } from "@react-native-picker/picker";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -103,7 +103,7 @@ export function Select<T extends FormValues>({
           error ? errorStyle : undefined
         ]);
 
-        const PickerItem = useMemo(() => getPickerItem({ children }), [children]);
+        const PickerItem = useMemo(() => getPickerItem({ children, colorScheme }), [children, colorScheme]);
         const selectedPickerItem = useMemo(() => getSelectedPickerItem({ children, value }), [children, value]);
 
         return (
@@ -298,8 +298,7 @@ const getButtonStyles = ({ styles, confirmButtonStyle, cancelButtonStyle }:{ sty
   }
 }
 
-const getPickerItem = ({children:options}:{children:JSX.Element|JSX.Element[]|undefined}) => {
-  const colorScheme = useColorScheme();
+const getPickerItem = ({children:options,colorScheme}:{children:JSX.Element|JSX.Element[]|undefined,colorScheme:ColorSchemeName}) => {
   if(Array.isArray(options)) {
     return options.map(({ props: { children:label, value:optionValue } }, i) => (
       <Picker.Item key={i} label={label} color={colorScheme === 'dark' ? '#ffffff' : '#1f1f1f'} value={optionValue}/>

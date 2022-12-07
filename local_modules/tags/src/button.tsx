@@ -1,8 +1,8 @@
-import React, { useLayoutEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { Pressable, Platform, useColorScheme, GestureResponderEvent, View, PressableProps, ColorSchemeName } from "react-native";
 
 import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
-import { ButtonStyle, FillProps } from "./type";
+import { ButtonStyle, FillProps, TagElement } from "./type";
 import { contrast, darken, lighten } from "./utils";
 
 export interface ButtonClickEvent extends GestureResponderEvent {
@@ -16,7 +16,7 @@ export interface ButtonProps extends Omit<PressableProps, 'style'|'children'|'on
   fill?: FillProps;
   onClick?: ((event: ButtonClickEvent) => void) | null | undefined;
   disabled?:boolean;
-  children?:React.ReactNode
+  children?:TagElement|TagElement[]
 }
 
 export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled, onClick, onLayout, children, ...rest}:ButtonProps) => {
@@ -28,12 +28,7 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
   const buttonTagDisabledStyle = tagConfig?.button?.disabledStyle;
   const color = _color || tagConfig?.button?.color;
 
-  const [fillStyle, setFillStyle] = useState<FillStyle|undefined>(undefined);
-
-  useLayoutEffect(() => {
-    const fillStyle = getFillStyle({ colorScheme, color, fill, buttonTagStyle });
-    setFillStyle(fillStyle);
-  }, [colorScheme, color, fill, buttonTagStyle]);
+  const fillStyle = useMemo(() => getFillStyle({ colorScheme, color, fill, buttonTagStyle }), [colorScheme, color, fill, buttonTagStyle]);
 
   const [
     layoutStyle,

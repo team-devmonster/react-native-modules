@@ -4,3 +4,4 @@ import { Text } from "react-native";
 export const Br = () => {
   return <Text>{'\n'}</Text>;
 }
+Br.displayName = 'Br';

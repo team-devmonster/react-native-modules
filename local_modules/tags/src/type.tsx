@@ -23,6 +23,7 @@ export interface TagGroupConfig {
 }
 
 export interface TagProps extends Omit<TextProps, 'style'|'onPress'> {
+  children?:TagElement|TagElement[],
   style?:TagStyle
 }
 export interface TagStyle extends Omit<TextStyle, 'display'> {
@@ -31,7 +32,7 @@ export interface TagStyle extends Omit<TextStyle, 'display'> {
   rowGap?:number,
   columnGap?:number
 }
-
+export type TagElement = JSX.Element|string|number|null;
 
 // tags
 export type FillProps = 'base' | 'outline' | 'translucent' | 'none';

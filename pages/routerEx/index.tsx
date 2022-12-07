@@ -2,8 +2,8 @@ import React from "react";
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Div, Button } from "@local_modules/tags";
-import { A, Header, Layout } from "@local_modules/router";
-
+import { A, FixedLayout, Header, Layout } from "@local_modules/router";
+const isTrue = true;
 const RouterEx = () => {
 
   const { color } = useTheme<Theme>();
@@ -38,6 +38,15 @@ const RouterEx = () => {
       <A href='https://www.google.co.kr'>
         <Button color={color.warning}>google</Button>
       </A>
+      <FixedLayout>
+        <Div style={{ backgroundColor: 'red', top: 0 }}>hello</Div>
+        {
+          isTrue ? null : <Div style={{ backgroundColor: 'red', top: 0 }}>hello</Div>
+        }
+        <Div style={{ backgroundColor: 'red' }}>hello</Div>
+        <Div style={{ backgroundColor: 'red' }}>hello</Div>
+        <Div style={{ backgroundColor: 'red' }}>hello</Div>
+      </FixedLayout>
     </Layout>
   )
 }
