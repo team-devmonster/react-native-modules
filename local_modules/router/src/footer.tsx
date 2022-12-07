@@ -4,7 +4,7 @@ import { ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export interface FooterProps {
-  children:TagElement|TagElement[],
+  children:TagElement,
   style?:TagStyle
 }
 export const Footer = (
