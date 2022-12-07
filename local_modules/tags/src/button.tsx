@@ -16,7 +16,7 @@ export interface ButtonProps extends Omit<PressableProps, 'style'|'children'|'on
   fill?: FillProps;
   onClick?: ((event: ButtonClickEvent) => void) | null | undefined;
   disabled?:boolean;
-  children?:TagElement|TagElement[]
+  children?:TagElement
 }
 
 export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled, onClick, onLayout, children, ...rest}:ButtonProps) => {
