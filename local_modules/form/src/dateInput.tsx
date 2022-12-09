@@ -1,10 +1,11 @@
 import React, { useState, useMemo } from "react";
-import { TextInput } from "react-native";
+import { TextInput, useColorScheme } from "react-native";
 import { Control, Controller, Path as Names } from "react-hook-form"
 import { Button, InputConfig, P, TagGroupConfig, TagStyle, textPattern, useTags, useTagStyle } from "@team-devmonster/react-native-tags"
 import DatePicker from 'react-native-date-picker';
 import { FormValues, InputDateType, InputProps } from "./type";
 import Svg, { Path } from "react-native-svg";
+import { textColor } from "./utils";
 
 export interface DateInputProps<T extends FormValues = any> extends InputProps<T> {
   control:Control<T>,
@@ -33,6 +34,7 @@ export function DateInput<T extends FormValues>({
 
   const mode = useMemo(() => getMode({ type }), [type]);
   const [open, setOpen] = useState(false);
+  const colorScheme = useColorScheme();
 
   const { tagConfig } = useTags();
 
@@ -150,6 +152,7 @@ export function DateInput<T extends FormValues>({
               open={open}
               date={date}
               theme="auto"
+              textColor={textColor({ colorScheme })}
               onConfirm={(date:Date) => {
                 const value = getValue({ type, date });
                 onChange(value);

@@ -16,6 +16,8 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
     errorStyle,
     value,
     type = 'text',
+    returnKeyType,
+    onEnter,
     ...rules
   } = props;
 
@@ -94,6 +96,8 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
             placeholderTextColor={placeholderStyle.placeholderColor}
             style={inputStyle}
             editable={!disabled}
+            returnKeyType={returnKeyType}
+            onSubmitEditing={onEnter}
           ></TextInput>
         )
         }}

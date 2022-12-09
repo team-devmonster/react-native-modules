@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTagStyle, Button, TagGroupConfig, P, textPattern, ButtonStyle, useTags } from '@team-devmonster/react-native-tags';
 import { FormValues, SelectProps } from "./type";
 import Svg, { Path } from "react-native-svg";
+import { textColor } from "./utils";
 
 export function Select<T extends FormValues>({
   control, 
@@ -305,7 +306,7 @@ const getButtonStyles = ({ styles, confirmButtonStyle, cancelButtonStyle }:{ sty
 const getPickerItem = ({children:options,colorScheme}:{children:JSX.Element|JSX.Element[]|undefined,colorScheme:ColorSchemeName}) => {
   if(Array.isArray(options)) {
     return options.map(({ props: { children:label, value:optionValue } }, i) => (
-      <Picker.Item key={i} label={label} color={colorScheme === 'dark' ? '#ffffff' : '#1f1f1f'} value={optionValue}/>
+      <Picker.Item key={i} label={label} color={textColor({ colorScheme })} value={optionValue}/>
     ))
   }
   else {
