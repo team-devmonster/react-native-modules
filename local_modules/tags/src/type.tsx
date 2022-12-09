@@ -1,4 +1,4 @@
-import { TextProps, TextStyle } from "react-native";
+import { GestureResponderEvent, PressableProps, TextProps, TextStyle } from "react-native";
 
 export interface TagGroupConfig {
   // tag - default
@@ -34,7 +34,22 @@ export interface TagStyle extends Omit<TextStyle, 'display'> {
 }
 export type TagElement = JSX.Element|string|number|null|undefined|TagElement[];
 
-// tags
+// tags props
+export interface ButtonClickEvent extends GestureResponderEvent {
+  [name:string]:any
+}
+
+export interface ButtonProps extends Omit<PressableProps, 'style'|'children'|'onBlur'|'onFocus'> {
+  style?: ButtonStyle;
+  disabledStyle?:ButtonStyle;
+  color?: string;
+  fill?: FillProps;
+  onClick?: ((event: ButtonClickEvent) => void) | null | undefined;
+  disabled?:boolean;
+  children?:TagElement
+}
+
+// tags config
 export type FillProps = 'base' | 'outline' | 'translucent' | 'none';
 export interface ButtonStyle extends TagStyle {
   cursor?:string

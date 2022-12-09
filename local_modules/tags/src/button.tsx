@@ -1,23 +1,9 @@
 import React, { useMemo } from "react";
-import { Pressable, Platform, useColorScheme, GestureResponderEvent, View, PressableProps, ColorSchemeName } from "react-native";
+import { Pressable, Platform, useColorScheme, View, ColorSchemeName } from "react-native";
 
 import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
-import { ButtonStyle, FillProps, TagElement } from "./type";
+import { ButtonProps, ButtonStyle, FillProps } from "./type";
 import { contrast, darken, lighten } from "./utils";
-
-export interface ButtonClickEvent extends GestureResponderEvent {
-  [name:string]:any
-}
-
-export interface ButtonProps extends Omit<PressableProps, 'style'|'children'|'onBlur'|'onFocus'> {
-  style?: ButtonStyle;
-  disabledStyle?:ButtonStyle;
-  color?: string;
-  fill?: FillProps;
-  onClick?: ((event: ButtonClickEvent) => void) | null | undefined;
-  disabled?:boolean;
-  children?:TagElement
-}
 
 export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled, onClick, onLayout, children, ...rest}:ButtonProps) => {
 
