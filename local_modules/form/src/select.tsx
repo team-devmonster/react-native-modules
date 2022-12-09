@@ -118,7 +118,9 @@ export function Select<T extends FormValues>({
               flexDirection: 'row',
               alignItems: 'center',
               ...inputStyle
-            }}>
+            }}
+            disabled={disabled}
+          >
             <TextInput
             showSoftInputOnFocus={false}
             ref={ref}
@@ -147,7 +149,7 @@ export function Select<T extends FormValues>({
 
             {
               // hidden layout part for android
-              Platform.OS === 'android' &&
+              Platform.OS === 'android' ?
               <Picker
               ref={pickerRef}
               style={{ display: 'none', opacity: 0, width: 0, height: 0 }}
@@ -157,11 +159,12 @@ export function Select<T extends FormValues>({
                 <Picker.Item color={inputStyle?.placeholderColor} label={placeholder||'선택'} value={null}></Picker.Item>
                 {PickerItem}
               </Picker>
+              : null
             }
 
             {
               // modal layout part for ios
-              Platform.OS === 'ios' &&
+              Platform.OS === 'ios' ?
               <Modal 
                 visible={visible} 
                 animationType="none"
@@ -247,6 +250,7 @@ export function Select<T extends FormValues>({
                     >취소</Button>
                 </Animated.View>
               </Modal>
+              : null
             }
           </Button>
         )

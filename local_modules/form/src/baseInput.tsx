@@ -93,6 +93,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
             placeholder={placeholder}
             placeholderTextColor={placeholderStyle.placeholderColor}
             style={inputStyle}
+            editable={!disabled}
           ></TextInput>
         )
         }}

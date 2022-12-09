@@ -78,6 +78,7 @@ export function Checkbox<T extends FormValues>({
               alignItems: 'center',
               ...newStyle
             }}
+            disabled={disabled}
             onClick={(e) => {
               const newValue = !value;
               onChange(newValue);

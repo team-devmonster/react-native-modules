@@ -79,6 +79,7 @@ export function DateInput<T extends FormValues>({
               alignItems: 'center',
               ...inputStyle
             }}
+            disabled={disabled}
           >
             <TextInput
               showSoftInputOnFocus={false}

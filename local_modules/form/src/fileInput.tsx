@@ -127,6 +127,7 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
               alignItems: 'center',
               ...inputStyle
             }}
+            disabled={disabled}
           >
             <TextInput
               showSoftInputOnFocus={false}
