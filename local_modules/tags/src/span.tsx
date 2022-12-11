@@ -6,8 +6,8 @@ import { TagProps } from "./type";
 export const Span = ({style, children, ...rest}:TagProps) => {
 
   const { tagConfig } = useTags();
-  const divTagStyle = tagConfig?.div;
-  const spanTagStyle = tagConfig?.span;
+  const divTagStyle = tagConfig?.div?.style;
+  const spanTagStyle = tagConfig?.span?.style;
 
   const [
     newStyle

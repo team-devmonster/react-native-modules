@@ -206,8 +206,8 @@ export function Select<T extends FormValues>({
                       borderTopRightRadius: 12,
                       borderTopLeftRadius: 12,
                       borderBottomWidth: StyleSheet.hairlineWidth,
-                      borderBottomColor: '#b1b1b1',
-                      height: 250,
+                      borderBottomColor: colorScheme === 'dark' ? '#383838' : '#b1b1b1',
+                      height: 240,
                       justifyContent: 'center',
                     }}
                     selectedValue={temptValue}

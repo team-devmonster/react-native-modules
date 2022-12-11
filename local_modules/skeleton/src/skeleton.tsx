@@ -25,7 +25,7 @@ export const Skeleton = ({ style, children }:ViewProps) => {
   return (
     children ?
       <View 
-        style={[style, { opacity: 0.1 }]}
+        style={{ ...flattenStyle, opacity: 0.1 }}
         onLayout={(e) => {
           const { width } = e.nativeEvent.layout;
           setSkeletonWidth(width);
@@ -41,7 +41,8 @@ export const Skeleton = ({ style, children }:ViewProps) => {
               style={{
                 backgroundColor: 'transparent',
                 width: '100%',
-                height: '100%'
+                height: '100%',
+                ...flattenStyle
               }}
             >
               {

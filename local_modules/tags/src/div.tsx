@@ -6,7 +6,7 @@ import { TagProps } from "./type";
 export const Div = ({style, children, ...rest}:TagProps) => {
 
   const { tagConfig } = useTags();
-  const divTagStyle = tagConfig?.div;
+  const divTagStyle = tagConfig?.div?.style;
 
   const [
     layoutStyle,

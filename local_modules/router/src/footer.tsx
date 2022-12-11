@@ -1,7 +1,6 @@
-import { Div, TagElement, TagStyle, useTags } from '@team-devmonster/react-native-tags';
 import React from 'react';
-import { ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Div, TagElement, TagStyle, useTags } from '@team-devmonster/react-native-tags';
 
 export interface FooterProps {
   children:TagElement,
@@ -24,7 +23,7 @@ export const Footer = (
     <Div 
       style={{
         ...tagStyle,
-        ...style as ViewStyle,
+        ...style,
         paddingBottom: paddingBottom + safe.bottom
       }}>
       { children }

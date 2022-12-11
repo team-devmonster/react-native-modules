@@ -25,7 +25,9 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 - [o] [Button](#Button)
 - [o] [Div]
 - [o] [Img](#Img)
-- [o] [P] => this is for text. `extends` `divConfig`.
+- [o] [Main] => this is for main contents. `extends` `div`.
+- [o] [H1 ~ H3] => this is for text. `extends` `div`.
+- [o] [P] => this is for text. `extends` `div`.
 - [o] [Span] => this is for inline text. `extends` `div`.
 - [o] [Dl] => this is for define list. `extends` `div`.
 - [o] [Dt] => this is for define list title. `extends` `div`.
@@ -46,7 +48,7 @@ from [`react-native-form`](https://www.npmjs.com/package/@team-devmonster/react-
 
 ## Getting started
 
-`$ npm install @react-native-masked-view/masked-view @team-devmonster/react-native-tags@latest`
+`$ npm install @team-devmonster/react-native-tags@latest`
 
 
 ## Examples

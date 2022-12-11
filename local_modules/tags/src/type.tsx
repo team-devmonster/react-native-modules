@@ -2,24 +2,31 @@ import { GestureResponderEvent, PressableProps, TextProps, TextStyle } from "rea
 
 export interface TagGroupConfig {
   // tag - default
-  div?: TagStyle,
+  div?: TagConfig,
   button?: ButtonConfig,
-  img?: TagStyle,
+  img?: TagConfig,
   // tag - additional
-  p?:TagStyle,
-  span?:TagStyle,
-  dl?:TagStyle,
-  dt?:TagStyle,
-  dd?:TagStyle,
+  h1?:TagConfig,
+  h2?:TagConfig,
+  h3?:TagConfig,
+  p?:TagConfig,
+  span?:TagConfig,
+  dl?:TagConfig,
+  dt?:TagConfig,
+  dd?:TagConfig,
+  main?:TagConfig,
   // router
-  layout?:LayoutConfig,
+  layout?:TagConfig,
   header?:HeaderConfig,
-  footer?:FooterConfig,
+  footer?:TagConfig,
   // forms
   input?: InputConfig
   errorText?: ErrorTextConfig,
   label?: LabelConfig,
   select?: SelectConfig
+}
+export interface TagConfig {
+  style?:TagStyle
 }
 
 export interface TagProps extends Omit<TextProps, 'style'|'onPress'> {
@@ -63,19 +70,12 @@ export interface ButtonConfig {
 }
 
 // router
-export interface LayoutConfig {
-  style?: TagStyle
-}
 export interface HeaderConfig {
   style?: TagStyle,
   headerTitleStyle?:Pick<TagStyle, "fontFamily" | "fontSize" | "fontWeight"> & {
     color?: string | undefined;
   }
 }
-export interface FooterConfig {
-  style?: TagStyle
-}
-
 
 // forms
 
