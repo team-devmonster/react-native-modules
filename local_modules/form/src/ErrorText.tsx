@@ -1,19 +1,21 @@
 import { FieldErrorsImpl, Path } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+
+import { Div, TagStyle, useTags, useTagStyle } from '@team-devmonster/react-native-tags';
+
 import { FormValues } from './type';
-import { View, Text } from "react-native";
-import { TagStyle, textPattern, useTags, useTagStyle } from '@team-devmonster/react-native-tags';
 
 
 export interface ErrorTextProps<T extends FormValues> {
   errors: Partial<FieldErrorsImpl<T>>,
   name:Path<T>,
-  style?:TagStyle
+  style?:TagStyle,
+  message?:string
 }
 
 export function ErrorText<T extends FormValues>(
   {
-    errors, name, style
+    errors, name, style, message
   }:ErrorTextProps<T>) 
 {
 
@@ -21,11 +23,9 @@ export function ErrorText<T extends FormValues>(
   const errorTextStyle = tagConfig?.errorText?.style;
 
   const [
-    textStyle,
-    viewStyle 
+    tagStyle
   ]
   = useTagStyle([
-    textPattern
   ], [
     errorTextStyle,
     style
@@ -35,12 +35,11 @@ export function ErrorText<T extends FormValues>(
     <ErrorMessage
       errors={errors}
       name={name as any}
-      render={({ message }) => {
+      message={message}
+      render={({ message:msg }) => {
         return (
-          message &&
-          <View style={viewStyle}>
-            <Text style={textStyle}>{message}</Text>
-          </View>
+          msg &&
+          <Div style={tagStyle}>{msg}</Div>
         )
       }}
     />
