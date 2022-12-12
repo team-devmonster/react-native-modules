@@ -45,9 +45,9 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
 ## Getting started
 
-`$ npm install react-native-safe-area-context react-hook-form react-native-svg @react-native-picker/picker react-native-date-picker react-native-image-picker`
+`$ npm install react-native-safe-area-context react-hook-form @hookform/error-message react-native-svg @react-native-picker/picker react-native-date-picker react-native-image-picker`
 
-`$ npm install @react-native-picker/picker react-native-date-picker react-native-image-picker @team-devmonster/react-native-tags@latest @team-devmonster/react-native-form@latest`
+`$ npm install @team-devmonster/react-native-theme@latest @team-devmonster/react-native-tags@latest @team-devmonster/react-native-form@latest`
 
 
 ## Examples

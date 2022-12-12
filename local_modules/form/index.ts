@@ -1,4 +1,4 @@
-export * from './src/ErrorText';
+export * from './src/errorText';
 export * from './src/input';
 export * from './src/select';
 export * from './src/textarea';

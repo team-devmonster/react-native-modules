@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from '@local_modules/theme';
-import { TagProvider, TagStyle, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, LayoutConfig } from '@local_modules/tags';
+import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, TagConfig } from '@local_modules/tags';
 
 const color = {
   light: {
@@ -99,9 +99,11 @@ const theme = (color:Color) => {
     }
   }
 
-  const div:TagStyle = {
-    color: color.black,
-    fontSize: fontSize.base
+  const div:TagConfig = {
+    style: {
+      color: color.black,
+      fontSize: fontSize.base
+    }
   }
 
   const button:ButtonConfig = {
@@ -192,7 +194,7 @@ const theme = (color:Color) => {
   }
 
   // router
-  const layout:LayoutConfig = {
+  const layout:TagConfig = {
     /* style: {
       padding: 20
     } */

@@ -1,13 +1,11 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { useForm } from "react-hook-form";
 
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Button, Div } from "@local_modules/tags";
-import { useForm } from "react-hook-form";
 import { ErrorText, Input, Label, Select, Option, Textarea } from "@local_modules/form";
 import { Layout } from "@local_modules/router";
-import Svg, { Path } from "react-native-svg";
 
 interface FormProps {
   id:string, 
