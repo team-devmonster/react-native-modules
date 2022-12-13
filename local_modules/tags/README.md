@@ -10,9 +10,10 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 
 ### Other `react-native` modules
 
-- [o] [`react-native-theme`](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
-- [o] [`react-native-router`](https://www.npmjs.com/package/@team-devmonster/react-native-router)
-- [o] [`react-native-form`](https://www.npmjs.com/package/@team-devmonster/react-native-form)
+- [o] [react-native-theme](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
+- [o] [react-native-form](https://www.npmjs.com/package/@team-devmonster/react-native-form)
+- [o] [react-native-router](https://www.npmjs.com/package/@team-devmonster/react-native-router)
+- [o] [react-native-skeleton](https://www.npmjs.com/package/@team-devmonster/react-native-skeleton)
 
 #### author: devmonster 
 

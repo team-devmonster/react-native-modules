@@ -13,7 +13,9 @@ General `react-native-modules` load map => [here](https://github.com/team-devmon
 ### Other `react-native` modules
 
 - [o] [react-native-tags](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
+- [o] [react-native-form](https://www.npmjs.com/package/@team-devmonster/react-native-form)
 - [o] [react-native-router](https://www.npmjs.com/package/@team-devmonster/react-native-router)
+- [o] [react-native-skeleton](https://www.npmjs.com/package/@team-devmonster/react-native-form)
 
 #### author: devmonster 
 

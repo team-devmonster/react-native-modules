@@ -6,7 +6,9 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "prev-devmonster": "npm install react-native-safe-area-context react-native-screens @react-navigation/native @react-navigation/native-stack react-hook-form @hookform/error-message react-native-svg @react-native-picker/picker react-native-date-picker react-native-image-picker @react-native-masked-view/masked-view react-native-linear-gradient react-native-reanimated",
+    "devmonster": "npm install @team-devmonster/react-native-theme@latest @team-devmonster/react-native-tags@latest @team-devmonster/react-native-router@latest @team-devmonster/react-native-form@latest @team-devmonster/react-native-skeleton@latest"
   },
   "jest": {
     "preset": "jest-expo"

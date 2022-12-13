@@ -10,20 +10,20 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 
 ## all start
 
-`$ npm install react-native-safe-area-context react-hook-form react-native-svg @react-native-picker/picker react-native-date-picker react-native-image-picker`
+`$ npm install react-native-safe-area-context react-native-screens @react-navigation/native @react-navigation/native-stack react-hook-form @hookform/error-message react-native-svg @react-native-picker/picker react-native-date-picker react-native-image-picker @react-native-masked-view/masked-view react-native-linear-gradient react-native-reanimated`
 
-`$ npm install @team-devmonster/react-native-theme@latest @team-devmonster/react-native-tags@latest @team-devmonster/react-native-router@latest @team-devmonster/react-native-form@latest`
+`$ npm install @team-devmonster/react-native-theme@latest @team-devmonster/react-native-tags@latest @team-devmonster/react-native-router@latest @team-devmonster/react-native-form@latest @team-devmonster/react-native-skeleton@latest`
 
 ## modules
 
 - [o] [react-native-theme](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
 - [o] [react-native-tags](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
-- [-] [react-native-router](https://www.npmjs.com/package/@team-devmonster/react-native-router)
-- [-] [react-native-form](https://www.npmjs.com/package/@team-devmonster/react-native-form)
+- [o] [react-native-router](https://www.npmjs.com/package/@team-devmonster/react-native-router)
+- [o] [react-native-form](https://www.npmjs.com/package/@team-devmonster/react-native-form)
+- [o] [react-native-skeleton](https://www.npmjs.com/package/@team-devmonster/react-native-skeleton)
 - [-] [react-native-modal]
 - [ ] react-img-editor
 - [ ] react-text-editor
-- [ ] react-native-modal
 - [ ] react-file
 - [ ] react-camera
 
