@@ -22,10 +22,8 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 - [o] [react-native-form](https://www.npmjs.com/package/@team-devmonster/react-native-form)
 - [o] [react-native-skeleton](https://www.npmjs.com/package/@team-devmonster/react-native-skeleton)
 - [-] [react-native-modal]
-- [ ] react-img-editor
-- [ ] react-text-editor
-- [ ] react-file
-- [ ] react-camera
+- [-] [react-img-editor]
+- [-] [react-text-editor]
 
 
 #### author: devmonster 
