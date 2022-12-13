@@ -21,7 +21,7 @@ export function useTags() {
   return useContext(TagContext);
 }
 
-export const textPattern = /^(color|font|text|lineHeight)/;
+export const textPattern = /^(color|font|text|lineHeight|whiteSpace)/;
 export const layoutPattern = /^(display|width|minWidth|maxWidth|height|minHeight|maxHeight|position|top|left|right|bottom|opacity|overflow|alignSelf|justifySelf)$/;
 export const shadowPattern = /^(shadow|elevation)/;
 export const borderPattern = /^(border)/;
@@ -91,10 +91,14 @@ const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagEleme
         else {
           if(textchildren.length) {
             newChildren.push(
-              <Text key={`tag_${id}_${i}`} style={{
-                lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
-                ...style as TextStyle
-              }}>{[...textchildren]}</Text>
+              <Text key={`tag_${id}_${i}`} 
+                style={{
+                  lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
+                  ...style as TextStyle
+                }}
+                ellipsizeMode="tail"
+                numberOfLines={style?.whiteSpace === 'nowrap' ? 1 : 0}
+              >{[...textchildren]}</Text>
             )
             textchildren.length = 0;
           }
@@ -124,20 +128,28 @@ const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagEleme
     // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
     if(textchildren.length) {
       newChildren.push(
-        <Text key={`tag_${id}_${children.length}`} style={{
-          lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
-          ...style as TextStyle
-        }}>{[...textchildren]}</Text>
+        <Text key={`tag_${id}_${children.length}`} 
+          style={{
+            lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
+            ...style as TextStyle
+          }}
+          ellipsizeMode="tail"
+          numberOfLines={style?.whiteSpace === 'nowrap' ? 1 : 0}
+        >{[...textchildren]}</Text>
       );
       textchildren.length = 0;
     }
     return newChildren;
   }
   else if(typeof children === 'string' || typeof children === 'number') {
-    return <Text style={{
-      lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
-      ...style as TextStyle
-    }}>{String(children)}</Text>
+    return <Text 
+      style={{
+        lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
+        ...style as TextStyle
+      }}
+      ellipsizeMode="tail"
+      numberOfLines={style?.whiteSpace === 'nowrap' ? 1 : 0}
+    >{String(children)}</Text>
   }
   else if(children) {
     return children;

@@ -29,12 +29,13 @@ export interface TagConfig {
   style?:TagStyle
 }
 
-export interface TagProps extends Omit<TextProps, 'style'|'onPress'> {
+export interface TagProps extends Omit<TextProps, 'style'|'onPress'|'numberOfLines'|'ellipsizeMode'> {
   children?:TagElement,
   style?:TagStyle
 }
 export interface TagStyle extends Omit<TextStyle, 'display'> {
   display?: 'flex' | 'inline-flex' | 'none',
+  whiteSpace?: 'pre-line'|'nowrap',
   gap?:number,
   rowGap?:number,
   columnGap?:number

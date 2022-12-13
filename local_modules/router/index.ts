@@ -4,3 +4,4 @@ export * from './src/footer';
 export * from './src/head';
 export * from './src/header';
 export * from './src/layout';
+export * from './src/useRouter';

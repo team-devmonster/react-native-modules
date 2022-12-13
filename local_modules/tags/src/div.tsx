@@ -51,7 +51,8 @@ export const Div = ({style, children, ...rest}:TagProps) => {
           ...borderStyle
         }}>
         <TagModule
-          style={textStyle}>{children}</TagModule>
+          style={textStyle}
+          >{children}</TagModule>
       </View>
     )
   }
