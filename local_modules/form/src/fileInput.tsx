@@ -179,13 +179,17 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                 <Button 
                   onClick={async(e) => {
                     const result = await launchCamera({ mediaType: 'photo', maxWidth: 1200, maxHeight: 1200 });
+                    const file = {
+                      ...result.assets,
+                      fileName: `capture_${new Date().getTime()}.jpg`
+                    }
                     if(multiple) {
-                      onChange([...value, ...(result.assets || [])]);
+                      onChange([...value, ...([file] || [])]);
                     }
                     else {
-                      onChange(result.assets);
+                      onChange([file]);
                     }
-                    _onChange?.({...e, target: { ...e.target, value: result.assets }} as any);
+                    _onChange?.({...e, target: { ...e.target, value: [file] }} as any);
                     setOpen(false);
                   }}
                   fill="none"
