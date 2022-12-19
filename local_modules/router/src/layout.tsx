@@ -35,20 +35,22 @@ export const Layout = ({ children, edges, style, ...rest }:LayoutProps) => {
     )
   }
   else {
-    <View style={{ flex: 1, backgroundColor: style?.backgroundColor }}>
-      {header}
-      <SafeAreaView
-        edges={defaultEdges || edges}
-        style={{
-          flex: 1,
-          ...layoutTagStyle as any,
-          ...style as ViewStyle
-        }} {...rest}>
-        {contents}
-      </SafeAreaView>
-      {fixedLayout}
-      {footer}
-    </View>
+    return (
+      <View style={{ flex: 1, backgroundColor: style?.backgroundColor }}>
+        {header}
+        <SafeAreaView
+          edges={defaultEdges || edges}
+          style={{
+            flex: 1,
+            ...layoutTagStyle as any,
+            ...style as ViewStyle
+          }} {...rest}>
+          {contents}
+        </SafeAreaView>
+        {fixedLayout}
+        {footer}
+      </View>
+    )
   }
 }
 
