@@ -12,27 +12,44 @@ export const Layout = ({ children, edges, style, ...rest }:LayoutProps) => {
   const { tagConfig } = useTags();
   const layoutTagStyle = tagConfig?.layout?.style;
 
-  return (
-    <View style={{ flex: 1 }}>
+  if(style?.overflow !== 'hidden') {
+    return (
+      <View style={{ flex: 1, backgroundColor: style?.backgroundColor }}>
+        {header}
+        <ScrollView style={{
+          flex: 1
+        }}>
+          <SafeAreaView
+            edges={defaultEdges || edges}
+            style={{
+              flex: 1,
+              ...layoutTagStyle as any,
+              ...style as ViewStyle
+            }} {...rest}>
+            {contents}
+          </SafeAreaView>
+        </ScrollView>
+        {fixedLayout}
+        {footer}
+      </View>
+    )
+  }
+  else {
+    <View style={{ flex: 1, backgroundColor: style?.backgroundColor }}>
       {header}
-      <ScrollView style={{
-        backgroundColor: style?.backgroundColor,
-        flex: 1
-      }}>
-        <SafeAreaView 
-          edges={defaultEdges || edges} 
-          style={{
-            flex: 1,
-            ...layoutTagStyle as any,
-            ...style as ViewStyle
-          }} {...rest}>
-          {contents}
-        </SafeAreaView>
-      </ScrollView>
+      <SafeAreaView
+        edges={defaultEdges || edges}
+        style={{
+          flex: 1,
+          ...layoutTagStyle as any,
+          ...style as ViewStyle
+        }} {...rest}>
+        {contents}
+      </SafeAreaView>
       {fixedLayout}
       {footer}
     </View>
-  )
+  }
 }
 
 const newChildren = ({ children }:{ children:TagElement })

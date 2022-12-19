@@ -1,7 +1,7 @@
 import { ButtonProps, ButtonStyle, InputStyle, TagProps, TagStyle } from "@team-devmonster/react-native-tags"
 import { SyntheticEvent } from "react"
 import { Control, FieldErrorsImpl, Path } from "react-hook-form"
-import { NativeSyntheticEvent, ReturnKeyType, TextInputSubmitEditingEventData } from "react-native"
+import { NativeSyntheticEvent, ReturnKeyType, TextInputFocusEventData, TextInputSubmitEditingEventData } from "react-native"
 
 export interface InputRuleProps {
   required?: boolean | 
@@ -69,6 +69,7 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps, 
   type?:InputType,
   returnKeyType?:ReturnKeyType,
   onEnter?:(e:NativeSyntheticEvent<TextInputSubmitEditingEventData>) => void,
+  onFocus?:((e: NativeSyntheticEvent<TextInputFocusEventData>) => void) | undefined,
   // options by types
   cameraText?:string,
   albumText?:string,

@@ -18,6 +18,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
     type = 'text',
     returnKeyType,
     onEnter,
+    onFocus,
     ...rules
   } = props;
 
@@ -33,7 +34,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
       name={name}
       defaultValue={value}
       rules={rules as any}
-      render={({ 
+      render={({
         field: { onChange, onBlur, value, ref },
         fieldState: { error }
         }) => {
@@ -88,6 +89,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
             ref={ref}
             onChangeText={newOnChange}
             onBlur={onBlur}
+            onFocus={onFocus}
             value={newValue}
             keyboardType={keyboardType}
             secureTextEntry={secureTextEntry}
@@ -100,7 +102,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
             onSubmitEditing={onEnter}
           ></TextInput>
         )
-        }}
+      }}
     />
   )
 }
