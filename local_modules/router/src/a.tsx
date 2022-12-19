@@ -26,7 +26,7 @@ export interface Aprops {
   back?:boolean,
   reset?:boolean,
   children:React.ReactNode
-  target?:'string'
+  target?:string
 }
 
 export const A = ({ href, as:_, replace, push, back, reset, children, target:__ }:Aprops) => {
