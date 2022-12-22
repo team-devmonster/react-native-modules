@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
-import { Div, Button } from "@local_modules/tags";
+import { Div, Button, P } from "@local_modules/tags";
 import { A, FixedLayout, Header, Layout } from "@local_modules/router";
 const isTrue = true;
 const RouterEx = () => {
@@ -13,7 +13,7 @@ const RouterEx = () => {
       style={{
         backgroundColor: color.backgroundColor,
         flex: 1,
-        //padding: 18
+        padding: 18
       }}>
       <Header
         title="Hello Header"
@@ -21,7 +21,9 @@ const RouterEx = () => {
           <Button>
             setting
           </Button>
-        }/>
+      }>
+        <P style={{ height: 56, alignItems: 'center', justifyContent: 'center', backgroundColor: color.step100 }}>next line</P>
+      </Header>
       <A href='/themeEx'>
         <Button color={color.primary} style={{ marginBottom: 8 }}>themeEx</Button>
       </A>

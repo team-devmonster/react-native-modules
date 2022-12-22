@@ -4,7 +4,7 @@ import { StatusBar, StatusBarStyle } from 'expo-status-bar';
 import { useNavigation } from "@react-navigation/native";
 import { useHeaderHeight } from '@react-navigation/elements';
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
-import { useTags } from "@team-devmonster/react-native-tags";
+import { TagElement, useTags } from "@team-devmonster/react-native-tags";
 
 export interface HeaderProps {
   title?:string | React.ReactNode;
@@ -18,7 +18,8 @@ export interface HeaderProps {
   headerShown?: boolean;
   style?: TextStyle;
   statusBarStyle?:StatusBarStyle;
-  contentStyle?:ViewStyle
+  contentStyle?:ViewStyle;
+  children?:TagElement;
 }
 
 export const Header = ({ 
@@ -31,7 +32,8 @@ export const Header = ({
   headerShown, 
   style, 
   statusBarStyle, 
-  contentStyle 
+  contentStyle,
+  children
 }:HeaderProps) => {
 
   const navigation = useNavigation();
@@ -83,7 +85,10 @@ export const Header = ({
   }, [title, headerLeft, headerRight, headerShown, headerStyle, headerTitleStyle, headerHeight]);
 
   return (
-    <StatusBar style={statusBarStyle || 'auto'} />
+    <>
+      <StatusBar style={statusBarStyle || 'auto'} />
+      {children}
+    </>
   )
 }
 Header.displayName = 'Header';

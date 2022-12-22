@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { forwardRef, LegacyRef, useMemo } from "react";
 import { ScrollView, View, ViewStyle } from "react-native";
 import { Edge, SafeAreaView } from "react-native-safe-area-context";
 import { TagElement, TagProps, useTags } from "@team-devmonster/react-native-tags";
@@ -6,7 +6,7 @@ import { TagElement, TagProps, useTags } from "@team-devmonster/react-native-tag
 interface LayoutProps extends TagProps {
   edges?:Edge[];
 }
-export const Layout = ({ children, edges, style, ...rest }:LayoutProps) => {
+export const Layout = forwardRef(({ children, edges, style, ...rest }:LayoutProps, ref:LegacyRef<ScrollView>) => {
 
   const { header, defaultEdges, contents, fixedLayout, footer } = useMemo(() => newChildren({ children }), [children]);
   const { tagConfig } = useTags();
@@ -16,9 +16,11 @@ export const Layout = ({ children, edges, style, ...rest }:LayoutProps) => {
     return (
       <View style={{ flex: 1, backgroundColor: style?.backgroundColor }}>
         {header}
-        <ScrollView style={{
-          flex: 1
-        }}>
+        <ScrollView 
+          ref={ref}
+          style={{
+            flex: 1
+          }}>
           <SafeAreaView
             edges={defaultEdges || edges}
             style={{
@@ -52,7 +54,7 @@ export const Layout = ({ children, edges, style, ...rest }:LayoutProps) => {
       </View>
     )
   }
-}
+})
 
 const newChildren = ({ children }:{ children:TagElement })
   :{ 
