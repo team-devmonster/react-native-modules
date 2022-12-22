@@ -34,6 +34,7 @@
   "peerDependencies": {
     "react": ">=16",
     "react-dom": ">=16",
-    "react-native": ">=0.57"
+    "react-native": ">=0.57",
+    "react-native-reanimated": ">=2.13.0"
   }
 }

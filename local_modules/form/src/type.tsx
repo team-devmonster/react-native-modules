@@ -79,6 +79,8 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps, 
   albumButtonStyle?:ButtonStyle,
   confirmButtonStyle?:ButtonStyle,
   cancelButtonStyle?:ButtonStyle,
+  // input['type=file']
+  accept?:string,
   multiple?:boolean
 }
 export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'checkbox'|'radio'|'file'|InputDateType;

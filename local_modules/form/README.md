@@ -49,7 +49,7 @@ Before use it, see these.<br>
 - [o] [`react-native-router`](https://www.npmjs.com/package/@team-devmonster/react-native-router)
 <br>
 
-`$ npm install react-native-safe-area-context react-hook-form @hookform/error-message react-native-svg @react-native-picker/picker react-native-date-picker react-native-image-picker`
+`$ npm install react-native-safe-area-context react-hook-form @hookform/error-message react-native-svg @react-native-picker/picker react-native-date-picker react-native-image-picker react-native-document-picker react-native-reanimated`
 
 `$ npm install @team-devmonster/react-native-theme@latest @team-devmonster/react-native-tags@latest @team-devmonster/react-native-router@latest @team-devmonster/react-native-form@latest`
 

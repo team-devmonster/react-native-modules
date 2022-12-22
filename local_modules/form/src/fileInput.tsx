@@ -4,6 +4,7 @@ import { Controller } from 'react-hook-form';
 import { TextInput, Modal, TouchableWithoutFeedback, Animated, useColorScheme, Easing, StyleSheet } from "react-native";
 import { Button, ButtonStyle, P, TagGroupConfig, textPattern, useTags, useTagStyle } from '@team-devmonster/react-native-tags';
 
+import { pickMultiple, pickSingle } from "react-native-document-picker";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -24,6 +25,8 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
     disabledStyle,
     errorStyle,
     value,
+    // input['type=file']
+    accept,
     multiple,
     onClick,
     onChange:_onChange,
@@ -117,7 +120,43 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
         return (
           <Button
             onClick={async(e) => {
-              setOpen(true);
+              if(accept?.startsWith('image')) {
+                // image files
+                setOpen(true);
+              }
+              else {
+                // etc files
+                if(multiple) {
+
+                  try {
+                    const files = (await pickMultiple({ type:accept })).map(({ name, ...asset }) => ({
+                      ...asset,
+                      filename: name
+                    }));
+                    console.log(files);
+                    onChange([...value, ...files]);
+                    _onChange?.({...e, target: { ...e.target, value: files }} as any);
+                  }
+                  catch(e) {}
+
+                }
+                else {
+
+                  try {
+                    const { name, ...asset } = (await pickSingle({ type:accept }));
+                    const file = {
+                      ...asset,
+                      filename: name
+                    }
+                    console.log(file);
+                    onChange([file]);
+                    _onChange?.({...e, target: { ...e.target, value: [file] }} as any);
+                  }
+                  catch(e) {}
+
+                }
+              }
+              
               onClick?.(e);
             }}
             fill="none"
@@ -138,10 +177,19 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
             {
               value?.[0]
               ?
-                <P style={{ flex: 1, ...textStyle }}>{value[0].fileName}</P>
+                <P style={{ flex: 1, ...textStyle }}>{value[0].filename}</P>
               :
                 <P style={{ flex: 1, ...textStyle, color: inputStyle?.placeholderColor}}>{placeholder}</P>
             }
+
+
+
+
+
+
+
+
+            
             <Modal 
               visible={visible} 
               animationType="none"

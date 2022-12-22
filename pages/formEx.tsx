@@ -5,7 +5,7 @@ import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Button, Div } from "@local_modules/tags";
 import { ErrorText, Input, Label, Select, Option, Textarea } from "@local_modules/form";
-import { Layout } from "@local_modules/router";
+import { Header, Layout } from "@local_modules/router";
 
 interface FormProps {
   id:string, 
@@ -41,6 +41,7 @@ const FormEx = () => {
 
   return (
     <Layout style={{ padding: 20, backgroundColor: color.white }}>
+      <Header title="react-hook-form"/>
       <Div style={{ rowGap: 8 }}>
         <Input
           control={control}
@@ -159,6 +160,14 @@ const FormEx = () => {
           placeholder="please select">
           <Option value="1">devmonster</Option>
         </Select>
+
+        <Input
+          type="file"
+          control={control}
+          //accept="image/*"
+          accept="application/pdf"
+          name="file"
+          placeholder="file"></Input>
 
         <Button
           onClick={() => {
