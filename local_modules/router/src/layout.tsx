@@ -11,6 +11,11 @@ export const Layout = forwardRef(({ children, edges, style, ...rest }:LayoutProp
   const { header, defaultEdges, contents, fixedLayout, footer } = useMemo(() => newChildren({ children }), [children]);
   const { tagConfig } = useTags();
   const layoutTagStyle = tagConfig?.layout?.style;
+  const contentStyle = useMemo(() => ({
+    flex: 1,
+    ...layoutTagStyle as any,
+    ...style as ViewStyle
+  }), [layoutTagStyle, style]);
 
   if(style?.overflow !== 'hidden') {
     return (
@@ -21,15 +26,19 @@ export const Layout = forwardRef(({ children, edges, style, ...rest }:LayoutProp
           style={{
             flex: 1
           }}>
-          <SafeAreaView
-            edges={edges || defaultEdges}
-            style={{
-              flex: 1,
-              ...layoutTagStyle as any,
-              ...style as ViewStyle
-            }} {...rest}>
-            {contents}
-          </SafeAreaView>
+          {
+            edges?.length !== 0 ?
+              <SafeAreaView
+                edges={edges || defaultEdges}
+                style={contentStyle} {...rest}>
+                {contents}
+              </SafeAreaView>
+            :
+              <View
+                style={contentStyle} {...rest}>
+                {contents}
+              </View>
+          }
         </ScrollView>
         {fixedLayout}
         {footer}
@@ -40,15 +49,19 @@ export const Layout = forwardRef(({ children, edges, style, ...rest }:LayoutProp
     return (
       <View style={{ flex: 1, backgroundColor: style?.backgroundColor }}>
         {header}
-        <SafeAreaView
-          edges={defaultEdges || edges}
-          style={{
-            flex: 1,
-            ...layoutTagStyle as any,
-            ...style as ViewStyle
-          }} {...rest}>
-          {contents}
-        </SafeAreaView>
+        {
+          edges?.length !== 0 ?
+            <SafeAreaView
+              edges={edges || defaultEdges}
+              style={contentStyle} {...rest}>
+              {contents}
+            </SafeAreaView>
+          :
+            <View
+              style={contentStyle} {...rest}>
+              {contents}
+            </View>
+        }
         {fixedLayout}
         {footer}
       </View>
