@@ -22,7 +22,7 @@ export const Layout = forwardRef(({ children, edges, style, ...rest }:LayoutProp
             flex: 1
           }}>
           <SafeAreaView
-            edges={defaultEdges || edges}
+            edges={edges || defaultEdges}
             style={{
               flex: 1,
               ...layoutTagStyle as any,

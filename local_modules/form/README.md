@@ -44,9 +44,10 @@ This use [react-hook-form](https://react-hook-form.com/)'s control system.
 ## Getting started
 
 Before use it, see these.<br>
-- [o] [`react-native-theme`](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
-- [o] [`react-native-tags`](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
-- [o] [`react-native-router`](https://www.npmjs.com/package/@team-devmonster/react-native-router)
+- [o] [react-native-theme](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
+- [o] [react-native-tags](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
+- [o] [react-native-router](https://www.npmjs.com/package/@team-devmonster/react-native-router)
+- [o] [react-native-skeleton](https://www.npmjs.com/package/@team-devmonster/react-native-skeleton)
 <br>
 
 `$ npm install react-native-safe-area-context react-hook-form @hookform/error-message react-native-svg @react-native-picker/picker react-native-date-picker react-native-image-picker react-native-document-picker react-native-reanimated`

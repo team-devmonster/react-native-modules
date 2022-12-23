@@ -37,6 +37,8 @@ It was created for use with a layout sense similar to Html.
 Before use it, see these.<br>
 - [o] [`react-native-theme`](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
 - [o] [`react-native-tags`](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
+- [o] [`react-native-form`](https://www.npmjs.com/package/@team-devmonster/react-native-form)
+- [o] [react-native-skeleton](https://www.npmjs.com/package/@team-devmonster/react-native-skeleton)
 <br>
 
 `$ npm install @team-devmonster/react-native-theme@latest @team-devmonster/react-native-tags@latest @team-devmonster/react-native-router@latest`
