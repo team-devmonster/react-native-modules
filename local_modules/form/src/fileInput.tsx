@@ -4,9 +4,10 @@ import { Controller } from 'react-hook-form';
 import { TextInput, Modal, TouchableWithoutFeedback, Animated, useColorScheme, Easing, StyleSheet } from "react-native";
 import { Button, ButtonStyle, P, TagGroupConfig, textPattern, useTags, useTagStyle } from '@team-devmonster/react-native-tags';
 
-import { pickMultiple, pickSingle } from "react-native-document-picker";
+import { DocumentPickerOptions, pickMultiple, pickSingle } from "react-native-document-picker";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { SupportedPlatforms } from "react-native-document-picker/lib/typescript/fileTypes";
 
 export function FileInput<T extends FormValues>(props:InputProps<T>) 
 {
@@ -126,10 +127,12 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
               }
               else {
                 // etc files
+                const options:DocumentPickerOptions<SupportedPlatforms> = {};
+                  if(accept) options.type = accept;
                 if(multiple) {
 
                   try {
-                    const files = (await pickMultiple({ type:accept })).map(({ name, ...asset }) => ({
+                    const files = (await pickMultiple(options)).map(({ name, ...asset }) => ({
                       ...asset,
                       filename: name
                     }));
@@ -143,7 +146,7 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                 else {
 
                   try {
-                    const { name, ...asset } = (await pickSingle({ type:accept }));
+                    const { name, ...asset } = (await pickSingle(options));
                     const file = {
                       ...asset,
                       filename: name

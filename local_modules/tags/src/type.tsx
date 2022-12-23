@@ -38,7 +38,8 @@ export interface TagStyle extends Omit<TextStyle, 'display'> {
   whiteSpace?: 'pre-line'|'nowrap',
   gap?:number,
   rowGap?:number,
-  columnGap?:number
+  columnGap?:number,
+  iconColor?:string
 }
 export type TagElement = JSX.Element|string|number|null|undefined|TagElement[];
 

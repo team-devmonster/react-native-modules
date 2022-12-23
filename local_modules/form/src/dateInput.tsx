@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { TextInput, useColorScheme } from "react-native";
-import { Control, Controller, Path as Names } from "react-hook-form"
+import { Control, Controller, Path as Names, UnPackAsyncDefaultValues } from "react-hook-form"
 import { Button, InputConfig, P, TagGroupConfig, TagStyle, textPattern, useTags, useTagStyle } from "@team-devmonster/react-native-tags"
 import DatePicker from 'react-native-date-picker';
 import { FormValues, InputDateType, InputProps } from "./type";
@@ -9,7 +9,7 @@ import { textColor } from "./utils";
 
 export interface DateInputProps<T extends FormValues = any> extends InputProps<T> {
   control:Control<T>,
-  name:Names<T>,
+  name:Names<UnPackAsyncDefaultValues<T>>,
   style?:TagStyle,
   disabledStyle?:TagStyle,
   errorStyle?:TagStyle,

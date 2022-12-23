@@ -1,6 +1,6 @@
 import { ButtonProps, ButtonStyle, InputStyle, TagProps, TagStyle } from "@team-devmonster/react-native-tags"
 import { SyntheticEvent } from "react"
-import { Control, FieldErrorsImpl, Path } from "react-hook-form"
+import { Control, FieldErrorsImpl, Path, UnPackAsyncDefaultValues } from "react-hook-form"
 import { NativeSyntheticEvent, ReturnKeyType, TextInputFocusEventData, TextInputSubmitEditingEventData } from "react-native"
 
 export interface InputRuleProps {
@@ -61,7 +61,7 @@ export interface FormValues {[name:string]:any};
 
 export interface InputProps<T extends FormValues = any> extends InputRuleProps, Omit<ButtonProps, 'children'> {
   control:Control<T>,
-  name:Path<T>,
+  name:Path<UnPackAsyncDefaultValues<T>>,
   placeholder?:string,
   style?:InputStyle,
   disabledStyle?:InputStyle,

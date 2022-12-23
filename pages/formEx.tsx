@@ -165,7 +165,7 @@ const FormEx = () => {
           type="file"
           control={control}
           //accept="image/*"
-          accept="application/pdf"
+          //accept="application/pdf"
           name="file"
           placeholder="file"></Input>
 
