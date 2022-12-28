@@ -1,20 +1,20 @@
-import React, { useMemo } from "react";
-import { Pressable, Platform, useColorScheme, View, ColorSchemeName } from "react-native";
+import React, { useMemo, useState } from "react";
+import { Pressable, useColorScheme, View, ColorSchemeName } from "react-native";
 
 import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
-import { ButtonProps, ButtonStyle, FillProps } from "./type";
+import { ButtonProps, FillProps, TagGroupConfig } from "./type";
 import { contrast, darken, lighten } from "./utils";
 
-export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled, onClick, onLayout, children, ...rest}:ButtonProps) => {
+export const Button = ({color:_color, fill:_fill, style, disabledStyle, activeStyle, disabled, onClick, onLayout, children, ...rest}:ButtonProps) => {
 
   const colorScheme = useColorScheme();
   const { tagConfig } = useTags();
+  
+  const color = _color || tagConfig?.button?.color || '#FF6420';
   const fill = _fill || tagConfig?.button?.fill || 'base';
-  const buttonTagStyle = tagConfig?.button?.style;
-  const buttonTagDisabledStyle = tagConfig?.button?.disabledStyle;
-  const color = _color || tagConfig?.button?.color;
 
-  const fillStyle = useMemo(() => getFillStyle({ colorScheme, color, fill, buttonTagStyle }), [colorScheme, color, fill, buttonTagStyle]);
+  const styles = useMemo(() => getStyles({ tagConfig, colorScheme, color, fill }), [tagConfig?.button, colorScheme, color, fill]);
+  const [active, setActive] = useState(false);
 
   const [
     layoutStyle,
@@ -33,12 +33,21 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
     gapPattern,
     textPattern,
   ], [
-    fill !== 'none' ? buttonTagStyle : undefined, 
-    disabled ? buttonTagDisabledStyle : undefined,
+    styles.tagStyle, 
+    disabled ? styles.tagDisabledStyle : undefined,
+    active ? styles.tagActiveStyle : undefined,
     style,
-    disabled ? disabledStyle : undefined
+    disabled ? disabledStyle : undefined,
+    active ? activeStyle : undefined
   ]);
+  const borderRadiusStyle = useMemo(() => ({
+    borderTopLeftRadius: borderStyle?.borderTopLeftRadius ?? borderStyle?.borderRadius,
+    borderTopRightRadius: borderStyle?.borderTopRightRadius ?? borderStyle?.borderRadius,
+    borderBottomLeftRadius: borderStyle?.borderBottomLeftRadius ?? borderStyle?.borderRadius,
+    borderBottomRightRadius: borderStyle?.borderBottomRightRadius ?? borderStyle?.borderRadius
+  }), [borderStyle]);
   
+  // gaps
   const rowGap = gapStyle?.rowGap || gapStyle?.gap || 0;
   const columnGap = gapStyle?.columnGap || gapStyle?.gap || 0;
 
@@ -48,13 +57,6 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
     marginLeft: -columnGap/2,
     marginRight: -columnGap/2
   }), [rowGap, columnGap]);
-
-  const borderRadiusStyle = useMemo(() => ({
-    borderTopLeftRadius: borderStyle?.borderTopLeftRadius ?? borderStyle?.borderRadius ?? fillStyle?.borderRadius,
-    borderTopRightRadius: borderStyle?.borderTopRightRadius ?? borderStyle?.borderRadius ?? fillStyle?.borderRadius,
-    borderBottomLeftRadius: borderStyle?.borderBottomLeftRadius ?? borderStyle?.borderRadius ?? fillStyle?.borderRadius,
-    borderBottomRightRadius: borderStyle?.borderBottomRightRadius ?? borderStyle?.borderRadius ?? fillStyle?.borderRadius
-  }), [borderStyle, fillStyle]);
 
   if(!Object.keys(gapStyle).length) {
     return (
@@ -69,26 +71,23 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
           style={{
             flex: 1,
             overflow: 'hidden',
-            borderWidth: fillStyle?.borderWidth,
-            borderColor: fillStyle?.borderColor,
             ...borderStyle
           }}>
           <Pressable
             disabled={disabled}
             style={({ pressed }) => {
+              setActive(pressed);
               return {
                 flex: 1,
                 ...borderRadiusStyle,
-                backgroundColor: (!pressed || Platform.OS !== 'ios') ? fillStyle?.background?.base : fillStyle?.background?.pressed,
                 ...viewStyle
               }
             }}
-            android_ripple={{ color: fillStyle?.background.ripple }}
+            android_ripple={{ color: viewStyle.backgroundColor }}
             onPress={onClick}
             {...rest}>
             <TagModule
               style={{
-                color: fillStyle?.color,
                 ...textStyle
               }}>{children}</TagModule>
           </Pressable>
@@ -108,9 +107,6 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
         <View style={{
           flex: 1,
           overflow: 'hidden',
-          borderWidth: fillStyle?.borderWidth,
-          borderColor: fillStyle?.borderColor,
-          ...borderRadiusStyle,
           ...borderStyle
         }}>
           <Pressable
@@ -120,16 +116,14 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
                 flex: 1,
                 ...borderRadiusStyle,
                 ...gapContainerStyle,
-                ...viewStyle,
-                ...(pressed && Platform.OS === 'ios' ? { backgroundColor: fillStyle?.background?.pressed } : null)
+                ...viewStyle
               }
             }}
-            android_ripple={{ color: fillStyle?.background.ripple }}
+            android_ripple={{ color: viewStyle.rippleColor }}
             onPress={onClick}
             {...rest}>
             <TagModule
               style={{
-                color: fillStyle?.color,
                 ...textStyle,
                 ...(rowGap ? {marginVertical: rowGap/2} : null),
                 ...(columnGap ? {marginHorizontal: columnGap/2} : null)
@@ -141,58 +135,113 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, disabled
   }
 }
 
+const getStyles = ({ tagConfig, colorScheme, color, fill }:{tagConfig:TagGroupConfig|undefined, colorScheme:ColorSchemeName, color:string, fill:FillProps}) => {
+  const tagStyle = tagConfig?.button?.style;
+  const tagDisabledStyle = tagConfig?.button?.disabledStyle;
+  const tagActiveStyle = tagConfig?.button?.activeStyle;
 
-interface FillStyle {
-  background: {
-    base?: string,
-    pressed?: string,
-    ripple?: string
-  },
-  color?: string,
-  borderColor?: string,
-  borderWidth?: number,
-  borderRadius?: number
-}
-const getFillStyle = ({ colorScheme, color, fill, buttonTagStyle }:{colorScheme:ColorSchemeName, color?: string, fill: FillProps, buttonTagStyle?:ButtonStyle}):FillStyle => {
-  switch(fill) {
-    case 'outline':
-      return {
-        background: {
-          base: colorScheme === 'dark' ? '#000000' : '#ffffff',
-          pressed: color ? `${color}32` : undefined,
-          ripple: color ? `${color}32` : undefined
-        },
-        color: color,
-        borderColor: color,
-        borderWidth: 1
+  const fillType:`fill=${FillProps}` = `fill=${fill}`;
+  const tagFillStyle = tagConfig?.button?.[fillType]?.style;
+  const tagFillDisabeldStyle = tagConfig?.button?.[fillType]?.disabledStyle;
+  const tagFillActiveStyle = tagConfig?.button?.[fillType]?.activeStyle;
+
+  const defaultStyle = (() => {
+    switch(fill) {
+      case 'outline':
+        return {
+          style: {
+            backgroundColor: 'transparent',
+            rippleColor: `${color}32`,
+            color: color,
+            borderColor: color,
+            borderWidth: 1
+          },
+          activeStyle: {
+            backgroundColor: `${color}19`
+          }
+        }
+      case 'translucent':
+        return {
+          style: {
+            backgroundColor: `${color}32`,
+            rippleColor: `${color}5A`,
+            color: color
+          },
+          activeStyle: {
+            backgroundColor: `${color}4b`
+          }
+        }
+      case 'clear':
+        return {
+          style: {
+            backgroundColor: 'transparent',
+            rippleColor: `${color}32`,
+            color: color
+          },
+          activeStyle: {
+            backgroundColor: `${color}19`
+          }
+        }
+      case 'none':
+        return {
+          style: {
+            backgroundColor: color,
+            rippleColor: colorScheme === 'dark' ? lighten(color, 55) : darken(color, 55),
+            color: contrast(color),
+            borderRadius: tagStyle?.borderRadius
+          },
+          activeStyle: {
+            backgroundColor: colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30)
+          }
+        }
+      default: // none or base
+        return {
+          style: {
+            backgroundColor: color,
+            rippleColor: colorScheme === 'dark' ? lighten(color, 55) : darken(color, 55),
+            color: contrast(color)
+          },
+          activeStyle: {
+            backgroundColor: colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30)
+          }
+        }
+    }
+  })()
+
+  if(fill !== 'none') {
+    return {
+      tagStyle: {
+        ...defaultStyle.style,
+        ...tagStyle,
+        ...tagFillStyle
+      },
+      tagDisabledStyle: {
+        ...tagDisabledStyle,
+        ...tagFillDisabeldStyle
+      },
+      tagActiveStyle: {
+        ...defaultStyle.activeStyle,
+        ...tagActiveStyle,
+        ...tagFillActiveStyle
       }
-    case 'translucent':
-      return {
-        background: {
-          base: color ? `${color}32` : undefined,
-          pressed: color ? `${color}4b` : undefined,
-          ripple: color ? `${color}4b` : undefined,
-        },
-        color: color
-      }
-    case 'none':
-      return {
-        background: {
-          base: color,
-          pressed: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : undefined,
-          ripple: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : undefined
-        },
-        color: color ? contrast(color) : undefined,
-        borderRadius: buttonTagStyle?.borderRadius
-      }
-    default:
-      return {
-        background: {
-          base: color,
-          pressed: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : undefined,
-          ripple: color ? colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30) : undefined
-        },
-        color: color ? contrast(color) : undefined
-      }
+    }
   }
+  else {
+    return {
+      tagStyle: {
+        ...defaultStyle,
+        ...tagFillStyle
+      },
+      tagDisabledStyle: {
+        ...tagDisabledStyle,
+        ...tagFillDisabeldStyle
+      },
+      tagActiveStyle: {
+        ...defaultStyle.activeStyle,
+        ...tagActiveStyle,
+        ...tagFillActiveStyle
+      }
+    }
+  }
+
 }

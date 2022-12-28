@@ -51,6 +51,7 @@ export interface ButtonClickEvent extends GestureResponderEvent {
 export interface ButtonProps extends Omit<PressableProps, 'style'|'children'|'onBlur'|'onFocus'> {
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
+  activeStyle?:ButtonStyle;
   color?: string;
   fill?: FillProps;
   onClick?: ((event: ButtonClickEvent) => void) | null | undefined;
@@ -59,7 +60,7 @@ export interface ButtonProps extends Omit<PressableProps, 'style'|'children'|'on
 }
 
 // tags config
-export type FillProps = 'base' | 'outline' | 'translucent' | 'none';
+export type FillProps = 'base' | 'outline' | 'translucent' | 'clear' | 'none';
 export interface ButtonStyle extends TagStyle {
   cursor?:string
 }
@@ -67,8 +68,21 @@ export interface ButtonConfig {
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
   hoverStyle?:ButtonStyle;
+  activeStyle?:ButtonStyle;
   color?: string;
   fill?: FillProps;
+  'fill=base'?:ButtonFillConfig;
+  'fill=outline'?:ButtonFillConfig;
+  'fill=translucent'?:ButtonFillConfig;
+  'fill=clear'?:ButtonFillConfig;
+  'fill=none'?:ButtonFillConfig;
+}
+interface ButtonFillConfig {
+  style?: ButtonStyle;
+  disabledStyle?:ButtonStyle;
+  hoverStyle?:ButtonStyle;
+  activeStyle?:ButtonStyle;
+  color?: string;
 }
 
 // router

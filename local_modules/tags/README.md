@@ -170,6 +170,15 @@ const theme = (color:Color) => {
       opacity: 0.5
     }
   }
+  button['fill=translucent'] = {
+    color: color.primary,
+    style: {
+      backgroundColor: color.danger
+    },
+    activeStyle: {
+      backgroundColor: color.black
+    }
+  }
 
   return {
     // basic theme
