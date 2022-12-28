@@ -229,7 +229,7 @@ const getStyles = ({ tagConfig, colorScheme, color, fill }:{tagConfig:TagGroupCo
   else {
     return {
       tagStyle: {
-        ...defaultStyle,
+        ...defaultStyle.style,
         ...tagFillStyle
       },
       tagDisabledStyle: {
