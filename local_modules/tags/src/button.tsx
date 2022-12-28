@@ -58,6 +58,13 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, activeSt
     marginRight: -columnGap/2
   }), [rowGap, columnGap]);
 
+  const onPressStart = () => {
+    setActive(true);
+  }
+  const onPressEnd = () => {
+    setActive(false);
+  }
+
   if(!Object.keys(gapStyle).length) {
     return (
       <View style={{
@@ -76,7 +83,6 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, activeSt
           <Pressable
             disabled={disabled}
             style={({ pressed }) => {
-              setActive(pressed);
               return {
                 flex: 1,
                 ...borderRadiusStyle,
@@ -84,6 +90,8 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, activeSt
               }
             }}
             android_ripple={{ color: viewStyle.backgroundColor }}
+            onPressIn={onPressStart}
+            onPressOut={onPressEnd}
             onPress={onClick}
             {...rest}>
             <TagModule
@@ -120,6 +128,8 @@ export const Button = ({color:_color, fill:_fill, style, disabledStyle, activeSt
               }
             }}
             android_ripple={{ color: viewStyle.rippleColor }}
+            onPressIn={onPressStart}
+            onPressOut={onPressEnd}
             onPress={onClick}
             {...rest}>
             <TagModule
@@ -187,7 +197,6 @@ const getStyles = ({ tagConfig, colorScheme, color, fill }:{tagConfig:TagGroupCo
           style: {
             backgroundColor: color,
             rippleColor: colorScheme === 'dark' ? lighten(color, 55) : darken(color, 55),
-            color: contrast(color),
             borderRadius: tagStyle?.borderRadius
           },
           activeStyle: {

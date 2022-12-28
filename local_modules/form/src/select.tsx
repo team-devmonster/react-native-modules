@@ -219,7 +219,9 @@ export function Select<T extends FormValues>({
                   </Picker>
                   <Button 
                     onClick={() => {
-                      onChange(temptValue);
+                      if(value !== temptValue) {
+                        onChange(temptValue);
+                      }
                       setOpen(false);
                     }}
                     fill="none"
