@@ -27,6 +27,9 @@ const ParamEx = () => {
       <P style={{ padding: 8, backgroundColor: color.step300 }}>
         { query.name } / { query.nickname } / { query.company }
       </P>
+      <P style={{ padding: 8, backgroundColor: color.step300 }}>
+        { query.des }
+      </P>
       <A back={true}>
         <Button color={color.primary}>Back</Button>
       </A>

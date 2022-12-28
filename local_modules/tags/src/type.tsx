@@ -15,6 +15,13 @@ export interface TagGroupConfig {
   dt?:TagConfig,
   dd?:TagConfig,
   main?:TagConfig,
+  // tag - table
+  table?:TagConfig,
+  thead?:TagConfig,
+  tbody?:TagConfig,
+  tr?:TagConfig,
+  th?:TagConfig,
+  td?:TagConfig,
   // router
   layout?:TagConfig,
   header?:HeaderConfig,

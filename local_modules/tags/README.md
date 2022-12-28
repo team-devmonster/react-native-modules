@@ -31,7 +31,12 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 - [o] [Dl] => this is for define list. `extends` `div`.
 - [o] [Dt] => this is for define list title. `extends` `div`.
 - [o] [Dd] => this is for define list description. `extends` `div`.
-- [o] [Table] => Under development :(help)
+- [o] [Table] => Under development :(help) `extends` `div`.
+- [o] [Thead] => Under development :(help) `extends` `div`.
+- [o] [Tbody] => Under development :(help) `extends` `div`.
+- [o] [Tr] => Under development :(help) `extends` `div`.
+- [o] [Th] => Under development :(help) `extends` `p`.
+- [o] [Td] => Under development :(help) `extends` `p`.
 
 ## Getting started
 
