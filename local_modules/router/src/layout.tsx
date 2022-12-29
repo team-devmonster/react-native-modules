@@ -114,7 +114,8 @@ const newChildren = ({ children }:{ children:TagElement })
         }
       }
       else {
-        contents.push(child);
+        // nothing
+        // contents.push(child);
       }
     }
   }
