@@ -32,6 +32,7 @@ This use [react-hook-form](https://react-hook-form.com/)'s control system.
 - [o] [Input\[type=checkbox\]]
 - [o] [Input\[type=number\]]
 - [o] [Input\[type=date\]]
+- [o] [Input\[type=month\]]
 - [o] [Input\[type=time\]]
 - [o] [Input\[type=file\]]
 - [o] [Label]

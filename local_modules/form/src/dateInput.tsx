@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from "react";
-import { TextInput, useColorScheme } from "react-native";
+import { Modal, Platform, TextInput, useColorScheme } from "react-native";
 import { Control, Controller, Path as Names, UnPackAsyncDefaultValues } from "react-hook-form"
 import { Button, InputConfig, P, TagGroupConfig, TagStyle, textPattern, useTags, useTagStyle } from "@team-devmonster/react-native-tags"
 import DatePicker from 'react-native-date-picker';
+import MonthPicker from 'react-native-month-year-picker';
 import { FormValues, InputDateType, InputProps } from "./type";
 import Svg, { Path } from "react-native-svg";
 import { textColor } from "./utils";
@@ -67,6 +68,7 @@ export function DateInput<T extends FormValues>({
         ]);
 
         const { date, isValid } = useMemo(() => getDate({ value }), [value]);
+        console.log(date, open);
         
         return (
           <Button 
@@ -113,6 +115,21 @@ export function DateInput<T extends FormValues>({
                     />
                   </Svg>
                 ),
+                'month': (
+                  <Svg
+                    width={inputStyle?.iconWidth || 24}
+                    height={inputStyle?.iconWidth || 24}
+                    viewBox="0 0 24 24"
+                    fill={inputStyle?.iconColor || '#FF6420'}
+                  >
+                    <Path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-5.25 3a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm-1.5-3a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z" />
+                    <Path
+                      fillRule="evenodd"
+                      d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5z"
+                      clipRule="evenodd"
+                    />
+                  </Svg>
+                ),
                 'time': (
                   <Svg
                     width={inputStyle?.iconWidth || 24}
@@ -143,25 +160,71 @@ export function DateInput<T extends FormValues>({
                 )
               }[type]
             }
-            <DatePicker
-              modal
-              title={placeholder}
-              confirmText={confirmText || '확인'}
-              cancelText={cancelText || '취소'}
-              mode={mode}
-              open={open}
-              date={date}
-              theme="auto"
-              textColor={textColor({ colorScheme })}
-              onConfirm={(date:Date) => {
-                const value = getValue({ type, date });
-                onChange(value);
-                setOpen(false);
-              }}
-              onCancel={() => {
-                setOpen(false);
-              }}
-            />
+            {
+              type === 'month' ?
+                Platform.OS === 'ios' ?
+                  <Modal 
+                    transparent={true}
+                    visible={open} 
+                    onRequestClose={() => setOpen(false)}
+                    animationType="fade"
+                  >
+                    <Button 
+                      onClick={() => setOpen(false)}
+                      fill="none" 
+                      style={{ backgroundColor: 'black', opacity: 0.3, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                    />
+                    <MonthPicker
+                      value={date}
+                      okButton={confirmText || '확인'}
+                      cancelButton={cancelText || '취소'}
+                      onChange={(event, newDate) => {
+                        setOpen(false);
+                        if(newDate) {
+                          const value = getValue({ type, date: newDate });
+                          onChange(value);
+                        }
+                      }}
+                      locale="ko"
+                    ></MonthPicker>
+                  </Modal>
+                :
+                  open ?
+                    <MonthPicker
+                    value={date}
+                    okButton={confirmText || '확인'}
+                    cancelButton={cancelText || '취소'}
+                    onChange={(event, newDate) => {
+                      setOpen(false);
+                      if(newDate) {
+                        const value = getValue({ type, date: newDate });
+                        onChange(value);
+                      }
+                    }}
+                    locale="ko"
+                  ></MonthPicker>
+                : null
+              :
+                <DatePicker
+                  modal
+                  title={placeholder}
+                  confirmText={confirmText || '확인'}
+                  cancelText={cancelText || '취소'}
+                  mode={mode}
+                  open={open}
+                  date={date}
+                  theme={Platform.OS === 'ios' ? 'auto' : 'light'}
+                  textColor={Platform.OS === 'ios' ? textColor({ colorScheme }) : '#1f1f1f'}
+                  onConfirm={(date:Date) => {
+                    const value = getValue({ type, date });
+                    onChange(value);
+                    setOpen(false);
+                  }}
+                  onCancel={() => {
+                    setOpen(false);
+                  }}
+                />
+            }
           </Button>
         )
       }}
@@ -193,16 +256,18 @@ const getDate = ({value}:{value:string}) => {
 }
 
 const getValue = ({type, date:_date}:{ type:InputDateType, date:Date}) => {
-  const date = `${_date.getFullYear()}-${toXX(_date.getMonth()+1)}-${toXX(_date.getDate())}`;
-  const time = `${toXX(_date.getHours())}:${toXX(_date.getMinutes())}`;
-
   switch(type) {
     case 'date':
+      const date = `${_date.getFullYear()}-${toXX(_date.getMonth()+1)}-${toXX(_date.getDate())}`;
       return date;
     /* case 'datetime-local':
       return `${date} ${time}`; */
+    case 'month':
+      const month = `${_date.getFullYear()}-${toXX(_date.getMonth()+1)}`;
+      return month;
     case 'time':
-      return `${time}`;
+      const time = `${toXX(_date.getHours())}:${toXX(_date.getMinutes())}`;
+      return time;
   }
 }
 

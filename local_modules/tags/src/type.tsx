@@ -112,6 +112,7 @@ export interface InputConfig {
   'type=checkbox'?:InputCheckboxConfig,
   'type=radio'?:InputRadioConfig,
   'type=date'?:InputDateConfig,
+  'type=month'?:InputDateConfig,
   'type=datetime-local'?:InputDateConfig,
   'type=time'?:InputDateConfig,
   'type=file'?:InputFileConfig,

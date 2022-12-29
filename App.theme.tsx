@@ -5,7 +5,7 @@ import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, S
 const color = {
   light: {
     // key colors
-    primary: '#4a93cf',
+    primary: '#ec670b',
     warning: '#ec670b',
     success: '#9cca5a',
     danger: '#eb445a',
@@ -27,7 +27,7 @@ const color = {
   },
   dark: {
     // key colors
-    primary: '#4a93cf',
+    primary: '#ec670b',
     warning: '#ec670b',
     success: '#9cca5a',
     danger: '#eb445a',
@@ -168,6 +168,11 @@ const theme = (color:Color) => {
   }
 
   input['type=date'] = {
+    style: {
+      iconColor: color.primary
+    }
+  }
+  input['type=month'] = {
     style: {
       iconColor: color.primary
     }

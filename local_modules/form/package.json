@@ -1,6 +1,6 @@
 {
   "name": "@team-devmonster/react-native-form",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -37,6 +37,7 @@
     "react-hook-form": ">=7",
     "react-native": ">=0.57",
     "react-native-date-picker": ">=4",
+    "react-native-month-year-picker": ">=1.9",
     "react-native-svg": ">=12",
     "react-native-image-picker": ">=4.10.1",
     "react-native-document-picker": ">=8.1.3",

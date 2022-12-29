@@ -12,6 +12,7 @@ export function Input<T extends FormValues>(props:InputProps<T>)
 
   switch(type) {
     case 'date':
+    case 'month':
     //case 'datetime-local':
     case 'time':
       return <DateInput type={type} {...rest}/>;

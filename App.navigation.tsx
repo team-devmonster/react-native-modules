@@ -28,10 +28,18 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 const Navigation = () => {
 
   const { color, colorScheme } = useTheme<Theme>();
+  const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
   
   return (
     <SafeAreaProvider style={{ backgroundColor: color.backgroundColor }}>
-      <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <NavigationContainer theme={{
+        ...theme,
+        colors: {
+          ...theme.colors,
+          primary: 'red',
+          text: 'yellow'
+        }
+      }}>
         <RootStack.Navigator initialRouteName="index">
           <RootStack.Screen name="index" component={Index}/>
           <RootStack.Screen name="themeEx" component={ThemeEx}/>

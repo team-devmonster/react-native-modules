@@ -14,6 +14,7 @@ interface FormProps {
   price:number,
   agree1:boolean,
   gender:'man'|'woman'|'etc',
+  month:string,
   date:string,
   dateTime:string,
   time:string,
@@ -131,6 +132,12 @@ const FormEx = () => {
             type="radio"></Input>
           <Label>etc</Label>
         </Button>
+
+        <Input 
+          type="month" 
+          control={control}
+          name="month"
+          placeholder="month"></Input>
         
         <Input 
           type="date" 

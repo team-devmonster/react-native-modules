@@ -250,6 +250,8 @@ PODS:
     - React-Core
   - react-native-image-picker (4.10.1):
     - React-Core
+  - react-native-month-year-picker (1.9.0):
+    - React
   - react-native-safe-area-context (4.3.1):
     - RCT-Folly
     - RCTRequired
@@ -395,6 +397,7 @@ DEPENDENCIES:
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-month-year-picker (from `../node_modules/react-native-month-year-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -486,6 +489,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-document-picker"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-month-year-picker:
+    :path: "../node_modules/react-native-month-year-picker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-perflogger:
@@ -560,6 +565,7 @@ SPEC CHECKSUMS:
   react-native-date-picker: 93e43b3084cea595b4d68b1405d6d99849663bd6
   react-native-document-picker: 958e2bc82e128be69055be261aeac8d872c8d34c
   react-native-image-picker: f2ab1215d17bcfe27b0eb6417cc236fd1f4775e7
+  react-native-month-year-picker: 948797e981ca502427024a34b17f545eb321bbff
   react-native-safe-area-context: 6c12e3859b6f27b25de4fee8201cfb858432d8de
   React-perflogger: 1fb1ad5333b43a5137afd7608695f7a42c5efd27
   React-RCTActionSheet: a435bd67689433575a1e5d7614b021d2c17f0726
