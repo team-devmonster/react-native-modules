@@ -68,7 +68,6 @@ export function DateInput<T extends FormValues>({
         ]);
 
         const { date, isValid } = useMemo(() => getDate({ value }), [value]);
-        console.log(date, open);
         
         return (
           <Button 
