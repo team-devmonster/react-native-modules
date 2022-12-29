@@ -90,11 +90,11 @@ const newChildren = ({ children }:{ children:TagElement })
     for(let i = 0; i < children.length; i++) {
       const child = children[i];
       if(Array.isArray(child)) {
-        contents = children;
+        contents.push(child);
       }
       else if(child) {
         if(typeof child === 'string' || typeof child === 'number') {
-          contents = children;
+          contents.push(child);
         }
         else {
           switch(child?.type?.displayName) {
@@ -114,7 +114,7 @@ const newChildren = ({ children }:{ children:TagElement })
         }
       }
       else {
-        contents = children;
+        contents.push(child);
       }
     }
   }
