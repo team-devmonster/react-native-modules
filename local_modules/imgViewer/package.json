@@ -1,6 +1,6 @@
 {
   "name": "@team-devmonster/react-native-img-viewer",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -27,7 +27,7 @@
   "bugs": {
     "url": "https://github.com/team-devmonster/react-native-modules/issues"
   },
-  "homepage": "https://github.com/team-devmonster/react-native-modules/local_modules/imgViewer#readme",
+  "homepage": "https://github.com/team-devmonster/react-native-modules/blob/master/local_modules/imgViewer#readme",
   "peerDependencies": {
     "react": ">=16",
     "react-dom": ">=16",

@@ -1,5 +1,4 @@
 # @team-devmonster/react-native-img-viewer
-## This is under devmonster's react & react-native union project.
 
 #### author: devmonster 
 
@@ -20,7 +19,7 @@ install @team-devmonster/react-native-img-viewer<br>
 
 ## Examples
 
-<img src="https://github.com/team-devmonster/react-native-modules/local_modules/imgViewer/screenshots/imgViewer01.png" width="120">
+<img src="https://github.com/team-devmonster/react-native-modules/blob/master/local_modules/imgViewer/screenshots/imgViewer01.png" width="120">
 
 Easy. Too Easy.
 
@@ -29,14 +28,14 @@ Easy. Too Easy.
 ```javascript
 // App.theme.tsx => You can use any file name :)
 import React, { useState } from "react";
-import { Skeleton, SkeletonItem } from '@team-devmonster/react-native-img-viewer';
+import { ImgViewer } from '@team-devmonster/react-native-img-viewer';
 
 export const AnyComponent = () => {
 
   const [visible, setVisible] = useState(false);
   
   return (
-    <ImgView 
+    <ImgViewer
       visible={visible}
       onRequestClose={() => {
         setVisible(false);
