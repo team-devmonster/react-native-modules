@@ -229,21 +229,23 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
               }}>
                 <Button 
                   onClick={async(e) => {
-                    const result = await launchCamera({ mediaType: 'photo', maxWidth: 1200, maxHeight: 1200 });
-                    if(result.assets?.length) {
-                      const files = result.assets.map(({ fileName, ...asset }) => ({
-                        ...asset,
-                        filename: `capture_${new Date().getTime()}.jpg`
-                      }));
-                      if(multiple) {
-                        onChange([...value, ...files]);
-                      }
-                      else {
-                        onChange(files);
-                      }
-                      _onChange?.({...e, target: { ...e.target, value: files }} as any);
-                    }
                     setOpen(false);
+                    setTimeout(async() => {
+                      const result = await launchCamera({ mediaType: 'photo', maxWidth: 1200, maxHeight: 1200 });
+                      if(result.assets?.length) {
+                        const files = result.assets.map(({ fileName, ...asset }) => ({
+                          ...asset,
+                          filename: `capture_${new Date().getTime()}.jpg`
+                        }));
+                        if(multiple) {
+                          onChange([...value, ...files]);
+                        }
+                        else {
+                          onChange(files);
+                        }
+                        _onChange?.({...e, target: { ...e.target, value: files }} as any);
+                      }
+                    }, 300)
                   }}
                   fill="none"
                   style={{
@@ -264,21 +266,23 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                 </Button>
                 <Button 
                   onClick={async(e) => {
-                    const result = await launchImageLibrary({ mediaType: 'photo', maxWidth: 1200, maxHeight: 1200 });
-                    if(result.assets?.length) {
-                      const files = result.assets.map(({ fileName, ...asset }) => ({
-                        ...asset,
-                        filename: fileName
-                      }));
-                      if(multiple) {
-                        onChange([...value, ...files]);
-                      }
-                      else {
-                        onChange(files);
-                      }
-                      _onChange?.({...e, target: { ...e.target, value: files }} as any);
-                    }
                     setOpen(false);
+                    setTimeout(async() => {
+                      const result = await launchImageLibrary({ mediaType: 'photo', maxWidth: 1200, maxHeight: 1200 });
+                      if(result.assets?.length) {
+                        const files = result.assets.map(({ fileName, ...asset }) => ({
+                          ...asset,
+                          filename: fileName
+                        }));
+                        if(multiple) {
+                          onChange([...value, ...files]);
+                        }
+                        else {
+                          onChange(files);
+                        }
+                        _onChange?.({...e, target: { ...e.target, value: files }} as any);
+                      }
+                    }, 300);
                   }}
                   fill="none"
                   style={{
