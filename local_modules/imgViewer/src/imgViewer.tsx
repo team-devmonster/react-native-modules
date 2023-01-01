@@ -1,4 +1,4 @@
-import { Button, ButtonStyle, Div, Img } from "@team-devmonster/react-native-tags";
+import { Button, ButtonStyle, Div, Img, TagStyle } from "@team-devmonster/react-native-tags";
 import { ImageSourcePropType, Modal } from "react-native";
 import { Gesture, GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
@@ -9,9 +9,10 @@ export type ImgViewerProps = {
   visible?:boolean, 
   onRequestClose?:() => void,
   closeText?:string,
+  closeButtonContainerStyle?:TagStyle,
   closeButtonStyle?:ButtonStyle
 }
-export const ImgViewer = ({ src, visible, onRequestClose, closeText, closeButtonStyle }:ImgViewerProps) => {
+export const ImgViewer = ({ src, visible, onRequestClose, closeText, closeButtonContainerStyle, closeButtonStyle }:ImgViewerProps) => {
 
   const safe = useSafeAreaInsets();
 
@@ -81,17 +82,14 @@ export const ImgViewer = ({ src, visible, onRequestClose, closeText, closeButton
           </Animated.View>
         </GestureDetector>
       </GestureHandlerRootView>
-      <Div >
+      <Div style={{ backgroundColor: closeButtonStyle?.backgroundColor, paddingBottom: safe.bottom, ...closeButtonContainerStyle }}>
         <Button 
           onClick={onRequestClose}
           color={closeButtonStyle?.backgroundColor || '#FF6420' as any}
-          fill="none"
-          style={{ 
-            height: 44,
-            backgroundColor: '#FF6420', 
-            paddingBottom: safe.bottom, 
-            borderRadius: 0,
-            ...closeButtonStyle 
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+            ...closeButtonStyle
         }}>{ closeText || '닫기' }</Button>
       </Div>
     </Modal>

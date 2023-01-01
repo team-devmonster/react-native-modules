@@ -1,5 +1,6 @@
 # @team-devmonster/react-native-img-viewer
 
+This is react-native simple image viewer. You can edit bottom close button style whatever you want to.
 #### author: devmonster 
 
 We are always looking for investment or assistance.<br>
@@ -42,7 +43,8 @@ export const AnyComponent = () => {
       }}
       src={'https://anything'}
       closeText="close"
-      closeButtonStyle={{ backgroundColor: '#FF6420' }}
+      closeButtonContainerStyle={{ backgroundColor: '#FF6420' }}
+      closeButtonStyle={{ height: 44, color: '#ffffff' backgroundColor: '#FF6420' }}
     />
   )
 }
