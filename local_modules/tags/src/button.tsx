@@ -217,6 +217,12 @@ const getStyles = ({ tagConfig, colorScheme, color, fill }:{tagConfig:TagGroupCo
     }
   })()
 
+  if(color === 'transparent') {
+    defaultStyle.style.backgroundColor = 'transparent';
+    defaultStyle.style.rippleColor = 'transparent';
+    defaultStyle.activeStyle.backgroundColor = 'transparent';
+  }
+
   if(fill !== 'none') {
     return {
       tagStyle: {
@@ -252,5 +258,4 @@ const getStyles = ({ tagConfig, colorScheme, color, fill }:{tagConfig:TagGroupCo
       }
     }
   }
-
 }
