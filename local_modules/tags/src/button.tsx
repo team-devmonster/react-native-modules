@@ -197,13 +197,14 @@ const getStyles = ({ tagConfig, colorScheme, color, fill }:{tagConfig:TagGroupCo
           style: {
             backgroundColor: color,
             rippleColor: colorScheme === 'dark' ? lighten(color, 55) : darken(color, 55),
+            color: contrast(color),
             borderRadius: tagStyle?.borderRadius
           },
           activeStyle: {
             backgroundColor: colorScheme === 'dark' ? lighten(color, 30) : darken(color, 30)
           }
         }
-      default: // none or base
+      default: // base
         return {
           style: {
             backgroundColor: color,
