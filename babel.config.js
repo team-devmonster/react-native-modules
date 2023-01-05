@@ -14,7 +14,8 @@ module.exports = function(api) {
             "@image":"./assets/images"
           },
         },
-      ]
-    ],
+      ],
+      'react-native-reanimated/plugin'
+    ]
   };
 };

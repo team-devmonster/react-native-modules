@@ -20,7 +20,7 @@ const RouterEx = () => {
       <Header
         title="Hello Header"
         headerRight={
-          <Button>
+          <Button style={{ paddingRight: 5 }}>
             setting
           </Button>
       }>

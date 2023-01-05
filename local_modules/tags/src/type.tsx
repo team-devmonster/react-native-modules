@@ -119,6 +119,7 @@ export interface InputConfig {
 }
 export interface InputCheckboxConfig {
   style?:InputCheckboxStyle,
+  checkedStyle?:InputCheckboxStyle,
   disabledStyle?:InputCheckboxStyle,
   errorStyle?:InputCheckboxStyle
 }
@@ -155,11 +156,13 @@ export interface SelectConfig {
   cancelButtonStyle?:ButtonStyle
 }
 export interface InputCheckboxStyle extends TagStyle {
+  icon?:TagElement,
   iconColor?:string,
   iconWidth?:number,
   iconHeight?:number
 }
 export interface InputRadioStyle extends TagStyle {
+  icon?:TagElement,
   iconColor?:string,
   iconWidth?:number,
   iconHeight?:number

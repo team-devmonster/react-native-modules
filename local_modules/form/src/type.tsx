@@ -79,6 +79,8 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps, 
   albumButtonStyle?:ButtonStyle,
   confirmButtonStyle?:ButtonStyle,
   cancelButtonStyle?:ButtonStyle,
+  // input['type=checkbox']
+  checkedStyle?:InputStyle,
   // input['type=file']
   accept?:string,
   multiple?:boolean

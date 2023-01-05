@@ -1,6 +1,7 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from '@local_modules/theme';
 import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, TagConfig } from '@local_modules/tags';
+import ImgPaperAirplane from "assets/images/paperAirplane.svg";
 
 const color = {
   light: {
@@ -158,7 +159,10 @@ const theme = (color:Color) => {
 
   input['type=checkbox'] = {
     style: {
-      iconColor: color.primary
+      icon: <ImgPaperAirplane color={color.step100} width={18} height={18}/>
+    },
+    checkedStyle: {
+      icon: <ImgPaperAirplane color={color.primary} width={20} height={20}/>
     }
   }
   input['type=radio'] = {
