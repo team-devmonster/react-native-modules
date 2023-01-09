@@ -1,7 +1,7 @@
 import { FieldErrorsImpl, Path, UnPackAsyncDefaultValues } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
-import { Div, TagStyle, useTags, useTagStyle } from '@team-devmonster/react-native-tags';
+import { Div, iconPattern, TagStyle, useTags, useTagStyle } from '@team-devmonster/react-native-tags';
 
 import { FormValues } from './type';
 
@@ -23,9 +23,11 @@ export function ErrorText<T extends FormValues>(
   const errorTextStyle = tagConfig?.errorText?.style;
 
   const [
+    iconStyle,
     tagStyle
   ]
   = useTagStyle([
+    iconPattern
   ], [
     errorTextStyle,
     style
@@ -39,7 +41,17 @@ export function ErrorText<T extends FormValues>(
       render={({ message:msg }) => {
         return (
           msg &&
-          <Div style={tagStyle}>{msg}</Div>
+          <Div style={{
+            flexDirection: 'row',
+            ...tagStyle
+          }}>
+            {
+              iconStyle?.icon ?
+              iconStyle.icon
+              : null
+            }
+            {msg}
+          </Div>
         )
       }}
     />

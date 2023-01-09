@@ -46,6 +46,7 @@ export interface TagStyle extends Omit<TextStyle, 'display'> {
   gap?:number,
   rowGap?:number,
   columnGap?:number,
+  icon?:TagElement,
   iconColor?:string
 }
 export type TagElement = JSX.Element|string|number|null|undefined|TagElement[];
@@ -181,7 +182,6 @@ export interface SelectStyle extends InputStyle {
 export interface ErrorTextConfig {
   style?:TagStyle
 }
-
 export interface LabelConfig {
   style?:TagStyle,
   disabledStyle?:TagStyle,

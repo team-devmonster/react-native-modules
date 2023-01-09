@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from '@local_modules/theme';
-import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, TagConfig } from '@local_modules/tags';
+import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, TagConfig, Div } from '@local_modules/tags';
 import ImgPaperAirplane from "assets/images/paperAirplane.svg";
 
 const color = {
@@ -159,10 +159,12 @@ const theme = (color:Color) => {
 
   input['type=checkbox'] = {
     style: {
-      icon: <ImgPaperAirplane color={color.step100} width={18} height={18}/>
+      icon: <ImgPaperAirplane color={color.step100} width={18} height={18}/>,
+      backgroundColor: color.step100
     },
     checkedStyle: {
-      icon: <ImgPaperAirplane color={color.primary} width={20} height={20}/>
+      icon: <ImgPaperAirplane color={color.primary} width={20} height={20}/>,
+      backgroundColor: color.white
     }
   }
   input['type=radio'] = {
@@ -206,6 +208,7 @@ const theme = (color:Color) => {
 
   const errorText:ErrorTextConfig = {
     style: {
+      icon: <Div style={{ borderWidth: 1, borderColor: color.danger, width: 20, height: 20, alignItems: 'center', justifyContent: 'center', marginRight: 8 }}>i</Div>,
       color: color.danger,
       marginBottom: 8
     }

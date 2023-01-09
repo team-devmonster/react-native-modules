@@ -28,6 +28,7 @@ export const borderPattern = /^(border)/;
 export const marginPattern = /^(margin)/;
 export const placeholderPattern = /^(placeholder)/;
 export const gapPattern = /(gap|Gap)/;
+export const iconPattern = /(^icon)/;
 
 export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[]):any[] => {
 
