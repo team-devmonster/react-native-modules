@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { Platform, StyleProp, TextStyle, ViewStyle } from "react-native";
+import { ImageSourcePropType, Platform, StyleProp, TextStyle, ViewStyle } from "react-native";
 import { StatusBar, StatusBarStyle } from 'expo-status-bar';
 import { useNavigation } from "@react-navigation/native";
 import { useHeaderHeight } from '@react-navigation/elements';
@@ -11,6 +11,7 @@ export interface HeaderProps {
   headerLeft?:React.ReactNode;
   headerRight?:React.ReactNode;
   headerBackTitle?:string;
+  headerBackImageSource?:ImageSourcePropType;
   headerTitleAlign?:"left" | "center" | undefined;
   headerTitleStyle?:StyleProp<Pick<TextStyle, "fontFamily" | "fontSize" | "fontWeight"> & {
     color?: string | undefined;
@@ -29,6 +30,7 @@ export const Header = ({
   headerLeft, 
   headerRight, 
   headerBackTitle, 
+  headerBackImageSource,
   headerShown, 
   style, 
   statusBarStyle, 
@@ -72,6 +74,7 @@ export const Header = ({
     if(headerLeft) options.headerLeft = () => headerLeft;
     if(headerRight) options.headerRight = () => headerRight;
     if(headerBackTitle) options.headerBackTitle = headerBackTitle;
+    if(headerBackImageSource) options.headerBackImageSource = headerBackImageSource;
     if(typeof headerShown === 'boolean') options.headerShown = headerShown;
 
     if(Platform.OS === 'android') {

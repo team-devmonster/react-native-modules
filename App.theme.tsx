@@ -2,6 +2,7 @@ import React from 'react';
 import { ThemeProvider, useTheme } from '@local_modules/theme';
 import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, TagConfig, Div } from '@local_modules/tags';
 import ImgPaperAirplane from "assets/images/paperAirplane.svg";
+import { HeaderConfig } from '@local_modules/tags/dist/esm';
 
 const color = {
   light: {
@@ -208,7 +209,14 @@ const theme = (color:Color) => {
 
   const errorText:ErrorTextConfig = {
     style: {
-      icon: <Div style={{ borderWidth: 1, borderColor: color.danger, width: 20, height: 20, alignItems: 'center', justifyContent: 'center', marginRight: 8 }}>i</Div>,
+      icon: <Div style={{ 
+        borderWidth: 1, 
+        borderColor: color.danger, 
+        width: 20, 
+        height: 20, 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        marginRight: 8 }}>i</Div>,
       color: color.danger,
       marginBottom: 8
     }
@@ -219,6 +227,9 @@ const theme = (color:Color) => {
     /* style: {
       padding: 20
     } */
+  }
+  const header:HeaderConfig = {
+    
   }
 
   return {

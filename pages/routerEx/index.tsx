@@ -4,6 +4,10 @@ import { Theme } from "App.theme";
 import { Div, Button, P } from "@local_modules/tags";
 import { A, FixedLayout, Header, Layout } from "@local_modules/router";
 import { useRouter } from "@local_modules/router/dist/esm/src/useRouter";
+
+import ImgPaperAirplane from "assets/images/paperAirplane.svg";
+import { MainHeader } from "@components/mainHeader";
+
 const isTrue = true;
 const RouterEx = () => {
 
@@ -17,15 +21,21 @@ const RouterEx = () => {
         flex: 1,
         padding: 18
       }}>
-      <Header
+      {/* <Header
+        headerLeft={
+          <Button onClick={() => router.back()}>
+            <ImgPaperAirplane color={color.primary} width={20} height={20}/>
+          </Button>
+        }
         title="Hello Header"
         headerRight={
-          <Button style={{ paddingRight: 5 }}>
+          <Button style={{ marginRight: -20 }}>
             setting
           </Button>
       }>
         <P style={{ height: 56, alignItems: 'center', justifyContent: 'center', backgroundColor: color.step100 }}>next line</P>
-      </Header>
+      </Header> */}
+      <MainHeader/>
       <A href='/themeEx'>
         <Button color={color.primary} style={{ marginBottom: 8 }}>themeEx</Button>
       </A>

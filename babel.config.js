@@ -11,7 +11,8 @@ module.exports = function(api) {
             "@local_modules": "./local_modules",
             "@pages": "./pages",
             "@env":"./env",
-            "@image":"./assets/images"
+            "@image":"./assets/images",
+            "@components": "./components",
           },
         },
       ],

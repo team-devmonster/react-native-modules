@@ -5,6 +5,7 @@
     "baseUrl": ".",
     "paths": {
       "@local_modules/*": ["local_modules/*"],
+      "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
       "@env": ["env"],
       "@image/*": ["assets/images/*"]
