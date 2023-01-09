@@ -166,6 +166,9 @@ const theme = (color:Color) => {
     checkedStyle: {
       icon: <ImgPaperAirplane color={color.primary} width={20} height={20}/>,
       backgroundColor: color.white
+    },
+    errorStyle: {
+      backgroundColor: color.danger
     }
   }
   input['type=radio'] = {

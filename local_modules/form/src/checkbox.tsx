@@ -48,12 +48,13 @@ export function Checkbox<T extends FormValues>({
 
         ], [
           styles.tagStyle, 
-          value ? styles.tagCheckedStyle : undefined,
           disabled ? styles.tagDisabledStyle : undefined,
           error ? styles.tagErrorStyle : undefined,
+          value ? styles.tagCheckedStyle : undefined,
           style,
           disabled ? disabledStyle : undefined,
-          error ? errorStyle : undefined
+          error ? errorStyle : undefined,
+          value ? checkedStyle : undefined
         ]);
 
         return (
