@@ -5,7 +5,18 @@ import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern,
 import { ButtonProps, FillProps, TagGroupConfig } from "./type";
 import { contrast, darken, lighten } from "./utils";
 
-export const Button = ({color:_color, fill:_fill, style, disabledStyle, activeStyle, disabled, onClick, onLayout, children, ...rest}:ButtonProps) => {
+export const Button = ({ 
+  tag:_,
+  color:_color, 
+  fill:_fill, 
+  style, 
+  disabledStyle, 
+  activeStyle, 
+  disabled, 
+  onClick, 
+  onLayout, 
+  children, 
+  ...rest}:ButtonProps) => {
 
   const colorScheme = useColorScheme();
   const { tagConfig } = useTags();

@@ -57,8 +57,10 @@ export interface ButtonClickEvent extends GestureResponderEvent {
 }
 
 export interface ButtonProps extends Omit<PressableProps, 'style'|'children'|'onBlur'|'onFocus'> {
+  tag?: 'div'|'button'|'a';
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
+  hoverStyle?:ButtonStyle;
   activeStyle?:ButtonStyle;
   color?: string;
   fill?: FillProps;

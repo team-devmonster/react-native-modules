@@ -94,7 +94,12 @@ const FormEx = () => {
           <Label style={{ flex: 1 }}>privacy usage</Label>
           <Button color={color.primary} fill="outline">view</Button>
         </Button>
-        <ErrorText errors={errors} name="agree1"></ErrorText>
+        <ErrorText 
+          errors={errors} 
+          name="agree1" 
+          style={{
+            icon: <Div>X</Div>
+          }}></ErrorText>
 
         <Button 
           color={color.primary}
