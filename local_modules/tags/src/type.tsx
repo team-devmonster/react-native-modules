@@ -36,7 +36,7 @@ export interface TagConfig {
   style?:TagStyle
 }
 
-export interface TagProps extends Omit<TextProps, 'style'|'onPress'|'numberOfLines'|'ellipsizeMode'> {
+export interface TagProps extends Omit<TextProps, 'style'|'onPress'> {
   children?:TagElement,
   style?:TagStyle
 }
@@ -56,7 +56,7 @@ export interface ButtonClickEvent extends GestureResponderEvent {
   [name:string]:any
 }
 
-export interface ButtonProps extends Omit<PressableProps, 'style'|'children'|'onBlur'|'onFocus'> {
+export interface ButtonProps extends Omit<PressableProps, 'style'|'children'|'onBlur'|'onFocus'|'onPress'> {
   tag?: 'div'|'button'|'a';
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
