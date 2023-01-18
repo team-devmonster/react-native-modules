@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
 import { TagProps } from "./type";
 
-export const Div = ({style, children, ...rest}:TagProps) => {
+export const Div = ({style, children, numberOfLines, ellipsizeMode, ...rest}:TagProps) => {
 
   const { tagConfig } = useTags();
   const divTagStyle = tagConfig?.div?.style;
@@ -52,6 +52,8 @@ export const Div = ({style, children, ...rest}:TagProps) => {
         }}>
         <TagModule
           style={textStyle}
+          numberOfLines={numberOfLines}
+          ellipsizeMode={ellipsizeMode}
           >{children}</TagModule>
       </View>
     )

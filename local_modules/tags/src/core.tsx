@@ -67,14 +67,14 @@ const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleState
   return styles;
 }
 
-export const TagModule = ({ children, style }:TagProps):JSX.Element => {
+export const TagModule = ({ children, style, numberOfLines, ellipsizeMode }:TagProps):JSX.Element => {
 
   const id = useMemo(() => String(new Date().getTime()), []);
-  const tagChildren = useMemo(() => makeTagChildren({ id, children, style }), [children, style]);
+  const tagChildren = useMemo(() => makeTagChildren({ id, children, style, numberOfLines, ellipsizeMode }), [children, style, numberOfLines, ellipsizeMode]);
 
   return <>{tagChildren}</>;
 }
-const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagElement, style?:TagStyle }) => {
+const makeTagChildren = ({ id, children, style, numberOfLines, ellipsizeMode }:{ id:string, children?:TagElement, style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
   if(Array.isArray(children)) {
     const newChildren:TagElement[] = [];
     const textchildren:(JSX.Element|string)[] = [];
@@ -98,7 +98,7 @@ const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagEleme
                   ...style as TextStyle
                 }}
                 ellipsizeMode="tail"
-                numberOfLines={style?.whiteSpace === 'nowrap' ? 1 : 0}
+                numberOfLines={style?.whiteSpace === 'nowrap' ? 1 : numberOfLines}
               >{[...textchildren]}</Text>
             )
             textchildren.length = 0;
@@ -134,8 +134,8 @@ const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagEleme
             lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
             ...style as TextStyle
           }}
-          ellipsizeMode="tail"
-          numberOfLines={style?.whiteSpace === 'nowrap' ? 1 : 0}
+          ellipsizeMode={ellipsizeMode}
+          numberOfLines={style?.whiteSpace === 'nowrap' ? 1 : numberOfLines}
         >{[...textchildren]}</Text>
       );
       textchildren.length = 0;
@@ -148,8 +148,8 @@ const makeTagChildren = ({ id, children, style }:{ id:string, children?:TagEleme
         lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
         ...style as TextStyle
       }}
-      ellipsizeMode="tail"
-      numberOfLines={style?.whiteSpace === 'nowrap' ? 1 : 0}
+      ellipsizeMode={ellipsizeMode}
+      numberOfLines={style?.whiteSpace === 'nowrap' ? 1 : numberOfLines}
     >{String(children)}</Text>
   }
   else if(children) {
