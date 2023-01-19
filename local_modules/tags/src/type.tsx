@@ -37,6 +37,8 @@ export interface TagConfig {
 }
 
 export interface TagProps extends Omit<TextProps, 'style'|'onPress'> {
+  tag?:string,
+  childTag?:string,
   children?:TagElement,
   style?:TagStyle
 }
