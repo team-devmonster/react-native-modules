@@ -1,5 +1,4 @@
 import { GestureResponderEvent, PressableProps, TextProps, TextStyle } from "react-native";
-
 export interface TagGroupConfig {
   // tag - default
   div?: TagConfig,
@@ -191,3 +190,11 @@ export interface LabelConfig {
   disabledStyle?:TagStyle,
   errorStyle?:TagStyle
 }
+
+
+
+
+
+/**************************************/
+/*************** router ***************/
+/**************************************/

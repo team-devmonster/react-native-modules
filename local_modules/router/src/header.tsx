@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { ImageSourcePropType, Platform, StyleProp, TextStyle, ViewStyle } from "react-native";
+import { ImageSourcePropType, StyleProp, TextStyle, ViewStyle } from "react-native";
 import { StatusBar, StatusBarStyle } from 'expo-status-bar';
 import { useNavigation } from "@react-navigation/native";
 import { useHeaderHeight } from '@react-navigation/elements';
@@ -77,12 +77,8 @@ export const Header = ({
     if(headerBackImageSource) options.headerBackImageSource = headerBackImageSource;
     if(typeof headerShown === 'boolean') options.headerShown = headerShown;
 
-    if(Platform.OS === 'android') {
-      // for react-native-reanimation's layout animation bugs....
-      // they fill fix it... someday...
-      options.headerTransparent = true;
-      options.contentStyle = { paddingTop: headerHeight, ...options.contentStyle as ViewStyle }
-    }
+    options.headerTransparent = true;
+    options.contentStyle = { paddingTop: headerHeight, ...options.contentStyle as ViewStyle };
 
     navigation.setOptions(options);
   }, [title, headerLeft, headerRight, headerShown, headerStyle, headerTitleStyle, headerHeight]);
