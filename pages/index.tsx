@@ -2,22 +2,24 @@ import React from "react";
 
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
-import { Button, Div, P } from "@local_modules/tags";
-import { A } from "@local_modules/router";
+import { Button, Div, H1 } from "@local_modules/tags";
+import { Layout, A, Header } from "@local_modules/router";
 import { ScrollView } from "react-native";
-import { Layout } from "@local_modules/router/dist/cjs/src/layout";
 
 const Index = () => {
 
   const { color, fontSize, shadow } = useTheme<Theme>();
 
   return (
-    <Layout>
-      <Div style={{ padding: 20 }}>
-        <P style={{
+    <Layout style={{ padding: 0 }}>
+      <Header title="hello devmonster" style={{ backgroundColor: 'blue' }}/>
+      <Div style={{ backgroundColor: 'red' }}>
+        <H1 style={{
           fontSize: fontSize.x2l, 
           marginBottom: 20 
-          }}>Devmonster's react-native-modules!!</P>
+          }}>
+          Devmonster's react-native-modules!!
+        </H1>
         <Div>
           <A href={'/themeEx'}>
             <Button 

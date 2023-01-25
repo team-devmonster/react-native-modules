@@ -35,9 +35,7 @@ const Navigation = () => {
       <NavigationContainer theme={{
         ...theme,
         colors: {
-          ...theme.colors,
-          primary: 'red',
-          text: 'yellow'
+          ...theme.colors
         }
       }}>
         <RootStack.Navigator initialRouteName="index">

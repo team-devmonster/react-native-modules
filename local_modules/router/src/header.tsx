@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo } from "react";
-import { ImageSourcePropType, StyleProp, TextStyle, ViewStyle } from "react-native";
+import { ImageSourcePropType, Platform, StyleProp, TextStyle, ViewStyle } from "react-native";
 import { StatusBar, StatusBarStyle } from 'expo-status-bar';
 import { useNavigation } from "@react-navigation/native";
-import { useHeaderHeight } from '@react-navigation/elements';
+import { getDefaultHeaderHeight } from '@react-navigation/elements';
 import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { TagElement, useTags } from "@team-devmonster/react-native-tags";
+import { useSafeAreaFrame, useSafeAreaInsets } from "react-native-safe-area-context";
 
 export interface HeaderProps {
   title?:string | React.ReactNode;
@@ -38,8 +39,13 @@ export const Header = ({
   children
 }:HeaderProps) => {
 
+  const insets = useSafeAreaInsets();
   const navigation = useNavigation();
-  const headerHeight = useHeaderHeight();
+  const headerHeight = getDefaultHeaderHeight(
+    useSafeAreaFrame(),
+    false,
+    insets.top
+  );
 
   const { tagConfig } = useTags();
   const headerTagStyle = tagConfig?.header?.style;
@@ -77,8 +83,12 @@ export const Header = ({
     if(headerBackImageSource) options.headerBackImageSource = headerBackImageSource;
     if(typeof headerShown === 'boolean') options.headerShown = headerShown;
 
+    if(Platform.OS === 'android') {
+      // for react-native-reanimation's layout animation bugs....
+      // they fill fix it... someday...
+    }
     options.headerTransparent = true;
-    options.contentStyle = { paddingTop: headerHeight, ...options.contentStyle as ViewStyle };
+    options.contentStyle = { paddingTop: headerHeight, ...options.contentStyle as ViewStyle }
 
     navigation.setOptions(options);
   }, [title, headerLeft, headerRight, headerShown, headerStyle, headerTitleStyle, headerHeight]);

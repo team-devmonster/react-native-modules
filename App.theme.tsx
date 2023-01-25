@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider, useTheme } from '@local_modules/theme';
 import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, TagConfig, Div } from '@local_modules/tags';
 import ImgPaperAirplane from "assets/images/paperAirplane.svg";
-import { HeaderConfig } from '@local_modules/tags/dist/esm';
+import { HeaderConfig } from '@local_modules/tags';
 
 const color = {
   light: {
