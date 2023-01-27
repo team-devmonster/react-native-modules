@@ -91,33 +91,34 @@ const newChildren = ({ children }:{ children:TagElement })
   if(Array.isArray(children)) {
     for(let i = 0; i < children.length; i++) {
       const child = children[i];
+      if(!child) {
+        contents.push(child);
+        continue;
+      }
       if(Array.isArray(child)) {
         contents.push(child);
+        continue;
       }
-      else if(child) {
-        if(typeof child === 'string' || typeof child === 'number') {
+      
+      // not array
+      if(typeof child === 'string' || typeof child === 'number') {
+        contents.push(child);
+        continue;
+      }
+      
+      switch(child?.type?.displayName) {
+        case 'Header':
+          header = child;
+          break;
+        case 'FixedLayout':
+          fixedLayout = child;
+          break;
+        case 'Footer':
+          footer = child;
+          break;
+        default:
           contents.push(child);
-        }
-        else {
-          switch(child?.type?.displayName) {
-            case 'Header':
-              header = child;
-              break;
-            case 'FixedLayout':
-              fixedLayout = child;
-              break;
-            case 'Footer':
-              footer = child;
-              break;
-            default:
-              contents.push(child);
-              break;
-          }
-        }
-      }
-      else {
-        // nothing
-        // contents.push(child);
+          break;
       }
     }
   }
