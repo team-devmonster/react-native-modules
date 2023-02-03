@@ -212,6 +212,7 @@ export function DateInput<T extends FormValues>({
                   mode={mode}
                   open={open}
                   date={date}
+                  locale="ko"
                   theme={Platform.OS === 'ios' ? 'auto' : 'light'}
                   textColor={Platform.OS === 'ios' ? textColor({ colorScheme }) : '#1f1f1f'}
                   onConfirm={(date:Date) => {
