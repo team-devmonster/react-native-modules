@@ -1,9 +1,9 @@
-import React, { forwardRef, Ref, useMemo } from "react";
+import React, { forwardRef, LegacyRef, useMemo } from "react";
 import { View } from "react-native";
 import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
 import { TagProps } from "./type";
 
-export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, ...rest}:TagProps, ref:Ref<View>) => {
+export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, ...rest}:TagProps, ref:LegacyRef<View>) => {
 
   const { tagConfig } = useTags();
   const divTagStyle = tagConfig?.div?.style;

@@ -7,8 +7,9 @@ interface LayoutProps extends TagProps {
   edges?:Edge[];
   onScroll?:(e:any) => void;
   scrollEventThrottle?:number;
+  scrollRef:LegacyRef<ScrollView>
 }
-export const Layout = forwardRef(({ children, edges, style, onScroll, scrollEventThrottle, ...rest }:LayoutProps, ref:LegacyRef<ScrollView>) => {
+export const Layout = forwardRef(({ children, edges, style, onScroll, scrollEventThrottle, scrollRef, ...rest }:LayoutProps, ref:LegacyRef<View>) => {
 
   const { header, defaultEdges, contents, fixedLayout, footer } = useMemo(() => newChildren({ children }), [children]);
   const { tagConfig } = useTags();
@@ -21,10 +22,12 @@ export const Layout = forwardRef(({ children, edges, style, onScroll, scrollEven
 
   if(style?.overflow !== 'hidden') {
     return (
-      <View style={{ flex: 1, backgroundColor: style?.backgroundColor }}>
+      <View 
+        ref={ref}
+        style={{ flex: 1, backgroundColor: style?.backgroundColor }}>
         {header}
         <ScrollView 
-          ref={ref}
+          ref={scrollRef}
           onScroll={onScroll}
           scrollEventThrottle={scrollEventThrottle || (onScroll ? 16 : undefined)}
           style={{
@@ -51,7 +54,9 @@ export const Layout = forwardRef(({ children, edges, style, onScroll, scrollEven
   }
   else {
     return (
-      <View style={{ flex: 1, backgroundColor: style?.backgroundColor }}>
+      <View 
+        ref={ref}
+        style={{ flex: 1, backgroundColor: style?.backgroundColor }}>
         {header}
         {
           edges?.length !== 0 ?
