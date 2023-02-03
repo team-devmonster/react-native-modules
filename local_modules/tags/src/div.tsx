@@ -1,9 +1,9 @@
-import React, { useMemo } from "react";
+import React, { forwardRef, Ref, useMemo } from "react";
 import { View } from "react-native";
 import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
 import { TagProps } from "./type";
 
-export const Div = ({style, children, numberOfLines, ellipsizeMode, ...rest}:TagProps) => {
+export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, ...rest}:TagProps, ref:Ref<View>) => {
 
   const { tagConfig } = useTags();
   const divTagStyle = tagConfig?.div?.style;
@@ -42,6 +42,7 @@ export const Div = ({style, children, numberOfLines, ellipsizeMode, ...rest}:Tag
   if(!Object.keys(gapStyle).length) {
     return (
       <View
+        ref={ref}
         {...rest}
         style={{
           ...layoutStyle,
@@ -61,6 +62,7 @@ export const Div = ({style, children, numberOfLines, ellipsizeMode, ...rest}:Tag
   else {
     return (
       <View
+        ref={ref}
         {...rest}
         style={{
           ...layoutStyle,
@@ -85,4 +87,4 @@ export const Div = ({style, children, numberOfLines, ellipsizeMode, ...rest}:Tag
       </View>
     )
   }
-}
+})
