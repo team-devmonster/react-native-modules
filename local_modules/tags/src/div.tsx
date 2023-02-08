@@ -29,15 +29,15 @@ export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, .
     style
   ]);
   
-  const rowGap = gapStyle?.rowGap || gapStyle?.gap || 0;
-  const columnGap = gapStyle?.columnGap || gapStyle?.gap || 0;
+  const rowGap = useMemo(() => gapStyle?.rowGap || gapStyle?.gap || 0, [gapStyle?.rowGap, gapStyle?.gap]);
+  const columnGap = useMemo(() => gapStyle?.columnGap || gapStyle?.gap || 0, [gapStyle?.columnGap, gapStyle?.gap]);
 
   const gapContainerStyle = useMemo(() => ({
     marginTop: -rowGap/2,
     marginBottom: -rowGap/2,
     marginLeft: -columnGap/2,
     marginRight: -columnGap/2
-  }), [rowGap, columnGap, viewStyle]);
+  }), [rowGap, columnGap]);
 
   if(!Object.keys(gapStyle).length) {
     return (
@@ -69,14 +69,13 @@ export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, .
           ...shadowStyle,
           ...marginStyle,
           ...borderStyle,
-          flex: viewStyle.flex,
-          overflow: viewStyle?.overflow
+          flex: viewStyle.flex
         }}>
         <View style={{
           flex: 1,
           ...viewStyle,
           ...gapContainerStyle
-        }}>
+        }} pointerEvents="box-none">
           <TagModule
             style={{
             ...textStyle,

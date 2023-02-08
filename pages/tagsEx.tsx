@@ -107,8 +107,9 @@ const TagsEx = () => {
       </Button>
 
       <P>gap Test</P>
-      <Div style={{ borderColor: 'orange', borderWidth: 1, flexDirection: 'row', gap: 8, borderRadius: 20, flexWrap: 'wrap', marginBottom: 10, ...shadow.base, overflow: 'hidden' }}>
-        <Div style={{ backgroundColor: 'lightgray', flex: 2, minWidth: 100, height: 50 }}>1</Div>
+      <Button>test</Button>
+      <Div style={{ borderColor: 'orange', borderWidth: 1, flexDirection: 'row', gap: 28, borderRadius: 20, flexWrap: 'wrap', marginBottom: 10, ...shadow.base }}>
+        <Button color={color.step100} style={{ flex: 2, minWidth: 100, height: 50 }}>1</Button>
         <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>2</Div>
         <Div style={{ backgroundColor: 'lightgray', flex: 3, minWidth: 100, height: 50 }}>3</Div>
         <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>4</Div>

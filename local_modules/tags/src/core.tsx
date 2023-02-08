@@ -72,7 +72,7 @@ export const TagModule = ({ children, style, numberOfLines, ellipsizeMode }:TagP
   const id = useMemo(() => String(new Date().getTime()), []);
   const tagChildren = useMemo(() => makeTagChildren({ id, children, style, numberOfLines, ellipsizeMode }), [children, style, numberOfLines, ellipsizeMode]);
 
-  return <>{tagChildren}</>;
+  return tagChildren as JSX.Element;
 }
 const makeTagChildren = ({ id, children, style, numberOfLines, ellipsizeMode }:{ id:string, children?:TagElement, style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
   if(Array.isArray(children)) {
