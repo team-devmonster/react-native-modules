@@ -173,7 +173,10 @@ const theme = (color:Color) => {
   }
   input['type=radio'] = {
     style: {
-      iconColor: color.primary
+      icon: <ImgPaperAirplane color={color.step100} width={18} height={18}/>,
+    },
+    checkedStyle: {
+      icon: <ImgPaperAirplane color={color.primary} width={20} height={20}/>,
     }
   }
 

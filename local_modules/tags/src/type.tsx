@@ -129,6 +129,7 @@ export interface InputCheckboxConfig {
 }
 export interface InputRadioConfig {
   style?:InputRadioStyle,
+  checkedStyle?:InputCheckboxStyle,
   disabledStyle?:InputRadioStyle,
   errorStyle?:InputRadioStyle
 }

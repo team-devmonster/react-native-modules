@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useMemo } from "react";
-import { TextInput, View, Animated, Easing } from "react-native";
+import React, { useMemo } from "react";
+import { TextInput, View } from "react-native";
 import { Control, Controller, Path as Names, UnPackAsyncDefaultValues } from 'react-hook-form';
+import Animated, { ZoomIn } from "react-native-reanimated";
 
 import { FormValues, InputRuleProps } from "./type";
 import { TagStyle, useTags, useTagStyle, Button, TagGroupConfig, borderPattern } from '@team-devmonster/react-native-tags';
@@ -47,20 +48,6 @@ export function Radio<T extends FormValues>(
         fieldState: { error }
        }) => {
 
-        const inoutAnim = useRef(new Animated.Value(0)).current;
-
-        useEffect(() => {
-          Animated.timing(
-            inoutAnim,
-            {
-              toValue: value === fieldValue ? 1 : 0,
-              duration: 120,
-              easing: Easing.ease,
-              useNativeDriver: true
-            }
-          ).start();
-        }, [value, fieldValue]);
-
         const [
           newStyle
         ]
@@ -70,9 +57,11 @@ export function Radio<T extends FormValues>(
           styles.tagStyle, 
           disabled ? styles.tagDisabledStyle : undefined,
           error ? styles.tagErrorStyle : undefined,
+          value === fieldValue ? styles.tagCheckedStyle : undefined,
           style,
           disabled ? disabledStyle : undefined,
-          error ? errorStyle : undefined
+          error ? errorStyle : undefined,
+          value === fieldValue ? styles.tagCheckedStyle : undefined,
         ]);
 
         return (
@@ -91,19 +80,22 @@ export function Radio<T extends FormValues>(
               onBlur={onBlur}
               style={{ position: 'absolute', top: -2, left: 0, width: 1, height: 1, zIndex: -1, opacity: 0 }}></TextInput>
               {
-                <Animated.View style={{
-                  transform: [
-                    { scale: inoutAnim }
-                  ]
-                }}>
-                  <View style={{
-                    width: newStyle.iconWidth || 16,
-                    height: newStyle.iconHeight || 16,
-                    borderRadius: 50,
-                    backgroundColor: newStyle.iconColor || '#FF6420'
-                  }}>
-                  </View>
-                </Animated.View>
+                newStyle.icon ?
+                  <Animated.View entering={ZoomIn}>
+                    {newStyle.icon}
+                  </Animated.View>
+                :
+                  value === fieldValue ?
+                    <Animated.View entering={ZoomIn}>
+                      <View style={{
+                        width: newStyle.iconWidth || 16,
+                        height: newStyle.iconHeight || 16,
+                        borderRadius: 50,
+                        backgroundColor: newStyle.iconColor || '#FF6420'
+                      }}>
+                      </View>
+                    </Animated.View>
+                  : null
               }
           </Button>
         )
@@ -135,26 +127,30 @@ const getStyles = ({ tagConfig }:{ tagConfig:TagGroupConfig|undefined }) => {
       .reduce((sum, cur) => ({ ...sum, [cur[0]]:cur[1] }), {}) : null;
   const backgroundErrorColor = inputErrorTagStyle?.backgroundColor;
 
-  const radioTagStyle = tagConfig?.input?.["type=radio"]?.style;
-  const radioTagDisabledStyle = tagConfig?.input?.["type=radio"]?.disabledStyle;
-  const radioTagErrorStyle = tagConfig?.input?.["type=radio"]?.errorStyle;
+  const tagStyle = tagConfig?.input?.["type=radio"]?.style;
+  const tagCheckedStyle = tagConfig?.input?.["type=checkbox"]?.checkedStyle;
+  const tagDisabledStyle = tagConfig?.input?.["type=radio"]?.disabledStyle;
+  const tagErrorStyle = tagConfig?.input?.["type=radio"]?.errorStyle;
 
   return {
     tagStyle:  {
       ...borderStyle,
       borderRadius: 50,
       backgroundColor: backgroundColor,
-      ...radioTagStyle
+      ...tagStyle
+    },
+    tagCheckedStyle: {
+      ...tagCheckedStyle
     },
     tagDisabledStyle: {
       ...borderDisabledStyle,
       backgroundColor: backgroundDisabledColor,
-      ...radioTagDisabledStyle
+      ...tagDisabledStyle
     },
     tagErrorStyle: {
       ...borderErrorStyle,
       backgroundColor: backgroundErrorColor,
-      ...radioTagErrorStyle
+      ...tagErrorStyle
     }
   }
 }

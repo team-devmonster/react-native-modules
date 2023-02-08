@@ -7,7 +7,7 @@ interface LayoutProps extends TagProps {
   edges?:Edge[];
   onScroll?:(e:any) => void;
   scrollEventThrottle?:number;
-  scrollRef:LegacyRef<ScrollView>
+  scrollRef?:LegacyRef<ScrollView>
 }
 export const Layout = forwardRef(({ children, edges, style, onScroll, scrollEventThrottle, scrollRef, ...rest }:LayoutProps, ref:LegacyRef<View>) => {
 

@@ -12,8 +12,8 @@ const Index = () => {
 
   return (
     <Layout style={{ padding: 0 }}>
-      <Header title="hello devmonster" style={{ backgroundColor: 'blue' }}/>
-      <Div style={{ backgroundColor: 'red' }}>
+      <Header title="hello devmonster"/>
+      <Div>
         <H1 style={{
           fontSize: fontSize.x2l, 
           marginBottom: 20 
