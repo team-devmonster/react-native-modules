@@ -11,11 +11,11 @@ PODS:
     - ExpoModulesCore
   - EXFont (10.2.1):
     - ExpoModulesCore
-  - Expo (46.0.16):
+  - Expo (46.0.20):
     - ExpoModulesCore
   - ExpoKeepAwake (10.2.0):
     - ExpoModulesCore
-  - ExpoModulesCore (0.11.8):
+  - ExpoModulesCore (0.11.10):
     - React-Core
     - ReactCommon/turbomodule/core
   - ExpoSystemUI (1.3.0):
@@ -543,9 +543,9 @@ SPEC CHECKSUMS:
   EXConstants: 7c44785d41d8e959d527d23d29444277a4d1ee73
   EXFileSystem: 927e0a8885aa9c49e50fc38eaba2c2389f2f1019
   EXFont: 06df627203afcb8a3b3152ec06eb2f11f46f0cff
-  Expo: 7ac824960a6059d6c68e73f432c8e6bf6d92a0ef
+  Expo: c2afed3f226befffaed962e9bacb5e0296acd254
   ExpoKeepAwake: 0e8f18142e71bbf2c7f6aa66ebed249ba1420320
-  ExpoModulesCore: 39ec590ce622289c060183aba57f77b1e73b4e11
+  ExpoModulesCore: 1b2f5f91eff132671f6d0642aad2ba7915c6ff41
   ExpoSystemUI: 9f550a8055e315f7b0c4da208de27e45fe7da0fb
   ExpoWebBrowser: 5804ac42a8269d0e534bc4461993005f72535649
   EXSplashScreen: 799bece80089219b2c989c1082d70f3b00995cda

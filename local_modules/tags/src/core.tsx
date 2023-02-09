@@ -69,12 +69,11 @@ const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleState
 
 export const TagModule = ({ children, style, numberOfLines, ellipsizeMode }:TagProps):JSX.Element => {
 
-  const id = useMemo(() => String(new Date().getTime()), []);
-  const tagChildren = useMemo(() => makeTagChildren({ id, children, style, numberOfLines, ellipsizeMode }), [children, style, numberOfLines, ellipsizeMode]);
+  const tagChildren = useMemo(() => makeTagChildren({ children, style, numberOfLines, ellipsizeMode }), [children, style, numberOfLines, ellipsizeMode]);
 
   return tagChildren as JSX.Element;
 }
-const makeTagChildren = ({ id, children, style, numberOfLines, ellipsizeMode }:{ id:string, children?:TagElement, style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
+const makeTagChildren = ({ children, style, numberOfLines, ellipsizeMode }:{ children?:TagElement, style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
   if(Array.isArray(children)) {
     const newChildren:TagElement[] = [];
     const textchildren:(JSX.Element|string)[] = [];
@@ -92,7 +91,7 @@ const makeTagChildren = ({ id, children, style, numberOfLines, ellipsizeMode }:{
         else {
           if(textchildren.length) {
             newChildren.push(
-              <Text key={`tag_${id}_${i}`} 
+              <Text key={`tag_${i}`} 
                 style={{
                   lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
                   ...style as TextStyle
@@ -106,7 +105,7 @@ const makeTagChildren = ({ id, children, style, numberOfLines, ellipsizeMode }:{
 
           if(style?.marginVertical || style?.marginHorizontal) {
             newChildren.push(
-              <React.Fragment key={`tag_${id}_${i}`}>
+              <React.Fragment key={`tag_${i}`}>
                 {
                   React.cloneElement(child, {
                     style: { 
@@ -132,7 +131,7 @@ const makeTagChildren = ({ id, children, style, numberOfLines, ellipsizeMode }:{
     // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
     if(textchildren.length) {
       newChildren.push(
-        <Text key={`tag_${id}_${children.length}`} 
+        <Text key={`tag_${children.length}`} 
           style={{
             lineHeight: style?.fontSize ? style.fontSize*1.28 : undefined,
             ...style as TextStyle

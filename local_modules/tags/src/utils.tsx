@@ -1,3 +1,6 @@
+import { useMemo } from "react";
+import { TagStyle } from "./type";
+
 export function darken(col:string, amt:number) {
 
   const num = parseInt(col.slice(1),16);
@@ -57,4 +60,29 @@ export const contrast = (hex:string, c1:string = '#000000', c2:string = '#FFFFFF
 
   return (r * 0.299 + g * 0.587 + b * 0.114) > amt 
     ? c1 : c2;
+}
+
+export const getPadding = (style?:TagStyle) => {
+  const bottom = style?.paddingBottom ?? style?.paddingVertical ?? style?.padding ?? 0;
+  const top = style?.paddingTop ?? style?.paddingVertical ?? style?.padding ?? 0;
+  const left = style?.paddingLeft ?? style?.paddingVertical ?? style?.padding ?? 0;
+  const right = style?.paddingRight ?? style?.paddingVertical ?? style?.padding ?? 0;
+  return {
+    bottom,
+    top,
+    left,
+    right
+  }
+}
+export const usePaddingMemo = (style?:TagStyle) => {
+  const padding = useMemo(() => getPadding(style), [
+    style?.paddingBottom, 
+    style?.paddingTop, 
+    style?.paddingLeft,
+    style?.paddingRight,
+    style?.paddingVertical,
+    style?.paddingHorizontal,
+    style?.padding
+  ])
+  return padding;
 }

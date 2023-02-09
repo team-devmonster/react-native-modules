@@ -18,3 +18,4 @@ export * from './src/img';
 export * from './src/p';
 export * from './src/span';
 export * from './src/type';
+export * from './src/utils';

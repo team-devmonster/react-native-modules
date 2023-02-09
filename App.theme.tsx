@@ -3,6 +3,8 @@ import { ThemeProvider, useTheme } from '@local_modules/theme';
 import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, TagConfig, Div } from '@local_modules/tags';
 import ImgPaperAirplane from "assets/images/paperAirplane.svg";
 import { HeaderConfig } from '@local_modules/tags';
+import { RouterProvider } from '@local_modules/router';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const color = {
   light: {
@@ -173,10 +175,10 @@ const theme = (color:Color) => {
   }
   input['type=radio'] = {
     style: {
-      icon: <ImgPaperAirplane color={color.step100} width={18} height={18}/>,
+      icon: <Div style={{ width: 8, height: 8, backgroundColor: color.step200 }}></Div>,
     },
     checkedStyle: {
-      icon: <ImgPaperAirplane color={color.primary} width={20} height={20}/>,
+      icon: <Div style={{ width: 8, height: 8, backgroundColor: color.primary }}></Div>,
     }
   }
 
@@ -269,5 +271,28 @@ export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
     <TagProvider tagConfig={theme}>
       {children}
     </TagProvider>
+  )
+}
+
+export const AppRouterProvider = ({children}: {children:React.ReactNode}) => {
+  const theme = useTheme<Theme>();
+  return (
+    <RouterProvider>
+      {children}
+    </RouterProvider>
+  )
+}
+
+export const AppNextNativeProvider = ({children}: {children:React.ReactNode}) => {
+  return (
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <AppThemeProvider>
+        <AppTagProvider>
+          <AppRouterProvider>
+            {children}
+          </AppRouterProvider>
+        </AppTagProvider>
+      </AppThemeProvider>
+    </SafeAreaProvider>
   )
 }

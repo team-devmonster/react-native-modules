@@ -1,5 +1,5 @@
-import React, { forwardRef, LegacyRef, useMemo } from "react";
-import { ScrollView, View, ViewStyle } from "react-native";
+import React, { forwardRef, LegacyRef, useEffect, useMemo, useState } from "react";
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, View, ViewStyle } from "react-native";
 import { Edge, SafeAreaView } from "react-native-safe-area-context";
 import { TagElement, TagProps, useTags } from "@team-devmonster/react-native-tags";
 
@@ -9,59 +9,100 @@ interface LayoutProps extends TagProps {
   scrollEventThrottle?:number;
   scrollRef?:LegacyRef<ScrollView>
 }
-export const Layout = forwardRef(({ children, edges, style, onScroll, scrollEventThrottle, scrollRef, ...rest }:LayoutProps, ref:LegacyRef<View>) => {
+export const Layout = forwardRef(({ children, edges, style, onScroll, scrollEventThrottle, scrollRef, ...rest }:LayoutProps, ref:LegacyRef<KeyboardAvoidingView|View>) => {
 
   const { header, defaultEdges, contents, fixedLayout, footer } = useMemo(() => newChildren({ children }), [children]);
   const { tagConfig } = useTags();
   const layoutTagStyle = tagConfig?.layout?.style;
+
   const contentStyle = useMemo(() => ({
     flex: 1,
     ...layoutTagStyle as any,
     ...style as ViewStyle
   }), [layoutTagStyle, style]);
 
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardWillShow',
+      () => {
+        setKeyboardVisible(true); // or some other action
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardWillHide',
+      () => {
+        setKeyboardVisible(false); // or some other action
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
+  const resultEdges = useMemo(() => edges || defaultEdges, [defaultEdges, edges]);
+  const resultScrollEventThrottle = useMemo(() => scrollEventThrottle || (onScroll ? 16 : undefined), [scrollEventThrottle, onScroll]);
+  const Layout = useMemo(() => {
+    switch(Platform.OS) {
+      case 'ios':
+        return KeyboardAvoidingView;
+      default:
+        return View;
+    }
+  }, [Platform.OS])
+
   if(style?.overflow !== 'hidden') {
     return (
-      <View 
-        ref={ref}
-        style={{ flex: 1, backgroundColor: style?.backgroundColor }}>
-        {header}
-        <ScrollView 
-          ref={scrollRef}
-          onScroll={onScroll}
-          scrollEventThrottle={scrollEventThrottle || (onScroll ? 16 : undefined)}
-          style={{
-            flex: 1
-          }}>
+      <Layout
+          ref={ref}
+          style={{ flex: 1, backgroundColor: style?.backgroundColor }}
+          behavior="padding">
+          {header}
+          <ScrollView 
+            ref={scrollRef}
+            onScroll={onScroll}
+            scrollEventThrottle={resultScrollEventThrottle}
+            style={{
+              flex: 1
+            }}>
+            {
+              edges?.length ?
+                <SafeAreaView
+                  edges={resultEdges}
+                  style={contentStyle} {...rest}>
+                  {contents}
+                </SafeAreaView>
+              :
+                <View
+                  style={contentStyle} {...rest}>
+                  {contents}
+                </View>
+            }
+          </ScrollView>
+          {fixedLayout}
           {
-            edges?.length !== 0 ?
-              <SafeAreaView
-                edges={edges || defaultEdges}
-                style={contentStyle} {...rest}>
-                {contents}
-              </SafeAreaView>
-            :
-              <View
-                style={contentStyle} {...rest}>
-                {contents}
-              </View>
+            footer ?
+            React.cloneElement(footer as any, {
+              bottomEdge: keyboardVisible
+            })
+            : null
           }
-        </ScrollView>
-        {fixedLayout}
-        {footer}
-      </View>
+      </Layout>
     )
   }
   else {
     return (
-      <View 
+      <Layout
         ref={ref}
         style={{ flex: 1, backgroundColor: style?.backgroundColor }}>
         {header}
         {
-          edges?.length !== 0 ?
+          edges?.length ?
             <SafeAreaView
-              edges={edges || defaultEdges}
+              edges={resultEdges}
               style={contentStyle} {...rest}>
               {contents}
             </SafeAreaView>
@@ -73,7 +114,7 @@ export const Layout = forwardRef(({ children, edges, style, onScroll, scrollEven
         }
         {fixedLayout}
         {footer}
-      </View>
+      </Layout>
     )
   }
 })

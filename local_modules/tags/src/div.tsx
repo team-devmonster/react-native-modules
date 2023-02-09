@@ -87,3 +87,5 @@ export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, .
     )
   }
 })
+
+Div.displayName = 'Div';

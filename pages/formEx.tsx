@@ -5,7 +5,7 @@ import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Button, Div } from "@local_modules/tags";
 import { ErrorText, Input, Label, Select, Option, Textarea } from "@local_modules/form";
-import { Header, Layout } from "@local_modules/router";
+import { Footer, Header, Layout } from "@local_modules/router";
 
 interface FormProps {
   id:string, 
@@ -192,7 +192,16 @@ const FormEx = () => {
         <Button 
           color={color.primary}
           onClick={handleSubmit(onSubmit)}>login</Button>
+
+        <Input
+          control={control}
+          name="id"
+          placeholder="id"></Input>
       </Div>
+
+      <Footer>
+        <Button color={color.primary}>fixedButton</Button>
+      </Footer>
     </Layout>
   )
 }

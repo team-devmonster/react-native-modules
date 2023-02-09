@@ -48,7 +48,14 @@ export interface TagStyle extends Omit<TextStyle, 'display'> {
   rowGap?:number,
   columnGap?:number,
   icon?:TagElement,
-  iconColor?:string
+  iconColor?:string,
+  padding?:number,
+  paddingBottom?:number,
+  paddingTop?:number,
+  paddingLeft?:number,
+  paddingRight?:number,
+  paddingVertical?:number,
+  paddingHorizontal?:number
 }
 export type TagElement = JSX.Element|string|number|null|undefined|TagElement[];
 

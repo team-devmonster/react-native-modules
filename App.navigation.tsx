@@ -31,24 +31,22 @@ const Navigation = () => {
   const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
   
   return (
-    <SafeAreaProvider style={{ backgroundColor: color.backgroundColor }}>
-      <NavigationContainer theme={{
-        ...theme,
-        colors: {
-          ...theme.colors
-        }
-      }}>
-        <RootStack.Navigator initialRouteName="index">
-          <RootStack.Screen name="index" component={Index}/>
-          <RootStack.Screen name="themeEx" component={ThemeEx}/>
-          <RootStack.Screen name="tagsEx" component={TagsEx}/>
-          <RootStack.Screen name="routerEx" component={RouterEx}/>
-          <RootStack.Screen name="routerEx/paramEx" component={ParamEx}/>
-          <RootStack.Screen name="formEx" component={FormEx}/>
-          <RootStack.Screen name="swiperEx" component={SwiperEx}/>
-        </RootStack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <NavigationContainer theme={{
+      ...theme,
+      colors: {
+        ...theme.colors
+      }
+    }}>
+      <RootStack.Navigator initialRouteName="index">
+        <RootStack.Screen name="index" component={Index}/>
+        <RootStack.Screen name="themeEx" component={ThemeEx}/>
+        <RootStack.Screen name="tagsEx" component={TagsEx}/>
+        <RootStack.Screen name="routerEx" component={RouterEx}/>
+        <RootStack.Screen name="routerEx/paramEx" component={ParamEx}/>
+        <RootStack.Screen name="formEx" component={FormEx}/>
+        <RootStack.Screen name="swiperEx" component={SwiperEx}/>
+      </RootStack.Navigator>
+    </NavigationContainer>
   )
 }
 

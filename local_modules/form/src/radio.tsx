@@ -128,7 +128,7 @@ const getStyles = ({ tagConfig }:{ tagConfig:TagGroupConfig|undefined }) => {
   const backgroundErrorColor = inputErrorTagStyle?.backgroundColor;
 
   const tagStyle = tagConfig?.input?.["type=radio"]?.style;
-  const tagCheckedStyle = tagConfig?.input?.["type=checkbox"]?.checkedStyle;
+  const tagCheckedStyle = tagConfig?.input?.["type=radio"]?.checkedStyle;
   const tagDisabledStyle = tagConfig?.input?.["type=radio"]?.disabledStyle;
   const tagErrorStyle = tagConfig?.input?.["type=radio"]?.errorStyle;
 
