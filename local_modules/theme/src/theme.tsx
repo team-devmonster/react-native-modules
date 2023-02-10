@@ -5,18 +5,20 @@ const ThemeContext = createContext(null) as any;
 
 type Color = {
   light: {[name:string]:string},
-  dark: {[name:string]:string}
+  dark?: {[name:string]:string}
 }
 
-export function ThemeProvider<S extends Color,T extends Function>({children, color, theme}:{children:React.ReactNode, color:S, theme:T}) {
+export function ThemeProvider<S extends Color,T extends Function>({children, color, theme, darkModeEnabled = true}:{children:React.ReactNode, color:S, theme:T, darkModeEnabled?:boolean}) {
 
-  const colorScheme = useColorScheme() as NonNullable<ColorSchemeName>;
+  const deviceColorScheme = useColorScheme() as NonNullable<ColorSchemeName>;
+  const colorScheme = darkModeEnabled ? deviceColorScheme ? 'dark' : 'light' : 'light';
 
   return (
     <ThemeContext.Provider 
       value={{
         ...theme(color[colorScheme]),
-        colorScheme
+        colorScheme,
+        darkModeEnabled
       }}>
       {children}
     </ThemeContext.Provider>

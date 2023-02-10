@@ -1,6 +1,6 @@
-import { ButtonProps, ButtonStyle, InputStyle, TagProps, TagStyle } from "@team-devmonster/react-native-tags"
+import { ButtonClickEvent, ButtonStyle, InputStyle, TagProps, TagStyle } from "@team-devmonster/react-native-tags"
 import { SyntheticEvent } from "react"
-import { Control, FieldErrorsImpl, Path, UnPackAsyncDefaultValues } from "react-hook-form"
+import { Control, FieldErrorsImpl, Path } from "react-hook-form"
 import { NativeSyntheticEvent, ReturnKeyType, TextInputFocusEventData, TextInputSubmitEditingEventData } from "react-native"
 
 export interface InputRuleProps {
@@ -59,9 +59,9 @@ export interface InputRuleProps {
 
 export interface FormValues {[name:string]:any};
 
-export interface InputProps<T extends FormValues = any> extends InputRuleProps, Omit<ButtonProps, 'children'> {
+export interface InputProps<T extends FormValues = any> extends InputRuleProps {
   control:Control<T>,
-  name:Path<UnPackAsyncDefaultValues<T>>,
+  name:Path<T>,
   placeholder?:string,
   style?:InputStyle,
   disabledStyle?:InputStyle,
@@ -70,7 +70,10 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps, 
   returnKeyType?:ReturnKeyType,
   onEnter?:(e:NativeSyntheticEvent<TextInputSubmitEditingEventData>) => void,
   onFocus?:((e: NativeSyntheticEvent<TextInputFocusEventData>) => void) | undefined,
+  // input['type=text']
+  keyboardType?:InputKeyboardType,
   // options by types
+  onClick?: ((event: ButtonClickEvent) => void) | null | undefined;
   cameraText?:string,
   albumText?:string,
   confirmText?:string,
@@ -87,6 +90,7 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps, 
 }
 export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'checkbox'|'radio'|'file'|InputDateType;
 export type InputDateType = 'date'|'month'|'time';
+export type InputKeyboardType = 'default'|'email-address'|'number-pad'|'numeric'|'decimal-pad'|'phone-pad'|'url';
 
 export interface LabelProps<T extends FormValues> extends TagProps {
   errors?: Partial<FieldErrorsImpl<T>>,

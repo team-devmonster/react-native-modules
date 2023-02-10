@@ -4,7 +4,7 @@ import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Button, Div, H1 } from "@local_modules/tags";
 import { Layout, A, Header } from "@local_modules/router";
-import { ScrollView } from "react-native";
+import ImgShadowEx from "assets/images/shadowEx.svg";
 
 const Index = () => {
 

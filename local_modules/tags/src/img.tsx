@@ -6,13 +6,14 @@ interface TagImageStyle extends Omit<ImageStyle, 'display'|'resizeMode'> {
 }
 
 interface ImgProps {
+  alt?:string,
   src: ImageSourcePropType | string,
   style?: TagImageStyle,
   onError?: ((error: NativeSyntheticEvent<ImageErrorEventData>) => void),
   onLoad?: ((event: NativeSyntheticEvent<ImageLoadEventData>) => void)
 }
 
-export const Img = ({ src, style, ...rest }:ImgProps) => {
+export const Img = ({ src, style, alt, ...rest }:ImgProps) => {
 
   const source = useMemo(() => getSource({ src }), [src]);
   const { display, objectFit, ...etcStyle } = style || {};
@@ -23,6 +24,8 @@ export const Img = ({ src, style, ...rest }:ImgProps) => {
       <Image 
         {...rest}
         resizeMode={style?.objectFit || 'contain'}
+        accessible={true}
+        accessibilityLabel={alt}
         source={source} 
         style={{
           ...etcStyle,
@@ -32,7 +35,7 @@ export const Img = ({ src, style, ...rest }:ImgProps) => {
     :
       <View 
         style={{ 
-          ...etcStyle, 
+          ...etcStyle,
           display: display === 'inline-flex' ? 'flex' : display 
         }}></View>
   )

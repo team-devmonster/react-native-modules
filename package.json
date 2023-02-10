@@ -31,7 +31,7 @@
     "expo-web-browser": "~11.0.0",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "react-hook-form": "^7.41.0",
+    "react-hook-form": "^7.43.1",
     "react-native": "0.69.6",
     "react-native-date-picker": "^4.2.6",
     "react-native-document-picker": "^8.1.3",

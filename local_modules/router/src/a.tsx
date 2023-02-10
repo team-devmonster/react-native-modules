@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TouchableWithoutFeedback } from "react-native";
@@ -25,20 +25,33 @@ export interface Aprops {
   push?:boolean,
   back?:boolean,
   reset?:boolean,
-  children:React.ReactNode
+  children:React.ReactNode,
   target?:string
 }
 
-export const A = ({ href, as:_, replace, push, back, reset, children, target:__ }:Aprops) => {
+export const A = ({ href, as:_, replace, push, back, reset, children, target:__, ...rest }:Aprops) => {
 
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
+
+  const style = (rest as any).style;
+  const newChildren = useMemo(() => {
+    if(style) {
+      return React.cloneElement(children as any, {
+        style
+      })
+    }
+    else {
+      return children
+    }
+  }, [children, style]);
   
   return (
     <TouchableWithoutFeedback
       onPress={() => {
         navigate({navigation, href, replace, push, back, reset});
       }}>
-      {children}
+      {newChildren}
     </TouchableWithoutFeedback>
   )
 }
+A.displayName = 'A';

@@ -108,7 +108,7 @@ const makeTagChildren = ({ children, style, numberOfLines, ellipsizeMode }:{ chi
               <React.Fragment key={`tag_${i}`}>
                 {
                   React.cloneElement(child, {
-                    style: { 
+                    style: {
                       ...child.props?.style,
                       marginVertical: style?.marginVertical,
                       marginHorizontal: style?.marginHorizontal,

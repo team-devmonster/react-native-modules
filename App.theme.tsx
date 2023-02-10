@@ -110,6 +110,12 @@ const theme = (color:Color) => {
     }
   }
 
+  const h1:TagConfig = {
+    style: {
+      fontSize: fontSize.x2l
+    }
+  }
+
   const button:ButtonConfig = {
     color: color.white,
     style: {
@@ -244,7 +250,7 @@ const theme = (color:Color) => {
     // basic theme
     color, fontSize, shadow,
     // tags theme
-    div, button,
+    div, button, h1,
     // form theme
     input, select, label, errorText,
     // router theme
@@ -275,24 +281,24 @@ export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
 }
 
 export const AppRouterProvider = ({children}: {children:React.ReactNode}) => {
-  const theme = useTheme<Theme>();
+  const { color } = useTheme<Theme>();
   return (
-    <RouterProvider>
-      {children}
-    </RouterProvider>
+    <SafeAreaProvider style={{ flex: 1, backgroundColor: color.white }}>
+      <RouterProvider>
+        {children}
+      </RouterProvider>
+    </SafeAreaProvider>
   )
 }
 
 export const AppNextNativeProvider = ({children}: {children:React.ReactNode}) => {
   return (
-    <SafeAreaProvider style={{ flex: 1 }}>
-      <AppThemeProvider>
-        <AppTagProvider>
-          <AppRouterProvider>
-            {children}
-          </AppRouterProvider>
-        </AppTagProvider>
-      </AppThemeProvider>
-    </SafeAreaProvider>
+    <AppThemeProvider>
+      <AppTagProvider>
+        <AppRouterProvider>
+          {children}
+        </AppRouterProvider>
+      </AppTagProvider>
+    </AppThemeProvider>
   )
 }

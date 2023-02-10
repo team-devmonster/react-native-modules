@@ -44,11 +44,11 @@ export interface TagProps extends Omit<TextProps, 'style'|'onPress'> {
 export interface TagStyle extends Omit<TextStyle, 'display'> {
   display?: 'flex' | 'inline-flex' | 'none',
   whiteSpace?: 'pre-line'|'nowrap',
+  icon?:TagElement,
+  iconColor?:string,
   gap?:number,
   rowGap?:number,
   columnGap?:number,
-  icon?:TagElement,
-  iconColor?:string,
   padding?:number,
   paddingBottom?:number,
   paddingTop?:number,
@@ -136,7 +136,7 @@ export interface InputCheckboxConfig {
 }
 export interface InputRadioConfig {
   style?:InputRadioStyle,
-  checkedStyle?:InputCheckboxStyle,
+  checkedStyle?:InputRadioStyle,
   disabledStyle?:InputRadioStyle,
   errorStyle?:InputRadioStyle
 }
@@ -180,12 +180,14 @@ export interface InputRadioStyle extends TagStyle {
   iconHeight?:number
 }
 export interface InputDateStyle extends TagStyle {
+  icon?:TagElement,
   iconColor?:string,
   iconWidth?:number,
   iconHeight?:number
 }
 
 export interface SelectStyle extends InputStyle {
+  icon?:TagElement,
   iconColor?:string,
   iconWidth?:number,
   iconHeight?:number

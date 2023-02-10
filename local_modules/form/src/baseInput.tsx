@@ -1,5 +1,5 @@
-import React from "react";
-import { FormValues, InputProps } from "./type";
+import React, { useMemo } from "react";
+import { FormValues, InputProps, InputType, InputRuleProps, InputKeyboardType } from "./type";
 import { Controller } from 'react-hook-form';
 import { KeyboardTypeOptions, TextInput } from "react-native";
 import { placeholderPattern, useTags, useTagStyle } from '@team-devmonster/react-native-tags';
@@ -19,6 +19,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
     returnKeyType,
     onEnter,
     onFocus,
+    keyboardType,
     ...rules
   } = props;
 
@@ -54,35 +55,9 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
           error ? errorStyle : undefined
         ]);
 
-        let keyboardType:KeyboardTypeOptions = 'default';
-        let secureTextEntry:boolean = false;
-        let newValue:string = value;
-        let newOnChange = onChange;
+        const { newKeyboardType, secureTextEntry, newValue, newOnChange } = useMemo(() => inputModeChange({ type, value, onChange, rules, keyboardType }), [type, value, onChange, rules, keyboardType]);
 
-        switch(type) {
-          case 'number':
-            keyboardType = 'number-pad';
-            newValue = String(value || '0');
-            newOnChange = (v) => {
-              let num = v.replace(/\D+/g, '');
-              onChange(num ? +num : 0);
-            }
-            break;
-          case 'tel':
-            keyboardType = 'phone-pad';
-            let tel = (value as string)?.replace(/\D+/g, '').replace(/(\d{2,3})(\d{3,4})(\d{4})/, "$1-$2-$3");
-            newValue = tel;
-            newOnChange = (v) => {
-              let num = v.replace(/\D+/g, '');
-              onChange(num);
-            }
-            rules.maxLength = rules.maxLength || 13;
-            break;
-          case 'password':
-            keyboardType = 'default';
-            secureTextEntry = true;
-            break;
-        }
+        const maxLength = useMemo(() => typeof rules.maxLength === 'number' ? rules.maxLength : rules.maxLength?.value || 30, [rules.maxLength]);
 
         return (
           <TextInput
@@ -91,9 +66,9 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
             onBlur={onBlur}
             onFocus={onFocus}
             value={newValue}
-            keyboardType={keyboardType}
+            keyboardType={newKeyboardType}
             secureTextEntry={secureTextEntry}
-            maxLength={typeof rules.maxLength === 'number' ? rules.maxLength : rules.maxLength?.value}
+            maxLength={maxLength}
             placeholder={placeholder}
             placeholderTextColor={placeholderStyle.placeholderColor}
             style={inputStyle}
@@ -105,4 +80,53 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
       }}
     />
   )
+}
+
+type InputModeChangeProps = {
+  type:InputType, 
+  value:any, 
+  onChange:any,
+  rules:InputRuleProps,
+  keyboardType?:InputKeyboardType
+}
+const inputModeChange = ({ type, value, onChange, rules, keyboardType }:InputModeChangeProps) => {
+  let newKeyboardType:KeyboardTypeOptions = 'default';
+  let secureTextEntry:boolean = false;
+  let newValue:string = value;
+  let newOnChange = onChange;
+
+  switch(type) {
+    case 'email':
+      newKeyboardType = 'email-address';
+      break;
+    case 'number':
+      newKeyboardType = 'number-pad';
+      newValue = String(value || '0');
+      newOnChange = (v:any) => {
+        let num = v.replace(/\D+/g, '');
+        onChange(num ? +num : 0);
+      }
+      break;
+    case 'tel':
+      newKeyboardType = 'phone-pad';
+      let tel = (value as string)?.replace(/\D+/g, '').replace(/(\d{2,3})(\d{3,4})(\d{4})/, "$1-$2-$3");
+      newValue = tel;
+      newOnChange = (v:any) => {
+        let num = v.replace(/\D+/g, '');
+        onChange(num);
+      }
+      rules.maxLength = rules.maxLength || 13;
+      break;
+    case 'password':
+      newKeyboardType = 'default';
+      secureTextEntry = true;
+      break;
+  }
+
+  return {
+    newKeyboardType: keyboardType || newKeyboardType,
+    secureTextEntry,
+    newValue,
+    newOnChange
+  }
 }

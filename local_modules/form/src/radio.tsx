@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { TextInput, View } from "react-native";
-import { Control, Controller, Path as Names, UnPackAsyncDefaultValues } from 'react-hook-form';
+import { Control, Controller, Path as Names } from 'react-hook-form';
 import Animated, { ZoomIn } from "react-native-reanimated";
 
 import { FormValues, InputRuleProps } from "./type";
@@ -17,7 +17,7 @@ const radioDefaultStyle:TagStyle = {
 }
 export interface RadioProps<T extends FormValues = any> extends InputRuleProps {
   control:Control<T>,
-  name:Names<UnPackAsyncDefaultValues<T>>,
+  name:Names<T>,
   style?:TagStyle,
   disabledStyle?:TagStyle,
   errorStyle?:TagStyle

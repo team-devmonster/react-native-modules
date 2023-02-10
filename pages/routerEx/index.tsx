@@ -15,9 +15,10 @@ const RouterEx = () => {
   const { color } = useTheme<Theme>();
   const router = useRouter();
 
-  const [visible, setVisible] = useState(false);
-  const [visible2, setVisible2] = useState(false);
-  const [visible3, setVisible3] = useState(false);
+  const [visibleFull, setVisibleFull] = useState(false);
+  const [visibleHandle, setVisibleHandle] = useState(false);
+  const [visibleCenter, setVisibleCenter] = useState(false);
+  const [visibleClear, setVisibleClear] = useState(false);
   const [count, setCount] = useState(0);
 
   return (
@@ -42,90 +43,90 @@ const RouterEx = () => {
         <P style={{ height: 56, alignItems: 'center', justifyContent: 'center', backgroundColor: color.step100 }}>next line</P>
       </Header> */}
       <MainHeader/>
-      <A href='/themeEx'>
-        <Button color={color.primary} style={{ marginBottom: 8 }}>themeEx</Button>
-      </A>
-      <A href={{
-        pathname: '/routerEx/paramEx',
-        query: {
-          name: 'soohong kim',
-          nickname: 'aldegad',
-          company: 'devmonster',
-          des: 'use A & href',
-        }
-      }}>
-        <Button color={color.danger} style={{ marginBottom: 8 }}>paramEx(A)</Button>
-      </A>
-      <Button 
-        onClick={() => {
-          router.push({
-            pathname: '/routerEx/paramEx',
-            query: {
-              name: 'soohong kim',
-              nickname: 'aldegad',
-              company: 'devmonster',
-              des: 'use useRouter & push'
-            }
-          })
-        }}
-        color={color.danger} 
-        style={{ marginBottom: 8 }}
-      >paramEx(Router)</Button>
-      <A href='https://www.google.co.kr'>
-        <Button color={color.warning} style={{ marginBottom: 8 }}>google</Button>
-      </A>
 
-      <Button 
-        onClick={() => {
-          setVisible(true);
-        }}
-        color={color.danger} 
-        style={{ marginBottom: 8 }}
-      >open modal</Button>
+      <Div style={{ rowGap: 8 }}>
+        <A href='/themeEx'>
+          <Button color={color.primary}>themeEx</Button>
+        </A>
+        
+        <A href={{
+          pathname: '/routerEx/paramEx',
+          query: {
+            name: 'soohong kim',
+            nickname: 'aldegad',
+            company: 'devmonster',
+            des: 'use A & href',
+          }
+        }}>
+          <Button color={color.danger}>paramEx(A)</Button>
+        </A>
+        
+        <Button
+          onClick={() => {
+            router.push({
+              pathname: '/routerEx/paramEx',
+              query: {
+                name: 'soohong kim',
+                nickname: 'aldegad',
+                company: 'devmonster',
+                des: 'use useRouter & push'
+              }
+            })
+          }}
+          color={color.danger} 
+        >paramEx(Router)</Button>
+        
+        <A href='https://www.google.co.kr'>
+          <Button color={color.warning}>google</Button>
+        </A>
+
+        <Button 
+          onClick={() => {
+            setVisibleFull(true);
+          }}
+          color={color.danger} 
+        >open modal fullScreen</Button>
+
+        <Button 
+          onClick={() => {
+            setVisibleHandle(true);
+          }}
+          color={color.danger} 
+        >open modal handleScreen</Button>
+
+        <Button 
+          onClick={() => {
+            setVisibleCenter(true);
+          }}
+          color={color.danger} 
+        >open modal center</Button>
+
+        <Button 
+          onClick={() => {
+            setVisibleClear(true);
+          }}
+          color={color.danger}
+        >open modal clear</Button>
+      </Div>
 
       <Modal 
-        visible={visible}
-        onRequestClose={() => setVisible(false)}
-        fullScreen={true}
+        visible={visibleFull}
+        onRequestClose={() => setVisibleFull(false)}
+        type="fullScreen"
       >
-        <H1>Modal1</H1>
-        <Button onClick={() => setCount(count+1)}>add count</Button>
-        <P>count: {String(count)}</P>
-        <Button onClick={() => {
-          setVisible(false);
-          setVisible2(true);
-        }}>change modal</Button>
-        <Button onClick={() => {
-          setVisible3(true);
-        }}>add modal</Button>
-        <Button onClick={() => setVisible(false)}>close modal</Button>
+        <H1>Modal Fullscreen</H1>
+        
+        <Button onClick={() => setVisibleFull(false)}>close Modal</Button>
       </Modal>
 
       <Modal 
-        visible={visible2}
-        onRequestClose={() => setVisible2(false)}
-        fullScreen={true}
+        visible={visibleHandle}
+        onRequestClose={() => setVisibleHandle(false)}
+        type="handleScreen"
       >
-        <Div>
-          <H1>Modal2</H1>
-          <Button onClick={() => setCount(count+1)}>add count</Button>
-          <P>count: {String(count)}</P>
-          <Button onClick={() => setVisible2(false)}>close modal</Button>
-        </Div>
-      </Modal>
-
-      <Modal 
-        visible={visible3}
-        onRequestClose={() => setVisible3(false)}
-        fullScreen={true}
-        style={{ alignItems: 'center', justifyContent: 'center' }}
-      >
-        <Div style={{ backgroundColor: color.step100 }}>
-          <H1>Modal3</H1>
-          <Button onClick={() => setCount(count+1)}>add count</Button>
-          <P>count: {String(count)}</P>
-          <Button onClick={() => setVisible3(false)}>close modal</Button>
-        </Div>
+        <H1>Modal HandleScreen</H1>
+        
+        <Button onClick={() => setVisibleHandle(false)}>close Modal</Button>
       </Modal>
     </Layout>
   )

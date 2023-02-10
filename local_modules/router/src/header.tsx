@@ -8,10 +8,12 @@ import { TagElement, useTags } from "@team-devmonster/react-native-tags";
 import { useSafeAreaFrame, useSafeAreaInsets } from "react-native-safe-area-context";
 
 export interface HeaderProps {
-  title?:string | React.ReactNode;
-  headerLeft?:React.ReactNode;
-  headerRight?:React.ReactNode;
+  title?:string | TagElement;
+  headerLeft?:TagElement;
+  headerRight?:TagElement;
   headerBackTitle?:string;
+  headerBackVisible?:boolean;
+  backButtonShown?:boolean;
   headerBackImageSource?:ImageSourcePropType;
   headerTitleAlign?:"left" | "center" | undefined;
   headerTitleStyle?:StyleProp<Pick<TextStyle, "fontFamily" | "fontSize" | "fontWeight"> & {
@@ -31,6 +33,7 @@ export const Header = ({
   headerLeft, 
   headerRight, 
   headerBackTitle, 
+  headerBackVisible,
   headerBackImageSource,
   headerShown, 
   style, 
@@ -66,7 +69,8 @@ export const Header = ({
       headerShadowVisible: false,
       headerStyle,
       contentStyle,
-      headerTitleStyle
+      headerTitleStyle,
+      headerBackVisible
     }
 
     if(typeof title !== null) {
