@@ -2,7 +2,7 @@ import { Button, Div, TagElement, TagStyle } from "@team-devmonster/react-native
 import React, { createContext, Dispatch, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Dimensions, StyleSheet, useColorScheme, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Animated, { FadeIn, FadeInDown, FadeOut, FadeOutDown, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import Animated, { FadeIn, FadeInDown, FadeOut, FadeOutDown, SlideOutDown, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 export type ModalProps = {
@@ -36,6 +36,8 @@ export const RouterProvider = ({children}:{children:React.ReactNode}) => {
           <ModalContent key={key} {...props}></ModalContent>
         )
       })}
+      {/* 정말 이유는 모르겠지만, 마지막에 이놈 View를 넣어주어야 exit 애니메이션이 작동한다..... 왜지...? */}
+      <View></View>
     </RouterContext.Provider>
   )
 }
@@ -88,14 +90,19 @@ const ModalContent = ({ visible, type, children, onRequestClose, style, backDrop
     handleTransition.value = handlePosition.value + e.translationY;
   })
   .onEnd((e) => {
-    if(handleTransition.value > height*2/3) {
+    if(handleTransition.value > height/2) {
       onRequestClose?.();
+      handleTransition.value = withTiming(height/3);
+      handlePosition.value = withTiming(height/3);
     }
-    if(handleTransition.value < safe.top + 20) {
+    else if(handleTransition.value > height/6) {
+      handleTransition.value = withTiming(height/3);
+      handlePosition.value = withTiming(height/3);
+    }
+    else {
       handleTransition.value = withTiming(safe.top);
       handlePosition.value = withTiming(safe.top);
     }
-    handlePosition.value = handleTransition.value;
   })
   .runOnJS(true), []);
 
@@ -105,10 +112,8 @@ const ModalContent = ({ visible, type, children, onRequestClose, style, backDrop
   switch(type) {
     case 'fullScreen':
       return (
-        <Animated.View style={{ ...StyleSheet.absoluteFillObject, ...style as any }}>
-          <Animated.View entering={FadeIn} exiting={FadeOut} style={{ ...StyleSheet.absoluteFillObject }}>
-            <Button color={'#000000'} fill="none" style={{ ...StyleSheet.absoluteFillObject, borderRadius: 0, opacity: 0.3, ...backDropStyle }} onClick={onRequestClose}></Button>
-          </Animated.View>
+        <View style={{ ...StyleSheet.absoluteFillObject, ...style as any }}>
+          <BackDrop backDropStyle={backDropStyle} onRequestClose={onRequestClose}/>
           <Animated.View 
             entering={FadeInDown}
             exiting={FadeOutDown}
@@ -120,44 +125,49 @@ const ModalContent = ({ visible, type, children, onRequestClose, style, backDrop
             }}>
             { children }
           </Animated.View>
-        </Animated.View>
+        </View>
       )
     case 'handleScreen':
       return (
-        <View style={{ ...StyleSheet.absoluteFillObject, paddingTop: safe.top, ...style as any }}>
-          <Animated.View entering={FadeIn} style={{ ...StyleSheet.absoluteFillObject }}>
-            <Button color={'#000000'} fill="none" style={{ ...StyleSheet.absoluteFillObject, borderRadius: 0, opacity: 0.3, ...backDropStyle }} onClick={onRequestClose}></Button>
-          </Animated.View>
-          <Animated.View style={[{ ...StyleSheet.absoluteFillObject }, handleAnimation]}>
-            <Animated.View 
-              entering={FadeInDown} 
-              style={{ 
-                flex: 1,
-                backgroundColor: defaultContentBackgroundColor,
-                ...contentStyle as any
-              }}>
-              <GestureDetector gesture={panGesture}>
-                <View 
-                  style={{ 
-                    padding: 8,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    ...handleStyle as any
-                  }}
-                >
-                  <View style={{ width: 60, height: 4, backgroundColor: '#e1e1e1' }}></View>
-                </View>
-              </GestureDetector>
-              { children }
+        <GestureDetector gesture={panGesture}>
+          <View style={{ ...StyleSheet.absoluteFillObject, paddingTop: safe.top, ...style as any }}>
+            <BackDrop backDropStyle={backDropStyle} onRequestClose={onRequestClose}/>
+            <Animated.View style={[{ ...StyleSheet.absoluteFillObject }, handleAnimation]}>
+              <Animated.View 
+                entering={FadeInDown} 
+                exiting={SlideOutDown}
+                style={{ 
+                  flex: 1,
+                  backgroundColor: defaultContentBackgroundColor,
+                  ...contentStyle as any
+                }}>
+                
+                  <View 
+                    style={{ 
+                      padding: 8,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      ...handleStyle as any
+                    }}
+                  >
+                    <View style={{ width: 60, height: 4, backgroundColor: '#e1e1e1' }}></View>
+                  </View>
+                { children }
+              </Animated.View>
             </Animated.View>
-          </Animated.View>
-        </View>
+          </View>
+        </GestureDetector>
       )
     case 'center':
       return (
-        <Div style={{ ...StyleSheet.absoluteFillObject, paddingTop: safe.top, ...style }}>
-          <Button color={'#000000'} fill="none" style={{ ...StyleSheet.absoluteFillObject, borderRadius: 0, opacity: 0.3, ...backDropStyle }} onClick={onRequestClose}></Button>
-          { children }
+        <Div style={{ ...StyleSheet.absoluteFillObject, paddingTop: safe.top, alignItems: 'center', justifyContent: 'center', ...style }}>
+          <BackDrop backDropStyle={backDropStyle} onRequestClose={onRequestClose}/>
+          <Animated.View 
+            entering={FadeInDown}
+            exiting={FadeOutDown}
+            style={[{ backgroundColor: 'white', width: 280, height: 100, ...contentStyle as any }]}>
+            { children }
+          </Animated.View>
         </Div>
       )
     case 'clear':
@@ -169,4 +179,20 @@ const ModalContent = ({ visible, type, children, onRequestClose, style, backDrop
         children
       )
   }
+}
+
+type BackDropProps = {
+  backDropStyle?:TagStyle,
+  onRequestClose:any
+}
+const BackDrop = ({ backDropStyle, onRequestClose }:BackDropProps) => {
+  return (
+    <Animated.View 
+      entering={FadeIn} 
+      exiting={FadeOut}
+      style={{ ...StyleSheet.absoluteFillObject }}
+    >
+      <Button color={'#000000'} fill="none" style={{ ...StyleSheet.absoluteFillObject, borderRadius: 0, opacity: 0.3, ...backDropStyle }} onClick={onRequestClose}></Button>
+    </Animated.View>
+  )
 }
