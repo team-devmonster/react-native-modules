@@ -1,4 +1,4 @@
-# @team-devmonster/react-modules
+# @team-devmonster/react-native-modules
 
 ## This is under devmonster's react & react-native union project.
 
@@ -7,8 +7,8 @@ General `react-native-modules` load map => [here](https://github.com/team-devmon
 General `react-modules` load map => [here](https://github.com/team-devmonster/react-modules);
 
 
-## all start
-### react<br>
+## start
+### react start<br>
 
 :: dependencies<br>
 `$ npm install react-hook-form @hookform/error-message @svgr/webpack`
@@ -17,7 +17,7 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 `$ npm install @team-devmonster/date@latest @team-devmonster/react-theme@latest @team-devmonster/react-tags@latest @team-devmonster/react-router@latest @team-devmonster/react-form@latest @team-devmonster/react-modal@latest`
 
 
-### react-native<br>
+### react-native start<br>
 
 :: dependencies<br>
 `$ npm install react-native-safe-area-context react-native-screens @react-navigation/native @react-navigation/native-stack react-hook-form @hookform/error-message react-native-svg react-native-svg-transformer @react-native-picker/picker react-native-date-picker react-native-month-year-picker react-native-image-picker react-native-document-picker @react-native-masked-view/masked-view react-native-linear-gradient react-native-reanimated react-native-gesture-handler`
@@ -26,21 +26,21 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 `$ npm install @team-devmonster/date@latest @team-devmonster/react-native-theme@latest @team-devmonster/react-native-tags@latest @team-devmonster/react-native-router@latest @team-devmonster/react-native-form@latest`
 
 ## modules
-:: javascript
+### javascript modules
 - [o] [date](https://www.npmjs.com/package/@team-devmonster/date)
 
-:: react
+### react modules
 - [o] [react-theme](https://www.npmjs.com/package/@team-devmonster/react-theme)
 - [o] [react-tags](https://www.npmjs.com/package/@team-devmonster/react-tags)
 - [o] [react-router](https://www.npmjs.com/package/@team-devmonster/react-router)
 - [o] [react-form](https://www.npmjs.com/package/@team-devmonster/react-form)
 - [o] [react-modal](https://www.npmjs.com/package/@team-devmonster/react-modal) // tempt => it will be included to react-router
-- [o] [react-skeletion](https://www.npmjs.com/package/@team-devmonster/react-modal)
+- [ ] [react-skeletion]
 - [ ] [react-fetch]
 - [ ] [react-img-editor]
 - [ ] [react-text-editor]
 
-:: react-native
+### react-native modules
 - [o] [react-native-theme](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
 - [o] [react-native-tags](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
 - [o] [react-native-router](https://www.npmjs.com/package/@team-devmonster/react-native-router)
