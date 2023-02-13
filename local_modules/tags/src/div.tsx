@@ -60,6 +60,24 @@ export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, .
     )
   }
   else {
+
+    // 아무때나 flex: 1 줘버리면 높이값이 사라질 때가 있음. 정확한 케이스에만 주어야 함.
+    // 정확한 규칙은 모르겠으나, flex: 1을 줄 때 가끔 생기는 것은 확실함...
+    const height = (() => {
+      if(!layoutStyle.height) return null;
+      if(typeof layoutStyle.height === 'number') return layoutStyle.height;
+      if(typeof layoutStyle.height === 'string') return '100%';
+    })()
+    const width = (() => {
+      if(!layoutStyle.width) return null;
+      if(typeof layoutStyle.width === 'number') return layoutStyle.width;
+      if(typeof layoutStyle.width === 'string') return '100%';
+    })()
+    const flex = (() => {
+      if(!layoutStyle.flex) return null;
+      if(layoutStyle.flex) return 1;
+    })()
+
     return (
       <View
         ref={ref}
@@ -72,11 +90,13 @@ export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, .
           flex: viewStyle.flex
         }}>
         <View style={{
-          // 여기에 flex: 1을 주게 되면, 높이값이 가끔 사라지는 문제가 생긴다. 정확한 규칙은 모르겠으나, flex: 1을 줄 때 가끔 생기는 것은 확실함...
-          // flex: 1,
           // 높이 넓이 최저값 지정해서 아이템이 없을 때도, 터지지 않게 처리
           minWidth: rowGap,
           minHeight: columnGap,
+          // 각 케이스별로 계산된 값 입력
+          height,
+          width,
+          flex,
           ...viewStyle,
           ...gapContainerStyle
         }} pointerEvents="box-none">
