@@ -67,13 +67,11 @@ const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleState
   return styles;
 }
 
-export const TagModule = ({ children, style, numberOfLines, ellipsizeMode }:TagProps):JSX.Element => {
-
-  const tagChildren = useMemo(() => makeTagChildren({ children, style, numberOfLines, ellipsizeMode }), [children, style, numberOfLines, ellipsizeMode]);
-
+export const TagModule = ({ children, style, numberOfLines, ellipsizeMode, rowGap, columnGap }:TagProps & { rowGap?:number, columnGap?:number }):JSX.Element => {
+  const tagChildren = useMemo(() => makeTagChildren({ children, style, numberOfLines, ellipsizeMode, rowGap, columnGap }), [children, style, numberOfLines, ellipsizeMode, rowGap, columnGap]);
   return tagChildren as JSX.Element;
 }
-const makeTagChildren = ({ children, style, numberOfLines, ellipsizeMode }:{ children?:TagElement, style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
+const makeTagChildren = ({ children, style, numberOfLines, ellipsizeMode, rowGap, columnGap }:{ children?:TagElement, style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip",  rowGap?:number, columnGap?:number }) => {
   if(Array.isArray(children)) {
     const newChildren:TagElement[] = [];
     const textchildren:(JSX.Element|string)[] = [];
@@ -103,15 +101,18 @@ const makeTagChildren = ({ children, style, numberOfLines, ellipsizeMode }:{ chi
             textchildren.length = 0;
           }
 
-          if(style?.marginVertical || style?.marginHorizontal) {
+          if(rowGap || columnGap) {
+            const style:any = {};
+            if(rowGap) style.marginVertical = rowGap/2;
+            if(columnGap) style.marginHorizontal = columnGap/2;
+            
             newChildren.push(
               <React.Fragment key={`tag_${i}`}>
                 {
                   React.cloneElement(child, {
                     style: {
                       ...child.props?.style,
-                      marginVertical: style?.marginVertical,
-                      marginHorizontal: style?.marginHorizontal,
+                      ...style
                     }
                   })
                 }

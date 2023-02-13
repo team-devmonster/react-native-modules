@@ -72,15 +72,19 @@ export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, .
           flex: viewStyle.flex
         }}>
         <View style={{
-          flex: 1,
+          // 여기에 flex: 1을 주게 되면, 높이값이 가끔 사라지는 문제가 생긴다. 정확한 규칙은 모르겠으나, flex: 1을 줄 때 가끔 생기는 것은 확실함...
+          // flex: 1,
+          // 높이 넓이 최저값 지정해서 아이템이 없을 때도, 터지지 않게 처리
+          minWidth: rowGap,
+          minHeight: columnGap,
           ...viewStyle,
           ...gapContainerStyle
         }} pointerEvents="box-none">
           <TagModule
+            rowGap={rowGap}
+            columnGap={columnGap}
             style={{
-            ...textStyle,
-            ...(rowGap ? {marginVertical: rowGap/2} : null),
-            ...(columnGap ? {marginHorizontal: columnGap/2} : null)
+            ...textStyle
           }}>{children}</TagModule>
         </View>
       </View>
