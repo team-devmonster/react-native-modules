@@ -4,7 +4,7 @@ import { TagElement, TagGroupConfig, TagProps, TagStyle } from "./type";
 
 
 
-const TagContext = createContext<{ tagConfig?:TagGroupConfig }>({});
+export const TagContext = createContext<{ tagConfig?:TagGroupConfig }>({});
 
 export function TagProvider({children, tagConfig}:{children:React.ReactNode, tagConfig?:TagGroupConfig}) {
 

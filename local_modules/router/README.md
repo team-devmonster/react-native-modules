@@ -12,6 +12,7 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 - [o] [`react-native-tags`](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
 - [o] [`react-native-form`](https://www.npmjs.com/package/@team-devmonster/react-native-form)
 - [o] [`react-native-skeleton`](https://www.npmjs.com/package/@team-devmonster/react-native-skeleton)
+- [o] [`react-native-imgViewer`](https://www.npmjs.com/package/@team-devmonster/react-native-imgViewer)
 
 #### author: devmonster
 
@@ -30,18 +31,17 @@ It was created for use with a layout sense similar to Html.
 - [o] [Footer]
 - [o] [FixedLayout] => fixed layout here.
 - [o] [useRouter] => It is similar to [nextjs router](https://nextjs.org/docs/api-reference/next/router)
+- [o] [Modal] => It is Modals. You can do multiple modal open.
+- [o] [Toast] => It is Toast Modals. You can use as function.
 
 
 ## Getting started
 
 Before use it, see these.<br>
-- [o] [`react-native-theme`](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
 - [o] [`react-native-tags`](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
-- [o] [`react-native-form`](https://www.npmjs.com/package/@team-devmonster/react-native-form)
-- [o] [react-native-skeleton](https://www.npmjs.com/package/@team-devmonster/react-native-skeleton)
 <br>
 
-`$ npm install @team-devmonster/react-native-theme@latest @team-devmonster/react-native-tags@latest @team-devmonster/react-native-router@latest`
+`$ npm install @team-devmonster/react-native-tags@latest @team-devmonster/react-native-router@latest`
 
 
 ## Examples
@@ -59,46 +59,146 @@ import { A, FixedLayout, Header, Layout } from "@local_modules/router";
 const RouterEx = () => {
 
   const { color } = useTheme<Theme>();
+  const router = useRouter();
+
+  const [visibleFull, setVisibleFull] = useState(false);
+  const [visibleHandle, setVisibleHandle] = useState(false);
+  const [visibleCenter, setVisibleCenter] = useState(false);
+  const [visibleClear, setVisibleClear] = useState(false);
 
   return (
     <Layout
       style={{
         backgroundColor: color.backgroundColor,
         flex: 1,
-        //padding: 18
+        padding: 18
       }}>
       <Header
+        headerLeft={
+          <Button onClick={() => router.back()}>
+            <ImgPaperAirplane color={color.primary} width={20} height={20}/>
+          </Button>
+        }
         title="Hello Header"
         headerRight={
-          <Button>
+          <Button style={{ marginRight: -20 }}>
             setting
           </Button>
-        }/>
-      <A href='/themeEx'>
-        <Button color={color.primary} style={{ marginBottom: 8 }}>themeEx</Button>
-      </A>
-      <A href={{
-        pathname: '/routerEx/paramEx',
-        query: {
-          name: 'soohong kim',
-          nickname: 'aldegad',
-          company: 'devmonster'
-        }
-      }}>
-        <Button color={color.danger} style={{ marginBottom: 8 }}>paramEx</Button>
-      </A>
-      <A href='https://www.google.co.kr'>
-        <Button color={color.warning}>google</Button>
-      </A>
-      <FixedLayout>
-        <Div style={{ backgroundColor: 'red', top: 0 }}>hello</Div>
-        {
-          isTrue ? null : <Div style={{ backgroundColor: 'red', top: 0 }}>hello</Div>
-        }
-        <Div style={{ backgroundColor: 'red' }}>hello</Div>
-        <Div style={{ backgroundColor: 'red' }}>hello</Div>
-        <Div style={{ backgroundColor: 'red' }}>hello</Div>
-      </FixedLayout>
+      }>
+        <P style={{ height: 56, alignItems: 'center', justifyContent: 'center', backgroundColor: color.step100 }}>next line</P>
+      </Header>
+
+      <Div style={{ rowGap: 8 }}>
+        <A href='/themeEx'>
+          <Button color={color.primary}>themeEx</Button>
+        </A>
+        
+        <A href={{
+          pathname: '/routerEx/paramEx',
+          query: {
+            name: 'soohong kim',
+            nickname: 'aldegad',
+            company: 'devmonster',
+            des: 'use A & href',
+          }
+        }}>
+          <Button color={color.danger}>paramEx(A)</Button>
+        </A>
+        
+        <Button
+          onClick={() => {
+            router.push({
+              pathname: '/routerEx/paramEx',
+              query: {
+                name: 'soohong kim',
+                nickname: 'aldegad',
+                company: 'devmonster',
+                des: 'use useRouter & push'
+              }
+            })
+          }}
+          color={color.danger} 
+        >paramEx(Router)</Button>
+        
+        <A href='https://www.google.co.kr'>
+          <Button color={color.warning}>google</Button>
+        </A>
+
+        <Button 
+          onClick={() => {
+            setVisibleFull(true);
+          }}
+          color={color.danger} 
+        >open modal fullScreen</Button>
+
+        <Button 
+          onClick={() => {
+            setVisibleHandle(true);
+          }}
+          color={color.danger} 
+        >open modal handleScreen</Button>
+
+        <Button 
+          onClick={() => {
+            setVisibleCenter(true);
+          }}
+          color={color.danger} 
+        >open modal center</Button>
+
+        <Button 
+          onClick={() => {
+            setVisibleClear(true);
+          }}
+          color={color.danger}
+        >open modal clear</Button>
+
+        <Button 
+          onClick={() => {
+            Toast({ message: '토스트 완성' });
+          }}
+          color={color.step900}
+        >open Toast</Button>
+      </Div>
+
+      <Modal 
+        visible={visibleFull}
+        onRequestClose={() => setVisibleFull(false)}
+        type="fullScreen"
+      >
+        <H1>Modal Fullscreen</H1>
+        
+        <Button onClick={() => setVisibleFull(false)}>close Modal</Button>
+      </Modal>
+
+      <Modal 
+        visible={visibleHandle}
+        onRequestClose={() => setVisibleHandle(false)}
+        type="handleScreen"
+      >
+        <H1>Modal HandleScreen</H1>
+        
+        <Button onClick={() => setVisibleHandle(false)}>close Modal</Button>
+      </Modal>
+
+      <Modal 
+        visible={visibleCenter}
+        onRequestClose={() => setVisibleCenter(false)}
+        type="center"
+      >
+        <H1>Modal Center</H1>
+        
+        <Button onClick={() => setVisibleCenter(false)}>close Modal</Button>
+      </Modal>
+
+      <Modal 
+        visible={visibleClear}
+        onRequestClose={() => setVisibleClear(false)}
+        type="clear"
+      >
+        <H1>Modal Clear</H1>
+        
+        <Button onClick={() => setVisibleClear(false)}>close Modal</Button>
+      </Modal>
     </Layout>
   )
 }
@@ -212,7 +312,26 @@ import FormEx from "@pages/formEx";
 import SwiperEx from "@pages/swiperEx";
 
 
-
+export const AppRouterProvider = ({children}: {children:React.ReactNode}) => {
+  const { color, colorScheme } = useTheme<Theme>();
+  const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
+  // SafeAreaProvider & NavigationContainer are needed to out of RouterProvider
+  // style & theme is just option. do what you want.
+  return (
+    <SafeAreaProvider style={{ flex: 1, backgroundColor: color.white }}>
+      <NavigationContainer theme={{
+        ...theme,
+        colors: {
+          ...theme.colors
+        }
+      }}>
+        <RouterProvider>
+          {children}
+        </RouterProvider>
+      </NavigationContainer>
+    </SafeAreaProvider>
+  )
+}
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -221,19 +340,15 @@ const Navigation = () => {
   const { color, colorScheme } = useTheme<Theme>();
   
   return (
-    <SafeAreaProvider style={{ backgroundColor: color.backgroundColor }}>
-      <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <RootStack.Navigator initialRouteName="index">
-          <RootStack.Screen name="index" component={Index}/>
-          <RootStack.Screen name="themeEx" component={ThemeEx}/>
-          <RootStack.Screen name="tagsEx" component={TagsEx}/>
-          <RootStack.Screen name="routerEx" component={RouterEx}/>
-          <RootStack.Screen name="routerEx/paramEx" component={ParamEx}/>
-          <RootStack.Screen name="formEx" component={FormEx}/>
-          <RootStack.Screen name="swiperEx" component={SwiperEx}/>
-        </RootStack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <RootStack.Navigator initialRouteName="index">
+      <RootStack.Screen name="index" component={Index}/>
+      <RootStack.Screen name="themeEx" component={ThemeEx}/>
+      <RootStack.Screen name="tagsEx" component={TagsEx}/>
+      <RootStack.Screen name="routerEx" component={RouterEx}/>
+      <RootStack.Screen name="routerEx/paramEx" component={ParamEx}/>
+      <RootStack.Screen name="formEx" component={FormEx}/>
+      <RootStack.Screen name="swiperEx" component={SwiperEx}/>
+    </RootStack.Navigator>
   )
 }
 

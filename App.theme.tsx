@@ -1,10 +1,12 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from '@local_modules/theme';
-import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, TagConfig, Div } from '@local_modules/tags';
+import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, TagConfig, Div, ToastConfig } from '@local_modules/tags';
 import ImgPaperAirplane from "assets/images/paperAirplane.svg";
 import { HeaderConfig } from '@local_modules/tags';
 import { RouterProvider } from '@local_modules/router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const color = {
   light: {
@@ -245,6 +247,12 @@ const theme = (color:Color) => {
   const header:HeaderConfig = {
     
   }
+  
+  const toast:ToastConfig = {
+    contentStyle: {
+      backgroundColor: color.primary
+    }
+  }
 
   return {
     // basic theme
@@ -254,7 +262,7 @@ const theme = (color:Color) => {
     // form theme
     input, select, label, errorText,
     // router theme
-    layout
+    layout, toast
   }
 }
 
@@ -281,13 +289,24 @@ export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
 }
 
 export const AppRouterProvider = ({children}: {children:React.ReactNode}) => {
-  const { color } = useTheme<Theme>();
+  const { color, colorScheme } = useTheme<Theme>();
+  const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
+
   return (
-    <SafeAreaProvider style={{ flex: 1, backgroundColor: color.white }}>
-      <RouterProvider>
-        {children}
-      </RouterProvider>
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider style={{ flex: 1, backgroundColor: color.white }}>
+        <NavigationContainer theme={{
+          ...theme,
+          colors: {
+            ...theme.colors
+          }
+        }}>
+          <RouterProvider>
+            {children}
+          </RouterProvider>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   )
 }
 

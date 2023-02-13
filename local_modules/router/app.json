@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "@team-devmonster/react-native-router",
+    "slug": "@team-devmonsterreact-native-router",
+    "version": "1.5.8",
+    "description": "This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.",
+    "sdkVersion": "46.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ]
+  }
+}

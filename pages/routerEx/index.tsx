@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Div, Button, P, H1 } from "@local_modules/tags";
-import { A, FixedLayout, Header, Layout, Modal } from "@local_modules/router";
-import { useRouter } from "@local_modules/router/dist/esm/src/useRouter";
+import { A, FixedLayout, Header, Layout, Modal, useRouter, createModal, RouterContext } from "@local_modules/router";
 
 import ImgPaperAirplane from "assets/images/paperAirplane.svg";
 import { MainHeader } from "@components/mainHeader";
 import { FadeIn } from "react-native-reanimated";
+import { Toast } from "@local_modules/router";
 
-const isTrue = true;
 const RouterEx = () => {
 
   const { color } = useTheme<Theme>();
@@ -19,7 +18,6 @@ const RouterEx = () => {
   const [visibleHandle, setVisibleHandle] = useState(false);
   const [visibleCenter, setVisibleCenter] = useState(false);
   const [visibleClear, setVisibleClear] = useState(false);
-  const [count, setCount] = useState(0);
 
   return (
     <Layout
@@ -28,7 +26,7 @@ const RouterEx = () => {
         flex: 1,
         padding: 18
       }}>
-      {/* <Header
+      <Header
         headerLeft={
           <Button onClick={() => router.back()}>
             <ImgPaperAirplane color={color.primary} width={20} height={20}/>
@@ -41,8 +39,7 @@ const RouterEx = () => {
           </Button>
       }>
         <P style={{ height: 56, alignItems: 'center', justifyContent: 'center', backgroundColor: color.step100 }}>next line</P>
-      </Header> */}
-      <MainHeader/>
+      </Header>
 
       <Div style={{ rowGap: 8 }}>
         <A href='/themeEx'>
@@ -107,6 +104,13 @@ const RouterEx = () => {
           }}
           color={color.danger}
         >open modal clear</Button>
+
+        <Button 
+          onClick={() => {
+            Toast({ message: '토스트 완성' });
+          }}
+          color={color.step900}
+        >open Toast</Button>
       </Div>
 
       <Modal 
@@ -127,6 +131,26 @@ const RouterEx = () => {
         <H1>Modal HandleScreen</H1>
         
         <Button onClick={() => setVisibleHandle(false)}>close Modal</Button>
+      </Modal>
+
+      <Modal 
+        visible={visibleCenter}
+        onRequestClose={() => setVisibleCenter(false)}
+        type="center"
+      >
+        <H1>Modal Center</H1>
+        
+        <Button onClick={() => setVisibleCenter(false)}>close Modal</Button>
+      </Modal>
+
+      <Modal 
+        visible={visibleClear}
+        onRequestClose={() => setVisibleClear(false)}
+        type="clear"
+      >
+        <H1>Modal Clear</H1>
+        
+        <Button onClick={() => setVisibleClear(false)}>close Modal</Button>
       </Modal>
     </Layout>
   )

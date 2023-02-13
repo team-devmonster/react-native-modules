@@ -25,6 +25,7 @@ export interface TagGroupConfig {
   layout?:TagConfig,
   header?:HeaderConfig,
   footer?:TagConfig,
+  toast?:ToastConfig,
   // forms
   input?: InputConfig
   errorText?: ErrorTextConfig,
@@ -208,3 +209,11 @@ export interface LabelConfig {
 /**************************************/
 /*************** router ***************/
 /**************************************/
+
+export type ToastConfig = {
+  message?:string,
+  duration?:number,
+  position?:'top'|'bottom',
+  style?:TagStyle,
+  contentStyle?:TagStyle
+}

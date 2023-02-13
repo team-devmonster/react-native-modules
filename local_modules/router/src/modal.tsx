@@ -1,9 +1,10 @@
 import { Button, Div, TagElement, TagStyle } from "@team-devmonster/react-native-tags";
-import React, { createContext, Dispatch, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { Dimensions, StyleSheet, useColorScheme, View } from "react-native";
+import React, { createContext, Dispatch, useEffect, useMemo, useRef, useState } from "react";
+import { BackHandler, Dimensions, StyleSheet, useColorScheme, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { FadeIn, FadeInDown, FadeOut, FadeOutDown, SlideOutDown, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 export type ModalProps = {
   entering?:any,
@@ -18,43 +19,46 @@ export type ModalProps = {
   children?:any
 }
 
-type ModalsProps = { 
+type ModalsProps = {
   [key:string]:ModalProps
 };
-const RouterContext = createContext<{ modals:ModalsProps, setModals:Dispatch<ModalsProps>, modalsRef:React.MutableRefObject<ModalsProps> }>({} as any);
+export const RouterContext = createContext<{ modals:ModalsProps, setModals:Dispatch<ModalsProps>, modalsRef:React.MutableRefObject<ModalsProps> } | any>({} as any);
 
+// context 말고 그냥 전역변수 지정하니까 무한 버블링 문제가 사라진다... 뭘까 이건... 거지 같네?
+// 그럼 context는 왜 쓰는거지? 이건 뭐지?? 대체??
+const modalVariables = {
+  modals:null as any,
+  setModals:null as any,
+  modalsRef:{ current: null as any }
+}
 export const RouterProvider = ({children}:{children:React.ReactNode}) => {
 
   const [modals, setModals] = useState<ModalsProps>({});
   const modalsRef = useRef<ModalsProps>({});
+  modalVariables.modals = modals;
+  modalVariables.setModals = setModals;
+  modalVariables.modalsRef = modalsRef;
 
   return (
-    <RouterContext.Provider value={{ modals, setModals, modalsRef }}>
+    <>
       {children}
-      {Object.entries(modals).map(([key, props]) => {
+      {Object.entries(modals).map(([key, {visible, ...rest}]) => {
         return (
-          <ModalContent key={key} {...props}></ModalContent>
+          visible ?
+            <ModalContent key={key} {...rest}></ModalContent>
+          : null
         )
       })}
       {/* 정말 이유는 모르겠지만, 마지막에 이놈 View를 넣어주어야 exit 애니메이션이 작동한다..... 왜지...? */}
       <View></View>
-    </RouterContext.Provider>
+    </>
   )
 }
 
-
 export const Modal = (props:ModalProps) => {
-
-  const { setModals, modalsRef } = useContext(RouterContext);
+  const { setModals, modalsRef } = modalVariables;
   
   const key = useMemo(() => String(new Date().getTime()) + 'M' + Object.keys(modalsRef.current).length, []);
-
-  useMemo(() => {
-    modalsRef.current = {
-      ...modalsRef.current,
-      [key]: props
-    }
-  }, [props]);
 
   useEffect(() => {
     return () => {
@@ -63,14 +67,35 @@ export const Modal = (props:ModalProps) => {
     }
   }, [])
 
+  useMemo(() => {
+    modalsRef.current[key] = props;
+  }, [props]);
+  
   useEffect(() => {
-    setModals(modalsRef.current);
+    setModals({...modalsRef.current});
   }, [props]);
 
   return null;
 }
+export const createModal = (props:ModalProps) => {
+  const { setModals, modalsRef } = modalVariables;
 
-const ModalContent = ({ visible, type, children, onRequestClose, style, backDropStyle, contentStyle, handleStyle }:ModalProps) => {
+  const key = String(new Date().getTime()) + 'M' + Object.keys(modalsRef.current).length;
+
+  modalsRef.current[key] = props;
+  setModals({...modalsRef.current});
+
+  return {
+    remove: () => {
+      delete modalsRef.current[key];
+      setModals(modalsRef.current);
+    }
+  }
+}
+
+export const ModalContent = ({ type = 'fullScreen', children, onRequestClose, style, backDropStyle, contentStyle, handleStyle }:ModalProps) => {
+
+  const navigation = useNavigation();
 
   const safe = useSafeAreaInsets();
   const { height } = Dimensions.get('window');
@@ -106,8 +131,16 @@ const ModalContent = ({ visible, type, children, onRequestClose, style, backDrop
   })
   .runOnJS(true), []);
 
-
-  if(!visible) return null;
+  
+  useEffect(() => {
+    const $BackButtonSubs = BackHandler.addEventListener('hardwareBackPress', function () {
+      onRequestClose?.();
+      return true;
+    });
+    return () => {
+      $BackButtonSubs.remove();
+    }
+  }, [navigation]);
 
   switch(type) {
     case 'fullScreen':
