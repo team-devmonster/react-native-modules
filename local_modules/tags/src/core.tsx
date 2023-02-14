@@ -90,23 +90,19 @@ const makeTagChildren = ({ children, style, numberOfLines, ellipsizeMode, rowGap
 
     if(child.props?.style?.display === 'inline-flex') { return React.cloneElement(child, { style: { ...child.props.style, display: 'flex' } }) };
     
-    if(textChildren.length) {
-      return (
-        <>
-          <GroupText textChildren={textChildren} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}/>
-          <GapView child={child} rowGap={rowGap} columnGap={columnGap}/>
-        </>
-      )
-    }
-
-    return <GapView child={child} rowGap={rowGap} columnGap={columnGap}/>;
+    return (
+      <>
+        { textChildren.length ? <GroupText textChildren={textChildren} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}/> : null }
+        <GapView child={child} rowGap={rowGap} columnGap={columnGap}/>
+      </>
+    )
   })
 
   // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
   return (
     <>
       {newChildren}
-      <GroupText textChildren={textChildren} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}/>
+      { textChildren.length ? <GroupText textChildren={textChildren} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}/> : null }
     </>
   )
 }
@@ -129,7 +125,6 @@ const GapView = ({ child, rowGap, columnGap }:{ child:JSX.Element, rowGap?:numbe
 }
 
 const GroupText = ({ textChildren, style, numberOfLines, ellipsizeMode:_ }:{ textChildren:TagElement[], style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
-  if(!textChildren.length) return null;
   const cloneTextChildren = [...textChildren];
   textChildren.length = 0;
   return (
