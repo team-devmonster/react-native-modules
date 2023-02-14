@@ -104,13 +104,11 @@ export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, .
           <TagModule
             rowGap={rowGap}
             columnGap={columnGap}
-            style={{
-            ...textStyle
-          }}>{children}</TagModule>
+            style={textStyle}
+          >{children}</TagModule>
         </View>
       </View>
     )
   }
 })
-
 Div.displayName = 'Div';

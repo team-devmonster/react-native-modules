@@ -16,7 +16,7 @@ export const Button = forwardRef(({
     disabled, 
     onClick, 
     onLayout, 
-    children, 
+    children,
     ...rest}:ButtonProps,
     ref:LegacyRef<View>
   ) => {
@@ -128,9 +128,8 @@ export const Button = forwardRef(({
             onPress={onClick}
             {...rest}>
             <TagModule
-              style={{
-                ...textStyle
-              }}>{children}</TagModule>
+              style={textStyle}
+            >{children}</TagModule>
           </Pressable>
         </View>
       </View>
@@ -165,17 +164,17 @@ export const Button = forwardRef(({
             onPress={onClick}
             {...rest}>
             <TagModule
-              style={{
-                ...textStyle,
-                ...(rowGap ? {marginVertical: rowGap/2} : null),
-                ...(columnGap ? {marginHorizontal: columnGap/2} : null)
-              }}>{children}</TagModule>
+              style={textStyle}
+              rowGap={rowGap}
+              columnGap={columnGap}
+            >{children}</TagModule>
           </Pressable>
         </View>
       </View>
     )
   }
 });
+Button.displayName = 'Button';
 
 const getStyles = ({ tagConfig, color, fill, inlineColor, lightOrDark }:{tagConfig:TagGroupConfig|undefined, color:string, fill:FillProps, inlineColor?:string, lightOrDark:'light'|'dark'}) => {
 

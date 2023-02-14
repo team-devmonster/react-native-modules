@@ -67,13 +67,13 @@ const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleState
   return styles;
 }
 
-export const TagModule = ({ children, style, numberOfLines, ellipsizeMode, rowGap, columnGap }:TagProps & { rowGap?:number, columnGap?:number }):JSX.Element => {
+export const TagModule = (props:TagProps & { rowGap?:number, columnGap?:number }):JSX.Element => {
   // children이 거의 항상 갱신되기 때문에 큰 의미는 없어보이기는 함. 그래도 빼면 아쉽다.
-  const tagChildren = useMemo(() => makeTagChildren({ children, style, numberOfLines, ellipsizeMode, rowGap, columnGap }), [children, style, numberOfLines, ellipsizeMode, rowGap, columnGap]);
-  return tagChildren as any;
+  // const tagChildren = useMemo(() => makeTagChildren({ children, style, numberOfLines, ellipsizeMode, rowGap, columnGap }), [children, style, numberOfLines, ellipsizeMode, rowGap, columnGap]);
+  return <TagChildren {...props}/>
 }
 
-const makeTagChildren = ({ children, style, numberOfLines, ellipsizeMode, rowGap, columnGap }:{ children?:TagElement, style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip",  rowGap?:number, columnGap?:number }) => {
+const TagChildren = ({ children, style, numberOfLines, ellipsizeMode, rowGap, columnGap }:{ children?:TagElement, style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip",  rowGap?:number, columnGap?:number }) => {
   const textChildren:(JSX.Element|string)[] = [];
   const newChildren = Children.map(children, (child) => {
     if(!child) return child;
@@ -110,13 +110,16 @@ const makeTagChildren = ({ children, style, numberOfLines, ellipsizeMode, rowGap
 const GapView = ({ child, rowGap, columnGap }:{ child:JSX.Element, rowGap?:number, columnGap?:number }) => {
   // gap때문에 View 애들도 따로 처리를 해주어야한다.
   if(rowGap || columnGap) {
-    const style:any = child.props?.style || {};
+    const style:any = {};
     if(rowGap) style.marginVertical = rowGap/2;
     if(columnGap) style.marginHorizontal = columnGap/2;
     
     return (
       React.cloneElement(child, {
-        style
+        style: {
+          ...child.props?.style,
+          ...style
+        }
       })
     );
   }
