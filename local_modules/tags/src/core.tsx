@@ -32,6 +32,7 @@ export const iconPattern = /(^icon)/;
 
 export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[]):any[] => {
   /* 이건 그냥 state바뀌면 무한 갱신함. 무언가 방법이 필요함 */
+  // 아 뭔가... 스타일 뭔가 더 개선할 수 있을 것 같은데...
   const styles = useMemo(() => makeTagStyle({ patterns, styleStates }), styleStates);
   return styles;
 }

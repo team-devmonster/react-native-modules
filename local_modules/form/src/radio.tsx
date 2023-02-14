@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import { TextInput, View } from "react-native";
-import { Control, Controller, Path as Names } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import Animated, { ZoomIn } from "react-native-reanimated";
 
-import { FormValues, InputRuleProps } from "./type";
+import { FormValues, InputProps } from "./type";
 import { TagStyle, useTags, useTagStyle, Button, TagGroupConfig, borderPattern } from '@team-devmonster/react-native-tags';
 
 
@@ -15,12 +15,7 @@ const radioDefaultStyle:TagStyle = {
   justifyContent: 'center',
   alignItems: 'center'
 }
-export interface RadioProps<T extends FormValues = any> extends InputRuleProps {
-  control:Control<T>,
-  name:Names<T>,
-  style?:TagStyle,
-  disabledStyle?:TagStyle,
-  errorStyle?:TagStyle
+export interface RadioProps<T extends FormValues = any> extends Omit<InputProps<T>, 'placeholder'> {
 }
 export function Radio<T extends FormValues>(
   {

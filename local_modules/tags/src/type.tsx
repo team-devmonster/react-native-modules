@@ -30,7 +30,8 @@ export interface TagGroupConfig {
   input?: InputConfig
   errorText?: ErrorTextConfig,
   label?: LabelConfig,
-  select?: SelectConfig
+  select?: SelectConfig,
+  toggle?: ToggleConfig,
 }
 export interface TagConfig {
   style?:TagStyle
@@ -170,6 +171,12 @@ export interface SelectConfig {
   confirmButtonStyle?:ButtonStyle,
   cancelButtonStyle?:ButtonStyle
 }
+export interface ToggleConfig {
+  style?:ToggleStyle,
+  checkedStyle?:ToggleStyle,
+  disabledStyle?:ToggleStyle,
+  errorStyle?:ToggleStyle
+}
 export interface InputCheckboxStyle extends TagStyle {
   icon?:TagElement,
   iconColor?:string,
@@ -190,6 +197,12 @@ export interface InputDateStyle extends TagStyle {
 }
 
 export interface SelectStyle extends InputStyle {
+  icon?:TagElement,
+  iconColor?:string,
+  iconWidth?:number,
+  iconHeight?:number
+}
+export interface ToggleStyle extends InputStyle {
   icon?:TagElement,
   iconColor?:string,
   iconWidth?:number,

@@ -4,10 +4,11 @@ import { useForm } from "react-hook-form";
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Button, Div } from "@local_modules/tags";
-import { ErrorText, Input, Label, Select, Option, Textarea } from "@local_modules/form";
+import { ErrorText, Input, Label, Select, Option, Textarea, Toggle } from "@local_modules/form";
 import { Footer, Header, Layout } from "@local_modules/router";
 
 interface FormProps {
+  toogle:boolean,
   id:string, 
   password:string,
   phone:string,
@@ -43,6 +44,20 @@ const FormEx = () => {
   return (
     <Layout style={{ padding: 20, backgroundColor: color.white }}>
       <Header title="react-hook-form"/>
+      <Toggle  
+        control={control} 
+        name="toogle" 
+        style={{ 
+          width: 100,
+          height: 25,
+          iconColor: color.step100,
+          iconWidth: 50,
+          iconHeight: 50
+        }}
+        checkedStyle={{ 
+          iconColor: color.primary
+        }}
+      />
       <Div style={{ rowGap: 8 }}>
         <Input
           control={control}

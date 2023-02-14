@@ -1,17 +1,13 @@
 import React, { useMemo } from "react";
 import { TextInput } from "react-native";
-import { Control, Controller, Path as Names } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import Svg, { Path } from "react-native-svg";
 import Animated, { ZoomIn } from "react-native-reanimated";
 
 import { FormValues, InputProps } from "./type";
-import { TagStyle, useTags, useTagStyle, Button, borderPattern, TagGroupConfig } from '@team-devmonster/react-native-tags';
+import { useTags, useTagStyle, Button, borderPattern, TagGroupConfig } from '@team-devmonster/react-native-tags';
 export interface CheckboxProps<T extends FormValues = any> extends Omit<InputProps<T>, 'placeholder'> {
-  control:Control<T>,
-  name:Names<T>,
-  style?:TagStyle,
-  disabledStyle?:TagStyle,
-  errorStyle?:TagStyle
+
 }
 export function Checkbox<T extends FormValues>({
     control, 

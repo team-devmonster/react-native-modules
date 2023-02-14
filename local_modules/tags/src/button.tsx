@@ -108,7 +108,8 @@ export const Button = forwardRef(({
           ...shadowStyle,
           ...marginStyle,
           ...borderRadiusStyle
-        }}>
+        }}
+        onLayout={onLayout}>
         <View
           style={{
             ...calcInnerSize,
@@ -149,7 +150,8 @@ export const Button = forwardRef(({
           ...calcInnerSize,
           overflow: 'hidden',
           ...borderStyle
-        }}>
+        }}
+        onLayout={onLayout}>
           <Pressable
             disabled={disabled}
             style={{

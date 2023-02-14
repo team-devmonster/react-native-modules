@@ -57,39 +57,39 @@ export const Layout = forwardRef(({ children, edges, style, onScroll, scrollEven
   if(style?.overflow !== 'hidden') {
     return (
       <Layout
-          ref={ref}
-          style={{ flex: 1, backgroundColor: style?.backgroundColor }}
-          behavior="padding">
-          {header}
-          <ScrollView 
-            ref={scrollRef}
-            onScroll={onScroll}
-            scrollEventThrottle={resultScrollEventThrottle}
-            style={{
-              flex: 1
-            }}>
-            {
-              edges?.length ?
-                <SafeAreaView
-                  edges={resultEdges}
-                  style={contentStyle} {...rest}>
-                  {contents}
-                </SafeAreaView>
-              :
-                <View
-                  style={contentStyle} {...rest}>
-                  {contents}
-                </View>
-            }
-          </ScrollView>
-          {fixedLayout}
+        ref={ref}
+        style={{ flex: 1, backgroundColor: style?.backgroundColor }}
+        behavior="padding">
+        {header}
+        <ScrollView 
+          ref={scrollRef}
+          onScroll={onScroll}
+          scrollEventThrottle={resultScrollEventThrottle}
+          style={{
+            flex: 1
+          }}>
           {
-            footer ?
-            React.cloneElement(footer as any, {
-              bottomEdge: keyboardVisible
-            })
-            : null
+            edges?.length ?
+              <SafeAreaView
+                edges={resultEdges}
+                style={contentStyle} {...rest}>
+                {contents}
+              </SafeAreaView>
+            :
+              <View
+                style={contentStyle} {...rest}>
+                {contents}
+              </View>
           }
+        </ScrollView>
+        {fixedLayout}
+        {
+          footer ?
+          React.cloneElement(footer as any, {
+            bottomEdge: keyboardVisible
+          })
+          : null
+        }
       </Layout>
     )
   }

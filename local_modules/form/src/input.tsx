@@ -15,14 +15,14 @@ export function Input<T extends FormValues>(props:InputProps<T>)
     case 'month':
     //case 'datetime-local':
     case 'time':
-      return <DateInput type={type} {...rest}/>;
+      return <DateInput type={type} {...rest as any}/>;
     case 'checkbox':
-      return <Checkbox {...rest}/>;
+      return <Checkbox {...rest as any}/>;
     case 'radio':
-      return <Radio {...rest}/>;
+      return <Radio {...rest as any}/>;
     case 'file':
-      return <FileInput {...rest}/>;
+      return <FileInput {...rest as any}/>;
     default:
-      return <BaseInput type={type} {...rest}/>;
+      return <BaseInput type={type} {...rest as any}/>;
   } 
 }
