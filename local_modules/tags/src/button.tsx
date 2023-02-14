@@ -5,8 +5,9 @@ import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern,
 import { ButtonProps, FillProps, TagGroupConfig } from "./type";
 import { darken, getLightOrDark, lighten } from "./utils";
 
-export const Button = forwardRef(({ 
+export const Button = forwardRef(({
     tag:_,
+    animated:inlineAnimated,
     color:inlineColor, 
     fill:_fill, 
     style, 
@@ -22,6 +23,7 @@ export const Button = forwardRef(({
 
   const { tagConfig } = useTags();
   
+  const animated = inlineAnimated ?? tagConfig?.button?.animated ?? true;
   const fill = _fill || tagConfig?.button?.fill || 'base';
   const color = useMemo(() => inlineColor || tagConfig?.button?.color || '#FF6420', [inlineColor, tagConfig?.button?.color]);
   const lightOrDark = useMemo(() => getLightOrDark(color), [color]);
@@ -48,34 +50,32 @@ export const Button = forwardRef(({
   ], [
     styles.tagStyle, 
     disabled ? styles.tagDisabledStyle : undefined,
-    active ? styles.tagActiveStyle : undefined,
+    animated && active ? styles.tagActiveStyle : undefined,
     style,
     disabled ? disabledStyle : undefined,
-    active ? activeStyle : undefined
+    animated && active ? activeStyle : undefined
   ]);
   const borderRadiusStyle = useMemo(() => ({
     borderTopLeftRadius: borderStyle?.borderTopLeftRadius ?? borderStyle?.borderRadius,
     borderTopRightRadius: borderStyle?.borderTopRightRadius ?? borderStyle?.borderRadius,
     borderBottomLeftRadius: borderStyle?.borderBottomLeftRadius ?? borderStyle?.borderRadius,
     borderBottomRightRadius: borderStyle?.borderBottomRightRadius ?? borderStyle?.borderRadius
-  }), [borderStyle]);
+  }), Object.entries(borderStyle));
 
   // 아무때나 flex: 1 줘버리면 높이값이 사라질 때가 있음. 정확한 케이스에만 주어야 함.
   // 정확한 규칙은 모르겠으나, flex: 1을 줄 때 가끔 생기는 것은 확실함...
   const calcInnerSize = useMemo(() => ({
     height: (() => {
-      if(!layoutStyle.height) return null;
-      if(typeof layoutStyle.height === 'number') return layoutStyle.height;
-      if(typeof layoutStyle.height === 'string') return '100%';
+      if(!layoutStyle.height || layoutStyle.height === 'auto') return null;
+      else return '100%';
     })(),
     width: (() => {
-      if(!layoutStyle.width) return null;
-      if(typeof layoutStyle.width === 'number') return layoutStyle.width;
-      if(typeof layoutStyle.width === 'string') return '100%';
+      if(!layoutStyle.width || layoutStyle.width == 'auto') return null;
+      else return '100%';
     })(),
     flex: (() => {
       if(!layoutStyle.flex) return null;
-      if(layoutStyle.flex) return 1;
+      else return 1;
     })()
   }), [layoutStyle.height, layoutStyle.width, layoutStyle.flex]);
   
@@ -117,14 +117,12 @@ export const Button = forwardRef(({
           }}>
           <Pressable
             disabled={disabled}
-            style={({ pressed }) => {
-              return {
-                ...calcInnerSize,
-                ...borderRadiusStyle,
-                ...viewStyle
-              }
+            style={{
+              ...calcInnerSize,
+              ...borderRadiusStyle,
+              ...viewStyle
             }}
-            android_ripple={{ color: viewStyle.backgroundColor }}
+            android_ripple={animated ? { color: viewStyle.backgroundColor } : null}
             onPressIn={onPressStart}
             onPressOut={onPressEnd}
             onPress={onClick}
@@ -139,8 +137,6 @@ export const Button = forwardRef(({
     )
   }
   else  {
-    
-
     return (
       <View 
         ref={ref}
@@ -148,7 +144,7 @@ export const Button = forwardRef(({
           ...layoutStyle,
           ...shadowStyle,
           ...marginStyle,
-          ...borderRadiusStyle,
+          ...borderRadiusStyle
         }}>
         <View style={{
           ...calcInnerSize,
@@ -157,15 +153,13 @@ export const Button = forwardRef(({
         }}>
           <Pressable
             disabled={disabled}
-            style={({ pressed }) => {
-              return {
-                ...calcInnerSize,
-                ...borderRadiusStyle,
-                ...gapContainerStyle,
-                ...viewStyle
-              }
+            style={{
+              ...calcInnerSize,
+              ...borderRadiusStyle,
+              ...gapContainerStyle,
+              ...viewStyle
             }}
-            android_ripple={{ color: viewStyle.rippleColor }}
+            android_ripple={animated ? { color: viewStyle.backgroundColor } : null}
             onPressIn={onPressStart}
             onPressOut={onPressEnd}
             onPress={onClick}

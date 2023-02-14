@@ -1,4 +1,4 @@
-import React, { forwardRef, LegacyRef, useEffect, useMemo, useState } from "react";
+import React, { Children, forwardRef, LegacyRef, useEffect, useMemo, useState } from "react";
 import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, View, ViewStyle } from "react-native";
 import { Edge, SafeAreaView } from "react-native-safe-area-context";
 import { TagElement, TagProps, useTags } from "@team-devmonster/react-native-tags";
@@ -136,42 +136,39 @@ const newChildren = ({ children }:{ children:TagElement })
   let fixedLayout = null;
   let footer = null;
 
-  if(Array.isArray(children)) {
-    for(let i = 0; i < children.length; i++) {
-      const child = children[i];
-      if(!child) {
-        contents.push(child);
-        continue;
-      }
-      if(Array.isArray(child)) {
-        contents.push(child);
-        continue;
-      }
-      
-      // not array
-      if(typeof child === 'string' || typeof child === 'number') {
-        contents.push(child);
-        continue;
-      }
-      
-      switch(child?.type?.displayName) {
-        case 'Header':
-          header = child;
-          break;
-        case 'FixedLayout':
-          fixedLayout = child;
-          break;
-        case 'Footer':
-          footer = child;
-          break;
-        default:
-          contents.push(child);
-          break;
-      }
+  const childrenArr = Children.toArray(children);
+
+  for(let i = 0; i < childrenArr.length; i++) {
+    const child = childrenArr[i] as TagElement;
+    if(!child) {
+      contents.push(child);
+      continue;
     }
-  }
-  else {
-    contents = children;
+    if(Array.isArray(child)) {
+      contents.push(child);
+      continue;
+    }
+    
+    // not array
+    if(typeof child === 'string' || typeof child === 'number') {
+      contents.push(child);
+      continue;
+    }
+    
+    switch(child?.type?.displayName) {
+      case 'Header':
+        header = child;
+        break;
+      case 'FixedLayout':
+        fixedLayout = child;
+        break;
+      case 'Footer':
+        footer = child;
+        break;
+      default:
+        contents.push(child);
+        break;
+    }
   }
 
   if(!header || header?.props?.headerShown === false) edges.push('top');

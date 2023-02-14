@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Button, Div, H1 } from "@local_modules/tags";
 import { Layout, A, Header } from "@local_modules/router";
 import ImgShadowEx from "assets/images/shadowEx.svg";
+import { Pressable, Text } from "react-native";
 
 const Index = () => {
 
   const { color, fontSize, shadow } = useTheme<Theme>();
+  const [test, setTest] = useState(false);
 
   return (
     <Layout style={{ padding: 0 }}>
       <Header title="hello devmonster"/>
-      <Div>
+      <Div style={{ rowGap: 8 }}>
         <H1 style={{
           fontSize: fontSize.x2l, 
           marginBottom: 20 
@@ -39,7 +41,7 @@ const Index = () => {
             <Button 
               color={color.danger} 
               fill="outline" 
-              style={{ ...shadow.base, marginBottom: 8 }}>
+              style={{ ...shadow.base, marginBottom: 8, borderStyle: 'dashed', backgroundColor: color.step100 }}>
               react-native-router
             </Button>
           </A>
@@ -48,6 +50,10 @@ const Index = () => {
               react-native-form
             </Button>
           </A>
+
+          <Pressable onPress={() => setTest(!test)}>
+            <Text style={{ color: 'white' }}>test</Text>
+          </Pressable>
         </Div>
       </Div>
     </Layout>

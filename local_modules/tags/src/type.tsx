@@ -67,6 +67,7 @@ export interface ButtonClickEvent extends GestureResponderEvent {
 
 export interface ButtonProps extends Omit<PressableProps, 'style'|'children'|'onBlur'|'onFocus'|'onPress'> {
   tag?: 'div'|'button'|'a';
+  animated?:boolean;
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
   hoverStyle?:ButtonStyle;
@@ -75,7 +76,7 @@ export interface ButtonProps extends Omit<PressableProps, 'style'|'children'|'on
   fill?: FillProps;
   onClick?: ((event: ButtonClickEvent) => void) | null | undefined;
   disabled?:boolean;
-  children?:TagElement
+  children?:TagElement;
 }
 
 // tags config
@@ -84,6 +85,7 @@ export interface ButtonStyle extends TagStyle {
   cursor?:string
 }
 export interface ButtonConfig {
+  animated?:boolean;
   style?: ButtonStyle;
   disabledStyle?:ButtonStyle;
   hoverStyle?:ButtonStyle;

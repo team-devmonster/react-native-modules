@@ -119,6 +119,7 @@ const theme = (color:Color) => {
   }
 
   const button:ButtonConfig = {
+    animated: false,
     color: color.white,
     style: {
       cursor: 'pointer',
