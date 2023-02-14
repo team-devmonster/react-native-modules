@@ -271,7 +271,7 @@ export type Color = typeof color.light;
 export type ColorKeys = keyof Color;
 export type Theme = ReturnType<typeof theme>;
 
-export const AppThemeProvider = ({children}: {children:React.ReactNode}) => {
+const AppThemeProvider = ({children}: {children:React.ReactNode}) => {
   return (
     <ThemeProvider color={color} theme={theme}>
       {children}
@@ -279,7 +279,7 @@ export const AppThemeProvider = ({children}: {children:React.ReactNode}) => {
   )
 }
 
-export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
+const AppTagProvider = ({children}: {children:React.ReactNode}) => {
   const theme = useTheme<Theme>();
   return (
     <TagProvider tagConfig={theme}>
@@ -288,7 +288,7 @@ export const AppTagProvider = ({children}: {children:React.ReactNode}) => {
   )
 }
 
-export const AppRouterProvider = ({children}: {children:React.ReactNode}) => {
+const AppRouterProvider = ({children}: {children:React.ReactNode}) => {
   const { color, colorScheme } = useTheme<Theme>();
   const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
 

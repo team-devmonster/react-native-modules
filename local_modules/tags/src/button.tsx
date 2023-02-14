@@ -1,11 +1,11 @@
-import React, { useMemo, useState } from "react";
+import React, { forwardRef, LegacyRef, useMemo, useState } from "react";
 import { Pressable, View } from "react-native";
 
 import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
 import { ButtonProps, FillProps, TagGroupConfig } from "./type";
 import { darken, getLightOrDark, lighten } from "./utils";
 
-export const Button = ({ 
+export const Button = forwardRef(({ 
     tag:_,
     color:inlineColor, 
     fill:_fill, 
@@ -16,7 +16,8 @@ export const Button = ({
     onClick, 
     onLayout, 
     children, 
-    ...rest}:ButtonProps
+    ...rest}:ButtonProps,
+    ref:LegacyRef<View>
   ) => {
 
   const { tagConfig } = useTags();
@@ -58,10 +59,29 @@ export const Button = ({
     borderBottomLeftRadius: borderStyle?.borderBottomLeftRadius ?? borderStyle?.borderRadius,
     borderBottomRightRadius: borderStyle?.borderBottomRightRadius ?? borderStyle?.borderRadius
   }), [borderStyle]);
+
+  // 아무때나 flex: 1 줘버리면 높이값이 사라질 때가 있음. 정확한 케이스에만 주어야 함.
+  // 정확한 규칙은 모르겠으나, flex: 1을 줄 때 가끔 생기는 것은 확실함...
+  const calcInnerSize = useMemo(() => ({
+    height: (() => {
+      if(!layoutStyle.height) return null;
+      if(typeof layoutStyle.height === 'number') return layoutStyle.height;
+      if(typeof layoutStyle.height === 'string') return '100%';
+    })(),
+    width: (() => {
+      if(!layoutStyle.width) return null;
+      if(typeof layoutStyle.width === 'number') return layoutStyle.width;
+      if(typeof layoutStyle.width === 'string') return '100%';
+    })(),
+    flex: (() => {
+      if(!layoutStyle.flex) return null;
+      if(layoutStyle.flex) return 1;
+    })()
+  }), [layoutStyle.height, layoutStyle.width, layoutStyle.flex]);
   
   // gaps
-  const rowGap = gapStyle?.rowGap || gapStyle?.gap || 0;
-  const columnGap = gapStyle?.columnGap || gapStyle?.gap || 0;
+  const rowGap = useMemo(() => gapStyle?.rowGap || gapStyle?.gap || 0, [gapStyle?.rowGap, gapStyle?.gap]);
+  const columnGap = useMemo(() => gapStyle?.columnGap || gapStyle?.gap || 0, [gapStyle?.columnGap, gapStyle?.gap]);
 
   const gapContainerStyle = useMemo(() => ({
     marginTop: -rowGap/2,
@@ -70,6 +90,7 @@ export const Button = ({
     marginRight: -columnGap/2
   }), [rowGap, columnGap]);
 
+  // events
   const onPressStart = () => {
     setActive(true);
   }
@@ -77,18 +98,20 @@ export const Button = ({
     setActive(false);
   }
 
-  if(!Object.keys(gapStyle).length) {
+  // render
+  if(!rowGap && !columnGap) {
     return (
-      <View style={{
-        ...layoutStyle,
-        ...shadowStyle,
-        ...marginStyle,
-        flex: viewStyle.flex,
-        ...borderRadiusStyle
-      }}>
+      <View 
+        ref={ref}
+        style={{
+          ...layoutStyle,
+          ...shadowStyle,
+          ...marginStyle,
+          ...borderRadiusStyle
+        }}>
         <View
           style={{
-            flex: 1,
+            ...calcInnerSize,
             overflow: 'hidden',
             ...borderStyle
           }}>
@@ -96,7 +119,7 @@ export const Button = ({
             disabled={disabled}
             style={({ pressed }) => {
               return {
-                flex: 1,
+                ...calcInnerSize,
                 ...borderRadiusStyle,
                 ...viewStyle
               }
@@ -116,16 +139,19 @@ export const Button = ({
     )
   }
   else  {
+    
+
     return (
-      <View style={{
-        ...layoutStyle,
-        ...shadowStyle,
-        ...marginStyle,
-        flex: viewStyle.flex,
-        ...borderRadiusStyle,
-      }}>
+      <View 
+        ref={ref}
+        style={{
+          ...layoutStyle,
+          ...shadowStyle,
+          ...marginStyle,
+          ...borderRadiusStyle,
+        }}>
         <View style={{
-          flex: 1,
+          ...calcInnerSize,
           overflow: 'hidden',
           ...borderStyle
         }}>
@@ -133,7 +159,7 @@ export const Button = ({
             disabled={disabled}
             style={({ pressed }) => {
               return {
-                flex: 1,
+                ...calcInnerSize,
                 ...borderRadiusStyle,
                 ...gapContainerStyle,
                 ...viewStyle
@@ -155,7 +181,7 @@ export const Button = ({
       </View>
     )
   }
-}
+});
 
 const getStyles = ({ tagConfig, color, fill, inlineColor, lightOrDark }:{tagConfig:TagGroupConfig|undefined, color:string, fill:FillProps, inlineColor?:string, lightOrDark:'light'|'dark'}) => {
 

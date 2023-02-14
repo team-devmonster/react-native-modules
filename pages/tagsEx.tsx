@@ -137,13 +137,33 @@ const TagsEx = () => {
         borderRadius: 20, 
         flexWrap: 'wrap', 
         padding: 2,
+        alignItems: 'stretch',
         marginBottom: 20}}>
-        <Div style={{ backgroundColor: 'lightgray', flex: 2, minWidth: 100, height: 50 }}>1</Div>
-        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>2</Div>
-        <Div style={{ backgroundColor: 'lightgray', flex: 3, minWidth: 100, height: 50 }}>3</Div>
-        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>4</Div>
-        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>5</Div>
-        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100, height: 50 }}>6</Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 2, minWidth: 100 }}>
+          <P>1</P>
+          <P>1</P>
+          <P>1</P>
+          <P>1</P>
+          <P>1</P>
+          <P>1</P>
+          <P>1</P>
+          <P>1</P>
+        </Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100 }}>
+          <P>2</P>
+        </Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 3, minWidth: 100 }}>
+          <P>3</P>
+        </Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100 }}>
+          <P>4</P>
+        </Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100 }}>
+          <P>5</P>
+        </Div>
+        <Div style={{ backgroundColor: 'lightgray', flex: 1, minWidth: 100 }}>
+          6
+        </Div>
       </Button>
 
       <P>button not gap Test</P>
