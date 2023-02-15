@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { ImageSourcePropType, Platform, StyleProp, TextStyle, ViewStyle } from "react-native";
+import { ImageSourcePropType, StyleProp, StyleSheet, TextStyle, ViewStyle } from "react-native";
 import { StatusBar, StatusBarStyle } from 'expo-status-bar';
 import { useNavigation } from "@react-navigation/native";
 import { getDefaultHeaderHeight } from '@react-navigation/elements';
@@ -29,16 +29,16 @@ export interface HeaderProps {
 export const Header = ({ 
   title, 
   headerTitleAlign,
-  headerTitleStyle:_headerTitleStyle,
+  headerTitleStyle:inlineHeaderTitleStyle,
   headerLeft, 
   headerRight, 
   headerBackTitle, 
   headerBackVisible,
   headerBackImageSource,
-  headerShown, 
+  headerShown = true, 
   style, 
   statusBarStyle, 
-  contentStyle,
+  contentStyle:inlineContentStyle,
   children
 }:HeaderProps) => {
 
@@ -54,22 +54,31 @@ export const Header = ({
   const headerTagStyle = tagConfig?.header?.style;
   const headerTagTitleStyle = tagConfig?.header?.headerTitleStyle;
 
-  const headerStyle = useMemo(() => ({
-    ...headerTagStyle,
-    ...style as any
-  }), [headerTagStyle, style]);
-
-  const headerTitleStyle = useMemo(() => ({
-    ...headerTagTitleStyle,
-    ..._headerTitleStyle as any
-  }), [headerTagTitleStyle, _headerTitleStyle])
+  const styles = useMemo(() => StyleSheet.create({ 
+    headerStyle: {
+      ...headerTagStyle,
+      ...style as any
+    },
+    headerTitleStyle: {
+      ...headerTagTitleStyle,
+      ...inlineHeaderTitleStyle as any
+    },
+    contentStyle: {
+      paddingTop: headerHeight,
+      ...inlineContentStyle 
+    }
+  }), [
+    headerTagStyle, style, 
+    headerTagTitleStyle, inlineHeaderTitleStyle, 
+    headerShown, inlineContentStyle
+  ]);
   
   useEffect(() => {
     let options:Partial<NativeStackNavigationOptions> = {
+      headerShown,
       headerShadowVisible: false,
-      headerStyle,
-      contentStyle,
-      headerTitleStyle,
+      headerStyle: styles.headerStyle,
+      headerTitleStyle: styles.headerTitleStyle,
       headerBackVisible
     }
 
@@ -85,17 +94,15 @@ export const Header = ({
     if(headerRight) options.headerRight = () => headerRight;
     if(headerBackTitle) options.headerBackTitle = headerBackTitle;
     if(headerBackImageSource) options.headerBackImageSource = headerBackImageSource;
-    if(typeof headerShown === 'boolean') options.headerShown = headerShown;
-
-    if(Platform.OS === 'android') {
+    if(headerShown) {
       // for react-native-reanimation's layout animation bugs....
       // they fill fix it... someday...
+      options.headerTransparent = true;
+      options.contentStyle = styles.contentStyle;
     }
-    options.headerTransparent = true;
-    options.contentStyle = { paddingTop: headerHeight, ...options.contentStyle as ViewStyle }
 
     navigation.setOptions(options);
-  }, [title, headerLeft, headerRight, headerShown, headerStyle, headerTitleStyle, headerHeight]);
+  }, [title, headerLeft, headerRight, headerShown, styles]);
 
   return (
     <>

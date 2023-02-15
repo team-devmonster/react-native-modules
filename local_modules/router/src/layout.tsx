@@ -1,5 +1,5 @@
 import React, { Children, forwardRef, LegacyRef, useEffect, useMemo, useState } from "react";
-import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, View, ViewStyle } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from "react-native";
 import { Edge, SafeAreaView } from "react-native-safe-area-context";
 import { TagElement, TagProps, useTags } from "@team-devmonster/react-native-tags";
 
@@ -9,17 +9,17 @@ interface LayoutProps extends TagProps {
   scrollEventThrottle?:number;
   scrollRef?:LegacyRef<ScrollView>
 }
-export const Layout = forwardRef(({ children, edges, style, onScroll, scrollEventThrottle, scrollRef, ...rest }:LayoutProps, ref:LegacyRef<KeyboardAvoidingView|View>) => {
+export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ children, edges, style, onScroll, scrollEventThrottle, scrollRef, ...rest }, ref) => {
 
   const { header, defaultEdges, contents, fixedLayout, footer } = useMemo(() => newChildren({ children }), [children]);
   const { tagConfig } = useTags();
   const layoutTagStyle = tagConfig?.layout?.style;
 
-  const contentStyle = useMemo(() => ({
+  const layoutStyle = useMemo(() => StyleSheet.create({
     flex: 1,
-    ...layoutTagStyle as any,
-    ...style as ViewStyle
-  }), [layoutTagStyle, style]);
+    ...layoutTagStyle as any
+  }), [layoutTagStyle]);
+  const contentStyle = [layoutStyle, style];
 
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
@@ -45,6 +45,7 @@ export const Layout = forwardRef(({ children, edges, style, onScroll, scrollEven
 
   const resultEdges = useMemo(() => edges || defaultEdges, [defaultEdges, edges]);
   const resultScrollEventThrottle = useMemo(() => scrollEventThrottle || (onScroll ? 16 : undefined), [scrollEventThrottle, onScroll]);
+
   const Layout = useMemo(() => {
     switch(Platform.OS) {
       case 'ios':
@@ -52,55 +53,39 @@ export const Layout = forwardRef(({ children, edges, style, onScroll, scrollEven
       default:
         return View;
     }
-  }, [Platform.OS])
+  }, [Platform.OS]);
 
-  if(style?.overflow !== 'hidden') {
-    return (
-      <Layout
-        ref={ref}
-        style={{ flex: 1, backgroundColor: style?.backgroundColor }}
-        behavior="padding">
-        {header}
-        <ScrollView 
-          ref={scrollRef}
-          onScroll={onScroll}
-          scrollEventThrottle={resultScrollEventThrottle}
-          style={{
-            flex: 1
-          }}>
-          {
-            edges?.length ?
-              <SafeAreaView
-                edges={resultEdges}
-                style={contentStyle} {...rest}>
-                {contents}
-              </SafeAreaView>
-            :
-              <View
-                style={contentStyle} {...rest}>
-                {contents}
-              </View>
-          }
-        </ScrollView>
-        {fixedLayout}
-        {
-          footer ?
-          React.cloneElement(footer as any, {
-            bottomEdge: keyboardVisible
-          })
-          : null
-        }
-      </Layout>
-    )
-  }
-  else {
-    return (
-      <Layout
-        ref={ref}
-        style={{ flex: 1, backgroundColor: style?.backgroundColor }}>
-        {header}
-        {
-          edges?.length ?
+  return (
+    <Layout
+      ref={ref}
+      style={{ flex: 1, backgroundColor: style?.backgroundColor }}
+      behavior="padding">
+      {header}
+      {
+        style?.overflow !== 'hidden' ? 
+          <ScrollView 
+            ref={scrollRef}
+            onScroll={onScroll}
+            scrollEventThrottle={resultScrollEventThrottle}
+            style={{
+              flex: 1
+            }}>
+            {
+              resultEdges.length ?
+                <SafeAreaView
+                  edges={resultEdges}
+                  style={contentStyle} {...rest}>
+                  {contents}
+                </SafeAreaView>
+              :
+                <View
+                  style={contentStyle} {...rest}>
+                  {contents}
+                </View>
+            }
+          </ScrollView>
+        :
+          resultEdges.length ?
             <SafeAreaView
               edges={resultEdges}
               style={contentStyle} {...rest}>
@@ -111,12 +96,17 @@ export const Layout = forwardRef(({ children, edges, style, onScroll, scrollEven
               style={contentStyle} {...rest}>
               {contents}
             </View>
-        }
-        {fixedLayout}
-        {footer}
-      </Layout>
-    )
-  }
+      }
+      {fixedLayout}
+      {
+        footer ?
+        React.cloneElement(footer as any, {
+          bottomEdge: keyboardVisible
+        })
+        : null
+      }
+    </Layout>
+  )
 })
 
 const newChildren = ({ children }:{ children:TagElement })

@@ -14,7 +14,7 @@ const Index = () => {
 
   return (
     <Layout style={{ padding: 0 }}>
-      <Header title="hello devmonster"/>
+      <Header headerShown={false}/>
       <Div style={{ rowGap: 8 }}>
         <H1 style={{
           fontSize: fontSize.x2l, 
