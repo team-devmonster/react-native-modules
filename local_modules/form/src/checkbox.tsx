@@ -6,6 +6,7 @@ import Animated, { ZoomIn } from "react-native-reanimated";
 
 import { FormValues, InputProps } from "./type";
 import { useTags, useTagStyle, Button, borderPattern, TagGroupConfig } from '@team-devmonster/react-native-tags';
+import { formStyles, getIcon } from "./utils";
 export interface CheckboxProps<T extends FormValues = any> extends Omit<InputProps<T>, 'placeholder'> {
 
 }
@@ -53,6 +54,8 @@ export function Checkbox<T extends FormValues>({
           value ? checkedStyle : undefined
         ]);
 
+        const { icon, iconStyle } = useMemo(() => getIcon({ iconObj: newStyle}), [newStyle.icon]);
+
         return (
           <Button
             fill="none"
@@ -74,23 +77,21 @@ export function Checkbox<T extends FormValues>({
                 showSoftInputOnFocus={false}
                 ref={ref}
                 onBlur={onBlur}
-                style={{ position: 'absolute', top: -2, left: 0, width: 1, height: 1, zIndex: -1, opacity: 0 }}
+                style={formStyles.dummyInput}
               />
               {
-                newStyle.icon ? 
-                  <Animated.View entering={ZoomIn}>
-                    {newStyle.icon}
-                  </Animated.View>
+                icon ? 
+                  icon
                 :
                   value ?
                     <Animated.View entering={ZoomIn}>
                       <Svg 
                         fill="none" 
                         viewBox="0 0 24 24"
-                        stroke={newStyle.iconColor || '#FF6420'} 
+                        stroke={iconStyle.color || '#FF6420'} 
                         strokeWidth={2}
-                        width={newStyle.iconWidth || 28}
-                        height={newStyle.iconHeight || 28}>
+                        width={iconStyle.width || 28}
+                        height={iconStyle.height || 28}>
                         <Path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </Svg>
                     </Animated.View>

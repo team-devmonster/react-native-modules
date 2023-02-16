@@ -6,7 +6,7 @@ import DatePicker from 'react-native-date-picker';
 import MonthPicker from 'react-native-month-year-picker';
 import { FormValues, InputDateType, InputProps } from "./type";
 import Svg, { Path } from "react-native-svg";
-import { textColor } from "./utils";
+import { getIcon, textColor } from "./utils";
 
 export interface DateInputProps<T extends FormValues = any> extends InputProps<T> {
   type:InputDateType
@@ -62,6 +62,8 @@ export function DateInput<T extends FormValues>({
           error ? errorStyle : undefined
         ]);
 
+        const { icon, iconStyle } = useMemo(() => getIcon({ iconObj: inputStyle}), [inputStyle.icon]);
+
         const { date, isValid } = useMemo(() => getDate({ value }), [value]);
         
         return (
@@ -93,13 +95,15 @@ export function DateInput<T extends FormValues>({
                 <P style={{ flex: 1, ...textStyle, color: inputStyle?.placeholderColor}}>{placeholder}</P>
             }
             {
+              icon ? icon
+              :
               {
                 'date': (
                   <Svg
-                    width={inputStyle?.iconWidth || 24}
-                    height={inputStyle?.iconWidth || 24}
+                    width={iconStyle.width || 24}
+                    height={iconStyle.height || 24}
                     viewBox="0 0 24 24"
-                    fill={inputStyle?.iconColor || '#FF6420'}
+                    fill={iconStyle?.color || '#FF6420'}
                   >
                     <Path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-5.25 3a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm-1.5-3a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z" />
                     <Path
@@ -111,10 +115,10 @@ export function DateInput<T extends FormValues>({
                 ),
                 'month': (
                   <Svg
-                    width={inputStyle?.iconWidth || 24}
-                    height={inputStyle?.iconWidth || 24}
+                    width={iconStyle?.width || 24}
+                    height={iconStyle?.height || 24}
                     viewBox="0 0 24 24"
-                    fill={inputStyle?.iconColor || '#FF6420'}
+                    fill={inputStyle?.color || '#FF6420'}
                   >
                     <Path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-5.25 3a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm-1.5-3a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z" />
                     <Path
@@ -126,10 +130,10 @@ export function DateInput<T extends FormValues>({
                 ),
                 'time': (
                   <Svg
-                    width={inputStyle?.iconWidth || 24}
-                    height={inputStyle?.iconWidth || 24}
+                    width={iconStyle?.width || 24}
+                    height={iconStyle?.height || 24}
                     viewBox="0 0 24 24"
-                    fill={inputStyle?.iconColor || '#FF6420'}
+                    fill={inputStyle?.color || '#FF6420'}
                   >
                     <Path
                       fillRule="evenodd"
@@ -140,10 +144,10 @@ export function DateInput<T extends FormValues>({
                 ),
                 'datetime-local': (
                   <Svg
-                    width={inputStyle?.iconWidth || 24}
-                    height={inputStyle?.iconWidth || 24}
+                    width={iconStyle?.width || 24}
+                    height={iconStyle?.height || 24}
                     viewBox="0 0 24 24"
-                    fill={inputStyle?.iconColor || '#FF6420'}
+                    fill={inputStyle?.color || '#FF6420'}
                   >
                     <Path
                       fillRule="evenodd"

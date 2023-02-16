@@ -5,6 +5,7 @@ import Animated, { ZoomIn } from "react-native-reanimated";
 
 import { FormValues, InputProps } from "./type";
 import { TagStyle, useTags, useTagStyle, Button, TagGroupConfig, borderPattern } from '@team-devmonster/react-native-tags';
+import { getIcon } from "./utils";
 
 
 const radioDefaultStyle:TagStyle = {
@@ -59,6 +60,8 @@ export function Radio<T extends FormValues>(
           value === fieldValue ? styles.tagCheckedStyle : undefined,
         ]);
 
+        const { icon, iconStyle } = useMemo(() => getIcon({ iconObj: newStyle}), [newStyle.icon]);
+
         return (
           <Button
             color={newStyle.backgroundColor}
@@ -75,18 +78,15 @@ export function Radio<T extends FormValues>(
               onBlur={onBlur}
               style={{ position: 'absolute', top: -2, left: 0, width: 1, height: 1, zIndex: -1, opacity: 0 }}></TextInput>
               {
-                newStyle.icon ?
-                  <Animated.View entering={ZoomIn}>
-                    {newStyle.icon}
-                  </Animated.View>
+                icon ? icon
                 :
                   value === fieldValue ?
                     <Animated.View entering={ZoomIn}>
                       <View style={{
-                        width: newStyle.iconWidth || 16,
-                        height: newStyle.iconHeight || 16,
+                        width: iconStyle.width || 16,
+                        height: iconStyle.height || 16,
                         borderRadius: 50,
-                        backgroundColor: newStyle.iconColor || '#FF6420'
+                        backgroundColor: iconStyle.color || '#FF6420'
                       }}>
                       </View>
                     </Animated.View>

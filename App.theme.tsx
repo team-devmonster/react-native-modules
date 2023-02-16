@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from '@local_modules/theme';
-import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, TagConfig, Div, ToastConfig } from '@local_modules/tags';
+import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, TagConfig, Div, ToastConfig, ToggleConfig } from '@local_modules/tags';
 import ImgPaperAirplane from "assets/images/paperAirplane.svg";
 import { HeaderConfig } from '@local_modules/tags';
 import { RouterProvider } from '@local_modules/router';
@@ -193,12 +193,12 @@ const theme = (color:Color) => {
 
   input['type=date'] = {
     style: {
-      iconColor: color.primary
+      icon: { color: color.primary }
     }
   }
   input['type=month'] = {
     style: {
-      iconColor: color.primary
+      icon: { color: color.primary }
     }
   }
   /* input['type=datetime-local'] = {
@@ -208,13 +208,24 @@ const theme = (color:Color) => {
   } */
   input['type=time'] = {
     style: {
-      iconColor: color.primary
+      icon: { color: color.primary }
     }
   }
 
   const select:SelectConfig = {
     style: {
-      iconColor: color.primary
+      icon: { color: color.primary }
+    }
+  }
+
+  const toggle:ToggleConfig = {
+    style: {
+      backgroundColor: '#ffffff',
+      icon: { color: '#ffffff' }
+    },
+    checkedStyle: {
+      backgroundColor: '#711BD9',
+      icon: { color: '#711BD9' }
     }
   }
 
@@ -261,7 +272,7 @@ const theme = (color:Color) => {
     // tags theme
     div, button, h1,
     // form theme
-    input, select, label, errorText,
+    input, select, toggle, label, errorText,
     // router theme
     layout, toast
   }

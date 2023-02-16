@@ -4,9 +4,10 @@ import { Controller } from 'react-hook-form';
 import { Picker } from "@react-native-picker/picker";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { useTagStyle, Button, TagGroupConfig, P, textPattern, ButtonStyle, useTags, iconPattern } from '@team-devmonster/react-native-tags';
+import { useTagStyle, Button, TagGroupConfig, P, textPattern, ButtonStyle, useTags } from '@team-devmonster/react-native-tags';
 import { FormValues, SelectProps } from "./type";
 import Svg, { Path } from "react-native-svg";
+import { getIcon } from "./utils";
 
 export function Select<T extends FormValues>({
   control, 
@@ -89,12 +90,10 @@ export function Select<T extends FormValues>({
         }, [open]);
 
         const [
-          iconStyle,
           textStyle,
           inputStyle
         ]
         = useTagStyle([
-          iconPattern,
           textPattern
         ], [
           styles.tagStyle, 
@@ -104,6 +103,8 @@ export function Select<T extends FormValues>({
           disabled ? disabledStyle : undefined,
           error ? errorStyle : undefined
         ]);
+
+        const { icon, iconStyle } = useMemo(() => getIcon({ iconObj: inputStyle}), [inputStyle.icon]);
 
         const PickerItem = useMemo(() => getPickerItem({ children, colorScheme }), [children, colorScheme]);
         const selectedPickerItem = useMemo(() => getSelectedPickerItem({ children, value }), [children, value]);
@@ -137,14 +138,13 @@ export function Select<T extends FormValues>({
                 <P style={{ flex: 1, ...textStyle, color: inputStyle?.placeholderColor}}>{placeholder}</P>
             }
             {
-              iconStyle?.icon ?
-                iconStyle.icon
+              icon ? icon
               :
                 <Svg
-                  width={iconStyle?.iconWidth || 24}
-                  height={iconStyle?.iconWidth || 24}
+                  width={iconStyle?.width || 24}
+                  height={iconStyle?.height || 24}
                   viewBox="0 0 24 24"
-                  fill={iconStyle?.iconColor || '#FF6420'}
+                  fill={iconStyle?.color || '#FF6420'}
                 >
                   <Path
                     fillRule="evenodd"

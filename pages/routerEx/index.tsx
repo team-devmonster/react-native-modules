@@ -5,8 +5,6 @@ import { Div, Button, P, H1 } from "@local_modules/tags";
 import { A, FixedLayout, Header, Layout, Modal, useRouter, createModal, RouterContext } from "@local_modules/router";
 
 import ImgPaperAirplane from "assets/images/paperAirplane.svg";
-import { MainHeader } from "@components/mainHeader";
-import { FadeIn } from "react-native-reanimated";
 import { Toast } from "@local_modules/router";
 
 const RouterEx = () => {

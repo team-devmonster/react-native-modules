@@ -46,8 +46,7 @@ export interface TagProps extends Omit<TextProps, 'style'|'onPress'> {
 export interface TagStyle extends Omit<TextStyle, 'display'> {
   display?: 'flex' | 'inline-flex' | 'none',
   whiteSpace?: 'pre-line'|'nowrap',
-  icon?:TagElement,
-  iconColor?:string,
+  icon?:TagElement | TagStyle,
   gap?:number,
   rowGap?:number,
   columnGap?:number,
@@ -178,35 +177,15 @@ export interface ToggleConfig {
   errorStyle?:ToggleStyle
 }
 export interface InputCheckboxStyle extends TagStyle {
-  icon?:TagElement,
-  iconColor?:string,
-  iconWidth?:number,
-  iconHeight?:number
 }
 export interface InputRadioStyle extends TagStyle {
-  icon?:TagElement,
-  iconColor?:string,
-  iconWidth?:number,
-  iconHeight?:number
 }
 export interface InputDateStyle extends TagStyle {
-  icon?:TagElement,
-  iconColor?:string,
-  iconWidth?:number,
-  iconHeight?:number
 }
 
 export interface SelectStyle extends InputStyle {
-  icon?:TagElement,
-  iconColor?:string,
-  iconWidth?:number,
-  iconHeight?:number
 }
 export interface ToggleStyle extends InputStyle {
-  icon?:TagElement,
-  iconColor?:string,
-  iconWidth?:number,
-  iconHeight?:number
 }
 export interface ErrorTextConfig {
   style?:TagStyle

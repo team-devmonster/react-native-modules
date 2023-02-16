@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useRef } from "react";
-import { TextInput } from "react-native";
+import { TextInput, StyleSheet, Pressable } from "react-native";
 import { Controller } from 'react-hook-form';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 
 import { FormValues, InputProps } from "./type";
-import { useTags, useTagStyle, Button, TagGroupConfig, iconPattern, ToggleStyle } from '@team-devmonster/react-native-tags';
+import { useTags, useTagStyle, TagGroupConfig, ToggleStyle } from '@team-devmonster/react-native-tags';
+import { formStyles, getIcon } from "./utils";
 export interface ToggleProps<T extends FormValues = any> extends Omit<InputProps<T>, 'placeholder'> {
   style?:ToggleStyle,
   checkedStyle?:ToggleStyle,
@@ -40,11 +41,9 @@ export function Toggle<T extends FormValues>({
        }) => {
 
         const [
-          iconStyle,
           contentStyle
         ]
         = useTagStyle([
-          iconPattern
         ], [
           styles.tagStyle, 
           disabled ? styles.tagDisabledStyle : undefined,
@@ -56,46 +55,60 @@ export function Toggle<T extends FormValues>({
           value ? checkedStyle : undefined
         ]);
 
+        const { icon, iconStyle } = useMemo(() => getIcon({ iconObj: contentStyle}), [contentStyle.icon]);
+
         const widthRef = useRef<{ width:number, iconWidth:number }>({ width: 60, iconWidth: 30 });
         
-        const contentBackgroundColor = useSharedValue(contentStyle.backgroundColor || '#cccccc');
+        const animationProgress = useSharedValue(0);
 
-        const iconBackgroundColor = useSharedValue(iconStyle.iconColor || '#ffffff');
+        const contentBackgroundColor = useRef<string>('#cccccc');
+        const contentCheckedBackgroundColor = useRef<string>('#FF6420');
+
+
+        const iconBackgroundColor = useRef<string>('#ffffff');
+        const iconCheckedBackgroundColor = useRef<string>('#FF6420');
+
+
         const iconPosition = useSharedValue(0);
         
+        if(value) {
+          contentCheckedBackgroundColor.current = contentStyle.backgroundColor || '#FF6420';
+          iconCheckedBackgroundColor.current = iconStyle.color as string || '#FF6420';
+        }
+        else {
+          contentBackgroundColor.current = contentStyle.backgroundColor || '#cccccc';
+          iconBackgroundColor.current = iconStyle.color as string || '#cccccc';
+        }
+
         const contentAnimatedStyle = useAnimatedStyle(() => {
           return {
-            backgroundColor: withTiming(contentBackgroundColor.value)
+            backgroundColor: interpolateColor(animationProgress.value, [0, 1], [contentBackgroundColor.current, contentCheckedBackgroundColor.current])
           }
         })
         
         const iconAnimatedStyle = useAnimatedStyle(() => {
           return {
-            backgroundColor: withTiming(iconBackgroundColor.value),
+            backgroundColor: interpolateColor(animationProgress.value, [0, 1], [iconBackgroundColor.current, iconCheckedBackgroundColor.current]),
             transform: [{ translateX: withTiming(iconPosition.value) }]
           }
         })
-
         useEffect(() => {
           if(value) {
-            contentBackgroundColor.value = contentStyle.backgroundColor || '#FF6420';
-            iconBackgroundColor.value = iconStyle.iconColor || '#FF6420';
             iconPosition.value = widthRef.current.width - widthRef.current.iconWidth;
+            animationProgress.value = withTiming(1);
           }
           else {
-            contentBackgroundColor.value = contentStyle.backgroundColor || '#cccccc';
-            iconBackgroundColor.value = iconStyle.iconColor || '#ffffff';
             iconPosition.value = 0;
+            animationProgress.value = withTiming(0);
           }
         }, [value]);
 
+        console.log(contentStyle);
         return (
-          <Button
-            animated={false}
-            fill="none"
+          <Pressable
             style={{
               width: contentStyle.width || 60,
-              height: iconStyle.iconHeight || 30,
+              height: iconStyle.height || 30,
               justifyContent: 'center',
               borderRadius: 20
             }}
@@ -104,7 +117,7 @@ export function Toggle<T extends FormValues>({
               const { width } = e.nativeEvent.layout;
               widthRef.current.width = width;
             }}
-            onClick={(e) => {
+            onPress={(e) => {
               const newValue = !value;
               onChange(newValue);
               onClick?.({...e, value: newValue});
@@ -113,7 +126,7 @@ export function Toggle<T extends FormValues>({
                 showSoftInputOnFocus={false}
                 ref={ref}
                 onBlur={onBlur}
-                style={{ position: 'absolute', top: -2, left: 0, width: 1, height: 1, zIndex: -1, opacity: 0 }}
+                style={formStyles.dummyInput}
               />
               <Animated.View 
                 style={[{ 
@@ -123,25 +136,18 @@ export function Toggle<T extends FormValues>({
                   ...contentStyle
                 }, contentAnimatedStyle]}></Animated.View>
               {
-                iconStyle.icon ? 
-                  iconStyle.icon
+                icon ?
+                  icon
                 :
                   <Animated.View 
                     onLayout={(e) => {
                       const { width } = e.nativeEvent.layout;
                       widthRef.current.iconWidth = width;
                     }}
-                    style={[{
-                      position: 'absolute',
-                      left: 0,
-                      top: 0,
-                      width: iconStyle.iconWidth || 30,
-                      height: iconStyle.iconHeight || 30,
-                      borderRadius: 15
-                    }, iconAnimatedStyle]}>
+                    style={[defaultStyle.iconStyle, iconStyle as any, iconAnimatedStyle]}>
                   </Animated.View>
               }
-          </Button>
+          </Pressable>
         )
        }}
     />
@@ -161,3 +167,14 @@ const getStyles = ({ tagConfig }:{ tagConfig:TagGroupConfig|undefined }) => {
     tagErrorStyle
   }
 }
+
+const defaultStyle = StyleSheet.create({
+  iconStyle: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: 30,
+    height: 30,
+    borderRadius: 15
+  }
+})
