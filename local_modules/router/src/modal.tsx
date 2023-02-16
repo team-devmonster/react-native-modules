@@ -1,6 +1,6 @@
-import { Button, Div, TagElement, TagStyle } from "@team-devmonster/react-native-tags";
+import { TagElement, TagStyle } from "@team-devmonster/react-native-tags";
 import React, { createContext, Dispatch, useEffect, useMemo, useRef, useState } from "react";
-import { BackHandler, Dimensions, StyleSheet, useColorScheme, View } from "react-native";
+import { BackHandler, Dimensions, Pressable, StyleSheet, useColorScheme, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { FadeIn, FadeInDown, FadeOut, FadeOutDown, SlideOutDown, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
@@ -145,7 +145,7 @@ export const ModalContent = ({ type = 'fullScreen', children, onRequestClose, st
   switch(type) {
     case 'fullScreen':
       return (
-        <View style={{ ...StyleSheet.absoluteFillObject, ...style as any }}>
+        <View style={[styles.container, style as any]}>
           <BackDrop backDropStyle={backDropStyle} onRequestClose={onRequestClose}/>
           <Animated.View 
             entering={FadeInDown}
@@ -163,7 +163,7 @@ export const ModalContent = ({ type = 'fullScreen', children, onRequestClose, st
     case 'handleScreen':
       return (
         <GestureDetector gesture={panGesture}>
-          <View style={{ ...StyleSheet.absoluteFillObject, paddingTop: safe.top, ...style as any }}>
+          <View style={[styles.container, { paddingTop: safe.top }, style as any]}>
             <BackDrop backDropStyle={backDropStyle} onRequestClose={onRequestClose}/>
             <Animated.View style={[{ ...StyleSheet.absoluteFillObject }, handleAnimation]}>
               <Animated.View 
@@ -193,23 +193,27 @@ export const ModalContent = ({ type = 'fullScreen', children, onRequestClose, st
       )
     case 'center':
       return (
-        <Div style={{ ...StyleSheet.absoluteFillObject, paddingTop: safe.top, alignItems: 'center', justifyContent: 'center', ...style }}>
+        <View style={[styles.container, { paddingTop: safe.top, alignItems: 'center', justifyContent: 'center' }, style as any]}>
           <BackDrop backDropStyle={backDropStyle} onRequestClose={onRequestClose}/>
           <Animated.View 
             entering={FadeInDown}
             exiting={FadeOutDown}
-            style={[{ backgroundColor: 'white', width: 280, height: 100, ...contentStyle as any }]}>
+            style={contentStyle as any}>
             { children }
           </Animated.View>
-        </Div>
+        </View>
       )
     case 'clear':
       return (
-        children
+        <View style={[{ position: 'absolute' }, style as any]}>
+          {children}
+        </View>
       )
     default:
       return (
-        children
+        <View style={[{ position: 'absolute' }, style as any]}>
+          {children}
+        </View>
       )
   }
 }
@@ -219,13 +223,29 @@ type BackDropProps = {
   onRequestClose:any
 }
 const BackDrop = ({ backDropStyle, onRequestClose }:BackDropProps) => {
+  console.log(StyleSheet.absoluteFillObject);
   return (
     <Animated.View 
       entering={FadeIn} 
       exiting={FadeOut}
       style={{ ...StyleSheet.absoluteFillObject }}
-    >
-      <Button color={'#000000'} fill="none" style={{ ...StyleSheet.absoluteFillObject, borderRadius: 0, opacity: 0.3, ...backDropStyle }} onClick={onRequestClose}></Button>
+    > 
+      <Pressable onPress={onRequestClose} style={[styles.backDropStyle, backDropStyle as any]}></Pressable>
     </Animated.View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject, 
+    zIndex: 1000
+  },
+  backDropStyle: {
+    ...StyleSheet.absoluteFillObject, 
+    width: '100%', 
+    height: '100%', 
+    borderRadius: 0,
+    backgroundColor: '#000000',
+    opacity: 0.3
+  }
+})
