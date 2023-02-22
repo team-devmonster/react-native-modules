@@ -46,17 +46,7 @@ const FormEx = () => {
       <Header title="react-hook-form"/>
       <Toggle  
         control={control} 
-        name="toogle" 
-        style={{ 
-          width: 100,
-          height: 25,
-          iconColor: color.step100,
-          iconWidth: 50,
-          iconHeight: 50
-        }}
-        checkedStyle={{ 
-          iconColor: color.primary
-        }}
+        name="toogle"
       />
       <Div style={{ rowGap: 8 }}>
         <Input

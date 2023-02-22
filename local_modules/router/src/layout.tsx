@@ -19,7 +19,7 @@ export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ chil
     flex: 1,
     ...layoutTagStyle as any
   }), [layoutTagStyle]);
-  const contentStyle = [layoutStyle, style];
+  const contentStyle = useMemo(() => ({ ...layoutStyle, ...style }), [layoutStyle, style]);
 
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
@@ -58,7 +58,7 @@ export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ chil
   return (
     <Layout
       ref={ref}
-      style={{ flex: 1, backgroundColor: style?.backgroundColor }}
+      style={{ flex: 1, backgroundColor: contentStyle?.backgroundColor }}
       behavior="padding">
       {header}
       {

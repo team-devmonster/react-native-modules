@@ -49,11 +49,11 @@ export const Button = forwardRef(({
     textPattern,
   ], [
     styles.tagStyle, 
-    disabled ? styles.tagDisabledStyle : undefined,
-    animated && active ? styles.tagActiveStyle : undefined,
     style,
-    disabled ? disabledStyle : undefined,
-    animated && active ? activeStyle : undefined
+    animated && active ? styles.tagActiveStyle : undefined,
+    animated && active ? activeStyle : undefined,
+    disabled ? styles.tagDisabledStyle : undefined,
+    disabled ? disabledStyle : undefined
   ]);
   const borderRadiusStyle = useMemo(() => ({
     borderTopLeftRadius: borderStyle?.borderTopLeftRadius ?? borderStyle?.borderRadius,

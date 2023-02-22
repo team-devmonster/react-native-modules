@@ -1,6 +1,6 @@
 {
   "name": "@team-devmonster/react-native-skeleton",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -35,6 +35,8 @@
     "react": ">=16",
     "react-dom": ">=16",
     "react-native": ">=0.57",
-    "react-native-reanimated": ">=2.13.0"
+    "react-native-reanimated": ">=2.13.0",
+    "expo-linear-gradient": ">=11.4.0",
+    "@react-native-masked-view/masked-view": ">=0.2.8"
   }
 }

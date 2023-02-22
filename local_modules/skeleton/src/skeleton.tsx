@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { StyleSheet, View, ViewProps } from "react-native";
 import MaskedView from '@react-native-masked-view/masked-view';
-import LinearGradient from 'react-native-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming } from "react-native-reanimated";
 import { SkeletonItem } from "./skeletonItem";
 

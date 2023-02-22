@@ -71,14 +71,16 @@ export function Toggle<T extends FormValues>({
 
         const iconPosition = useSharedValue(0);
         
-        if(value) {
-          contentCheckedBackgroundColor.current = contentStyle.backgroundColor || '#FF6420';
-          iconCheckedBackgroundColor.current = iconStyle.color as string || '#FF6420';
-        }
-        else {
-          contentBackgroundColor.current = contentStyle.backgroundColor || '#cccccc';
-          iconBackgroundColor.current = iconStyle.color as string || '#cccccc';
-        }
+        useMemo(() => {
+          if(value) {
+            contentCheckedBackgroundColor.current = contentStyle.backgroundColor || '#FF6420';
+            iconCheckedBackgroundColor.current = iconStyle.color as string || '#FF6420';
+          }
+          else {
+            contentBackgroundColor.current = contentStyle.backgroundColor || '#cccccc';
+            iconBackgroundColor.current = iconStyle.color as string || '#cccccc';
+          }
+        }, [value])
 
         const contentAnimatedStyle = useAnimatedStyle(() => {
           return {
@@ -103,7 +105,6 @@ export function Toggle<T extends FormValues>({
           }
         }, [value]);
 
-        console.log(contentStyle);
         return (
           <Pressable
             style={{

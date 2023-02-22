@@ -26,10 +26,10 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 
 ## Getting started
 install prev libraries<br>
-`$ npm install @react-native-masked-view/masked-view react-native-linear-gradient react-native-reanimated`<br>
+`$ npm install @react-native-masked-view/masked-view expo-linear-gradient react-native-reanimated`<br>
 
 install @team-devmonster/react-native-skeleton<br>
-`$ npm install @react-native-masked-view/masked-view @team-devmonster/react-native-skeleton@latest`
+`$ npm install @team-devmonster/react-native-skeleton@latest`
 
 
 ## Examples

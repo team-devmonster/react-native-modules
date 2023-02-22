@@ -5,6 +5,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
+  'calendar':undefined,
   'index':undefined,
   'themeEx':undefined,
   'tagsEx':undefined,
