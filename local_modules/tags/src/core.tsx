@@ -69,8 +69,6 @@ const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleState
 }
 
 export const TagModule = (props:TagProps & { rowGap?:number, columnGap?:number }):JSX.Element => {
-  // children이 거의 항상 갱신되기 때문에 큰 의미는 없어보이기는 함. 그래도 빼면 아쉽다.
-  // const tagChildren = useMemo(() => makeTagChildren({ children, style, numberOfLines, ellipsizeMode, rowGap, columnGap }), [children, style, numberOfLines, ellipsizeMode, rowGap, columnGap]);
   return <TagChildren {...props}/>
 }
 
@@ -148,7 +146,8 @@ const GroupText = ({ textChildren, style, numberOfLines, ellipsizeMode:_ }:{ tex
 
 
 
-
+// children이 거의 항상 갱신되기 때문에 큰 의미는 없어보이기는 함. 그래도 빼면 아쉽다.
+// const tagChildren = useMemo(() => makeTagChildren({ children, style, numberOfLines, ellipsizeMode, rowGap, columnGap }), [children, style, numberOfLines, ellipsizeMode, rowGap, columnGap]);
 
 // 예전 코드. 절대 삭제 금지. 삭제하면 나 울음
 /* if(Array.isArray(children)) {

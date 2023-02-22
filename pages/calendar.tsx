@@ -1,4 +1,6 @@
+import { Div } from "@local_modules/tags";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { LinearGradient } from "expo-linear-gradient";
 import { useRef, useState } from "react";
 import { View, Button, Text, Platform } from "react-native";
 
@@ -12,7 +14,7 @@ export const Calendar = () => {
 };
 
 const CalendarAndroid = () => {
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState<any>('date');
   const [show, setShow] = useState(false);
 
@@ -48,10 +50,11 @@ const CalendarAndroid = () => {
 
   const showTimepicker = () => {
     showMode('time');
+    
   };
 
   return (
-    <View style={{ backgroundColor: 'red' }}>
+    <View>
       <Button onPress={showDatepicker} title="Show date picker!" />
       <Button onPress={showTimepicker} title="Show time picker!" />
       <Text>selected: {date.toLocaleString()}</Text>
@@ -70,5 +73,13 @@ const CalendarAndroid = () => {
 }
 
 const CalendarIOS = () => {
-  return null;
+  return <Div style={{ backgroundColor: 'white', alignItems: 'center' }}>
+  <LinearGradient
+    // Background Linear Gradient
+    start={{ x: 0.5, y: 0 }} end={{ x: 1, y: 1 }}
+    colors={['#4c669f', '#6a3119']}
+    style={{ width: 400, height: 200 }}
+  />
+  {/* <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ width: 200, height: 200 }} colors={['#711BD9', '#FF7171']}></LinearGradient> */}
+</Div>;
 }
