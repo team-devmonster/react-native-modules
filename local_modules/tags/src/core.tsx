@@ -72,36 +72,51 @@ export const TagModule = (props:TagProps & { rowGap?:number, columnGap?:number }
   return <TagChildren {...props}/>
 }
 
-const TagChildren = ({ children, style, numberOfLines, ellipsizeMode, rowGap, columnGap }:{ children?:TagElement, style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip",  rowGap?:number, columnGap?:number }) => {
-  const textChildren:(JSX.Element|string)[] = [];
-  const newChildren = Children.map(children, (child) => {
-    if(!child) return child;
+const TagChildren = ({ children:rawChildren, ...rest }:{ children?:TagElement, style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip",  rowGap?:number, columnGap?:number }) => {
+  let textChildren:(JSX.Element|string)[] = [];
+  const children = Children.toArray(rawChildren) as TagElement[];
+  const newChildren = Children.map(children, (child, index) => {
+    if(!child) return null;
     if(Array.isArray(child)) return child;
 
-    if(typeof child === 'string' || typeof child === 'number') {
-      textChildren.push(String(child));
-      return null;
-    }
-    if(child.type?.displayName === 'Br' || child.type?.displayName === 'Span') {
-      textChildren.push(child);
-      return null;
+    if(typeof child === 'string' || typeof child === 'number' 
+    || child.type?.displayName === 'Br' || child.type?.displayName === 'Span') {
+      textChildren.push(typeof child === 'number' ? String(child) : child);
+
+      if(index < children.length - 1) {
+        return null;
+      }
+
+      const cloneTextChildren = [...textChildren];
+      textChildren = [];
+      return <GroupText textChildren={cloneTextChildren} {...rest}/>;
     }
 
-    if(child.props?.style?.display === 'inline-flex') { return React.cloneElement(child, { style: { ...child.props.style, display: 'flex' } }) };
-    
+    if(child.props?.style?.display === 'inline-flex') {
+      
+      const cloneTextChildren = [...textChildren];
+      textChildren = [];
+      return (
+        <>
+          <GroupText textChildren={cloneTextChildren} {...rest}/>
+          { React.cloneElement(child, { style: { ...child.props.style, display: 'flex' } }) }
+        </>
+      )
+    }
+
+    const cloneTextChildren = [...textChildren];
+    textChildren = [];
     return (
       <>
-        { textChildren.length ? <GroupText textChildren={textChildren} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}/> : null }
-        <GapView child={child} rowGap={rowGap} columnGap={columnGap}/>
+        <GroupText textChildren={cloneTextChildren} {...rest}/>
+        <GapView child={child} {...rest}/>
       </>
     )
+    
   })
-
-  // 마지막놈이 스트링이거나 넘버면 한번 더 처리를 해줘야된다.
   return (
     <>
       {newChildren}
-      { textChildren.length ? <GroupText textChildren={textChildren} style={style} numberOfLines={numberOfLines} ellipsizeMode={ellipsizeMode}/> : null }
     </>
   )
 }
@@ -127,8 +142,9 @@ const GapView = ({ child, rowGap, columnGap }:{ child:JSX.Element, rowGap?:numbe
 }
 
 const GroupText = ({ textChildren, style, numberOfLines, ellipsizeMode:_ }:{ textChildren:TagElement[], style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
-  const cloneTextChildren = [...textChildren];
-  textChildren.length = 0;
+  if(!textChildren.length) {
+    return null;
+  }
   return (
     <Text
       style={{
@@ -137,7 +153,7 @@ const GroupText = ({ textChildren, style, numberOfLines, ellipsizeMode:_ }:{ tex
       }}
       ellipsizeMode="tail"
       numberOfLines={style?.whiteSpace === 'nowrap' ? 1 : numberOfLines}
-    >{cloneTextChildren}</Text>
+    >{textChildren}</Text>
   )
 }
 

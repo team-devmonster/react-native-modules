@@ -23,7 +23,7 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigation = () => {
   return (
-    <RootStack.Navigator initialRouteName="calendar">
+    <RootStack.Navigator initialRouteName="index">
       <RootStack.Screen name="calendar" component={Calendar}/>
       <RootStack.Screen name="index" component={Index}/>
       <RootStack.Screen name="themeEx" component={ThemeEx}/>
