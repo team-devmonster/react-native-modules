@@ -6,10 +6,11 @@ import { TagElement, TagProps, useTags } from "@team-devmonster/react-native-tag
 interface LayoutProps extends TagProps {
   edges?:Edge[];
   onScroll?:(e:any) => void;
+  scrollEnabled?:boolean;
   scrollEventThrottle?:number;
   scrollRef?:LegacyRef<ScrollView>
 }
-export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ children, edges, style, onScroll, scrollEventThrottle, scrollRef, ...rest }, ref) => {
+export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ children, edges, style, onScroll, scrollEnabled, scrollEventThrottle, scrollRef, ...rest }, ref) => {
 
   const { header, defaultEdges, contents, fixedLayout, footer } = useMemo(() => newChildren({ children }), [children]);
   const { tagConfig } = useTags();
@@ -65,6 +66,7 @@ export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ chil
         style?.overflow !== 'hidden' ? 
           <ScrollView 
             ref={scrollRef}
+            scrollEnabled={scrollEnabled}
             onScroll={onScroll}
             scrollEventThrottle={resultScrollEventThrottle}
             style={{
