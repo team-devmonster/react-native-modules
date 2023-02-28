@@ -214,7 +214,7 @@ export function Select<T extends FormValues>({
                       borderBottomWidth: StyleSheet.hairlineWidth,
                       borderBottomColor: colorScheme === 'dark' ? '#383838' : '#b1b1b1',
                       height: 240,
-                      justifyContent: 'center',
+                      justifyContent: 'center'
                     }}
                     selectedValue={temptValue}
                     onValueChange={(e, i) => {
