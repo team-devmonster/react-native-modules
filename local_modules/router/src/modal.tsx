@@ -10,7 +10,7 @@ export type ModalProps = {
   entering?:any,
   visible?:boolean,
   onRequestClose?:(e?:any) => void,
-  type?:'fullScreen'|'handleScreen'|'center'|'clear',
+  type?:'fullScreen'|'handleScreen'|'center'|'clear'|'children',
   style?:TagStyle,
   contentStyle?:TagStyle,
   backDropStyle?:TagStyle,
@@ -207,13 +207,15 @@ export const ModalContent = ({ type = 'fullScreen', children, onRequestClose, st
       )
     case 'clear':
       return (
-        <View style={[{ position: 'absolute' }, style as any]}>
+        <View style={[{ position: 'absolute', zIndex: 1000 }, style as any]}>
           {children}
         </View>
       )
+    case 'children':
+      return children;
     default:
       return (
-        <View style={[{ position: 'absolute' }, style as any]}>
+        <View style={[{ position: 'absolute', zIndex: 1000 }, style as any]}>
           {children}
         </View>
       )

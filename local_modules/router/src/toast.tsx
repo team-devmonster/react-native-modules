@@ -16,7 +16,7 @@ export const Toast = ({ message, duration = 3000, position = 'bottom', style, co
 
   const $modal = createModal({
     visible: true,
-    type: 'clear',
+    type: 'children',
     onRequestClose: () => {
       $modal.remove();
     },
@@ -44,6 +44,7 @@ export const Toast = ({ message, duration = 3000, position = 'bottom', style, co
                   const tostPosition = position || toastConfig?.position;
                   if(tostPosition === 'top') positionStyle.top = 50 + (insets?.top || 0);
                   else if(tostPosition === 'bottom') positionStyle.bottom = 50 + (insets?.bottom || 0);
+
                   return (
                     <Div
                       style={{ 
