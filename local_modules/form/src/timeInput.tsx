@@ -122,8 +122,7 @@ const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, pla
     if(date) {
       const value = getValue({ type, date });
       onChange(value);
-    
-      console.log(type);
+
       if(type === 'datetime-local') {
         if(open === 'calendar') {
           setOpen('clock');
@@ -139,7 +138,7 @@ const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, pla
     else {
       setOpen('none');
     }
-  }, [type, onChange]);
+  }, [type, open, onChange]);
 
   const onClick = useCallback(() => {
     if(type === 'date'
@@ -153,10 +152,10 @@ const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, pla
 
   useEffect(() => {
     if(open === 'calendar') {
-      DateTimePickerAndroid.open({ value: date, display: 'calendar', onChange: onChangeDate });
+      DateTimePickerAndroid.open({ value: date, display: 'calendar', mode: 'date', onChange: onChangeDate });
     }
     else if(open === 'clock') {
-      DateTimePickerAndroid.open({ value: date, display: 'clock', onChange: onChangeDate });
+      DateTimePickerAndroid.open({ value: date, display: 'clock', mode: 'time', onChange: onChangeDate });
     }
     else {
       DateTimePickerAndroid.dismiss('date');
@@ -185,7 +184,7 @@ const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, pla
         {
           isValid
           ?
-            <P style={{ flex: 1, ...textStyle }}>{open}</P>
+            <P style={{ flex: 1, ...textStyle }}>{value}</P>
           :
             <P style={{ flex: 1, ...textStyle, color: style?.placeholderColor}}>{placeholder}</P>
         }
