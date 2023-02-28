@@ -1,6 +1,6 @@
-import { forwardRef, useCallback, useMemo, useState } from "react";
+import { forwardRef, useCallback, useEffect, useMemo, useState } from "react";
 import { Platform, useColorScheme, TextInput } from "react-native";
-import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
+import DateTimePicker, { DateTimePickerAndroid, DateTimePickerEvent } from "@react-native-community/datetimepicker";
 
 import { Button, useTags, TagStyle, TagGroupConfig, InputConfig, useTagStyle, textPattern, P, InputStyle } from "@team-devmonster/react-native-tags";
 import { Modal } from "@team-devmonster/react-native-router";
@@ -122,18 +122,22 @@ const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, pla
     if(date) {
       const value = getValue({ type, date });
       onChange(value);
-
+    
+      console.log(type);
       if(type === 'datetime-local') {
         if(open === 'calendar') {
           setOpen('clock');
         }
         else {
-          setOpen('none');  
+          setOpen('none');
         }
       }
       else {
         setOpen('none');
       }
+    }
+    else {
+      setOpen('none');
     }
   }, [type, onChange]);
 
@@ -146,6 +150,19 @@ const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, pla
       setOpen('clock');
     }
   }, []);
+
+  useEffect(() => {
+    if(open === 'calendar') {
+      DateTimePickerAndroid.open({ value: date, display: 'calendar', onChange: onChangeDate });
+    }
+    else if(open === 'clock') {
+      DateTimePickerAndroid.open({ value: date, display: 'clock', onChange: onChangeDate });
+    }
+    else {
+      DateTimePickerAndroid.dismiss('date');
+      DateTimePickerAndroid.dismiss('time');
+    }
+  }, [open]);
 
   return (
     <>
@@ -168,7 +185,7 @@ const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, pla
         {
           isValid
           ?
-            <P style={{ flex: 1, ...textStyle }}>{value}</P>
+            <P style={{ flex: 1, ...textStyle }}>{open}</P>
           :
             <P style={{ flex: 1, ...textStyle, color: style?.placeholderColor}}>{placeholder}</P>
         }
@@ -191,7 +208,7 @@ const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, pla
             </Svg>
         }
       </Button>
-      {
+      {/* {
         open === 'calendar' ?
           <DateTimePicker
             value={date}
@@ -203,12 +220,12 @@ const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, pla
         open === 'clock' ?
           <DateTimePicker
             value={date}
-            display="calendar"
-            mode="date"
+            display="clock"
+            mode="time"
             onChange={onChangeDate}
           />
         : null
-      }
+      } */}
     </>
   )
 })
@@ -346,22 +363,43 @@ const getValue = ({type, date:_date}:{ type:InputDateType, date:Date}) => {
 
 const getDate = ({value}:{value:string}) => {
   const timeReg = /^\d{2}:\d{2}$/;
+  const dateTimeReg = /^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}$/;
+  let date:Date;
   if(timeReg.test(value)) {
-    value = `${today()} ${value}`;
+    // 시간이 그냥 포멧을 못바꿔서 timezone을 적용해서 해줘야 한다.
+    const offset = new Date().getTimezoneOffset();
+    const TIME_ZONE = offset * 60 * 1000; // 9시간
+    value = `${today()}T${value}:00.000Z`;
+    date = new Date(value);
+    date = new Date(date.getTime() - TIME_ZONE);
   }
-  let date:any = new Date(value);
-  console.log(value, date);
+  else if(dateTimeReg.test(value)) {
+    // 시간이 그냥 포멧을 못바꿔서 timezone을 적용해서 해줘야 한다.
+    const offset = new Date().getTimezoneOffset();
+    const TIME_ZONE = offset * 60 * 1000; // 9시간
+    const timeArr = value.split(' ');
+    value = `${timeArr[0]}T${timeArr[1]}:00.000Z`;
+    date = new Date(value);
+    date = new Date(date.getTime() - TIME_ZONE);
+  }
+  else {
+    date = new Date(value);
+  }
+  // console.log(value,` / `, date);
+
   let isValid = true;
-  if(isNaN(date)) {
+  if(isNaN(date?.getTime())) {
     date = new Date();
     isValid = false;
   }
   return { date, isValid };
 }
+
 const today = () => {
   const date = new Date();
   return `${date.getFullYear()}-${toXX(date.getMonth()+1)}-${toXX(date.getDate())}`;
 }
+
 const toXX = (num:number) => {
   return num < 10 ? `0${num}` : num;
 }

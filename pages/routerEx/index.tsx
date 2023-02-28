@@ -124,7 +124,7 @@ const RouterEx = () => {
       <Modal 
         visible={visibleHandle}
         onRequestClose={() => setVisibleHandle(false)}
-        contentStyle={{ height: 800 }}
+        contentStyle={{ height: 600 }}
         type="handleScreen"
       >
         <H1>Modal HandleScreen</H1>
