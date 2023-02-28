@@ -48,10 +48,9 @@ Before use it, see these.<br>
 - [o] [react-native-theme](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
 - [o] [react-native-tags](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
 - [o] [react-native-router](https://www.npmjs.com/package/@team-devmonster/react-native-router)
-- [o] [react-native-skeleton](https://www.npmjs.com/package/@team-devmonster/react-native-skeleton)
 <br>
 
-`$ npm install react-native-safe-area-context react-hook-form @hookform/error-message react-native-svg @react-native-picker/picker react-native-date-picker react-native-image-picker react-native-document-picker react-native-reanimated`
+`$ npm install react-native-safe-area-context react-hook-form @hookform/error-message react-native-svg @react-native-picker/picker @react-native-community/datetimepicker react-native-image-picker react-native-document-picker react-native-reanimated`
 
 `$ npm install @team-devmonster/react-native-theme@latest @team-devmonster/react-native-tags@latest @team-devmonster/react-native-router@latest @team-devmonster/react-native-form@latest`
 

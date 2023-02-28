@@ -127,6 +127,7 @@ export interface InputConfig {
   'type=radio'?:InputRadioConfig,
   'type=date'?:InputDateConfig,
   'type=month'?:InputDateConfig,
+  'type=year'?:InputDateConfig,
   'type=datetime-local'?:InputDateConfig,
   'type=time'?:InputDateConfig,
   'type=file'?:InputFileConfig,

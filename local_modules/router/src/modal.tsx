@@ -99,12 +99,14 @@ export const ModalContent = ({ type = 'fullScreen', children, onRequestClose, st
 
   const safe = useSafeAreaInsets();
   const { height } = Dimensions.get('window');
+  const contentHeight = (contentStyle?.height as number) || height/2*3;
+  const contentTop = height - contentHeight;
 
   const colorScheme = useColorScheme();
   const defaultContentBackgroundColor = useMemo(() => colorScheme === 'light' ? 'white' : 'black', [colorScheme]);
 
-  const handlePosition = useSharedValue(height/3);
-  const handleTransition = useSharedValue(height/3);
+  const handlePosition = useSharedValue(contentTop);
+  const handleTransition = useSharedValue(contentTop);
   const handleAnimation = useAnimatedStyle(() => {
     return {
       transform: [{ translateY: handleTransition.value }]
@@ -115,14 +117,14 @@ export const ModalContent = ({ type = 'fullScreen', children, onRequestClose, st
     handleTransition.value = handlePosition.value + e.translationY;
   })
   .onEnd((e) => {
-    if(handleTransition.value > height/2) {
+    if(handleTransition.value > contentTop + contentHeight/3) {
       onRequestClose?.();
-      handleTransition.value = withTiming(height/3);
-      handlePosition.value = withTiming(height/3);
+      handleTransition.value = withTiming(contentTop);
+      handlePosition.value = withTiming(contentTop);
     }
     else if(handleTransition.value > height/6) {
-      handleTransition.value = withTiming(height/3);
-      handlePosition.value = withTiming(height/3);
+      handleTransition.value = withTiming(contentTop);
+      handlePosition.value = withTiming(contentTop);
     }
     else {
       handleTransition.value = withTiming(safe.top);
@@ -223,7 +225,6 @@ type BackDropProps = {
   onRequestClose:any
 }
 const BackDrop = ({ backDropStyle, onRequestClose }:BackDropProps) => {
-  console.log(StyleSheet.absoluteFillObject);
   return (
     <Animated.View 
       entering={FadeIn} 

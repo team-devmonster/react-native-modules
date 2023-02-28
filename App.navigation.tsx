@@ -14,7 +14,6 @@ import RouterEx from "@pages/routerEx";
 import ParamEx from "@pages/routerEx/paramEx";
 import FormEx from "@pages/formEx";
 import SwiperEx from "@pages/swiperEx";
-import { Calendar } from "@pages/calendar";
 
 
 
@@ -23,8 +22,7 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigation = () => {
   return (
-    <RootStack.Navigator initialRouteName="index">
-      <RootStack.Screen name="calendar" component={Calendar}/>
+    <RootStack.Navigator initialRouteName="routerEx">
       <RootStack.Screen name="index" component={Index}/>
       <RootStack.Screen name="themeEx" component={ThemeEx}/>
       <RootStack.Screen name="tagsEx" component={TagsEx}/>

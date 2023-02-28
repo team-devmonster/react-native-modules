@@ -15,6 +15,7 @@ interface FormProps {
   price:number,
   agree1:boolean,
   gender:'man'|'woman'|'etc',
+  year:string,
   month:string,
   date:string,
   dateTime:string,
@@ -33,7 +34,12 @@ const FormEx = () => {
     defaultValues: {
       id: 'hello',
       gender: 'man',
-      company: '1'
+      company: '1',
+      year: '2022',
+      month: '2022-12',
+      date: '2022-12-27',
+      dateTime: '2022-12-27 17:54',
+      time: '17:54'
     }
   });
 
@@ -144,6 +150,12 @@ const FormEx = () => {
         </Button>
 
         <Input 
+          type="year" 
+          control={control}
+          name="year"
+          placeholder="year"></Input>
+
+        <Input 
           type="month" 
           control={control}
           name="month"
@@ -155,20 +167,19 @@ const FormEx = () => {
           name="date"
           placeholder="date"></Input>
 
-        {/* <Input 
+        <Input 
           type="datetime-local" 
           control={control}
           name="dateTime"
-          value="2022-11-27 22:49"
-          placeholder="date time"></Input> */}
-
-        <Textarea control={control} name="longText" placeholder="textarea"></Textarea>
-
+          placeholder="date time"></Input>
+        
         <Input 
           type="time" 
           control={control}
           name="time"
           placeholder="time"></Input>
+
+        <Textarea control={control} name="longText" placeholder="textarea"></Textarea>
 
 
         <Select 

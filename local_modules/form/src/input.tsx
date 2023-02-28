@@ -3,8 +3,10 @@ import { FormValues, InputProps } from "./type";
 import { Checkbox } from "./checkbox";
 import { BaseInput } from "./baseInput";
 import { Radio } from "./radio";
-import { DateInput } from "./dateInput";
+import { MonthInput } from "./monthInput";
 import { FileInput } from "./fileInput";
+import { TimeInput } from "./timeInput";
+import { YearInput } from "./yearInput";
 
 export function Input<T extends FormValues>(props:InputProps<T>) 
 {
@@ -12,10 +14,13 @@ export function Input<T extends FormValues>(props:InputProps<T>)
 
   switch(type) {
     case 'date':
-    case 'month':
-    //case 'datetime-local':
+    case 'datetime-local':
     case 'time':
-      return <DateInput type={type} {...rest as any}/>;
+      return <TimeInput type={type} {...rest as any}/>;
+    case 'year':
+      return <YearInput type={type} {...rest as any}/>;
+    case 'month':
+      return <MonthInput type={type} {...rest as any}/>;
     case 'checkbox':
       return <Checkbox {...rest as any}/>;
     case 'radio':

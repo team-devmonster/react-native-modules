@@ -88,8 +88,8 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps {
   accept?:string,
   multiple?:boolean
 }
-export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'checkbox'|'radio'|'file'|'date'|'month'|'time';
-export type InputDateType = 'date'|'month'|'time';
+export type InputType = 'text'|'email'|'url'|'number'|'tel'|'password'|'checkbox'|'radio'|'file'|'date'|'time'|'datetime-local'|'year'|'month';
+export type InputDateType = 'date'|'time'|'datetime-local'|'year'|'month';
 export type InputKeyboardType = 'default'|'email-address'|'number-pad'|'numeric'|'decimal-pad'|'phone-pad'|'url';
 
 export interface LabelProps<T extends FormValues> extends TagProps {

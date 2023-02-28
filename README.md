@@ -34,16 +34,17 @@ General `react-modules` load map => [here](https://github.com/team-devmonster/re
 - [o] [react-tags](https://www.npmjs.com/package/@team-devmonster/react-tags)
 - [o] [react-router](https://www.npmjs.com/package/@team-devmonster/react-router)
 - [o] [react-form](https://www.npmjs.com/package/@team-devmonster/react-form)
-- [o] [react-modal](https://www.npmjs.com/package/@team-devmonster/react-modal) // tempt => it will be included to react-router
+- [o] [react-modal](https://www.npmjs.com/package/@team-devmonster/react-modal) // tempt => it will be included to react-router because of history.
 - [ ] [react-skeletion]
 - [ ] [react-fetch]
 - [ ] [react-img-editor]
 - [ ] [react-text-editor]
+- [o] [react-reanimated](https://www.npmjs.com/package/@team-devmonster/react-reanimated) : It is created to respond to [`software-mansion/react-native-reanimated`](https://docs.swmansion.com/react-native-reanimated/) in react.
 
 ### react-native modules
 - [o] [react-native-theme](https://www.npmjs.com/package/@team-devmonster/react-native-theme)
 - [o] [react-native-tags](https://www.npmjs.com/package/@team-devmonster/react-native-tags)
-- [o] [react-native-router](https://www.npmjs.com/package/@team-devmonster/react-native-router)
+- [o] [react-native-router](https://www.npmjs.com/package/@team-devmonster/react-native-router) : It has various modals!
 - [o] [react-native-form](https://www.npmjs.com/package/@team-devmonster/react-native-form)
 - [o] [react-native-skeletion](https://www.npmjs.com/package/@team-devmonster/react-native-modal)
 - [ ] [react-native-fetch]
