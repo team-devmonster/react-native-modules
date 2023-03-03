@@ -191,6 +191,12 @@ const theme = (color:Color) => {
     }
   }
 
+  input['type=year'] = {
+    style: {
+      icon: <Div style={{ width: 8, height: 8, backgroundColor: color.primary }}></Div>
+    }
+  }
+
   input['type=date'] = {
     style: {
       icon: { color: color.primary }
@@ -214,7 +220,7 @@ const theme = (color:Color) => {
 
   const select:SelectConfig = {
     style: {
-      icon: { color: color.primary }
+      icon: <Div style={{ width: 8, height: 8, backgroundColor: color.primary }}></Div>
     }
   }
 

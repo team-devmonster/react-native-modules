@@ -74,7 +74,7 @@ export const Button = forwardRef(({
       else return '100%';
     })(),
     flex: (() => {
-      if(!layoutStyle.flex) return null;
+      if(!layoutStyle.flex && !layoutStyle.aspectRatio) return null;
       else return 1;
     })()
   }), [layoutStyle.height, layoutStyle.width, layoutStyle.flex]);

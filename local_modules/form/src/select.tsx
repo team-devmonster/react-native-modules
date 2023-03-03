@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Animated, ColorSchemeName, Easing, Modal, Platform, StyleSheet, TextInput, TouchableWithoutFeedback, useColorScheme } from "react-native";
+import { Animated, ColorSchemeName, Easing, Platform, StyleSheet, TextInput, useColorScheme } from "react-native";
 import { Controller } from 'react-hook-form';
 import { Picker } from "@react-native-picker/picker";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -8,6 +8,7 @@ import { useTagStyle, Button, TagGroupConfig, P, textPattern, ButtonStyle, useTa
 import { FormValues, SelectProps } from "./type";
 import Svg, { Path } from "react-native-svg";
 import { getIcon } from "./utils";
+import { Modal } from "@team-devmonster/react-native-router";
 
 export function Select<T extends FormValues>({
   control, 
@@ -173,91 +174,69 @@ export function Select<T extends FormValues>({
               // modal layout part for ios
               Platform.OS === 'ios' ?
               <Modal 
-                visible={visible} 
-                animationType="none"
-                transparent={true}
-                onRequestClose={() => setOpen(false)}>
-                <TouchableWithoutFeedback onPress={() => setOpen(false)}>
-                  <Animated.View
-                    style={{
-                      flex: 1,
-                      backgroundColor: 'black',
-                      opacity: enterAnim.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [0, 0.3]
-                      })
-                    }}>
-                  </Animated.View>
-                </TouchableWithoutFeedback>
-                <Animated.View style={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: 0,
+                visible={visible}
+                type="center"
+                style={{
+                  justifyContent: 'flex-end'
+                }}
+                contentStyle={{
                   width: '100%',
                   paddingBottom: safe.bottom + 8,
                   paddingLeft: safe.left + 8,
-                  paddingRight: safe.right + 8,
-                  transform: [
-                    {
-                      translateY: enterAnim.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [500, 0]
-                      })
+                  paddingRight: safe.right + 8
+                }}
+                onRequestClose={() => setOpen(false)}>
+                <Picker
+                  style={{
+                    backgroundColor: defaultStyle.backgroundColor,
+                    borderTopRightRadius: 12,
+                    borderTopLeftRadius: 12,
+                    borderBottomWidth: StyleSheet.hairlineWidth,
+                    borderBottomColor: colorScheme === 'dark' ? '#383838' : '#b1b1b1',
+                    height: 240,
+                    justifyContent: 'center'
+                  }}
+                  selectedValue={temptValue}
+                  onValueChange={(e, i) => {
+                    setTemptValue(e);
+                  }}>
+                    <Picker.Item color={inputStyle?.placeholderColor} label={placeholder||'선택'} value={null}></Picker.Item>
+                    {PickerItem}
+                </Picker>
+                <Button 
+                  onClick={() => {
+                    if(value !== temptValue) {
+                      onChange(temptValue);
                     }
-                  ]
-                }}>
-                  <Picker
-                    style={{
-                      backgroundColor: defaultStyle.backgroundColor,
-                      borderTopRightRadius: 12,
-                      borderTopLeftRadius: 12,
-                      borderBottomWidth: StyleSheet.hairlineWidth,
-                      borderBottomColor: colorScheme === 'dark' ? '#383838' : '#b1b1b1',
-                      height: 240,
-                      justifyContent: 'center'
-                    }}
-                    selectedValue={temptValue}
-                    onValueChange={(e, i) => {
-                      setTemptValue(e);
-                    }}>
-                      <Picker.Item color={inputStyle?.placeholderColor} label={placeholder||'선택'} value={null}></Picker.Item>
-                      {PickerItem}
-                  </Picker>
-                  <Button 
-                    onClick={() => {
-                      if(value !== temptValue) {
-                        onChange(temptValue);
-                      }
-                      setOpen(false);
-                    }}
-                    fill="none"
-                    style={{
-                      marginBottom: 8,
-                      borderRadius: 12,
-                      borderTopRightRadius: 0,
-                      borderTopLeftRadius: 0,
-                      height: 52,
-                      fontSize: 18,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      ...buttonStyles.confirmButtonStyle
-                    }}
-                    color={buttonStyles.confirmButtonStyle?.backgroundColor as string ?? defaultStyle.backgroundColor}
-                    >확인</Button>
-                  <Button 
-                    onClick={() => setOpen(false)}
-                    fill="none"
-                    style={{
-                      borderRadius: 12,
-                      height: 52,
-                      fontSize: 18,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      ...buttonStyles.cancelButtonStyle
-                    }}
-                    color={buttonStyles.cancelButtonStyle?.backgroundColor as string ?? defaultStyle.backgroundColor}
-                    >취소</Button>
-                </Animated.View>
+                    setOpen(false);
+                  }}
+                  fill="none"
+                  style={{
+                    marginBottom: 8,
+                    borderRadius: 12,
+                    borderTopRightRadius: 0,
+                    borderTopLeftRadius: 0,
+                    height: 52,
+                    fontSize: 18,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    ...buttonStyles.confirmButtonStyle
+                  }}
+                  color={buttonStyles.confirmButtonStyle?.backgroundColor as string ?? defaultStyle.backgroundColor}
+                  >확인</Button>
+                <Button 
+                  onClick={() => setOpen(false)}
+                  fill="none"
+                  style={{
+                    borderRadius: 12,
+                    height: 52,
+                    fontSize: 18,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    ...buttonStyles.cancelButtonStyle
+                  }}
+                  color={buttonStyles.cancelButtonStyle?.backgroundColor as string ?? defaultStyle.backgroundColor}
+                  >취소</Button>
               </Modal>
               : null
             }

@@ -217,7 +217,7 @@ const CalendarIOS = forwardRef<TextInput, CalendarProps>(({ date, value, placeho
   const onChangeDate = useCallback((event:DateTimePickerEvent, date?:Date) => {
     if(date) {
       const value = getValue({ type, date });
-      console.log(value);
+      // console.log(date, value);
       onChange(value);
     }
   }, [type, onChange]);
@@ -348,9 +348,13 @@ const getDate = ({value}:{value:string}) => {
     // 시간이 그냥 포멧을 못바꿔서 timezone을 적용해서 해줘야 한다.
     const offset = new Date().getTimezoneOffset();
     const TIME_ZONE = offset * 60 * 1000; // 9시간
+    console.log(value);
     value = `${today()}T${value}:00.000Z`;
+    //console.log(value);
     date = new Date(value);
-    date = new Date(date.getTime() - TIME_ZONE);
+    //console.log(TIME_ZONE);
+    //console.log(date.getTime() + TIME_ZONE);
+    date = new Date(date.getTime() + TIME_ZONE);
   }
   else if(dateTimeReg.test(value)) {
     // 시간이 그냥 포멧을 못바꿔서 timezone을 적용해서 해줘야 한다.
@@ -359,7 +363,7 @@ const getDate = ({value}:{value:string}) => {
     const timeArr = value.split(' ');
     value = `${timeArr[0]}T${timeArr[1]}:00.000Z`;
     date = new Date(value);
-    date = new Date(date.getTime() - TIME_ZONE);
+    date = new Date(date.getTime() + TIME_ZONE);
   }
   else {
     date = new Date(value);
