@@ -1,7 +1,7 @@
 import { Div, P, TagContext, TagStyle } from "@team-devmonster/react-native-tags"
 import Animated, { FadeInDown, FadeInUp, FadeOutDown, FadeOutUp } from "react-native-reanimated"
 import { SafeAreaInsetsContext } from "react-native-safe-area-context"
-import { createModal } from "./modal"
+import { createModal } from "./core"
 
 export type AlertProps = {
   message:string,

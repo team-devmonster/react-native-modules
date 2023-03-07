@@ -1,7 +1,7 @@
-import { ButtonClickEvent, ButtonStyle, InputStyle, TagProps, TagStyle } from "@team-devmonster/react-native-tags"
+import { ButtonClickEvent, ButtonProps, ButtonStyle, InputStyle, TagProps, TagStyle } from "@team-devmonster/react-native-tags"
 import { SyntheticEvent } from "react"
 import { Control, FieldErrorsImpl, Path } from "react-hook-form"
-import { NativeSyntheticEvent, ReturnKeyType, TextInputFocusEventData, TextInputSubmitEditingEventData } from "react-native"
+import { LayoutChangeEvent, NativeSyntheticEvent, ReturnKeyType, TextInputFocusEventData, TextInputSubmitEditingEventData } from "react-native"
 
 export interface InputRuleProps {
   required?: boolean | 
@@ -46,9 +46,9 @@ export interface InputRuleProps {
   disabled?:
     boolean,
   onChange?:
-    (e: SyntheticEvent) => void,
+    (event: SyntheticEvent) => void,
   onBlur?:
-    (e: SyntheticEvent) => void,
+    (event: SyntheticEvent) => void,
   value?:
     any,
   shouldUnregister?:
@@ -68,8 +68,9 @@ export interface InputProps<T extends FormValues = any> extends InputRuleProps {
   errorStyle?:InputStyle,
   type?:InputType,
   returnKeyType?:ReturnKeyType,
-  onEnter?:(e:NativeSyntheticEvent<TextInputSubmitEditingEventData>) => void,
-  onFocus?:((e: NativeSyntheticEvent<TextInputFocusEventData>) => void) | undefined,
+  onLayout?:((event: LayoutChangeEvent) => void) | undefined,
+  onEnter?:(event:NativeSyntheticEvent<TextInputSubmitEditingEventData>) => void,
+  onFocus?:((event: NativeSyntheticEvent<TextInputFocusEventData>) => void) | undefined,
   // input['type=text']
   keyboardType?:InputKeyboardType,
   // options by types
@@ -101,11 +102,11 @@ export interface LabelProps<T extends FormValues> extends TagProps {
   errorStyle?:TagStyle
 }
 
-export interface OptionProps {
-  value:any,
-  children: string
+export interface OptionProps extends ButtonProps {
+  value:any
 }
 
 export interface SelectProps<T extends FormValues> extends Omit<InputProps<T>, 'type'|'cameraButtonStyle'|'albumButtonStyle'> {
+  interface?:'picker'|'popover';
   children?:JSX.Element | JSX.Element[]
 }

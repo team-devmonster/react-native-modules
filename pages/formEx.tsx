@@ -185,6 +185,7 @@ const FormEx = () => {
         <Select 
           control={control}
           name="company"
+          interface="popover"
           placeholder="please select">
           <Option value="1">devmonster</Option>
         </Select>

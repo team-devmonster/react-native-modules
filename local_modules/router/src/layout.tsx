@@ -1,16 +1,23 @@
-import React, { Children, forwardRef, LegacyRef, useEffect, useMemo, useState } from "react";
+import React, { Children, forwardRef, Ref, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from "react-native";
 import { Edge, SafeAreaView } from "react-native-safe-area-context";
 import { TagElement, TagProps, useTags } from "@team-devmonster/react-native-tags";
+//import { RouterContext } from "./core";
 
 interface LayoutProps extends TagProps {
   edges?:Edge[];
   onScroll?:(e:any) => void;
   scrollEnabled?:boolean;
   scrollEventThrottle?:number;
-  scrollRef?:LegacyRef<ScrollView>
+  scrollRef?:Ref<ScrollView|null>
 }
-export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ children, edges, style, onScroll, scrollEnabled, scrollEventThrottle, scrollRef, ...rest }, ref) => {
+export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ children, edges, style, onScroll, scrollEnabled, scrollEventThrottle, scrollRef:_scrollRef, ...rest }, ref) => {
+
+  //const { layoutScrollRef } = useContext(RouterContext);
+  
+  const scrollRef = useRef<ScrollView>(null);
+  useImperativeHandle(_scrollRef, () => scrollRef.current);
+  //useImperativeHandle(layoutScrollRef, () => scrollRef.current);
 
   const { header, defaultEdges, contents, fixedLayout, footer } = useMemo(() => newChildren({ children }), [children]);
   const { tagConfig } = useTags();

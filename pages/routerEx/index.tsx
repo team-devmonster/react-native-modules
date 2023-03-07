@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
-import { Div, Button, P, H1 } from "@local_modules/tags";
-import { A, FixedLayout, Header, Layout, Modal, useRouter, createModal, RouterContext } from "@local_modules/router";
+import { Div, Button, P, H1, H2, TagContext } from "@local_modules/tags";
+import { A, FixedLayout, Header, Layout, Modal, useRouter, RouterContext } from "@local_modules/router";
 
 import ImgPaperAirplane from "assets/images/paperAirplane.svg";
 import { Toast } from "@local_modules/router";
@@ -16,6 +16,10 @@ const RouterEx = () => {
   const [visibleHandle, setVisibleHandle] = useState(false);
   const [visibleCenter, setVisibleCenter] = useState(false);
   const [visibleClear, setVisibleClear] = useState(false);
+
+  // const { layoutScrollRef } = useContext(RouterContext);
+  
+  const [count, setCount] = useState(0);
 
   return (
     <Layout
@@ -77,6 +81,7 @@ const RouterEx = () => {
 
         <Button 
           onClick={() => {
+            // console.log(layoutScrollRef.current);
             setVisibleFull(true);
           }}
           color={color.danger} 
@@ -117,7 +122,12 @@ const RouterEx = () => {
         type="fullScreen"
       >
         <H1>Modal Fullscreen</H1>
-        
+        <H1>Count: { String(count) }</H1>
+        <H1>Modal Fullscreen</H1>
+        <H1>Modal Fullscreen</H1>
+        <H1>Modal Fullscreen</H1>
+        <H1>Modal Fullscreen</H1>
+        <Button onClick={() => setCount(count + 1)}>add count</Button>
         <Button onClick={() => setVisibleFull(false)}>close Modal</Button>
       </Modal>
 

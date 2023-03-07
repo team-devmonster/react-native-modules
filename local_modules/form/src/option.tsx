@@ -1,13 +1,13 @@
-import { Picker } from "@react-native-picker/picker";
+import { Button } from "@team-devmonster/react-native-tags";
 import React from "react"
 import { OptionProps } from "./type";
 
 export function Option({ 
   value,
-  children
+  children,
+  ...rest
 }:OptionProps) {
-  // not use this. but need it :(
   return (
-    <Picker.Item label={children} value={value}></Picker.Item>
+    <Button color="transparent" fill="none" {...rest}>{children}</Button>
   )
 }

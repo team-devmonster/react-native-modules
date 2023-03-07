@@ -11,7 +11,7 @@ type Color = {
 export function ThemeProvider<S extends Color,T extends Function>({children, color, theme, darkModeEnabled = true}:{children:React.ReactNode, color:S, theme:T, darkModeEnabled?:boolean}) {
 
   const deviceColorScheme = useColorScheme() as NonNullable<ColorSchemeName>;
-  const colorScheme = darkModeEnabled ? deviceColorScheme ? 'dark' : 'light' : 'light';
+  const colorScheme = darkModeEnabled ? deviceColorScheme === 'dark' ? 'dark' : 'light' : 'light';
 
   return (
     <ThemeContext.Provider 
