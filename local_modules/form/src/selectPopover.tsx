@@ -1,5 +1,5 @@
 import React, { Children, useMemo, useRef, useState } from "react";
-import { TextInput, View } from "react-native";
+import { ScrollView, TextInput, View } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { Controller } from 'react-hook-form';
 
@@ -9,7 +9,7 @@ import { Modal } from "@team-devmonster/react-native-router";
 
 import { FormValues, SelectProps } from "./type";
 import { getIcon } from "./utils";
-import { ZoomInEasyUp } from "react-native-reanimated";
+import { FadeIn, FadeOut } from "react-native-reanimated";
 
 export function SelectPopover<T extends FormValues>({
   control, 
@@ -23,6 +23,7 @@ export function SelectPopover<T extends FormValues>({
   style,
   disabledStyle,
   errorStyle,
+  popoverStyle,
   value,
   onClick,
   children,
@@ -36,7 +37,8 @@ export function SelectPopover<T extends FormValues>({
   const { tagConfig } = useTags();
   const styles = useMemo(() => getStyles({ tagConfig }), [tagConfig?.input]);
   const defaultStyle = useMemo(() => ({
-    backgroundColor: colorScheme === 'dark' ? '#272727' : '#f2f2f2'
+    backgroundColor: colorScheme === 'dark' ? '#1f1f1f' : '#ffffff',
+    color: colorScheme === 'dark' ? '#ffffff' : '#000000'
   }), [colorScheme])
 
   const [visible, setVisible] = useState(false);
@@ -77,20 +79,16 @@ export function SelectPopover<T extends FormValues>({
             ref={tagRef}
             onClick={(e) => {
               tagRef.current?.measure((xZero, yZero, width, height, px, py) => {
-                //"height": 42.28571319580078, "width": 371.4285583496094, "x": 0, "y": 772.952392578125
-                //0 0 371.4285583496094 42.28571319580078 20.190475463867188 476.952392578125
-                console.log("measure", width, height, px, py);
+                //console.log({ x:px, y:py, width, height });
                 setPopoverPosition({ x:px, y:py, width, height });
-                console.log({ x:px, y:py, width, height });
-                
               })
+              setVisible(true);
+              onClick?.(e);
               // 개고생했는데 안되잖아!!!!
               /* tagRef.current?.measureLayout(layoutScrollRef.current, (x, y, width, height) => {
                 //console.log(popoverPosition);
                 console.log(x, y, width, height);
               }, () => { console.log('fail') }); */
-              setVisible(true);
-              onClick?.(e);
             }}
             color={inputStyle?.backgroundColor}
             fill="none"
@@ -115,7 +113,7 @@ export function SelectPopover<T extends FormValues>({
             {
               selectedItem
               ?
-                <P style={{ flex: 1, ...textStyle }}>{selectedItem.props.children}</P>
+                <P style={{ flex: 1, ...textStyle }}>{selectedItem.props.label || selectedItem.props.children}</P>
               :
                 <P style={{ flex: 1, ...textStyle, color: inputStyle?.placeholderColor}}>{placeholder}</P>
             }
@@ -139,30 +137,47 @@ export function SelectPopover<T extends FormValues>({
             <Modal 
               visible={visible}
               type="center"
-              entering={ZoomInEasyUp}
+              entering={FadeIn}
+              exiting={FadeOut}
               backDropStyle={{ opacity: 0 }}
               contentStyle={{
                 position: 'absolute',
-                backgroundColor: defaultStyle.backgroundColor,
                 left: popoverPosition.x,
                 top: popoverPosition.y + popoverPosition.height,
                 width: popoverPosition.width
               }}
               onRequestClose={() => setVisible(false)}>
-              {
-                Children.map(children, 
-                  (child) => child ?
-                    <Button
-                      color="transparent" fill="none"
-                      {...child.props}
-                      onClick={() => {
-                        setVisible(false);
-                      }}
-                    /> 
-                  : 
-                    null
-                )
-              }
+              <ScrollView 
+                style={{
+                  height: 42*4.5,
+                  backgroundColor: defaultStyle.backgroundColor,
+                  borderRadius: 5,
+                  ...styles.popoverStyle,
+                  ...popoverStyle as any
+                }}>
+                {
+                  Children.map(children, 
+                    (child:any) => child ?
+                      <Button
+                        color='transparent'
+                        fill="none"
+                        style={{ 
+                          height: 42,
+                          padding: 12,
+                          color: defaultStyle.color
+                        }}
+                        {...child.props}
+                        onClick={() => {
+                          console.log(child.props.value);
+                          onChange(child.props.value);
+                          setVisible(false);
+                        }}
+                      /> 
+                    : 
+                      null
+                  )
+                }
+              </ScrollView>
             </Modal>
           </Button>
         )
@@ -182,6 +197,7 @@ const getStyles = ({ tagConfig }:{ tagConfig:TagGroupConfig|undefined }) => {
 
   const confirmButtonStyle = tagConfig?.select?.confirmButtonStyle;
   const cancelButtonStyle = tagConfig?.select?.cancelButtonStyle;
+  const popoverStyle = tagConfig?.select?.popoverStyle;
 
   return {
     tagStyle:  {
@@ -197,7 +213,8 @@ const getStyles = ({ tagConfig }:{ tagConfig:TagGroupConfig|undefined }) => {
       ...selectTagErrorStyle
     },
     confirmButtonStyle,
-    cancelButtonStyle
+    cancelButtonStyle,
+    popoverStyle
   }
 }
 

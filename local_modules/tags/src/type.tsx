@@ -169,7 +169,9 @@ export interface SelectConfig {
   disabledStyle?:SelectStyle,
   errorStyle?:SelectStyle,
   confirmButtonStyle?:ButtonStyle,
-  cancelButtonStyle?:ButtonStyle
+  cancelButtonStyle?:ButtonStyle,
+  interface?:'picker'|'popover';
+  popoverStyle?:TagStyle;
 }
 export interface ToggleConfig {
   style?:ToggleStyle,

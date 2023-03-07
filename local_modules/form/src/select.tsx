@@ -2,9 +2,14 @@ import React from "react";
 import { FormValues, SelectProps } from "./type";
 import { SelectPicker } from "./selectPicker";
 import { SelectPopover } from "./selectPopover";
+import { useTags } from "@team-devmonster/react-native-tags";
 
 export function Select<T extends FormValues>(props:SelectProps<T>) {
-  switch(props.interface) {
+
+  const { tagConfig } = useTags();
+  const selectInterface = tagConfig?.select?.interface || props.interface;
+
+  switch(selectInterface) {
     case 'popover':
       return <SelectPopover {...props as any}/>;
     default: // picker

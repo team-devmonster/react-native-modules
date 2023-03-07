@@ -103,10 +103,12 @@ export interface LabelProps<T extends FormValues> extends TagProps {
 }
 
 export interface OptionProps extends ButtonProps {
-  value:any
+  value:any,
+  label?:string
 }
 
 export interface SelectProps<T extends FormValues> extends Omit<InputProps<T>, 'type'|'cameraButtonStyle'|'albumButtonStyle'> {
   interface?:'picker'|'popover';
+  popoverStyle?:TagStyle;
   children?:JSX.Element | JSX.Element[]
 }

@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 export type ModalProps = {
   _isChanging?:boolean,
   entering?:any,
+  exiting?:any,
   visible?:boolean,
   onRequestClose?:(e?:any) => void,
   type?:'fullScreen'|'handleScreen'|'center'|'clear'|'children',
@@ -118,7 +119,7 @@ export const createModal = (props:ModalProps) => {
   }
 }
 
-export const ModalContent = ({ type = 'fullScreen', entering, children, onRequestClose, style, backDropStyle, contentStyle, handleStyle }:ModalProps) => {
+export const ModalContent = ({ type = 'fullScreen', entering, exiting, children, onRequestClose, style, backDropStyle, contentStyle, handleStyle }:ModalProps) => {
 
   const navigation = useNavigation();
 
@@ -176,7 +177,7 @@ export const ModalContent = ({ type = 'fullScreen', entering, children, onReques
           <BackDrop backDropStyle={backDropStyle} onRequestClose={onRequestClose}/>
           <Animated.View 
             entering={entering || FadeInDown}
-            exiting={FadeOutDown}
+            exiting={exiting || FadeOutDown}
             style={{ 
               ...StyleSheet.absoluteFillObject, 
               backgroundColor: defaultContentBackgroundColor, 
@@ -195,7 +196,7 @@ export const ModalContent = ({ type = 'fullScreen', entering, children, onReques
             <Animated.View style={[{ ...StyleSheet.absoluteFillObject }, handleAnimation]}>
               <Animated.View 
                 entering={entering || FadeInDown} 
-                exiting={SlideOutDown}
+                exiting={exiting || SlideOutDown}
                 style={{ 
                   flex: 1,
                   backgroundColor: defaultContentBackgroundColor,
@@ -224,7 +225,7 @@ export const ModalContent = ({ type = 'fullScreen', entering, children, onReques
           <BackDrop backDropStyle={backDropStyle} onRequestClose={onRequestClose}/>
           <Animated.View 
             entering={entering || FadeInDown}
-            exiting={FadeOutDown}
+            exiting={exiting || FadeOutDown}
             style={contentStyle as any}>
             { children }
           </Animated.View>
@@ -235,7 +236,7 @@ export const ModalContent = ({ type = 'fullScreen', entering, children, onReques
         <View style={[{ position: 'absolute', zIndex: 1000 }, style as any]}>
           <Animated.View 
             entering={entering || FadeInDown}
-            exiting={FadeOutDown}
+            exiting={exiting || FadeOutDown}
             style={contentStyle as any}>
             { children }
           </Animated.View>
@@ -246,9 +247,12 @@ export const ModalContent = ({ type = 'fullScreen', entering, children, onReques
     default:
       return (
         <View style={[{ position: 'absolute', zIndex: 1000 }, style as any]}>
-          <View style={contentStyle as any}>
-            {children}
-          </View>
+          <Animated.View 
+            entering={entering || FadeInDown}
+            exiting={exiting || FadeOutDown}
+            style={contentStyle as any}>
+            { children }
+          </Animated.View>
         </View>
       )
   }

@@ -221,6 +221,10 @@ const theme = (color:Color) => {
   const select:SelectConfig = {
     style: {
       icon: <Div style={{ width: 8, height: 8, backgroundColor: color.primary }}></Div>
+    },
+    popoverStyle: {
+      height: 50 * 5,
+      backgroundColor: 'red'
     }
   }
 
