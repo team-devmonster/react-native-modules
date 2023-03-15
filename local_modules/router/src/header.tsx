@@ -90,7 +90,10 @@ export const Header = ({
     if(style?.color) options.headerTintColor = style.color as string;
 
     if(headerTitleAlign) options.headerTitleAlign = headerTitleAlign;
-    if(headerLeft) options.headerLeft = () => headerLeft;
+    if(headerLeft) {
+      options.headerBackVisible = false;
+      options.headerLeft = () => headerLeft;
+    }
     if(headerRight) options.headerRight = () => headerRight;
     if(headerBackTitle) options.headerBackTitle = headerBackTitle;
     if(headerBackImageSource) options.headerBackImageSource = headerBackImageSource;
