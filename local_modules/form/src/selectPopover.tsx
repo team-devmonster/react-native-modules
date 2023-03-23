@@ -168,7 +168,7 @@ export function SelectPopover<T extends FormValues>({
                         }}
                         {...child.props}
                         onClick={() => {
-                          console.log(child.props.value);
+                          //console.log(child.props.value);
                           onChange(child.props.value);
                           setVisible(false);
                         }}

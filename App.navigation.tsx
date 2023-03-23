@@ -22,7 +22,7 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigation = () => {
   return (
-    <RootStack.Navigator initialRouteName="formEx">
+    <RootStack.Navigator initialRouteName="routerEx">
       <RootStack.Screen name="index" component={Index}/>
       <RootStack.Screen name="themeEx" component={ThemeEx}/>
       <RootStack.Screen name="tagsEx" component={TagsEx}/>

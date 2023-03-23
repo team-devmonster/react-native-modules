@@ -17,6 +17,7 @@ export const Toast = ({ message, duration = 3000, position = 'bottom', style, co
   const $modal = createModal({
     visible: true,
     type: 'children',
+    backButtonClose: false,
     onRequestClose: () => {
       $modal.remove();
     },

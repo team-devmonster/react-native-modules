@@ -34,7 +34,8 @@ const RouterEx = () => {
             <ImgPaperAirplane color={color.primary} width={20} height={20}/>
           </Button>
         }
-        title="Hello Header"
+        title={<Div style={{ backgroundColor: 'red' }}>Hello Header</Div>}
+        headerTitleAlign="center"
         headerRight={
           <Button style={{ marginRight: -20 }}>
             setting

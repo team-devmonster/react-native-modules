@@ -11,6 +11,7 @@ export type ModalProps = {
   entering?:any,
   exiting?:any,
   visible?:boolean,
+  backButtonClose?:boolean,
   onRequestClose?:(e?:any) => void,
   type?:'fullScreen'|'handleScreen'|'center'|'clear'|'children',
   style?:TagStyle,
@@ -119,7 +120,7 @@ export const createModal = (props:ModalProps) => {
   }
 }
 
-export const ModalContent = ({ type = 'fullScreen', entering, exiting, children, onRequestClose, style, backDropStyle, contentStyle, handleStyle }:ModalProps) => {
+export const ModalContent = ({ type = 'fullScreen', entering, exiting, children, onRequestClose, style, backDropStyle, contentStyle, handleStyle, backButtonClose = true }:ModalProps) => {
 
   const navigation = useNavigation();
 
@@ -161,12 +162,14 @@ export const ModalContent = ({ type = 'fullScreen', entering, exiting, children,
 
   
   useEffect(() => {
-    const $BackButtonSubs = BackHandler.addEventListener('hardwareBackPress', function () {
-      onRequestClose?.();
-      return true;
-    });
-    return () => {
-      $BackButtonSubs.remove();
+    if(backButtonClose) {
+      const $BackButtonSubs = BackHandler.addEventListener('hardwareBackPress', function () {
+        onRequestClose?.();
+        return true;
+      });
+      return () => {
+        $BackButtonSubs.remove();
+      }
     }
   }, [navigation]);
 

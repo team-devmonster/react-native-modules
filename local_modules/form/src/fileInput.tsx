@@ -136,7 +136,7 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                       ...asset,
                       filename: name
                     }));
-                    console.log(files);
+                    //console.log(files);
                     onChange([...value, ...files]);
                     _onChange?.({...e, target: { ...e.target, value: files }} as any);
                   }
@@ -151,7 +151,7 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                       ...asset,
                       filename: name
                     }
-                    console.log(file);
+                    //console.log(file);
                     onChange([file]);
                     _onChange?.({...e, target: { ...e.target, value: [file] }} as any);
                   }

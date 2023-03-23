@@ -348,7 +348,7 @@ const getDate = ({value}:{value:string}) => {
     // 시간이 그냥 포멧을 못바꿔서 timezone을 적용해서 해줘야 한다.
     const offset = new Date().getTimezoneOffset();
     const TIME_ZONE = offset * 60 * 1000; // 9시간
-    console.log(value);
+    //console.log(value);
     value = `${today()}T${value}:00.000Z`;
     //console.log(value);
     date = new Date(value);
