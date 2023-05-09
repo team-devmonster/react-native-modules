@@ -79,16 +79,10 @@ export function SelectPopover<T extends FormValues>({
             ref={tagRef}
             onClick={(e) => {
               tagRef.current?.measure((xZero, yZero, width, height, px, py) => {
-                //console.log({ x:px, y:py, width, height });
                 setPopoverPosition({ x:px, y:py, width, height });
               })
               setVisible(true);
               onClick?.(e);
-              // 개고생했는데 안되잖아!!!!
-              /* tagRef.current?.measureLayout(layoutScrollRef.current, (x, y, width, height) => {
-                //console.log(popoverPosition);
-                console.log(x, y, width, height);
-              }, () => { console.log('fail') }); */
             }}
             color={inputStyle?.backgroundColor}
             fill="none"
