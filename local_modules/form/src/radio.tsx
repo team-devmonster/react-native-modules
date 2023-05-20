@@ -71,6 +71,7 @@ export function Radio<T extends FormValues>(
               ...radioDefaultStyle,
               ...newStyle
             }}
+            disabled={disabled}
             onClick={() => {
               onChange(value);
             }}>
