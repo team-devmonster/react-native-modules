@@ -199,7 +199,7 @@ const theme = (color:Color) => {
 
   input['type=date'] = {
     style: {
-      icon: { color: color.primary }
+      icon: { color: color.step400 }
     }
   }
   input['type=month'] = {

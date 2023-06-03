@@ -65,7 +65,7 @@ export function MonthInput<T extends FormValues>(props:DateInputProps<T>) {
         const { icon, iconStyle } = useMemo(() => getIcon({ iconObj: inputStyle}), [inputStyle.icon]);
 
         const { date, isValid } = useMemo(() => getDate({ value }), [value]);
-        
+
         return (
           <Button 
             onClick={(e) => {
@@ -95,13 +95,14 @@ export function MonthInput<T extends FormValues>(props:DateInputProps<T>) {
                 <P style={{ flex: 1, ...textStyle, color: inputStyle?.placeholderColor}}>{placeholder}</P>
             }
             {
-              icon ? icon
+              icon ? 
+              icon
               :
               <Svg
                 width={iconStyle?.width || 24}
                 height={iconStyle?.height || 24}
                 viewBox="0 0 24 24"
-                fill={inputStyle?.color || '#FF6420'}
+                fill={iconStyle?.color || '#FF6420'}
               >
                 <Path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-5.25 3a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5zm-1.5-3a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.5.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z" />
                 <Path
