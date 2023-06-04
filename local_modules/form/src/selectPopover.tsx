@@ -4,7 +4,7 @@ import Svg, { Path } from "react-native-svg";
 import { Controller } from 'react-hook-form';
 
 import { useTheme } from "@team-devmonster/react-native-theme";
-import { useTagStyle, Button, TagGroupConfig, P, textPattern, useTags } from '@team-devmonster/react-native-tags';
+import { useTagStyle, Button, TagGroupConfig, P, textPattern, useTags, TagElement } from '@team-devmonster/react-native-tags';
 import { Modal } from "@team-devmonster/react-native-router";
 
 import { FormValues, SelectProps } from "./type";
@@ -212,7 +212,7 @@ const getStyles = ({ tagConfig }:{ tagConfig:TagGroupConfig|undefined }) => {
   }
 }
 
-const getSelectedItem = ({children, value}:{children:JSX.Element|JSX.Element[]|undefined,value:any}):JSX.Element|null => {
+const getSelectedItem = ({children, value}:{children:TagElement|undefined,value:any}):JSX.Element|null => {
   const options = Children.toArray(children) as JSX.Element[];
 
   return options.find(({ props: { value:optionValue } }) => {

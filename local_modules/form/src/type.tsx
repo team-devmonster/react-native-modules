@@ -1,4 +1,4 @@
-import { ButtonClickEvent, ButtonProps, ButtonStyle, InputStyle, TagProps, TagStyle } from "@team-devmonster/react-native-tags"
+import { ButtonClickEvent, ButtonProps, ButtonStyle, InputStyle, TagElement, TagProps, TagStyle } from "@team-devmonster/react-native-tags"
 import { SyntheticEvent } from "react"
 import { Control, FieldErrorsImpl, Path } from "react-hook-form"
 import { LayoutChangeEvent, NativeSyntheticEvent, ReturnKeyType, TextInputFocusEventData, TextInputSubmitEditingEventData } from "react-native"
@@ -110,5 +110,5 @@ export interface OptionProps extends ButtonProps {
 export interface SelectProps<T extends FormValues> extends Omit<InputProps<T>, 'type'|'cameraButtonStyle'|'albumButtonStyle'> {
   interface?:'picker'|'popover';
   popoverStyle?:TagStyle;
-  children?:JSX.Element | JSX.Element[]
+  children?:TagElement
 }

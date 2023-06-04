@@ -5,7 +5,7 @@ import { Picker } from "@react-native-picker/picker";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useTheme } from '@team-devmonster/react-native-theme';
-import { useTagStyle, Button, TagGroupConfig, P, textPattern, ButtonStyle, useTags } from '@team-devmonster/react-native-tags';
+import { useTagStyle, Button, TagGroupConfig, P, textPattern, ButtonStyle, useTags, TagElement } from '@team-devmonster/react-native-tags';
 import { Modal } from "@team-devmonster/react-native-router";
 import { FormValues, SelectProps } from "./type";
 import Svg, { Path } from "react-native-svg";
@@ -268,7 +268,7 @@ const getButtonStyles = ({ styles, confirmButtonStyle, cancelButtonStyle }:{ sty
   }
 }
 
-const getPickerItem = ({children, colorScheme}:{children:JSX.Element|JSX.Element[]|undefined,colorScheme:ColorSchemeName}) => {
+const getPickerItem = ({children, colorScheme}:{children:TagElement|undefined,colorScheme:ColorSchemeName}) => {
   const options = Children.toArray(children) as JSX.Element[];
   
   return options.map(({ props: { children:label, value:optionValue } }, i) => (
@@ -276,7 +276,7 @@ const getPickerItem = ({children, colorScheme}:{children:JSX.Element|JSX.Element
   ));
 }
 
-const getSelectedPickerItem = ({children, value}:{children:JSX.Element|JSX.Element[]|undefined,value:any}):JSX.Element|null => {
+const getSelectedPickerItem = ({children, value}:{children:TagElement|undefined,value:any}):JSX.Element|null => {
   const options = Children.toArray(children) as JSX.Element[];
 
   return options.find(({ props: { value:optionValue } }) => {
