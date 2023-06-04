@@ -14,6 +14,7 @@ export type ModalProps = {
   backButtonClose?:boolean,
   onRequestClose?:(e?:any) => void,
   type?:'fullScreen'|'handleScreen'|'center'|'clear'|'children',
+  options?:{ canFullScreen?:boolean },
   style?:TagStyle,
   contentStyle?:TagStyle,
   backDropStyle?:TagStyle,
@@ -120,7 +121,19 @@ export const createModal = (props:ModalProps) => {
   }
 }
 
-export const ModalContent = ({ type = 'fullScreen', entering, exiting, children, onRequestClose, style, backDropStyle, contentStyle, handleStyle, backButtonClose = true }:ModalProps) => {
+export const ModalContent = ({ 
+  type = 'fullScreen', 
+  options,
+  entering, 
+  exiting, 
+  children, 
+  onRequestClose, 
+  style, 
+  backDropStyle, 
+  contentStyle, 
+  handleStyle, 
+  backButtonClose = true 
+}:ModalProps) => {
 
   const navigation = useNavigation();
 
@@ -154,8 +167,14 @@ export const ModalContent = ({ type = 'fullScreen', entering, exiting, children,
       handlePosition.value = withTiming(contentTop);
     }
     else {
-      handleTransition.value = withTiming(safe.top);
-      handlePosition.value = withTiming(safe.top);
+      if(options?.canFullScreen) {
+        handleTransition.value = withTiming(safe.top);
+        handlePosition.value = withTiming(safe.top);
+      }
+      else {
+        handleTransition.value = withTiming(contentTop);
+        handlePosition.value = withTiming(contentTop);
+      }
     }
   })
   .runOnJS(true), []);
