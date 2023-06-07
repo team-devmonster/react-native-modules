@@ -35,7 +35,7 @@ const FormEx = () => {
       id: 'hello',
       gender: 'man',
       company: '1',
-      year: '2022',
+      year: '2021',
       month: '2022-12',
       date: '2022-12-27',
       dateTime: '2022-12-27 17:54',
@@ -154,6 +154,8 @@ const FormEx = () => {
           control={control}
           name="year"
           placeholder="year"></Input>
+
+        <Button onClick={() => setValue('year', '2012')}>year 2012 change</Button>
 
         <Input 
           type="month" 
