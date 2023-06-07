@@ -21,6 +21,7 @@ const RouterEx = () => {
   
   const [count, setCount] = useState(0);
   const toastRef = useRef<ToastReturn>();
+  const toast2Ref = useRef<ToastReturn>();
 
   return (
     <Layout
@@ -119,10 +120,24 @@ const RouterEx = () => {
 
         <Button 
           onClick={() => {
+            toast2Ref.current = Toast({ message: '토스트 완성' });
+          }}
+          color={color.step900}
+        >open Toast2</Button>
+
+        <Button 
+          onClick={() => {
             toastRef.current?.close();
           }}
           color={color.step900}
         >close Toast</Button>
+
+        <Button 
+          onClick={() => {
+            toast2Ref.current?.close();
+          }}
+          color={color.step900}
+        >close Toast2</Button>
       </Div>
 
       <Modal 

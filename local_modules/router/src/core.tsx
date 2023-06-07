@@ -115,8 +115,10 @@ export const createModal = (props:ModalProps) => {
 
   return {
     remove: () => {
-      delete modalsRef.current[key];
-      setModals(modalsRef.current);
+      if(modalsRef.current[key]) {
+        delete modalsRef.current[key];
+        setModals({...modalsRef.current});
+      }
     }
   }
 }
