@@ -10,7 +10,10 @@ export type ToastProps = {
   style?:TagStyle,
   contentStyle?:TagStyle
 }
-export const Toast = ({ message, duration = 3000, position = 'bottom', style, contentStyle }:ToastProps) => {
+export type ToastReturn = {
+  close:() => void
+}
+export const Toast = ({ message, duration = 3000, position = 'bottom', style, contentStyle }:ToastProps):ToastReturn => {
 
   let isFirst = true;
 
@@ -76,5 +79,10 @@ export const Toast = ({ message, duration = 3000, position = 'bottom', style, co
       </TagContext.Consumer>
     )
   })
-  
+
+  return {
+    close: () => {
+      $modal.remove();
+    }
+  }
 }

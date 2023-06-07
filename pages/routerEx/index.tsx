@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Div, Button, P, H1, H2, TagContext } from "@local_modules/tags";
-import { A, FixedLayout, Header, Layout, Modal, useRouter, RouterContext } from "@local_modules/router";
+import { A, FixedLayout, Header, Layout, Modal, useRouter, RouterContext, ToastReturn } from "@local_modules/router";
 
 import ImgPaperAirplane from "assets/images/paperAirplane.svg";
 import { Toast } from "@local_modules/router";
@@ -20,6 +20,7 @@ const RouterEx = () => {
   // const { layoutScrollRef } = useContext(RouterContext);
   
   const [count, setCount] = useState(0);
+  const toastRef = useRef<ToastReturn>();
 
   return (
     <Layout
@@ -111,10 +112,17 @@ const RouterEx = () => {
 
         <Button 
           onClick={() => {
-            Toast({ message: '토스트 완성' });
+            toastRef.current = Toast({ message: '토스트 완성' });
           }}
           color={color.step900}
         >open Toast</Button>
+
+        <Button 
+          onClick={() => {
+            toastRef.current?.close();
+          }}
+          color={color.step900}
+        >close Toast</Button>
       </Div>
 
       <Modal 
