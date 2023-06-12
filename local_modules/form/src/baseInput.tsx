@@ -1,11 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useImperativeHandle, useMemo, useRef } from "react";
 import { FormValues, InputProps, InputType, InputRuleProps, InputKeyboardType } from "./type";
 import { Controller } from 'react-hook-form';
 import { KeyboardTypeOptions, TextInput } from "react-native";
 import { placeholderPattern, useTags, useTagStyle } from '@team-devmonster/react-native-tags';
 
-export function BaseInput<T extends FormValues>(props:InputProps<T>) 
-{
+export const BaseInput = (props:InputProps<FormValues>) => {
   const {
     control, 
     name,
@@ -20,6 +19,7 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
     onEnter,
     onFocus,
     keyboardType,
+    inputRef,
     ...rules
   } = props;
 
@@ -36,9 +36,15 @@ export function BaseInput<T extends FormValues>(props:InputProps<T>)
       defaultValue={value}
       rules={rules as any}
       render={({
-        field: { onChange, onBlur, value, ref },
+        field: { onChange, onBlur, value, ref:conrollerRef },
         fieldState: { error }
-        }) => {
+      }) => {
+
+        const ref = useRef<TextInput>(null);
+        conrollerRef(ref);
+        useImperativeHandle(inputRef, () => {
+          return ref.current;
+        }, [ref]);
 
         const [
           placeholderStyle,

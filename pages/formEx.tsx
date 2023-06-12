@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Button, Div } from "@local_modules/tags";
-import { ErrorText, Input, Label, Select, Option, Textarea, Toggle } from "@local_modules/form";
+import { ErrorText, Input, Label, Select, Option, Textarea, Toggle, FormValues } from "@local_modules/form";
 import { Footer, Header, Layout } from "@local_modules/router";
+import { TextInput } from "react-native";
 
-interface FormProps {
+interface FormProps extends FormValues {
   toogle:boolean,
   id:string, 
   password:string,
@@ -47,6 +48,8 @@ const FormEx = () => {
     console.log(form);
   }
 
+  const testRef = useRef<TextInput>(null);
+
   return (
     <Layout style={{ padding: 20, backgroundColor: color.white }}>
       <Header title="react-hook-form"/>
@@ -56,6 +59,7 @@ const FormEx = () => {
       />
       <Div style={{ rowGap: 8 }}>
         <Input
+          inputRef={testRef}
           control={control}
           name="id"
           maxLength={{ value: 10, message: 'id <= 10' }}
