@@ -8,7 +8,7 @@ import { FileInput } from "./fileInput";
 import { TimeInput } from "./timeInput";
 import { YearInput } from "./yearInput";
 
-export function Input<T extends FormValues>(props:InputProps<T>) 
+export function Input<T extends FormValues>(props:InputProps<T>)
 {
   const { type, ...rest } = props;
 

@@ -48,6 +48,10 @@ const FormEx = () => {
     console.log(form);
   }
 
+  const onError = (e:any) => {
+    console.log(e);
+  }
+
   const testRef = useRef<TextInput>(null);
 
   return (
@@ -223,7 +227,7 @@ const FormEx = () => {
           }}>focus checkbox</Button>
         <Button 
           color={color.primary}
-          onClick={handleSubmit(onSubmit)}>login</Button>
+          onClick={handleSubmit(onSubmit, onError)}>login</Button>
 
         <Input
           control={control}
