@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
-import { TextInput, View } from "react-native";
+import { Pressable, TextInput, View } from "react-native";
 import { Controller } from 'react-hook-form';
 import Animated, { ZoomIn } from "react-native-reanimated";
 
 import { FormValues, InputProps } from "./type";
-import { TagStyle, useTags, useTagStyle, Button, TagGroupConfig, borderPattern } from '@team-devmonster/react-native-tags';
+import { TagStyle, useTags, useTagStyle, TagGroupConfig, borderPattern } from '@team-devmonster/react-native-tags';
 import { getIcon } from "./utils";
 
 
@@ -28,6 +28,7 @@ export function Radio<T extends FormValues>(
     disabledStyle,
     errorStyle,
     value,
+    onClick,
     ...rules
   }:RadioProps<T>) 
 {
@@ -64,15 +65,14 @@ export function Radio<T extends FormValues>(
         const { icon, iconStyle } = useMemo(() => getIcon({ iconObj: newStyle}), [newStyle.icon]);
 
         return (
-          <Button
-            fill="none"
-            color={newStyle.backgroundColor}
+          <Pressable
             style={{
               ...radioDefaultStyle,
               ...newStyle
             }}
             disabled={disabled}
-            onClick={() => {
+            onPress={(e) => {
+              onClick?.(e);
               onChange(value);
             }}>
               <TextInput 
@@ -95,7 +95,7 @@ export function Radio<T extends FormValues>(
                     </Animated.View>
                   : null
               }
-          </Button>
+          </Pressable>
         )
        }}
     />
