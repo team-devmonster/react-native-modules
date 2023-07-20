@@ -1,4 +1,4 @@
-import React, { forwardRef, LegacyRef, useMemo, useState } from "react";
+import React, { forwardRef, LegacyRef, useMemo, useRef, useState } from "react";
 import { Pressable, View } from "react-native";
 
 import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
@@ -98,6 +98,9 @@ export const Button = forwardRef(({
     setActive(false);
   }
 
+  const clickTimeout = useRef<any>();
+  const clickDelay = useRef(false);
+
   // render
   if(!rowGap && !columnGap) {
     return (
@@ -126,7 +129,17 @@ export const Button = forwardRef(({
             android_ripple={animated ? { color: viewStyle.backgroundColor } : null}
             onPressIn={onPressStart}
             onPressOut={onPressEnd}
-            onPress={onClick}
+            onPress={(e) => {
+              clearTimeout(clickTimeout.current);
+              clickTimeout.current = setTimeout(() => {
+                clickDelay.current = false;
+              }, 1000);
+              
+              if(clickDelay.current) return;
+
+              clickDelay.current = true;
+              onClick?.(e);
+            }}
             {...rest}>
             <TagModule
               style={textStyle}
