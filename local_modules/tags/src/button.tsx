@@ -133,7 +133,7 @@ export const Button = forwardRef(({
               clearTimeout(clickTimeout.current);
               clickTimeout.current = setTimeout(() => {
                 clickDelay.current = false;
-              }, 1000);
+              }, 300);
               
               if(clickDelay.current) return;
 
