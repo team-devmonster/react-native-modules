@@ -10,8 +10,9 @@ interface LayoutProps extends TagProps {
   scrollEnabled?:boolean;
   scrollEventThrottle?:number;
   scrollRef?:Ref<ScrollView|null>
+  keyboardShouldPersistTaps?:boolean | "always" | "never" | "handled" | undefined
 }
-export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ children, edges, style, onScroll, scrollEnabled, scrollEventThrottle, scrollRef:_scrollRef, ...rest }, ref) => {
+export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ children, edges, style, onScroll, scrollEnabled, scrollEventThrottle, keyboardShouldPersistTaps, scrollRef:_scrollRef, ...rest }, ref) => {
 
   //const { layoutScrollRef } = useContext(RouterContext);
   
@@ -72,6 +73,7 @@ export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ chil
       {
         style?.overflow !== 'hidden' ? 
           <ScrollView 
+            keyboardShouldPersistTaps={keyboardShouldPersistTaps}
             ref={scrollRef}
             scrollEnabled={scrollEnabled}
             onScroll={onScroll}
