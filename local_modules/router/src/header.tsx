@@ -24,7 +24,7 @@ export interface HeaderProps {
   statusBarStyle?:StatusBarStyle;
   contentStyle?:ViewStyle;
   children?:TagElement;
-  setHeight?:number;
+  viewStyle?:ViewStyle;
 }
 
 export const Header = ({ 
@@ -41,7 +41,7 @@ export const Header = ({
   statusBarStyle, 
   contentStyle:inlineContentStyle,
   children,
-  setHeight
+  viewStyle
 }:HeaderProps) => {
 
   const insets = useSafeAreaInsets();
@@ -112,7 +112,7 @@ export const Header = ({
   return (
     <>
       <StatusBar style={statusBarStyle || 'auto'} />
-      <View style={{ height: setHeight ? setHeight : undefined }}>{children}</View>
+      <View style={viewStyle}>{children}</View>
     </>
   )
 }
