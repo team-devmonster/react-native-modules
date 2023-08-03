@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { ImageSourcePropType, StyleProp, StyleSheet, TextStyle, ViewStyle } from "react-native";
+import { ImageSourcePropType, StyleProp, StyleSheet, TextStyle, View, ViewStyle } from "react-native";
 import { StatusBar, StatusBarStyle } from 'expo-status-bar';
 import { useNavigation } from "@react-navigation/native";
 import { getDefaultHeaderHeight } from '@react-navigation/elements';
@@ -24,6 +24,7 @@ export interface HeaderProps {
   statusBarStyle?:StatusBarStyle;
   contentStyle?:ViewStyle;
   children?:TagElement;
+  setHeight?:number;
 }
 
 export const Header = ({ 
@@ -39,7 +40,8 @@ export const Header = ({
   style, 
   statusBarStyle, 
   contentStyle:inlineContentStyle,
-  children
+  children,
+  setHeight
 }:HeaderProps) => {
 
   const insets = useSafeAreaInsets();
@@ -110,7 +112,7 @@ export const Header = ({
   return (
     <>
       <StatusBar style={statusBarStyle || 'auto'} />
-      {children}
+      <View style={{ height: setHeight ? setHeight : undefined }}>{children}</View>
     </>
   )
 }
