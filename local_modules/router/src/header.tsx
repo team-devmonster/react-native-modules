@@ -24,6 +24,7 @@ export interface HeaderProps {
   statusBarStyle?:StatusBarStyle;
   contentStyle?:ViewStyle;
   children?:TagElement;
+  headerShadowVisible?:boolean
 }
 
 export const Header = ({ 
@@ -39,7 +40,8 @@ export const Header = ({
   style, 
   statusBarStyle, 
   contentStyle:inlineContentStyle,
-  children
+  children,
+  headerShadowVisible = false
 }:HeaderProps) => {
 
   const insets = useSafeAreaInsets();
@@ -76,7 +78,7 @@ export const Header = ({
   useEffect(() => {
     let options:Partial<NativeStackNavigationOptions> = {
       headerShown,
-      headerShadowVisible: false,
+      headerShadowVisible,
       headerStyle: styles.headerStyle,
       headerTitleStyle: styles.headerTitleStyle,
       headerBackVisible
