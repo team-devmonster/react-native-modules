@@ -74,7 +74,8 @@ export function Textarea<T extends FormValues>(props:InputProps<T>)
             ref={ref}
             onChangeText={onChange}
             onBlur={onBlur}
-            multiline={isScrollEnabled}
+            multiline={true}
+            scrollEnabled={isScrollEnabled}
             value={value}
             maxLength={typeof rules.maxLength === 'number' ? rules.maxLength : rules.maxLength?.value}
             placeholder={placeholder}
