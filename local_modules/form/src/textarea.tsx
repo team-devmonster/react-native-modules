@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FormValues, InputProps } from "./type";
 import { Controller } from 'react-hook-form';
-import { TextInput } from "react-native";
+import { Keyboard, TextInput } from "react-native";
 import { placeholderPattern, useTags, useTagStyle } from '@team-devmonster/react-native-tags';
 
 export function Textarea<T extends FormValues>(props:InputProps<T>) 
-{
+  {const [isScrollEnabled, setIsScrollEnabled] = useState<boolean>(false);
   const {
     control, 
     name,
@@ -23,6 +23,25 @@ export function Textarea<T extends FormValues>(props:InputProps<T>)
   const inputTagStyle = tagConfig?.input?.style;
   const inputTagDisabledStyle = tagConfig?.input?.disabledStyle;
   const inputTagErrorStyle = tagConfig?.input?.errorStyle;
+  
+  useEffect(() => {
+    const subKWS = Keyboard.addListener("keyboardWillShow", onKeyboardWillShow);
+    const subKDS = Keyboard.addListener("keyboardDidShow", onKeyboardDidShow);
+
+    return () => {
+      subKWS.remove();
+      subKDS.remove();
+    };
+  }, []);
+
+  // KeyBoard Event
+  const onKeyboardWillShow = () => {
+    setIsScrollEnabled(false);
+  }
+
+  const onKeyboardDidShow = () => {
+    setIsScrollEnabled(true);
+  }
     
   return (
     <Controller
@@ -55,7 +74,7 @@ export function Textarea<T extends FormValues>(props:InputProps<T>)
             ref={ref}
             onChangeText={onChange}
             onBlur={onBlur}
-            multiline = {true}
+            multiline={isScrollEnabled}
             value={value}
             maxLength={typeof rules.maxLength === 'number' ? rules.maxLength : rules.maxLength?.value}
             placeholder={placeholder}
