@@ -235,7 +235,8 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                       if(result.assets?.length) {
                         const files = result.assets.map(({ fileName, ...asset }) => ({
                           ...asset,
-                          filename: `capture_${new Date().getTime()}.jpg`
+                          filename: `capture_${new Date().getTime()}.jpg`,
+                          name: `capture_${new Date().getTime()}.jpg`
                         }));
                         if(multiple) {
                           onChange([...value, ...files]);
@@ -272,7 +273,8 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                       if(result.assets?.length) {
                         const files = result.assets.map(({ fileName, ...asset }) => ({
                           ...asset,
-                          filename: fileName
+                          filename: fileName,
+                          name: fileName
                         }));
                         if(multiple) {
                           onChange([...value, ...files]);
