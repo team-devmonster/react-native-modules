@@ -1,4 +1,4 @@
-import { FieldErrorsImpl, Path } from 'react-hook-form';
+import { FieldErrors, Path } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
 import { Div, iconPattern, TagStyle, useTags, useTagStyle } from '@team-devmonster/react-native-tags';
@@ -7,7 +7,7 @@ import { FormValues } from './type';
 
 
 export interface ErrorTextProps<T extends FormValues> {
-  errors: Partial<FieldErrorsImpl<T>>,
+  errors: FieldErrors<T>,
   name:Path<T>,
   style?:TagStyle,
   message?:string

@@ -1,6 +1,6 @@
 import { ButtonClickEvent, ButtonProps, ButtonStyle, InputStyle, TagElement, TagProps, TagStyle } from "@team-devmonster/react-native-tags"
 import { Ref, SyntheticEvent } from "react"
-import { Control, FieldErrorsImpl, Path } from "react-hook-form"
+import { Control, FieldErrors, Path } from "react-hook-form"
 import { LayoutChangeEvent, NativeSyntheticEvent, ReturnKeyType, TextInput, TextInputFocusEventData, TextInputSubmitEditingEventData } from "react-native"
 
 export interface InputRuleProps {
@@ -95,7 +95,7 @@ export type InputDateType = 'date'|'time'|'datetime-local'|'year'|'month';
 export type InputKeyboardType = 'default'|'email-address'|'number-pad'|'numeric'|'decimal-pad'|'phone-pad'|'url';
 
 export interface LabelProps<T extends FormValues> extends TagProps {
-  errors?: Partial<FieldErrorsImpl<T>>,
+  errors?: FieldErrors<T>,
   disabled?:boolean,
   name?:Path<T>,
   style?:TagStyle,
