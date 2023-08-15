@@ -271,8 +271,8 @@ const getButtonStyles = ({ styles, confirmButtonStyle, cancelButtonStyle }:{ sty
 const getPickerItem = ({children, colorScheme}:{children:TagElement|undefined,colorScheme:ColorSchemeName}) => {
   const options = Children.toArray(children) as JSX.Element[];
   
-  return options.map(({ props: { children:label, value:optionValue } }, i) => (
-    <Picker.Item key={i} label={label} value={optionValue}/>
+  return options.map(({ props: { children:label, value:optionValue, disabled } }, i) => (
+    <Picker.Item key={i} label={label} value={optionValue} enabled={!disabled}/>
   ));
 }
 
