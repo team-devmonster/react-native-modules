@@ -272,6 +272,12 @@ const getPickerItem = ({children, colorScheme}:{children:TagElement|undefined,co
   const options = Children.toArray(children) as JSX.Element[];
   
   return options.map(({ props: { children:label, value:optionValue, disabled } }, i) => (
+    Platform.OS === 'ios' ?
+      disabled ?
+      null
+      :
+      <Picker.Item key={i} label={label} value={optionValue} enabled={!disabled}/>
+    :
     <Picker.Item key={i} label={label} value={optionValue} enabled={!disabled}/>
   ));
 }

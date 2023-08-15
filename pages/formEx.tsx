@@ -195,18 +195,17 @@ const FormEx = () => {
         <Select 
           control={control}
           name="company"
-          interface="popover"
           placeholder="please select">
           <Option value="1">
-            <Div style={{ backgroundColor: 'red' }}>devmonster1</Div>
+            devmonster1
           </Option>
           <Option value="2" label="hello" style={{ backgroundColor: 'red' }}>
             devmonster2
           </Option>
-          <Option value="3">devmonster3</Option>
-          <Option value="4">devmonster4</Option>
-          <Option value="5">devmonster5</Option>
-          <Option value="6">devmonster6</Option>
+          <Option value="3" disabled={true}>devmonster3</Option>
+          <Option value="4" disabled={true}>devmonster4</Option>
+          <Option value="5" disabled={true}>devmonster5</Option>
+          <Option value="6" disabled={true}>devmonster6</Option>
         </Select>
 
         <Input
