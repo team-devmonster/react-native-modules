@@ -15,7 +15,7 @@ export function useRouter<Query extends RouterProps<ParamListBase>>() {
   const query = params as Query;
 
   const originNavigate = (href:string | UrlObject, as?: Url) => {
-    navigate({navigation, href, push: true});
+    navigate({navigation, href, navigate: true});
   }
   const push = (href:string | UrlObject, as?: Url) => {
     navigate({navigation, href, push: true});
