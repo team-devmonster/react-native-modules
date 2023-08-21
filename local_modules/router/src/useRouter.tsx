@@ -13,6 +13,10 @@ export function useRouter<Query extends RouterProps<ParamListBase>>() {
   const navigation = useNavigation<NativeStackNavigationProp<any>>();
   const { name, params, ...rest } = useRoute();
   const query = params as Query;
+
+  const originNavigate = (href:string | UrlObject, as?: Url) => {
+    navigate({navigation, href, push: true});
+  }
   const push = (href:string | UrlObject, as?: Url) => {
     navigate({navigation, href, push: true});
   }
@@ -25,5 +29,5 @@ export function useRouter<Query extends RouterProps<ParamListBase>>() {
   const back = () => {
     navigate({navigation, back: true});
   }
-  return { query, push, reset, replace, back, pathname:name, ...rest };
+  return { query, push, reset, replace, back, navigate:originNavigate, pathname:name, ...rest };
 }

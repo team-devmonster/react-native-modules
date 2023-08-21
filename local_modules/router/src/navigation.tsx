@@ -5,12 +5,13 @@ import { UrlObject } from "./a";
 interface navigateProps {
   navigation: NativeStackNavigationProp<any>,
   href?: string | UrlObject,
+  navigate?:boolean,
   replace?:boolean,
   push?:boolean,
   back?:boolean,
   reset?:boolean,
 }
-export const navigate = ({ navigation, href, replace, push, back, reset }:navigateProps) => {
+export const navigate = ({ navigation, href, navigate, replace, push, back, reset }:navigateProps) => {
   if(back) {
     navigation.goBack();
     return;
@@ -34,6 +35,9 @@ export const navigate = ({ navigation, href, replace, push, back, reset }:naviga
     query = href.query;
   }
 
+  if(navigate) {
+    navigation.navigate(page, query);
+  }
   if(replace) {
     navigation.replace(page, query);
   }
@@ -42,6 +46,7 @@ export const navigate = ({ navigation, href, replace, push, back, reset }:naviga
   }
   else if(reset) {
     navigation.reset({ 
+      index: 0,
       routes: [{ name: page, params: query }]
     })
   }
