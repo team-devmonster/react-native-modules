@@ -161,7 +161,7 @@ export const ModalContent = ({
       handleTransition.value = position;
     }
     else {
-      handleTransition.value = position > contentTop ? contentTop : position;
+      handleTransition.value = position < contentTop ? contentTop : position;
     }
   })
   .onEnd((e) => {
@@ -241,7 +241,7 @@ export const ModalContent = ({
                       ...handleStyle as any
                     }}
                   >
-                    <View style={{ width: 60, height: 4, backgroundColor: '#e1e1e1' }}></View>
+                    <View style={{ width: 60, height: 4, borderRadius: 4, backgroundColor: '#e1e1e1' }}></View>
                   </View>
                 { children }
               </Animated.View>
