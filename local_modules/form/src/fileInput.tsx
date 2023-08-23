@@ -268,14 +268,19 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                 <Button 
                   onClick={async(e) => {
                     setOpen(false);
+                    console.log('file 1 ---------- ');
                     setTimeout(async() => {
                       const result = await launchImageLibrary({ mediaType: 'photo', maxWidth: 1200, maxHeight: 1200 });
+                      console.log('file 2 ---------- ', result.assets);
+                      console.log('file 3 ---------- ', result.errorCode);
+                      console.log('file 4 ---------- ', result.errorMessage);
                       if(result.assets?.length) {
                         const files = result.assets.map(({ fileName, ...asset }) => ({
                           ...asset,
                           filename: fileName,
                           name: fileName
                         }));
+                        console.log('file 5 ---------- ', files);
                         if(multiple) {
                           onChange([...value, ...files]);
                         }
