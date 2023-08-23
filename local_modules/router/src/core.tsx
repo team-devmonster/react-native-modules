@@ -156,7 +156,13 @@ export const ModalContent = ({
   });
   const panGesture = useMemo(() => Gesture.Pan()
   .onUpdate((e) => {
-    handleTransition.value = handlePosition.value + e.translationY;
+    const position = handlePosition.value + e.translationY;
+    if(options?.canFullScreen) {
+      handleTransition.value = position;
+    }
+    else {
+      handleTransition.value = position > contentTop ? contentTop : position;
+    }
   })
   .onEnd((e) => {
     if(handleTransition.value > contentTop + contentHeight/3) {
