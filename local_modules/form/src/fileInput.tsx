@@ -276,6 +276,7 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                           filename: fileName,
                           name: fileName
                         }));
+                        
                         if(multiple) {
                           onChange([...value, ...files]);
                         }
