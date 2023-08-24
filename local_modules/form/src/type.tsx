@@ -20,14 +20,14 @@ export interface InputRuleProps {
       value: number,
       message: string
     },
-  max?: number |
+  max?: number | string |
     {
-      value: number,
+      value: number|string,
       message: string
     },
-  min?:
+  min?: number | string |
     {
-      value: number,
+      value: number|string,
       message: string
     },
   pattern?:

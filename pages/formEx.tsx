@@ -175,6 +175,8 @@ const FormEx = () => {
           type="date" 
           control={control}
           name="date"
+          min={'2023-08-24'}
+          max={'2023-08-28'}
           placeholder="date"></Input>
 
         <Input 

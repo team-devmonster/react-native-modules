@@ -71,6 +71,8 @@ export const TimeInput = ({
               type={type}
               date={date}
               value={value}
+              min={typeof rules.min === 'string' ? rules.min : (rules.min as any)?.value}
+              max={typeof rules.max === 'string' ? rules.max : (rules.max as any)?.value}
               placeholder={placeholder}
               isValid={isValid}
               style={inputStyle}
@@ -104,6 +106,8 @@ export const TimeInput = ({
 type CalendarProps = {
   date:Date,
   value:string,
+  min?:string,
+  max?:string,
   placeholder?:string,
   type:InputDateType,
   isValid:boolean,
@@ -114,7 +118,7 @@ type CalendarProps = {
   onChange:any,
   onBlur:any
 }
-const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, placeholder, type, isValid, style, textStyle, icon, iconStyle, onChange, onBlur }:CalendarProps, ref) => {
+const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, min, max, placeholder, type, isValid, style, textStyle, icon, iconStyle, onChange, onBlur }:CalendarProps, ref) => {
 
   const [open, setOpen] = useState<'calendar'|'clock'|'none'>('none');
 
@@ -152,7 +156,7 @@ const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, pla
 
   useEffect(() => {
     if(open === 'calendar') {
-      DateTimePickerAndroid.open({ value: date, display: 'calendar', mode: 'date', onChange: onChangeDate });
+      DateTimePickerAndroid.open({ value: date, display: 'calendar', mode: 'date', minimumDate: min ? new Date(min) : undefined, maximumDate: max ? new Date(max) : undefined,  onChange: onChangeDate });
     }
     else if(open === 'clock') {
       DateTimePickerAndroid.open({ value: date, display: 'clock', mode: 'time', onChange: onChangeDate });
