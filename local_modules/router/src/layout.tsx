@@ -9,10 +9,11 @@ interface LayoutProps extends TagProps {
   onScroll?:(e:any) => void;
   scrollEnabled?:boolean;
   scrollEventThrottle?:number;
+  keyboardVerticalOffset?:number;
   scrollRef?:Ref<ScrollView|null>
   keyboardShouldPersistTaps?:boolean | "always" | "never" | "handled" | undefined
 }
-export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ children, edges, style, onScroll, scrollEnabled, scrollEventThrottle, keyboardShouldPersistTaps = 'handled', scrollRef:_scrollRef, ...rest }, ref) => {
+export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ children, edges, style, onScroll, scrollEnabled, scrollEventThrottle, keyboardVerticalOffset, keyboardShouldPersistTaps = 'handled', scrollRef:_scrollRef, ...rest }, ref) => {
 
   //const { layoutScrollRef } = useContext(RouterContext);
   
@@ -68,6 +69,7 @@ export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ chil
     <Layout
       ref={ref}
       style={{ flex: 1, backgroundColor: contentStyle?.backgroundColor }}
+      keyboardVerticalOffset={keyboardVerticalOffset}
       behavior="padding">
       {header}
       {
