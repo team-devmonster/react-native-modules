@@ -10,7 +10,7 @@ interface LayoutProps extends TagProps {
   scrollEnabled?:boolean;
   scrollEventThrottle?:number;
   keyboardVerticalOffset?:number;
-  behavior?:'padding'|'height'|'position'
+  behavior?:'padding'|'height'|'position';
   scrollRef?:Ref<ScrollView|null>
   keyboardShouldPersistTaps?:boolean | "always" | "never" | "handled" | undefined
 }
@@ -61,6 +61,8 @@ export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ chil
     switch(Platform.OS) {
       case 'ios':
         return KeyboardAvoidingView;
+      // case 'android':
+      //   return KeyboardAvoidingView;
       default:
         return View;
     }
@@ -70,8 +72,8 @@ export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ chil
     <Layout
       ref={ref}
       style={{ flex: 1, backgroundColor: contentStyle?.backgroundColor }}
-      keyboardVerticalOffset={keyboardVerticalOffset}
-      behavior={behavior}>
+      // keyboardVerticalOffset={keyboardVerticalOffset}
+      behavior="padding">
       {header}
       {
         style?.overflow !== 'hidden' ? 
@@ -82,7 +84,7 @@ export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ chil
             onScroll={onScroll}
             scrollEventThrottle={resultScrollEventThrottle}
             style={{
-              flex: 1
+              flexGrow: 1
             }}>
             {
               resultEdges.length ?
