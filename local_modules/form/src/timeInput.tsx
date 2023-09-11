@@ -1,5 +1,5 @@
 import { forwardRef, useCallback, useEffect, useMemo, useState } from "react";
-import { Platform, useColorScheme, TextInput } from "react-native";
+import { Platform, useColorScheme, TextInput, Keyboard } from "react-native";
 import DateTimePicker, { DateTimePickerAndroid, DateTimePickerEvent } from "@react-native-community/datetimepicker";
 
 import { Button, useTags, TagStyle, TagGroupConfig, InputConfig, useTagStyle, textPattern, P, InputStyle } from "@team-devmonster/react-native-tags";
@@ -145,6 +145,7 @@ const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, min
   }, [type, open, onChange]);
 
   const onClick = useCallback(() => {
+    Keyboard.dismiss();
     if(type === 'date'
     || type === 'datetime-local') {
       setOpen('calendar');
