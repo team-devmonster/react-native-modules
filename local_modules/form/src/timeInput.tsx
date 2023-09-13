@@ -213,7 +213,7 @@ const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, min
     </Button>
   )
 })
-const CalendarIOS = forwardRef<TextInput, CalendarProps>(({ date, value, placeholder, type, isValid, style, textStyle, icon, iconStyle, onChange, onBlur, min, max }:CalendarProps, ref) => {
+const CalendarIOS = forwardRef<TextInput, CalendarProps>(({ date, value, placeholder, type, isValid, style, textStyle, icon, iconStyle, onChange, onBlur }:CalendarProps, ref) => {
 
   const [open, setOpen] = useState(false);
 
@@ -293,7 +293,6 @@ const CalendarIOS = forwardRef<TextInput, CalendarProps>(({ date, value, placeho
           value={date}
           display={display}
           mode={mode}
-          minimumDate={min ? new Date(min): undefined}
           onChange={onChangeDate}
         />
       </Modal>
