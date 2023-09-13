@@ -88,6 +88,8 @@ export const TimeInput = ({
               type={type}
               date={date}
               value={value}
+              min={typeof rules.min === 'string' ? rules.min : (rules.min as any)?.value}
+              max={typeof rules.max === 'string' ? rules.max : (rules.max as any)?.value}
               placeholder={placeholder}
               isValid={isValid}
               style={inputStyle}
@@ -213,7 +215,7 @@ const CalendarAndroid = forwardRef<TextInput, CalendarProps>(({ date, value, min
     </Button>
   )
 })
-const CalendarIOS = forwardRef<TextInput, CalendarProps>(({ date, value, placeholder, type, isValid, style, textStyle, icon, iconStyle, onChange, onBlur }:CalendarProps, ref) => {
+const CalendarIOS = forwardRef<TextInput, CalendarProps>(({ date, value, min, max, placeholder, type, isValid, style, textStyle, icon, iconStyle, onChange, onBlur }:CalendarProps, ref) => {
 
   const [open, setOpen] = useState(false);
 
@@ -294,6 +296,8 @@ const CalendarIOS = forwardRef<TextInput, CalendarProps>(({ date, value, placeho
           display={display}
           mode={mode}
           onChange={onChangeDate}
+          minimumDate={min ? new Date(min) : undefined}
+          maximumDate={max ? new Date(max) : undefined}
         />
       </Modal>
     </>
