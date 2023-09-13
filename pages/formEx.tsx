@@ -37,8 +37,8 @@ const FormEx = () => {
       gender: 'man',
       company: '1',
       year: '2021',
-      month: '2022-12',
-      date: '2022-12-27',
+      month: '2023-08',
+      date: '2023-08-27',
       dateTime: '2022-12-27 17:54',
       time: '17:54'
     }

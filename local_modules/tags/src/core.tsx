@@ -68,8 +68,16 @@ const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleState
   return styles;
 }
 
-export const TagModule = (props:TagProps & { rowGap?:number, columnGap?:number }):JSX.Element => {
-  return <TagChildren {...props}/>
+// should test
+export const TagModule = ({ style, numberOfLines, ...rest }:TagProps & { rowGap?:number, columnGap?:number }):JSX.Element => {
+  /* const { numberOfLines, style } = useMemo(() => {
+    const numberOfLines = _style?.whiteSpace === 'nowrap' ? 1 : _numberOfLines;
+    const style = _style && _style?.whiteSpace ? 
+      Object.keys(_style).reduce((result, key) => { if (key !== 'whiteSpace') result[key] = _style[key as keyof TagStyle]; return result; }, {} as any) 
+      : _style;
+    return { numberOfLines, style }
+  }, [_style?.whiteSpace, _numberOfLines]); */
+  return <TagChildren numberOfLines={numberOfLines} style={style} {...rest}/>
 }
 
 const TagChildren = ({ children:rawChildren, ...rest }:{ children?:TagElement, style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip",  rowGap?:number, columnGap?:number }) => {
