@@ -1,5 +1,5 @@
 import React, { forwardRef, LegacyRef, useMemo, useRef, useState } from "react";
-import { Pressable, View } from "react-native";
+import { Platform, Pressable, View } from "react-native";
 
 import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
 import { ButtonProps, FillProps, TagGroupConfig } from "./type";
@@ -130,10 +130,11 @@ export const Button = forwardRef(({
             onPressIn={onPressStart}
             onPressOut={onPressEnd}
             onPress={(e) => {
+              const timeState = Platform.OS === 'android' ? 1000 : 300;
               clearTimeout(clickTimeout.current);
               clickTimeout.current = setTimeout(() => {
                 clickDelay.current = false;
-              }, 300);
+              }, timeState);
               
               if(clickDelay.current) return;
 
