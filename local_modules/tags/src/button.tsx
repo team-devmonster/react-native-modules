@@ -130,7 +130,7 @@ export const Button = forwardRef(({
             onPressIn={onPressStart}
             onPressOut={onPressEnd}
             onPress={(e) => {
-              const timeState = Platform.OS === 'android' ? 1000 : 300;
+              const timeState = Platform.OS === 'android' ? 500 : 300;
               clearTimeout(clickTimeout.current);
               clickTimeout.current = setTimeout(() => {
                 clickDelay.current = false;
