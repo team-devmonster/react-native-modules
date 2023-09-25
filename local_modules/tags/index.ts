@@ -1,4 +1,5 @@
 export * from './src/core';
+export * from './src/createStyle';
 export * from './src/table/table';
 export * from './src/table/thead';
 export * from './src/table/tbody';

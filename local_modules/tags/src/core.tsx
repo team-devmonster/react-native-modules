@@ -21,7 +21,7 @@ export function useTags() {
   return useContext(TagContext);
 }
 
-export const textPattern = /^(color|font|text|lineHeight|whiteSpace)/;
+export const textPattern = /^(color|font|text|lineHeight)/;
 export const layoutPattern = /^(display|width|minWidth|maxWidth|height|minHeight|maxHeight|position|top|left|right|bottom|opacity|overflow|alignSelf|justifySelf|aspectRatio|flex)$/;
 export const shadowPattern = /^(shadow|elevation)/;
 export const borderPattern = /^(border)/;
@@ -160,7 +160,7 @@ const GroupText = ({ textChildren, style, numberOfLines, ellipsizeMode:_ }:{ tex
         ...style as TextStyle
       }}
       ellipsizeMode="tail"
-      numberOfLines={style?.whiteSpace === 'nowrap' ? 1 : numberOfLines}
+      numberOfLines={numberOfLines}
     >{textChildren}</Text>
   )
 }

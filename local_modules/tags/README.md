@@ -38,6 +38,35 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 - [o] [Th] => Under development :(help) `extends` `p`.
 - [o] [Td] => Under development :(help) `extends` `p`.
 
+### additional items
+- [o] [createStyle] => Like Style.create, it prevents the style from being re-rendered, but
+This is a function created to be used within a component.
+Use like state, useMemo, etc.
+
+```javascript
+  const { buttonStyle, chipActiveStyle, chipStyle } = createStyle({
+    buttonStyle: {
+      height: 28,
+      ...
+    },
+    chipActiveStyle: {
+      height: 28,
+      ...
+    },
+    chipStyle: {
+      height: 28,
+      ...
+    }
+  });
+
+  return (
+    <Button style={buttonStyle}>
+      <View style={chipActiveStyle}></View>
+      <View style={chipStyle}></View>
+    </Button>
+  )
+```
+
 ## Getting started
 
 `$ npm install @team-devmonster/react-native-theme@latest @team-devmonster/react-native-tags@latest`

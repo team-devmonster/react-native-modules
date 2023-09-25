@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useMemo } from "react";
 import { ColorSchemeName, useColorScheme } from "react-native";
 
 const ThemeContext = createContext(null) as any;
@@ -13,13 +13,14 @@ export function ThemeProvider<S extends Color,T extends Function>({children, col
   const deviceColorScheme = useColorScheme() as NonNullable<ColorSchemeName>;
   const colorScheme = darkModeEnabled ? deviceColorScheme === 'dark' ? 'dark' : 'light' : 'light';
 
+  const themeValue = useMemo(() => ({
+    ...theme(color[colorScheme]),
+    colorScheme,
+    darkModeEnabled
+  }), [colorScheme]);
+
   return (
-    <ThemeContext.Provider 
-      value={{
-        ...theme(color[colorScheme]),
-        colorScheme,
-        darkModeEnabled
-      }}>
+    <ThemeContext.Provider value={themeValue}>
       {children}
     </ThemeContext.Provider>
   )

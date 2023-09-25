@@ -2,6 +2,7 @@ import React, { forwardRef, LegacyRef, useMemo } from "react";
 import { View } from "react-native";
 import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
 import { TagProps } from "./type";
+import { createStyle } from "./createStyle";
 
 export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, ...rest}:TagProps, ref:LegacyRef<View>) => {
 
@@ -24,9 +25,9 @@ export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, .
     marginPattern,
     gapPattern,
     textPattern
-  ], [
-    divTagStyle,
-    style
+  ], [ 
+    divTagStyle, 
+    style 
   ]);
 
   // 아무때나 flex: 1 줘버리면 높이값이 사라질 때가 있음. 정확한 케이스에만 주어야 함.
@@ -35,14 +36,10 @@ export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, .
     height: (() => {
       if(!layoutStyle.height || layoutStyle.height === 'auto') return null;
       else return '100%';
-      /* if(typeof layoutStyle.height === 'number') return layoutStyle.height;
-      if(typeof layoutStyle.height === 'string') return '100%'; */
     })(),
     width: (() => {
       if(!layoutStyle.width || layoutStyle.width == 'auto') return null;
       else return '100%';
-      /* if(typeof layoutStyle.width === 'number') return layoutStyle.width;
-      if(typeof layoutStyle.width === 'string') return '100%'; */
     })(),
     flex: (() => {
       if(!layoutStyle.flex) return null;
@@ -53,25 +50,38 @@ export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, .
   const rowGap = useMemo(() => gapStyle?.rowGap || gapStyle?.gap || 0, [gapStyle?.rowGap, gapStyle?.gap]);
   const columnGap = useMemo(() => gapStyle?.columnGap || gapStyle?.gap || 0, [gapStyle?.columnGap, gapStyle?.gap]);
 
-  const gapContainerStyle = useMemo(() => ({
-    marginTop: -rowGap/2,
-    marginBottom: -rowGap/2,
-    marginLeft: -columnGap/2,
-    marginRight: -columnGap/2
-  }), [rowGap, columnGap]);
+  const { containerStyle, gapOuterStyle, gapContainerStyle } = createStyle({
+    containerStyle: {
+      ...layoutStyle,
+      ...shadowStyle,
+      ...marginStyle,
+      ...viewStyle,
+      ...borderStyle
+    },
+    gapOuterStyle: {
+      ...layoutStyle,
+      ...shadowStyle,
+      ...marginStyle,
+      ...borderStyle
+    },
+    gapContainerStyle: {
+      // 높이 넓이 최저값 지정해서 아이템이 없을 때도, 터지지 않게 처리
+      minWidth: rowGap,
+      minHeight: columnGap,
+      // 각 케이스별로 계산된 값 입력
+      ...calcInnerSize,
+      ...viewStyle,
+      marginTop: -rowGap/2,
+      marginBottom: -rowGap/2,
+      marginLeft: -columnGap/2,
+      marginRight: -columnGap/2
+    }
+  }, [divTagStyle, style]);
 
   if(!rowGap && !columnGap) {
     return (
       <View
-        ref={ref}
-        {...rest}
-        style={{
-          ...layoutStyle,
-          ...shadowStyle,
-          ...marginStyle,
-          ...viewStyle,
-          ...borderStyle
-        }}>
+        ref={ref} {...rest} style={containerStyle}>
         <TagModule
           style={textStyle}
           numberOfLines={numberOfLines}
@@ -84,23 +94,8 @@ export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, .
 
     return (
       <View
-        ref={ref}
-        {...rest}
-        style={{
-          ...layoutStyle,
-          ...shadowStyle,
-          ...marginStyle,
-          ...borderStyle
-        }}>
-        <View style={{
-          // 높이 넓이 최저값 지정해서 아이템이 없을 때도, 터지지 않게 처리
-          minWidth: rowGap,
-          minHeight: columnGap,
-          // 각 케이스별로 계산된 값 입력
-          ...calcInnerSize,
-          ...viewStyle,
-          ...gapContainerStyle
-        }} pointerEvents="box-none">
+        ref={ref} {...rest} style={gapOuterStyle}>
+        <View style={gapContainerStyle} pointerEvents="box-none">
           <TagModule
             rowGap={rowGap}
             columnGap={columnGap}

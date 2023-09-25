@@ -45,7 +45,7 @@ export interface TagProps extends Omit<TextProps, 'style'|'onPress'> {
 }
 export interface TagStyle extends Omit<TextStyle, 'display'> {
   display?: 'flex' | 'inline-flex' | 'none',
-  whiteSpace?: 'pre-line'|'nowrap',
+  // whiteSpace?: 'pre-line'|'nowrap',
   icon?:TagElement | TagStyle,
   gap?:number,
   rowGap?:number,

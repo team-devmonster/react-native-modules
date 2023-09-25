@@ -1,7 +1,8 @@
 import React from "react";
-import { Text, TextStyle } from "react-native";
-import { useTags, useTagStyle } from "./core";
+import { Text } from "react-native";
+import { useTags } from "./core";
 import { TagProps } from "./type";
+import { createStyle } from "./createStyle";
 
 export const Span = ({style, children, ...rest}:TagProps) => {
 
@@ -9,15 +10,16 @@ export const Span = ({style, children, ...rest}:TagProps) => {
   const divTagStyle = tagConfig?.div?.style;
   const spanTagStyle = tagConfig?.span?.style;
 
-  const [
-    newStyle
-  ]
-  = useTagStyle(
-    [], 
-    [divTagStyle, spanTagStyle, style]);
+  const { newStyle } = createStyle({
+    newStyle: {
+      ...divTagStyle, 
+      ...spanTagStyle, 
+      ...style
+    }
+  }, [divTagStyle, spanTagStyle, style]);
   
   return (
-    <Text style={newStyle as TextStyle} {...rest}>{children}</Text>
+    <Text style={newStyle} {...rest}>{children}</Text>
   )
 }
 Span.displayName = 'Span';

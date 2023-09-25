@@ -1,5 +1,6 @@
 import { useMemo } from "react"
 import { Image, ImageErrorEventData, ImageLoadEventData, ImageSourcePropType, ImageStyle, NativeSyntheticEvent, View } from "react-native"
+import { createStyle } from "./createStyle"
 interface TagImageStyle extends Omit<ImageStyle, 'display'|'resizeMode'> {
   display?: 'flex' | 'inline-flex' | 'none',
   objectFit?: "contain" | "cover"
@@ -18,6 +19,18 @@ export const Img = ({ src, style, alt, ...rest }:ImgProps) => {
   const source = useMemo(() => getSource({ src }), [src]);
   const { display, objectFit, ...etcStyle } = style || {};
 
+  const { imgStyle, viewStyle } = createStyle(({
+    imgStyle: {
+      ...etcStyle,
+      resizeMode: objectFit || 'contain',
+      display: display === 'inline-flex' ? 'flex' : display
+    },
+    viewStyle: {
+      ...etcStyle,
+      display: display === 'inline-flex' ? 'flex' : display 
+    }
+  }), [style]);
+
   return (
     source 
     ?
@@ -27,17 +40,10 @@ export const Img = ({ src, style, alt, ...rest }:ImgProps) => {
         accessible={true}
         accessibilityLabel={alt}
         source={source} 
-        style={{
-          ...etcStyle,
-          resizeMode: objectFit || 'contain',
-          display: display === 'inline-flex' ? 'flex' : display
-        }}/>
+        style={imgStyle}/>
     :
       <View 
-        style={{ 
-          ...etcStyle,
-          display: display === 'inline-flex' ? 'flex' : display 
-        }}></View>
+        style={viewStyle}></View>
   )
 }
 
