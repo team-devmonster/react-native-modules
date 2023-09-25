@@ -39,12 +39,12 @@ email: [aldegad@devmonster.co.kr](mailto:aldegad@devmonster.co.kr)
 - [o] [Td] => Under development :(help) `extends` `p`.
 
 ### additional items
-- [o] [createStyle] => Like Style.create, it prevents the style from being re-rendered, but
+- [o] [useCreateStyle] => Like Style.create, it prevents the style from being re-rendered, but
 This is a function created to be used within a component.
 Use like state, useMemo, etc.
 
 ```javascript
-  const { buttonStyle, chipActiveStyle, chipStyle } = createStyle({
+  const { buttonStyle, chipActiveStyle, chipStyle } = useCreateStyle({
     buttonStyle: {
       height: 28,
       ...

@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 import { Image, ImageErrorEventData, ImageLoadEventData, ImageSourcePropType, ImageStyle, NativeSyntheticEvent, View } from "react-native"
-import { createStyle } from "./createStyle"
+import { useCreateStyle } from "./useCreateStyle"
 interface TagImageStyle extends Omit<ImageStyle, 'display'|'resizeMode'> {
   display?: 'flex' | 'inline-flex' | 'none',
   objectFit?: "contain" | "cover"
@@ -19,7 +19,7 @@ export const Img = ({ src, style, alt, ...rest }:ImgProps) => {
   const source = useMemo(() => getSource({ src }), [src]);
   const { display, objectFit, ...etcStyle } = style || {};
 
-  const { imgStyle, viewStyle } = createStyle(({
+  const { imgStyle, viewStyle } = useCreateStyle(({
     imgStyle: {
       ...etcStyle,
       resizeMode: objectFit || 'contain',

@@ -3,14 +3,14 @@ import { useTags } from "../core";
 import { Div } from "../div";
 import { TagProps } from "../type";
 import { View } from "react-native";
-import { createStyle } from "../createStyle";
+import { useCreateStyle } from "../useCreateStyle";
 
 export const Tr = forwardRef(({style, ...rest}:TagProps, ref:LegacyRef<View>) => {
 
   const { tagConfig } = useTags();
   const tagStyle = tagConfig?.tr?.style;
 
-  const { newStyle } = createStyle({
+  const { newStyle } = useCreateStyle({
     newStyle: { 
       flexDirection: 'row',
       paddingRight: 1,

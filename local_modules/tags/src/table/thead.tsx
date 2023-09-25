@@ -3,14 +3,14 @@ import { useTags } from "../core";
 import { Div } from "../div";
 import { TagProps } from "../type";
 import { View } from "react-native";
-import { createStyle } from "../createStyle";
+import { useCreateStyle } from "../useCreateStyle";
 
 export const Thead = forwardRef(({style, ...rest}:TagProps, ref:LegacyRef<View>) => {
 
   const { tagConfig } = useTags();
   const tagStyle = tagConfig?.thead?.style;
 
-  const { newStyle } = createStyle({
+  const { newStyle } = useCreateStyle({
     newStyle: { 
       ...tagStyle,  
       ...style 

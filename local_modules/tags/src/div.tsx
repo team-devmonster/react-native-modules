@@ -2,7 +2,7 @@ import React, { forwardRef, LegacyRef, useMemo } from "react";
 import { View } from "react-native";
 import { borderPattern, gapPattern, layoutPattern, marginPattern, shadowPattern, TagModule, textPattern, useTags, useTagStyle } from "./core";
 import { TagProps } from "./type";
-import { createStyle } from "./createStyle";
+import { useCreateStyle } from "./useCreateStyle";
 
 export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, ...rest}:TagProps, ref:LegacyRef<View>) => {
 
@@ -50,7 +50,7 @@ export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, .
   const rowGap = useMemo(() => gapStyle?.rowGap || gapStyle?.gap || 0, [gapStyle?.rowGap, gapStyle?.gap]);
   const columnGap = useMemo(() => gapStyle?.columnGap || gapStyle?.gap || 0, [gapStyle?.columnGap, gapStyle?.gap]);
 
-  const { containerStyle, gapOuterStyle, gapContainerStyle } = createStyle({
+  const { containerStyle, gapOuterStyle, gapContainerStyle } = useCreateStyle({
     containerStyle: {
       ...layoutStyle,
       ...shadowStyle,
