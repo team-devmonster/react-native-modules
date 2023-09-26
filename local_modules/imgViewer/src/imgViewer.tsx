@@ -32,14 +32,6 @@ export const ImgViewer = ({ src, startIndex = 0, visible, onRequestClose, closeT
 
   useEffect(() => {
     if(visible) {
-      // Set initial content offset based on startIndex
-      if (scrollViewRef.current) {
-        console.log(scrollViewRef.current, startIndex * Dimensions.get("window").width);
-        scrollViewRef.current.scrollTo({
-          x: startIndex * Dimensions.get("window").width,
-          animated: false
-        });
-      }
       setCurrentIndex(startIndex);
     }
   }, [visible]);
@@ -63,6 +55,12 @@ export const ImgViewer = ({ src, startIndex = 0, visible, onRequestClose, closeT
             pagingEnabled={true} 
             showsHorizontalScrollIndicator={false} 
             showsVerticalScrollIndicator={false}
+            onLayout={() => {
+              scrollViewRef.current?.scrollTo({
+                x: startIndex * Dimensions.get("window").width,
+                animated: false
+              });
+            }}
             onMomentumScrollEnd={handleScrollEnd} // Handle scroll end
             style={style.full}>
             {
