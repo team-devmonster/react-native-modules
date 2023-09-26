@@ -1,65 +1,48 @@
-import { Button, ButtonStyle, Div, Img, TagStyle } from "@team-devmonster/react-native-tags";
-import { ImageSourcePropType, Modal } from "react-native";
-import { Gesture, GestureDetector, GestureHandlerRootView } from "react-native-gesture-handler";
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import { Button, ButtonStyle, Div, P, TagStyle } from "@team-devmonster/react-native-tags";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Dimensions, ImageSourcePropType, Modal, StyleSheet } from "react-native";
+import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ImgViewerItem } from "./imgViewerItem";
 
+export type ImgViewerSrcType = string | ImageSourcePropType | (string | ImageSourcePropType)[];
 export type ImgViewerProps = {
-  src:string | ImageSourcePropType, 
+  src:ImgViewerSrcType,
+  startIndex?:number,
   visible?:boolean, 
   onRequestClose?:() => void,
   closeText?:string,
   closeButtonContainerStyle?:TagStyle,
   closeButtonStyle?:ButtonStyle
 }
-export const ImgViewer = ({ src, visible, onRequestClose, closeText, closeButtonContainerStyle, closeButtonStyle }:ImgViewerProps) => {
+export const ImgViewer = ({ src, startIndex = 0, visible, onRequestClose, closeText, closeButtonContainerStyle, closeButtonStyle }:ImgViewerProps) => {
 
+  const scrollViewRef = useRef<ScrollView>(null);
   const safe = useSafeAreaInsets();
 
-  const scale = useSharedValue(1);
-  const savedScale = useSharedValue(1);
+  const srcArr = useMemo(() => src ? Array.isArray(src) ? src : [src] : [], [src]);
 
-  const pinchGesture = Gesture.Pinch()
-  .onUpdate((e) => {
-    scale.value = savedScale.value * e.scale;
-  })
-  .onEnd(() => {
-    if(scale.value < 1) {
-      scale.value = withTiming(1, {duration: 100});
-      savedScale.value = 1;
+  const [currentIndex, setCurrentIndex] = useState(startIndex); // State to track current index
+
+  const handleScrollEnd = useCallback((event: any) => {
+    const offset = event.nativeEvent.contentOffset.x;
+    const newIndex = Math.round(offset / event.nativeEvent.layoutMeasurement.width);
+    setCurrentIndex(newIndex);
+  },[currentIndex]);
+
+  useEffect(() => {
+    if(visible) {
+      // Set initial content offset based on startIndex
+      if (scrollViewRef.current) {
+        console.log(scrollViewRef.current, startIndex * Dimensions.get("window").width);
+        scrollViewRef.current.scrollTo({
+          x: startIndex * Dimensions.get("window").width,
+          animated: false
+        });
+      }
+      setCurrentIndex(startIndex);
     }
-    else {
-      savedScale.value = scale.value;
-    }
-  });
-
-  const position = useSharedValue({ x:0, y: 0 });
-  const savedPosition = useSharedValue({ x:0, y:0 });
-
-  const panGesture = Gesture.Pan()
-  .minDistance(30)
-  .onUpdate((e) => {
-    const { x, y } = savedPosition.value;
-    position.value = {
-      x: x + e.translationX,
-      y: y + e.translationY
-    };
-  })
-  .onEnd((e) => {
-    savedPosition.value = position.value;
-  });
-
-  const pinchAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [
-      { scale: scale.value }
-    ],
-  }));
-  const panAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [
-      { translateX: position.value.x },
-      { translateY: position.value.y }
-    ],
-  }));
+  }, [visible]);
 
   return (
     <Modal 
@@ -69,19 +52,40 @@ export const ImgViewer = ({ src, visible, onRequestClose, closeText, closeButton
       animationType="fade"
     >
       <Div
-        style={{ backgroundColor: '#000000', opacity: 0.3, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+        style={style.backdrop}
       ></Div>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <GestureDetector gesture={pinchGesture}>
-          <Animated.View style={[{ flex: 1 }, pinchAnimatedStyle]}>
-            <GestureDetector gesture={panGesture}>
-              <Animated.View style={[{ flex: 1 }, panAnimatedStyle]}>
-                <Img src={src} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'contain' }}/>
-              </Animated.View>
-            </GestureDetector>
-          </Animated.View>
-        </GestureDetector>
+      <GestureHandlerRootView style={style.full}>
+        {
+          srcArr.length > 1 ?
+          <ScrollView 
+            ref={scrollViewRef}
+            horizontal={true} 
+            pagingEnabled={true} 
+            showsHorizontalScrollIndicator={false} 
+            showsVerticalScrollIndicator={false}
+            onMomentumScrollEnd={handleScrollEnd} // Handle scroll end
+            style={style.full}>
+            {
+              srcArr?.map((src,index) => (
+                <ImgViewerItem key={index} src={src}/>
+              ))
+            }
+          </ScrollView>
+          : 
+          srcArr.length === 1 ?
+          <ImgViewerItem src={srcArr[0]}/>
+          : null
+        }
       </GestureHandlerRootView>
+      
+      {
+        srcArr.length > 1 ?
+        <Div style={style.pageContainer}>
+          <P style={style.page}>{`${currentIndex + 1}/${srcArr?.length}`}</P>
+        </Div>
+        : null
+      }
+
       <Div style={{ backgroundColor: closeButtonStyle?.backgroundColor, paddingBottom: safe.bottom, ...closeButtonContainerStyle }}>
         <Button 
           onClick={onRequestClose}
@@ -95,3 +99,10 @@ export const ImgViewer = ({ src, visible, onRequestClose, closeText, closeButton
     </Modal>
   )
 }
+
+const style = StyleSheet.create({
+  backdrop: { backgroundColor: '#000000', opacity: 0.3, position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' },
+  full: { flex: 1 },
+  pageContainer: { alignItems: 'center', marginBottom: 5 },
+  page: { textAlign: 'center', color: 'white', backgroundColor: '#666666', padding: 10, borderRadius: 20 }
+});

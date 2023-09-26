@@ -47,6 +47,20 @@ export const AnyComponent = () => {
       closeButtonStyle={{ height: 44, color: '#ffffff' backgroundColor: '#FF6420' }}
     />
   )
+  /** or */
+  return (
+    <ImgViewer
+      visible={visible}
+      onRequestClose={() => {
+        setVisible(false);
+      }}
+      src={['https://anything','https://anything','https://anything','https://anything']}
+      startIndex={1}
+      closeText="close"
+      closeButtonContainerStyle={{ backgroundColor: '#FF6420' }}
+      closeButtonStyle={{ height: 44, color: '#ffffff' backgroundColor: '#FF6420' }}
+    />
+  )
 }
 ```
 
