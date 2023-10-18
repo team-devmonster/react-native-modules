@@ -1,12 +1,12 @@
-import { useMemo } from "react"
-import { Image, ImageErrorEventData, ImageLoadEventData, ImageSourcePropType, ImageStyle, NativeSyntheticEvent, View } from "react-native"
+import { Ref, forwardRef, useMemo } from "react"
+import { Image, ImageErrorEventData, ImageLoadEventData, ImageProps, ImageSourcePropType, ImageStyle, NativeSyntheticEvent, View } from "react-native"
 import { useCreateStyle } from "./useCreateStyle"
 interface TagImageStyle extends Omit<ImageStyle, 'display'|'resizeMode'> {
   display?: 'flex' | 'inline-flex' | 'none',
   objectFit?: "contain" | "cover"
 }
 
-interface ImgProps {
+interface ImgProps extends Omit<ImageProps, 'style'|'src'|'source'> {
   alt?:string,
   src: ImageSourcePropType | string,
   style?: TagImageStyle,
@@ -14,8 +14,7 @@ interface ImgProps {
   onLoad?: ((event: NativeSyntheticEvent<ImageLoadEventData>) => void)
 }
 
-export const Img = ({ src, style, alt, ...rest }:ImgProps) => {
-
+export const Img = forwardRef(({ src, style, alt, ...rest }:ImgProps, ref:Ref<Image>) => {
   const source = useMemo(() => getSource({ src }), [src]);
   const { display, objectFit, ...etcStyle } = style || {};
 
@@ -35,6 +34,7 @@ export const Img = ({ src, style, alt, ...rest }:ImgProps) => {
     source 
     ?
       <Image 
+        ref={ref}
         {...rest}
         resizeMode={style?.objectFit || 'contain'}
         accessible={true}
@@ -42,10 +42,9 @@ export const Img = ({ src, style, alt, ...rest }:ImgProps) => {
         source={source} 
         style={imgStyle}/>
     :
-      <View 
-        style={viewStyle}></View>
+      <View style={viewStyle}></View>
   )
-}
+});
 
 const getSource = ({ src }:{ src:ImageSourcePropType | string }) => {
   if(typeof src === 'string') {
