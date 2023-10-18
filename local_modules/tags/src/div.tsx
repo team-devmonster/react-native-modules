@@ -91,7 +91,6 @@ export const Div = forwardRef(({style, children, numberOfLines, ellipsizeMode, .
     )
   }
   else {
-
     return (
       <View
         ref={ref} {...rest} style={gapOuterStyle}>
