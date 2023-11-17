@@ -123,6 +123,15 @@ const inputModeChange = ({ type, value, onChange, rules, keyboardType }:InputMod
       }
       rules.maxLength = rules.maxLength || 13;
       break;
+    case 'price':
+      newKeyboardType = 'phone-pad';
+      let price = (value as string)?.replace(/\D+/g, '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+      newValue = price;
+      newOnChange = (v:any) => {
+        let num = v.replace(/\D+/g, '');
+        onChange(num);
+      }
+      break;
     case 'password':
       newKeyboardType = 'default';
       secureTextEntry = true;

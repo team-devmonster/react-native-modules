@@ -93,7 +93,7 @@ const FormEx = () => {
 
         <Input 
           control={control} 
-          type="number"
+          type="price"
           name="price"
           style={{ display: 'flex' }}
           max={{ value: 1000, message: 'price <= 1000' }}
