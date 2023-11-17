@@ -10,7 +10,7 @@ import { TextInput } from "react-native";
 
 interface FormProps extends FormValues {
   toogle:boolean,
-  id:string, 
+  id:string,
   password:string,
   phone:string,
   price:number,
@@ -213,9 +213,11 @@ const FormEx = () => {
         <Input
           type="file"
           control={control}
-          //accept="image/*"
+          accept="image/*"
           //accept="application/pdf"
           name="file"
+          multiple
+          maxLength={2}
           placeholder="file"></Input>
 
         <Button

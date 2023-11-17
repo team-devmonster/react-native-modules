@@ -5,7 +5,7 @@ import { TextInput, Modal, TouchableWithoutFeedback, Animated, useColorScheme, E
 import { Button, ButtonStyle, P, TagGroupConfig, textPattern, useTags, useTagStyle } from '@team-devmonster/react-native-tags';
 
 import { DocumentPickerOptions, pickMultiple, pickSingle } from "react-native-document-picker";
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {ImageLibraryOptions, launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { SupportedPlatforms } from "react-native-document-picker/lib/typescript/fileTypes";
 
@@ -67,6 +67,8 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
   const defaultStyle = useMemo(() => ({
     backgroundColor: colorScheme === 'dark' ? '#272727' : '#f2f2f2'
   }), [colorScheme])
+
+  const maxLength = useMemo(() => typeof rules.maxLength === 'number' ? rules.maxLength : rules.maxLength?.value || 30, [rules.maxLength]);
 
   return (
     <Controller
@@ -269,7 +271,16 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                   onClick={async(e) => {
                     setOpen(false);
                     setTimeout(async() => {
-                      const result = await launchImageLibrary({ mediaType: 'photo', maxWidth: 1200, maxHeight: 1200 });
+                      const option:ImageLibraryOptions = {
+                        mediaType: 'photo',
+                        maxWidth: 1200, 
+                        maxHeight: 1200
+                      }
+                      if(multiple) {
+                        option.selectionLimit = maxLength || 10;
+                      }
+
+                      const result = await launchImageLibrary(option);
                       if(result.assets?.length) {
                         const files = result.assets.map(({ fileName, ...asset }) => ({
                           ...asset,
