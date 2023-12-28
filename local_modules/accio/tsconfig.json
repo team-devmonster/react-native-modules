@@ -13,7 +13,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "es6",
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "include": ["**/*.ts", "src/**/*.tsx", "src/**/*.ts"]
 }

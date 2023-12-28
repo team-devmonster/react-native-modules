@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "@team-devmonster/react-native-accio",
+    "slug": "@team-devmonsterreact-native-accio",
+    "version": "1.0.1",
+    "description": "This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.",
+    "sdkVersion": "46.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ]
+  }
+}
