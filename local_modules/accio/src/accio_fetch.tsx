@@ -1,6 +1,5 @@
 import { Dispatch, useContext, useRef, useState } from "react";
 import { Platform } from "react-native";
-// import AppContext from "@components/context";
 import AppContext from "../../../components/context"; 
 import { ToastReturn, useRouter } from "@team-devmonster/react-native-router";
 import { PlatformType, extentions } from "./types";
@@ -52,8 +51,11 @@ export function AxiosAPI<Form = any, Hash = any>({ url, type = 'post' }:AxiosReq
   }
 }
 
-const axiosMiddleWare = async<Form = any, Hash = any>({ url, type = 'post', params, loading, loadingLocal, loading_state = true }:AxiosReqMiddleWare<Form, Hash>):Promise<{ code: number, data:Hash }> => {
-  // let transInstance = instance;
+const axiosMiddleWare = async function<Form = any, Hash = any>(
+  options: AxiosReqMiddleWare<Form, Hash>
+): Promise<{ code: number, data: Hash }> {
+  const { url, type = 'post', params, loading, loadingLocal, loading_state = true } = options;
+
   console.log("🚀 " + url + ' ' +  type + '\n', JSON.stringify(params));
 
   let axios_params:any = {
