@@ -7,6 +7,28 @@ import { Layout, A, Header } from "@local_modules/router";
 import ImgShadowEx from "assets/images/shadowEx.svg";
 import { Pressable, Text } from "react-native";
 import { ImgViewer } from "@local_modules/imgViewer";
+import { AxiosAPI } from "@local_modules/accio";
+
+export type POST_LOGIN = {
+  user_number:string;
+  auth_token:string;
+}
+
+export type DATA_LOGIN = {
+  access_token:string;
+  refresh_token:string;
+  user:DATA_USER;
+}
+
+export type DATA_USER = {
+  user_email:string;
+  user_name:string;
+  user_type:'BASIC'|'ADMIN'|'SUPERADMIN';
+  user_number:string;
+  result_data_count:number;
+  user_phone:string;
+  user_id:number;
+}
 
 const Index = () => {
 
@@ -14,6 +36,28 @@ const Index = () => {
 
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
+
+  //   // API
+  // /** 로그인 */
+  const fetch_POST_LOGIN = AxiosAPI<POST_LOGIN, DATA_LOGIN>({ url: '/login', type: 'post' });
+  // const fetch_POST_LOGIN = testAPIFunctions();
+
+  // Functions
+  /** 로그인 */
+  const submit = async() => {
+    try{
+      const { code, data } = await fetch_POST_LOGIN.fetch({ params: { auth_token: '000005', user_number: '000005' } });
+      console.log(data);
+
+      if(code === 0) {
+        console.log('login success');
+      } else {
+        console.error('login fail');
+      }
+    } catch(error) {
+      console.log(error);
+    }
+  }
 
   return (
     <Layout style={{ padding: 0 }}>
@@ -63,6 +107,10 @@ const Index = () => {
 
           <Button color={color.danger} fill="outline" style={{ ...shadow.base }} onClick={() => setVisible2(true)}>
             react-native-img-viewer(Multiple)
+          </Button>
+
+          <Button color={color.danger} fill="outline" style={{ ...shadow.base }} onClick={submit}>
+            react-native-accio(Test API)
           </Button>
 
           <ImgViewer
