@@ -61,7 +61,7 @@ export const BaseInput = (props:InputProps<FormValues>) => {
           error ? errorStyle : undefined
         ]);
 
-        const { newKeyboardType, secureTextEntry, newValue, newOnChange } = useMemo(() => inputModeChange({ type, value, onChange, rules, keyboardType }), [type, value, onChange, rules, keyboardType]);
+        const { newKeyboardType, secureTextEntry, newValue, newOnChange, newOnBlur } = useMemo(() => inputModeChange({ type, value, onChange, onBlur, rules, keyboardType }), [type, value, onChange, rules, keyboardType]);
 
         const maxLength = useMemo(() => typeof rules.maxLength === 'number' ? rules.maxLength : rules.maxLength?.value || 30, [rules.maxLength]);
 
@@ -69,7 +69,7 @@ export const BaseInput = (props:InputProps<FormValues>) => {
           <TextInput
             ref={ref}
             onChangeText={newOnChange}
-            onBlur={onBlur}
+            onBlur={newOnBlur}
             onFocus={onFocus}
             value={newValue}
             keyboardType={newKeyboardType}
@@ -92,14 +92,16 @@ type InputModeChangeProps = {
   type:InputType, 
   value:any, 
   onChange:any,
+  onBlur:any,
   rules:InputRuleProps,
   keyboardType?:InputKeyboardType
 }
-const inputModeChange = ({ type, value, onChange, rules, keyboardType }:InputModeChangeProps) => {
+const inputModeChange = ({ type, value, onChange, onBlur, rules, keyboardType }:InputModeChangeProps) => {
   let newKeyboardType:KeyboardTypeOptions = 'default';
   let secureTextEntry:boolean = false;
   let newValue:string = value;
   let newOnChange = onChange;
+  let newOnBlur = onBlur;
 
   switch(type) {
     case 'email':
@@ -111,6 +113,26 @@ const inputModeChange = ({ type, value, onChange, rules, keyboardType }:InputMod
       newOnChange = (v:any) => {
         let num = v.replace(/\D+/g, '');
         onChange(num ? +num : 0);
+      }
+      break;
+    case 'float':
+      newKeyboardType = 'numeric';
+      newValue = String(value || '0');
+      newOnChange = (v:any) => {
+        // 숫자와 소숫점 이외의 모든 문자 제거
+        let num = v.replace(/[^0-9.]/g, '');
+
+        // 첫 번째 소숫점 이후의 모든 소숫점 제거
+        num = num.replace(/(\..*?)\..*/g, '$1');
+
+        // 선행 0 제거, 단 0. 형태는 허용
+        num = num.replace(/^0+(?=\d)/, '');
+
+        onChange(num || 0);
+      };
+      newOnBlur = (e:any) => {
+        onChange(parseFloat(newValue) || 0);
+        onBlur(e);
       }
       break;
     case 'tel':
@@ -142,6 +164,7 @@ const inputModeChange = ({ type, value, onChange, rules, keyboardType }:InputMod
     newKeyboardType: keyboardType || newKeyboardType,
     secureTextEntry,
     newValue,
-    newOnChange
+    newOnChange,
+    newOnBlur
   }
 }

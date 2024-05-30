@@ -36,6 +36,8 @@ const FormEx = () => {
       id: 'hello',
       gender: 'man',
       company: '1',
+      number: '0',
+      float: '0',
       year: '2021',
       month: '2023-08',
       date: '2023-08-27',
@@ -80,6 +82,20 @@ const FormEx = () => {
           maxLength={{ value: 10, message: 'password <= 10' }} 
           required="please insert password"></Input>
         <ErrorText errors={errors} name="password"></ErrorText>
+
+        <Label errors={errors} name="password">number</Label>
+        <Input 
+          control={control} 
+          name="number"
+          type="number"
+          placeholder="number"></Input>
+
+        <Label errors={errors} name="password">float</Label>
+        <Input 
+          control={control} 
+          name="float"
+          type="float"
+          placeholder="float"></Input>
 
         <Label errors={errors} name="phone">phone</Label>
         <Input 
