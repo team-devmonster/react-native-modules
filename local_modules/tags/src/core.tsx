@@ -1,6 +1,6 @@
 import React, { Children, createContext, useContext, useMemo } from "react";
 import { Text, TextStyle } from "react-native";
-import { TagElement, TagGroupConfig, TagProps, TagStyle } from "./type";
+import { ButtonStyle, TagElement, TagGroupConfig, TagProps, TagStyle } from "./type";
 
 
 
@@ -30,13 +30,13 @@ export const placeholderPattern = /^(placeholder)/;
 export const gapPattern = /(gap|Gap)/;
 export const iconPattern = /(^icon)/;
 
-export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|undefined)[]):any[] => {
+export const useTagStyle = (patterns:RegExp[], styleStates:(TagStyle|ButtonStyle|undefined)[]):any[] => {
   /* 이건 그냥 state바뀌면 무한 갱신함. 무언가 방법이 필요함 */
   // 아 뭔가... 스타일 뭔가 더 개선할 수 있을 것 같은데...
   const styles = useMemo(() => makeTagStyle({ patterns, styleStates }), styleStates);
   return styles;
 }
-const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleStates:(TagStyle|undefined)[] }) => {
+const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleStates:(TagStyle|ButtonStyle|undefined)[] }) => {
   // case 1
   let styleObj = {};
   styleStates.forEach(styleState => styleObj = Object.assign(styleObj, styleState));

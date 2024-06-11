@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo } from "react";
 import { ColorSchemeName, useColorScheme } from "react-native";
 
-const ThemeContext = createContext(null) as any;
+const ThemeContext = createContext({ colorScheme:'light' }) as any;
 
 type Color = {
   light: {[name:string]:string},

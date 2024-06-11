@@ -4,8 +4,6 @@ import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Button, Div, H1 } from "@local_modules/tags";
 import { Layout, A, Header } from "@local_modules/router";
-import ImgShadowEx from "assets/images/shadowEx.svg";
-import { Pressable, Text } from "react-native";
 import { ImgViewer } from "@local_modules/imgViewer";
 // import { AxiosAPI } from "@local_modules/accio";
 
