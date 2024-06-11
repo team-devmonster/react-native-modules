@@ -7,7 +7,7 @@ import { Layout, A, Header } from "@local_modules/router";
 import ImgShadowEx from "assets/images/shadowEx.svg";
 import { Pressable, Text } from "react-native";
 import { ImgViewer } from "@local_modules/imgViewer";
-import { AxiosAPI } from "@local_modules/accio";
+// import { AxiosAPI } from "@local_modules/accio";
 
 export type POST_LOGIN = {
   user_number:string;
@@ -39,12 +39,12 @@ const Index = () => {
 
   //   // API
   // /** 로그인 */
-  const fetch_POST_LOGIN = AxiosAPI<POST_LOGIN, DATA_LOGIN>({ url: '/login', type: 'post' });
+  // const fetch_POST_LOGIN = AxiosAPI<POST_LOGIN, DATA_LOGIN>({ url: '/login', type: 'post' });
   // const fetch_POST_LOGIN = testAPIFunctions();
 
   // Functions
   /** 로그인 */
-  const submit = async() => {
+  /* const submit = async() => {
     try{
       const { code, data } = await fetch_POST_LOGIN.fetch({ params: { auth_token: '000005', user_number: '000005' } });
       console.log(data);
@@ -57,7 +57,7 @@ const Index = () => {
     } catch(error) {
       console.log(error);
     }
-  }
+  } */
 
   return (
     <Layout style={{ padding: 0 }}>
@@ -109,9 +109,9 @@ const Index = () => {
             react-native-img-viewer(Multiple)
           </Button>
 
-          <Button color={color.danger} fill="outline" style={{ ...shadow.base }} onClick={submit}>
+          {/* <Button color={color.danger} fill="outline" style={{ ...shadow.base }} onClick={submit}>
             react-native-accio(Test API)
-          </Button>
+          </Button> */}
 
           <ImgViewer
             visible={visible}

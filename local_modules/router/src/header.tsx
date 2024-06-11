@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useLayoutEffect, useMemo } from "react";
 import { ImageSourcePropType, StyleProp, StyleSheet, TextStyle, ViewStyle } from "react-native";
 import { StatusBar, StatusBarStyle } from 'expo-status-bar';
 import { useNavigation } from "@react-navigation/native";
@@ -75,7 +75,7 @@ export const Header = ({
     headerShown, inlineContentStyle
   ]);
   
-  useEffect(() => {
+  useLayoutEffect(() => {
     let options:Partial<NativeStackNavigationOptions> = {
       headerShown,
       headerShadowVisible,
