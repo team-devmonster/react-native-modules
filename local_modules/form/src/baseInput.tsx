@@ -129,7 +129,7 @@ const inputModeChange = ({ type, value, onChange, onBlur, rules, keyboardType }:
         num = num.replace(/^0+(?=\d)/, '');
 
         onChange(num || 0);
-      };
+      }
       newOnBlur = (e:any) => {
         onChange(parseFloat(newValue) || 0);
         onBlur(e);

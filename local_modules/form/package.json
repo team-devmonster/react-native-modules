@@ -1,6 +1,6 @@
 {
   "name": "@team-devmonster/react-native-form",
-  "version": "1.9.11",
+  "version": "1.9.12",
   "description": "This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -10,10 +10,7 @@
   "scripts": {
     "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc",
-    "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
-    "start": "expo start --dev-client",
-    "android": "expo run:android",
-    "ios": "expo run:ios"
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
   },
   "repository": {
     "type": "git",
@@ -48,17 +45,5 @@
     "react-native-month-year-picker": ">=1.9",
     "react-native-reanimated": ">=2.13.0",
     "react-native-svg": ">=12"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.12.9"
-  },
-  "dependencies": {
-    "expo": "~46.0.21",
-    "expo-splash-screen": "~0.16.2",
-    "expo-status-bar": "~1.4.0",
-    "react": ">=16",
-    "react-dom": ">=16",
-    "react-native": ">=0.57",
-    "react-native-web": "~0.18.7"
   }
 }
