@@ -115,8 +115,8 @@ export function SelectPopover<T extends FormValues>({
               icon ? icon
               :
                 <Svg
-                  width={iconStyle?.width || 24}
-                  height={iconStyle?.height || 24}
+                  width={iconStyle?.width as any || 24}
+                  height={iconStyle?.height as any || 24}
                   viewBox="0 0 24 24"
                   fill={iconStyle?.color || '#FF6420'}
                 >

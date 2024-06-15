@@ -90,8 +90,8 @@ export function Checkbox<T extends FormValues>({
                         viewBox="0 0 24 24"
                         stroke={iconStyle.color || '#FF6420'} 
                         strokeWidth={2}
-                        width={iconStyle.width || 28}
-                        height={iconStyle.height || 28}>
+                        width={iconStyle.width as any || 28}
+                        height={iconStyle.height as any || 28}>
                         <Path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </Svg>
                     </Animated.View>
