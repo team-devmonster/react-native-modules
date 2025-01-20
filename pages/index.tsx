@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import { useTheme } from "@local_modules/theme";
+import { useTheme } from "@team-devmonster/react-native-theme";
 import { Theme } from "App.theme";
-import { Button, Div, H1 } from "@local_modules/tags";
-import { Layout, A, Header } from "@local_modules/router";
-import { ImgViewer } from "@local_modules/imgViewer";
+import { Button, Div, H1 } from "@team-devmonster/react-native-tags";
+import { Layout, A, Header } from "@team-devmonster/react-native-router";
+import { ImgViewer } from "@team-devmonster/react-native-img-viewer";
 // import { AxiosAPI } from "@local_modules/accio";
 
 export type POST_LOGIN = {

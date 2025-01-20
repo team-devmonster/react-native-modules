@@ -1,12 +1,17 @@
 import React from 'react';
-import { ThemeProvider, useTheme } from '@local_modules/theme';
-import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, TagConfig, Div, ToastConfig, ToggleConfig } from '@local_modules/tags';
-import ImgPaperAirplane from "assets/images/paperAirplane.svg";
-import { HeaderConfig } from '@local_modules/tags';
-import { RouterProvider } from '@local_modules/router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+import { ThemeProvider, useTheme } from '@team-devmonster/react-native-theme';
+import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, TagConfig, Div, ToastConfig, ToggleConfig, HeaderConfig } from '@team-devmonster/react-native-tags';
+import { RouterProvider } from '@team-devmonster/react-native-router';
+
+// import { ThemeProvider, useTheme } from '@local_modules/theme';
+// import { TagProvider, ButtonConfig, InputConfig, ErrorTextConfig, LabelConfig, SelectConfig, TagConfig, Div, ToastConfig, ToggleConfig, HeaderConfig } from '@local_modules/tags';
+// import { RouterProvider } from '@local_modules/router';
+
+import ImgPaperAirplane from "assets/images/paperAirplane.svg";
 
 const color = {
   light: {

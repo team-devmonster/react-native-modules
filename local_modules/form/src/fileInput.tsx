@@ -26,7 +26,6 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
     disabledStyle,
     errorStyle,
     value,
-    // input['type=file']
     accept,
     multiple,
     onClick,
@@ -187,14 +186,6 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                 <P style={{ flex: 1, ...textStyle, color: inputStyle?.placeholderColor}}>{placeholder}</P>
             }
 
-
-
-
-
-
-
-
-            
             <Modal 
               visible={visible} 
               animationType="none"
