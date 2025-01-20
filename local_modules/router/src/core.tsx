@@ -33,9 +33,15 @@ export const RouterContext = createContext<{ layoutScrollRef?:any }>({} as any);
 // 이거 근데 왜 되는거지...?
 // 앞에 theme 이랑 tags 에서는 아무런 문제가 안생겼는데, 왜 여기서만 문제가 생기는걸까?
 // 함수형으로 쓰고 싶기떄문에. context를 쓸 수가 없네... 더 좋은 방법이 없을까?
-const modalVariables = {
+type ModalVariablesType = {
+  modals: ModalsProps,
+  setModals: React.Dispatch<React.SetStateAction<ModalsProps>>,
+  modalsRef: { current: ModalsProps },
+  modalsChanging: { [key:string]: boolean }
+}
+const modalVariables:ModalVariablesType = {
   modals: {} as ModalsProps,
-  setModals: {} as React.Dispatch<React.SetStateAction<ModalsProps>>,
+  setModals: null as any,
   modalsRef: { current: {} as  ModalsProps },
   modalsChanging: {} as { [key:string]: boolean }
 }
@@ -83,7 +89,7 @@ export const Modal = (props:ModalProps) => {
   useEffect(() => {
     return () => {
       delete modalsRef.current[key];
-      setModals({...modalsRef.current});
+      setModals?.({...modalsRef.current});
     }
   }, []);
 
@@ -96,7 +102,7 @@ export const Modal = (props:ModalProps) => {
     if(modalsChanging[key]) return;
     
     modalsChanging[key] = true;
-    setModals({...modalsRef.current});
+    setModals?.({...modalsRef.current});
 
     setTimeout(() => {
       modalsChanging[key] = false;
@@ -111,13 +117,13 @@ export const createModal = (props:ModalProps) => {
   const key = String(new Date().getTime()) + 'M' + Object.keys(modalsRef.current).length;
 
   modalsRef.current[key] = props;
-  setModals({...modalsRef.current});
+  setModals?.({...modalsRef.current});
 
   return {
     remove: () => {
       if(modalsRef.current[key]) {
         delete modalsRef.current[key];
-        setModals({...modalsRef.current});
+        setModals?.({...modalsRef.current});
       }
     }
   }
