@@ -183,7 +183,7 @@ export function SelectPicker<T extends FormValues>({
                 </Picker>
                 <Button 
                   onClick={() => {
-                    if(value !== temptValue) {
+                    if(String(value) !== String(temptValue)) {
                       onChange(temptValue);
                     }
                     setVisible(false);
@@ -286,6 +286,6 @@ const getSelectedPickerItem = ({children, value}:{children:TagElement|undefined,
   const options = Children.toArray(children) as JSX.Element[];
 
   return options.find(({ props: { value:optionValue } }) => {
-    return value === optionValue;
+    return String(value) === String(optionValue);
   }) ?? null;
 }

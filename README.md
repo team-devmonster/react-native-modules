@@ -6,6 +6,8 @@ This project is part of the `react-module`&`react-native-module` projects, that 
 General `react-native-modules` load map => [here](https://github.com/team-devmonster/react-native-modules);<br>
 General `react-modules` load map => [here](https://github.com/team-devmonster/react-modules);
 
+## Now Developiong
+changing styles for higher performance and correct usage(grid, gap, table etc.).
 
 ## start
 ### react start<br>

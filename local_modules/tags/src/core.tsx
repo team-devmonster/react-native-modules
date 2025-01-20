@@ -149,6 +149,8 @@ const GapView = ({ child, rowGap, columnGap }:{ child:JSX.Element, rowGap?:numbe
   return child;
 }
 
+// 이제 갭을 지원하기 때문에... 업데이트를 한번 해줘야한다. 코드 엄청 간결해질듯. 이거땜에 다 이렇게 한거라서.
+
 const GroupText = ({ textChildren, style, numberOfLines, ellipsizeMode:_ }:{ textChildren:TagElement[], style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip" }) => {
   if(!textChildren.length) {
     return null;

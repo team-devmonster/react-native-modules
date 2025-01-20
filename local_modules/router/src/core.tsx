@@ -1,13 +1,12 @@
 import { TagElement, TagStyle } from "@team-devmonster/react-native-tags";
-import React, { createContext, useEffect, useMemo, useRef, useState } from "react";
-import { BackHandler, Dimensions, Pressable, ScrollView, StyleSheet, useColorScheme, View } from "react-native";
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { BackHandler, Dimensions, Pressable, ScrollView, StyleSheet, useColorScheme, View, Modal as NativeModal } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, { FadeIn, FadeInDown, FadeOut, FadeOutDown, SlideOutDown, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 
 export type ModalProps = {
-  _isChanging?:boolean,
   entering?:any,
   exiting?:any,
   visible?:boolean,
@@ -27,36 +26,56 @@ type ModalsProps = {
   [key:string]:ModalProps
 };
 //export const RouterContext = createContext<{ layoutScrollRef:React.RefObject<ScrollView|null> }>({ layoutScrollRef: { current: null } });
-export const RouterContext = createContext<{ layoutScrollRef?:any }>({} as any);
+export const RouterContext = createContext<{ 
+  layoutScrollRef?:any,
+  modals: ModalsProps,
+  setModals: React.Dispatch<React.SetStateAction<ModalsProps>>,
+  modalsRef: { current: ModalsProps },
+  createModal: (props:ModalProps) => { remove: () => void }
+  // modalsChanging: { [key:string]: boolean }
+}>({} as any);
 
 // context 말고 그냥 전역변수 지정하니까 무한 버블링 문제가 사라진다... 뭘까 이건... 거지 같네?
 // 이거 근데 왜 되는거지...?
 // 앞에 theme 이랑 tags 에서는 아무런 문제가 안생겼는데, 왜 여기서만 문제가 생기는걸까?
 // 함수형으로 쓰고 싶기떄문에. context를 쓸 수가 없네... 더 좋은 방법이 없을까?
-type ModalVariablesType = {
+/* type ModalVariablesType = {
   modals: ModalsProps,
   setModals: React.Dispatch<React.SetStateAction<ModalsProps>>,
   modalsRef: { current: ModalsProps },
   modalsChanging: { [key:string]: boolean }
-}
-const modalVariables:ModalVariablesType = {
+} */
+/* const modalVariables:ModalVariablesType = {
   modals: {} as ModalsProps,
   setModals: null as any,
   modalsRef: { current: {} as  ModalsProps },
   modalsChanging: {} as { [key:string]: boolean }
-}
+} */
 export const RouterProvider = ({children}:{children:React.ReactNode}) => {
 
   const [modals, setModals] = useState<ModalsProps>({});
   const modalsRef = useRef<ModalsProps>({});
-  modalVariables.modals = modals;
-  modalVariables.setModals = setModals;
-  modalVariables.modalsRef = modalsRef;
 
   const layoutScrollRef = useRef<ScrollView|null>(null);
 
+  const createModal = (props:ModalProps) => {
+    const key = String(new Date().getTime()) + 'M' + Object.keys(modalsRef.current).length;
+  
+    modalsRef.current[key] = props;
+    setModals({...modalsRef.current});
+  
+    return {
+      remove: () => {
+        if(modalsRef.current[key]) {
+          delete modalsRef.current[key];
+          setModals({...modalsRef.current});
+        }
+      }
+    }
+  }
+
   return (
-    <RouterContext.Provider value={{ layoutScrollRef }}>
+    <RouterContext.Provider value={{ layoutScrollRef, modals, setModals, modalsRef, createModal /* modalsChanging: {} */ }}>
       {children}
       <ModalLayout modals={modals}/>
       {/* 정말 이유는 모르겠지만, 마지막에 이놈 View를 넣어주어야 exit 애니메이션이 작동한다..... 왜지...? */}
@@ -82,52 +101,45 @@ const ModalLayout = ({ modals }:ModalsProps) => {
 }
 
 export const Modal = (props:ModalProps) => {
-  const { setModals, modalsRef, modalsChanging } = modalVariables;
-  
-  const key = useMemo(() => String(new Date().getTime()) + 'M' + Object.keys(modalsRef.current).length, []);
-
-  useEffect(() => {
-    return () => {
-      delete modalsRef.current[key];
-      setModals?.({...modalsRef.current});
-    }
-  }, []);
-
-  useMemo(() => {
-    modalsRef.current[key] = props;
-  }, [props]);
-  
-  useEffect(() => {
-    // 이부분은 꼭 해결해야함. 돌아버리겠네. 그냥 react-native modal 을 패치해주면 한방에 해결되긴 할텐데. 휴.
-    if(modalsChanging[key]) return;
-    
-    modalsChanging[key] = true;
-    setModals?.({...modalsRef.current});
-
-    setTimeout(() => {
-      modalsChanging[key] = false;
-    }, 0);
-  }, [props]);
-
-  return null;
+  return (
+    <NativeModal 
+      visible={props.visible} 
+      transparent={true}
+      animationType={'none'}
+    >
+      {
+        props.visible ?
+        <ModalContent {...props}></ModalContent>
+        : null
+      }
+    </NativeModal>
+  )
 }
-export const createModal = (props:ModalProps) => {
-  const { setModals, modalsRef } = modalVariables;
+/* export const createModal = (props:ModalProps) => {
+  const { setModals, modalsRef } = useContext(RouterContext);
 
   const key = String(new Date().getTime()) + 'M' + Object.keys(modalsRef.current).length;
 
   modalsRef.current[key] = props;
-  setModals?.({...modalsRef.current});
+  setModals({...modalsRef.current});
 
   return {
     remove: () => {
       if(modalsRef.current[key]) {
         delete modalsRef.current[key];
-        setModals?.({...modalsRef.current});
+        setModals({...modalsRef.current});
       }
     }
   }
-}
+} */
+
+  export const useModal = () => {
+    const context = useContext(RouterContext)
+    if (!context) {
+      throw new Error('useModal must be used within a ModalProvider')
+    }
+    return context
+  }
 
 export const ModalContent = ({ 
   type = 'fullScreen', 

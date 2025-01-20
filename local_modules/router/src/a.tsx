@@ -50,8 +50,7 @@ export const A = ({ href, as:_, replace, push, back, reset, children, target:__,
   
   return (
     children.type.displayName !== 'Button' ?
-    <TouchableWithoutFeedback
-      onPress={handlePress}>
+    <TouchableWithoutFeedback onPress={handlePress}>
       {newChildren}
     </TouchableWithoutFeedback>
     : newChildren

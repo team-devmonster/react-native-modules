@@ -45,10 +45,13 @@ export const navigate = ({ navigation, href, navigate, replace, push, back, rese
     navigation.push(page, query);
   }
   else if(reset) {
-    navigation.reset({ 
-      index: 0,
-      routes: [{ name: page, params: query }]
-    })
+    navigation.goBack();
+    setTimeout(() => {
+      navigation.reset({ 
+        index: 0,
+        routes: [{ name: page, params: query }]
+      });
+    }, 10);
   }
   else {
     navigation.navigate(page, query);

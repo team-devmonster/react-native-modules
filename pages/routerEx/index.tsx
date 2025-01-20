@@ -1,16 +1,20 @@
 import React, { useContext, useRef, useState } from "react";
-import { useTheme } from "@local_modules/theme";
-import { Theme } from "App.theme";
+/* import { useTheme } from "@local_modules/theme";
 import { Div, Button, P, H1, H2, TagContext } from "@local_modules/tags";
-import { A, FixedLayout, Header, Layout, Modal, useRouter, RouterContext, ToastReturn } from "@local_modules/router";
+import { A, FixedLayout, Header, Layout, Modal, useRouter, RouterContext, ToastReturn, Toast } from "@local_modules/router"; */
 
+import { useTheme } from "@team-devmonster/react-native-theme";
+import { Div, Button, P, H1, H2, TagContext } from "@team-devmonster/react-native-tags";
+import { A, FixedLayout, Header, Layout, Modal, useRouter, RouterContext, ToastReturn, useToast } from "@team-devmonster/react-native-router";
+
+import { Theme } from "App.theme";
 import ImgPaperAirplane from "assets/images/paperAirplane.svg";
-import { Toast } from "@local_modules/router";
 
 const RouterEx = () => {
 
   const { color } = useTheme<Theme>();
   const router = useRouter();
+  const { Toast } = useToast();
 
   const [visibleFull, setVisibleFull] = useState(false);
   const [visibleHandle, setVisibleHandle] = useState(false);
