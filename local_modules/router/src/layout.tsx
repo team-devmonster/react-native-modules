@@ -19,7 +19,7 @@ export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ chil
   //const { layoutScrollRef } = useContext(RouterContext);
   
   const scrollRef = useRef<ScrollView>(null);
-  useImperativeHandle(_scrollRef, () => scrollRef.current);
+  useImperativeHandle(_scrollRef, () => scrollRef.current as any);
   //useImperativeHandle(layoutScrollRef, () => scrollRef.current);
 
   const { header, defaultEdges, contents, fixedLayout, footer } = useMemo(() => newChildren({ children }), [children]);
@@ -128,7 +128,7 @@ export const Layout = forwardRef<KeyboardAvoidingView|View, LayoutProps>(({ chil
 const newChildren = ({ children }:{ children:TagElement })
   :{ 
     defaultEdges:Edge[], 
-    header:JSX.Element|null,
+    header:React.ReactElement|null,
     contents:TagElement, 
     fixedLayout:TagElement,
     footer:TagElement
@@ -137,7 +137,7 @@ const newChildren = ({ children }:{ children:TagElement })
 
   const edges:Edge[] = ['left', 'right'];
   
-  let header:JSX.Element|null = null;
+  let header:React.ReactElement|null = null;
   let contents:TagElement = [];
   let fixedLayout = null;
   let footer = null;
@@ -161,7 +161,7 @@ const newChildren = ({ children }:{ children:TagElement })
       continue;
     }
     
-    switch(child?.type?.displayName) {
+    switch((child as any)?.type?.displayName) {
       case 'Header':
         header = child;
         break;
@@ -177,7 +177,7 @@ const newChildren = ({ children }:{ children:TagElement })
     }
   }
 
-  if(!header || header?.props?.headerShown === false) edges.push('top');
+  if(!header || (header as any)?.props?.headerShown === false) edges.push('top');
   if(!footer) edges.push('bottom');
   return {
     defaultEdges: edges, 

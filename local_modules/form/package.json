@@ -1,12 +1,16 @@
 {
   "name": "@team-devmonster/react-native-form",
-  "version": "2.0.0",
+  "version": "2.0.3",
   "description": "This project is part of the `react-module`&`react-native-module` projects, that integrate `react`&`react-native` by the devmonster team.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
+  "react-native": "dist/esm/index.js",
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc",
@@ -40,7 +44,7 @@
     "react-dom": ">=16",
     "react-hook-form": ">=7",
     "react-native": ">=0.57",
-    "react-native-document-picker": "^8.2.2",
+    "expo-document-picker": ">=14",
     "react-native-image-picker": ">=4.10.1",
     "react-native-month-year-picker": ">=1.9"
   }

@@ -69,7 +69,7 @@ const makeTagStyle = ({ patterns, styleStates }: { patterns:RegExp[], styleState
 }
 
 // should test
-export const TagModule = ({ style, numberOfLines, ...rest }:TagProps & { rowGap?:number, columnGap?:number }):JSX.Element => {
+export const TagModule = ({ style, numberOfLines, ...rest }:TagProps & { rowGap?:number, columnGap?:number }):React.ReactElement => {
   /* const { numberOfLines, style } = useMemo(() => {
     const numberOfLines = _style?.whiteSpace === 'nowrap' ? 1 : _numberOfLines;
     const style = _style && _style?.whiteSpace ? 
@@ -81,14 +81,14 @@ export const TagModule = ({ style, numberOfLines, ...rest }:TagProps & { rowGap?
 }
 
 const TagChildren = ({ children:rawChildren, ...rest }:{ children?:TagElement, style?:TagStyle, numberOfLines?:number, ellipsizeMode?:"head" | "tail" | "middle" | "clip",  rowGap?:number, columnGap?:number }) => {
-  let textChildren:(JSX.Element|string)[] = [];
+  let textChildren:(React.ReactElement|string)[] = [];
   const children = Children.toArray(rawChildren) as TagElement[];
   const newChildren = Children.map(children, (child, index) => {
     if(!child) return null;
     if(Array.isArray(child)) return child;
 
     if(typeof child === 'string' || typeof child === 'number' 
-    || child.type?.displayName === 'Br' || child.type?.displayName === 'Span') {
+    || (child as any).type?.displayName === 'Br' || (child as any).type?.displayName === 'Span') {
       textChildren.push(typeof child === 'number' ? String(child) : child);
 
       if(index < children.length - 1) {
@@ -100,14 +100,14 @@ const TagChildren = ({ children:rawChildren, ...rest }:{ children?:TagElement, s
       return <GroupText textChildren={cloneTextChildren} {...rest}/>;
     }
 
-    if(child.props?.style?.display === 'inline-flex') {
+    if((child as any).props?.style?.display === 'inline-flex') {
       
       const cloneTextChildren = [...textChildren];
       textChildren = [];
       return (
         <>
           <GroupText textChildren={cloneTextChildren} {...rest}/>
-          { React.cloneElement(child, { style: { ...child.props.style, display: 'flex' } }) }
+          { React.cloneElement(child as any, { style: { ...((child as any).props?.style || {}), display: 'flex' } }) }
         </>
       )
     }
@@ -129,7 +129,7 @@ const TagChildren = ({ children:rawChildren, ...rest }:{ children?:TagElement, s
   )
 }
 
-const GapView = ({ child, rowGap, columnGap }:{ child:JSX.Element, rowGap?:number, columnGap?:number }) => {
+const GapView = ({ child, rowGap, columnGap }:{ child:React.ReactElement, rowGap?:number, columnGap?:number }) => {
   // gap때문에 View 애들도 따로 처리를 해주어야한다.
   if(rowGap || columnGap) {
     const style:any = {};
@@ -137,9 +137,9 @@ const GapView = ({ child, rowGap, columnGap }:{ child:JSX.Element, rowGap?:numbe
     if(columnGap) style.marginHorizontal = columnGap/2;
     
     return (
-      React.cloneElement(child, {
+      React.cloneElement(child as any, {
         style: {
-          ...child.props?.style,
+          ...((child as any).props?.style || {}),
           ...style
         }
       })

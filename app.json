@@ -19,7 +19,6 @@
     ],
     "ios": {
       "buildNumber": "0.0.1",
-      "package": "com.devmonster.reactnative.modules",
       "supportsTablet": true,
       "usesIcloudStorage": true,
       "infoPlist": {

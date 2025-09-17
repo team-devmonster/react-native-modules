@@ -3,7 +3,7 @@ import React from "react";
 import { useTheme } from "@local_modules/theme";
 import { Theme } from "App.theme";
 import { Button, Div, P } from "@local_modules/tags";
-import { Swiper } from "@local_modules/swiper/src/swiper";
+import { Swiper } from "@local_modules/swiper";
 
 const SwiperEx = () => {
 

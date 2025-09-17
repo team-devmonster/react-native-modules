@@ -1,6 +1,6 @@
 import React from "react";
-import { useTheme } from "@local_modules/theme";
-import { Div, Button, Img, P, Span, Br, Table, Thead, Tr, Th, Tbody, Td } from "@local_modules/tags";
+import { useTheme } from "@team-devmonster/react-native-theme";
+import { Div, Button, Img, P, Span, Br, Table, Thead, Tr, Th, Tbody, Td } from "@team-devmonster/react-native-tags";
 import { Theme } from "App.theme";
 import { Alert, ScrollView } from "react-native";
 

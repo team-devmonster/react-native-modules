@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { useTheme, darken, lighten, hexToRgb, contrast } from "@local_modules/theme";
+import { useTheme, darken, lighten, hexToRgb, contrast } from "@team-devmonster/react-native-theme";
 import { Theme } from "App.theme";
 
 const ThemeEx = () => {

@@ -5,7 +5,7 @@
     "esModuleInterop": true,
     "jsx": "react-native",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["node"],
+    "types": ["react", "node"],
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noUnusedLocals": true,

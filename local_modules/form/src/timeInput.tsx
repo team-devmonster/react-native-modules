@@ -115,7 +115,7 @@ type CalendarProps = {
   isValid:boolean,
   style?:InputStyle,
   textStyle?:TagStyle,
-  icon?:JSX.Element | null,
+  icon?:React.ReactElement | null,
   iconStyle:TagStyle,
   onChange:any,
   onBlur:any

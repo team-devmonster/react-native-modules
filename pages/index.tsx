@@ -5,7 +5,6 @@ import { Theme } from "App.theme";
 import { Button, Div, H1 } from "@team-devmonster/react-native-tags";
 import { Layout, A, Header } from "@team-devmonster/react-native-router";
 import { ImgViewer } from "@team-devmonster/react-native-img-viewer";
-// import { AxiosAPI } from "@local_modules/accio";
 
 export type POST_LOGIN = {
   user_number:string;
@@ -106,10 +105,6 @@ const Index = () => {
           <Button color={color.danger} fill="outline" style={{ ...shadow.base }} onClick={() => setVisible2(true)}>
             react-native-img-viewer(Multiple)
           </Button>
-
-          {/* <Button color={color.danger} fill="outline" style={{ ...shadow.base }} onClick={submit}>
-            react-native-accio(Test API)
-          </Button> */}
 
           <ImgViewer
             visible={visible}

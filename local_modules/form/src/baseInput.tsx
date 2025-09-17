@@ -41,7 +41,7 @@ export const BaseInput = (props:InputProps<FormValues>) => {
       }) => {
 
         const ref = useRef<TextInput>(null);
-        conrollerRef(ref.current);
+        conrollerRef(ref.current as any);
         useImperativeHandle(inputRef, () => {
           return ref.current;
         }, [ref]);

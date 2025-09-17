@@ -1,26 +1,26 @@
 import React from "react";
 
 interface FixedLayoutProps {
-  children?:JSX.Element|null|(JSX.Element|null)[]
+  children?:React.ReactElement|null|(React.ReactElement|null)[]
 }
-export const FixedLayout = ({ children }:FixedLayoutProps):JSX.Element|null => {
+export const FixedLayout = ({ children }:FixedLayoutProps):React.ReactElement|null => {
   const newChildren = newChildrenFn({ children });
   return newChildren;
 }
 FixedLayout.displayName = 'FixedLayout';
 
-const newChildrenFn = ({ children }:FixedLayoutProps):JSX.Element|null => {
+const newChildrenFn = ({ children }:FixedLayoutProps):React.ReactElement|null => {
   if(Array.isArray(children)) {
-    const newChildren:(JSX.Element|null)[] = [];
+    const newChildren:(React.ReactElement|null)[] = [];
     children.forEach((child, i) => {
       newChildren.push(
         child ?
         <React.Fragment key={`fixed_${i}`}>
           {
-            React.cloneElement(child, {
+            React.cloneElement(child as any, {
               style: {
                 position: 'absolute',
-                ...child.props?.style
+                ...((child as any).props?.style || {})
               }
             })
           }
@@ -28,15 +28,15 @@ const newChildrenFn = ({ children }:FixedLayoutProps):JSX.Element|null => {
         : child
       )
     })
-    return <>{newChildren}</>;
+    return <>{newChildren}</> as any;
   }
   else {
     return children ? 
-      React.cloneElement(children, {
+      React.cloneElement(children as any, {
         style: {
           position: 'absolute',
-          ...children.props?.style,
+          ...((children as any).props?.style || {}),
         }       
-      }) : null;
+      }) as any : null;
   }
 }

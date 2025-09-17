@@ -1,10 +1,11 @@
+import React from "react";
 import { ColorSchemeName, StyleSheet } from "react-native";
 import { TagStyle } from '@team-devmonster/react-native-tags';
 
 export const textColor = ({ colorScheme }:{ colorScheme:ColorSchemeName }) => colorScheme === 'dark' ? '#ffffff' : '#1f1f1f';
 
 export const getIcon = ({ iconObj }:{ iconObj:any }) => {
-  let icon:JSX.Element|null = null;
+  let icon:React.ReactElement|null = null;
   let iconStyle:TagStyle = {};
 
   if(!iconObj || !iconObj.icon) return { icon, iconStyle };

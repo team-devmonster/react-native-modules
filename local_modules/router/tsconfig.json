@@ -5,7 +5,7 @@
     "esModuleInterop": true,
     "jsx": "react-native",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "types": ["node"],
+    "types": ["react", "node"],
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noUnusedLocals": true,
@@ -14,6 +14,10 @@
     "strict": true,
     "target": "es6",
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@team-devmonster/react-native-tags": ["../tags/dist/esm/index"]
+    }
   },
   "include": ["**/*.ts", "src/**/*.tsx", "src/**/*.ts"]
 }

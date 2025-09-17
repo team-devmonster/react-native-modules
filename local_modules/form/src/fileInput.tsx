@@ -4,10 +4,9 @@ import { Controller } from 'react-hook-form';
 import { TextInput, Modal, TouchableWithoutFeedback, Animated, useColorScheme, Easing, StyleSheet } from "react-native";
 import { Button, ButtonStyle, P, TagGroupConfig, textPattern, useTags, useTagStyle } from '@team-devmonster/react-native-tags';
 
-import { DocumentPickerOptions, pickMultiple, pickSingle } from "react-native-document-picker";
+import * as ExpoDocumentPicker from "expo-document-picker";
 import {ImageLibraryOptions, launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { SupportedPlatforms } from "react-native-document-picker/lib/typescript/fileTypes";
 
 export function FileInput<T extends FormValues>(props:InputProps<T>) 
 {
@@ -128,15 +127,20 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
               }
               else {
                 // etc files
-                const options:DocumentPickerOptions<SupportedPlatforms> = {};
-                  if(accept) options.type = accept;
+                const options:ExpoDocumentPicker.DocumentPickerOptions = {
+                  type: accept || '*/*',
+                  copyToCacheDirectory: true,
+                  multiple: !!multiple,
+                };
                 if(multiple) {
 
                   try {
-                    const files = (await pickMultiple(options)).map(({ name, ...asset }) => ({
+                    const result = await ExpoDocumentPicker.getDocumentAsync(options);
+                    if(result.canceled) return;
+                    const files = result.assets?.map(({ name, ...asset }: any) => ({
                       ...asset,
                       filename: name
-                    }));
+                    })) || [];
                     //console.log(files);
                     onChange([...value, ...files]);
                     _onChange?.({...e, target: { ...e.target, value: files }} as any);
@@ -147,11 +151,10 @@ export function FileInput<T extends FormValues>(props:InputProps<T>)
                 else {
 
                   try {
-                    const { name, ...asset } = (await pickSingle(options));
-                    const file = {
-                      ...asset,
-                      filename: name
-                    }
+                    const result = await ExpoDocumentPicker.getDocumentAsync(options);
+                    if(result.canceled || !result.assets?.[0]) return;
+                    const { name, ...asset } = result.assets[0] as any;
+                    const file = { ...asset, filename: name };
                     //console.log(file);
                     onChange([file]);
                     _onChange?.({...e, target: { ...e.target, value: [file] }} as any);

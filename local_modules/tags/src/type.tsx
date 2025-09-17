@@ -1,3 +1,4 @@
+import React from "react";
 import { GestureResponderEvent, PressableProps, TextProps, TextStyle } from "react-native";
 export interface TagGroupConfig {
   // tag - default
@@ -58,7 +59,7 @@ export interface TagStyle extends Omit<TextStyle, 'display'> {
   paddingVertical?:number,
   paddingHorizontal?:number
 }
-export type TagElement = JSX.Element|string|number|null|undefined|TagElement[];
+export type TagElement = React.ReactElement|string|number|null|undefined|TagElement[];
 
 // tags props
 export interface ButtonClickEvent extends GestureResponderEvent {

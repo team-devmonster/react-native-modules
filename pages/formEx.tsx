@@ -9,7 +9,8 @@ import { useForm } from "react-hook-form";
 import { useTheme } from "@team-devmonster/react-native-theme";
 import { Button, Div } from "@team-devmonster/react-native-tags";
 import { Footer, Header, Layout } from "@team-devmonster/react-native-router";
-import { ErrorText, Input, Label, Select, Option, Textarea, Toggle, FormValues } from "@team-devmonster/react-native-form";
+import { ErrorText, Input, Label, Select, Option, Textarea, Toggle } from "@team-devmonster/react-native-form";
+import type { FormValues } from "@team-devmonster/react-native-form/dist/esm/src/type";
 import { Theme } from "App.theme";
 
 interface FormProps extends FormValues {
@@ -18,6 +19,8 @@ interface FormProps extends FormValues {
   password:string,
   phone:string,
   price:number,
+  number:string,
+  float:string,
   agree1:boolean,
   gender:'man'|'woman'|'etc',
   year:string,
@@ -27,6 +30,7 @@ interface FormProps extends FormValues {
   time:string,
   company:string,
   file:any,
+  fileDoc:any,
   longText:string
 }
 
@@ -50,7 +54,7 @@ const FormEx = () => {
     }
   });
 
-  const onSubmit = (form:FormProps) => {
+  const onSubmit: (form: FormProps) => void = (form) => {
     console.log(form);
   }
 
@@ -239,6 +243,13 @@ const FormEx = () => {
           multiple
           maxLength={2}
           placeholder="file"></Input>
+
+        <Input
+          type="file"
+          control={control}
+          accept="application/pdf"
+          name="fileDoc"
+          placeholder="document (pdf)"></Input>
 
         <Button
           onClick={() => {

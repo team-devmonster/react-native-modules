@@ -317,6 +317,8 @@ const AppTagProvider = ({children}: {children:React.ReactNode}) => {
 
 const AppRouterProvider = ({children}: {children:React.ReactNode}) => {
   const { color, colorScheme } = useTheme<Theme>();
+  // debug theme
+  console.log('AppRouterProvider useTheme =>', { hasColor: !!color, colorKeys: color && Object.keys(color), colorScheme });
   const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
 
   return (

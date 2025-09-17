@@ -98,8 +98,8 @@ export const Button = forwardRef(({
     setActive(false);
   }
 
-  const clickTimeout = useRef<any>();
-  const clickDelay = useRef(false);
+  const clickTimeout = useRef<any>(null);
+  const clickDelay = useRef<boolean>(false);
   
   // render
   if(!rowGap && !columnGap) {

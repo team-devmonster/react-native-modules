@@ -1,8 +1,8 @@
 import React from "react";
-import { useTheme } from "@local_modules/theme";
-import { Div, Button, P } from "@local_modules/tags";
+import { useTheme } from "@team-devmonster/react-native-theme";
+import { Div, Button, P } from "@team-devmonster/react-native-tags";
 import { Theme } from "App.theme";
-import { A, useRouter, RouterProps, Header, Layout, FixedLayout, Footer } from "@local_modules/router";
+import { A, useRouter, RouterProps, Header, Layout, FixedLayout, Footer } from "@team-devmonster/react-native-router";
 import { RootStackParamList } from "App.navigation.type";
 
 const ParamEx = () => {
