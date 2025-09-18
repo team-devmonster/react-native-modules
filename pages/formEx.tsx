@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { TextInput } from "react-native";
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 
 // import { useTheme } from "@local_modules/theme";
 // import { Button, Div } from "@local_modules/tags";
@@ -31,12 +31,23 @@ interface FormProps extends FormValues {
   company:string,
   file:any,
   fileDoc:any,
-  longText:string
+  longText:string,
+  newCompanyValue?:string,
+  newCompanyLabel?:string,
+  companies:{ value:string }[]
 }
 
 const FormEx = () => {
 
   const { color, fontSize, shadow } = useTheme<Theme>();
+  const [companies, setCompanies] = useState<{ value:string, label:string, disabled?:boolean }[]>([
+    { value: '1', label: 'devmonster1' },
+    { value: '2', label: 'devmonster2' },
+    { value: '3', label: 'devmonster3', disabled: true },
+    { value: '4', label: 'devmonster4', disabled: true },
+    { value: '5', label: 'devmonster5', disabled: true },
+    { value: '6', label: 'devmonster6', disabled: true },
+  ]);
 
   const { control, handleSubmit, formState: { errors }, setFocus, setValue, watch } = useForm<FormProps>({
     mode: 'onChange',
@@ -50,9 +61,12 @@ const FormEx = () => {
       month: '2023-08',
       date: '2023-08-27',
       dateTime: '2022-12-27 17:54',
-      time: '17:54'
+      time: '17:54',
+      companies: [{ value: '1' }]
     }
   });
+
+  const companiesForm = useFieldArray({ control, name: 'companies' });
 
   const onSubmit: (form: FormProps) => void = (form) => {
     console.log(form);
@@ -222,17 +236,80 @@ const FormEx = () => {
           control={control}
           name="company"
           placeholder="please select">
-          <Option value="1">
-            devmonster1
-          </Option>
-          <Option value="2" label="hello" style={{ backgroundColor: 'red' }}>
-            devmonster2
-          </Option>
-          <Option value="3" disabled={true}>devmonster3</Option>
-          <Option value="4" disabled={true}>devmonster4</Option>
-          <Option value="5" disabled={true}>devmonster5</Option>
-          <Option value="6" disabled={true}>devmonster6</Option>
+          {
+            companies.map(({ value, label, disabled }) => (
+              <Option key={`company_${value}`} value={value} disabled={disabled}>{label}</Option>
+            ))
+          }
         </Select>
+
+        {/* 실시간 옵션 추가 UI */}
+        <Div style={{ rowGap: 8, marginTop: 8 }}>
+          <Label>add company option</Label>
+          <Div style={{ flexDirection: 'row', gap: 8 }}>
+            <Input
+              control={control}
+              name="newCompanyValue"
+              placeholder="value"/>
+            <Input
+              control={control}
+              name="newCompanyLabel"
+              placeholder="label"/>
+            <Button
+              onClick={() => {
+                const value = String(watch('newCompanyValue') || '').trim();
+                const label = String(watch('newCompanyLabel') || '').trim();
+                if(!value || !label) return;
+                setCompanies(prev => prev.some(o => String(o.value) === value)
+                  ? prev
+                  : [...prev, { value, label }]
+                );
+                setValue('newCompanyValue', '');
+                setValue('newCompanyLabel', '');
+              }}
+              style={{ paddingHorizontal: 12 }}
+            >add</Button>
+          </Div>
+          <Div style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
+            {
+              companies.map(({ value, label }) => (
+                <Button
+                  key={`chip_${value}`}
+                  fill="outline"
+                  onClick={() => setCompanies(prev => prev.filter(o => o.value !== value))}
+                  style={{ paddingVertical: 6, paddingHorizontal: 10 }}
+                >{label} (x)</Button>
+              ))
+            }
+          </Div>
+        </Div>
+
+        {/* Select 태그 자체를 동적으로 추가/삭제 */}
+        <Div style={{ rowGap: 8, marginTop: 12 }}>
+          <Label>add/remove Select</Label>
+          <Button onClick={() => {
+            companiesForm.append({ value: '' }, { shouldFocus: false });
+          }}>add select</Button>
+          {
+            companiesForm.fields.map((field, i) => (
+              <Div key={field.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                <Select
+                  control={control}
+                  name={`companies.${i}.value`}
+                  placeholder="please select"
+                  style={{ flex: 1, marginBottom: 0 }}
+                >
+                  {
+                    companies.map(({ value, label, disabled }) => (
+                      <Option key={`company_dyn_${i}_${value}`} value={value} disabled={disabled}>{label}</Option>
+                    ))
+                  }
+                </Select>
+                <Button fill="outline" onClick={() => companiesForm.remove(i)} style={{ marginBottom: 0 }}>remove</Button>
+              </Div>
+            ))
+          }
+        </Div>
 
         <Input
           type="file"

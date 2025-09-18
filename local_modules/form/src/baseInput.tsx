@@ -43,7 +43,7 @@ export const BaseInput = (props:InputProps<FormValues>) => {
         const ref = useRef<TextInput>(null);
         conrollerRef(ref.current as any);
         useImperativeHandle(inputRef, () => {
-          return ref.current;
+          return ref.current as TextInput;
         }, [ref]);
 
         const [
@@ -70,7 +70,7 @@ export const BaseInput = (props:InputProps<FormValues>) => {
             ref={ref}
             onChangeText={newOnChange}
             onBlur={newOnBlur}
-            onFocus={onFocus}
+            onFocus={onFocus as any}
             value={newValue}
             keyboardType={newKeyboardType}
             secureTextEntry={secureTextEntry}

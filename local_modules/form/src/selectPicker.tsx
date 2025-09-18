@@ -269,7 +269,7 @@ const getButtonStyles = ({ styles, confirmButtonStyle, cancelButtonStyle }:{ sty
 }
 
 const getPickerItem = ({children, colorScheme}:{children:TagElement|undefined,colorScheme:ColorSchemeName}) => {
-  const options = Children.toArray(children) as React.ReactElement[];
+  const options = Children.toArray(children) as React.ReactElement<any>[];
   
   return options.map(({ props: { children:label, value:optionValue, disabled } }, i) => (
     Platform.OS === 'ios' ?
@@ -282,8 +282,8 @@ const getPickerItem = ({children, colorScheme}:{children:TagElement|undefined,co
   ));
 }
 
-const getSelectedPickerItem = ({children, value}:{children:TagElement|undefined,value:any}):React.ReactElement|null => {
-  const options = Children.toArray(children) as React.ReactElement[];
+const getSelectedPickerItem = ({children, value}:{children:TagElement|undefined,value:any}):React.ReactElement<any>|null => {
+  const options = Children.toArray(children) as React.ReactElement<any>[];
 
   return options.find(({ props: { value:optionValue } }) => {
     return String(value) === String(optionValue);

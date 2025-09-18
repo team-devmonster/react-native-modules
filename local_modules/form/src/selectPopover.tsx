@@ -212,8 +212,8 @@ const getStyles = ({ tagConfig }:{ tagConfig:TagGroupConfig|undefined }) => {
   }
 }
 
-const getSelectedItem = ({children, value}:{children:TagElement|undefined,value:any}):React.ReactElement|null => {
-  const options = Children.toArray(children) as React.ReactElement[];
+const getSelectedItem = ({children, value}:{children:TagElement|undefined,value:any}):React.ReactElement<any>|null => {
+  const options = Children.toArray(children) as React.ReactElement<any>[];
 
   return options.find(({ props: { value:optionValue } }) => {
     return value === optionValue;
